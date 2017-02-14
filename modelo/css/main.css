@@ -387,7 +387,11 @@ input.search-form:hover {
     margin-top: 140px;
 }
 
-#main-slider .carousel h1,
+#main-slider .carousel h1 {
+    color: #f5c302;
+    font-weight: bold;
+}
+
 #main-slider .carousel h2 {
     color: #f5c302;
 }
