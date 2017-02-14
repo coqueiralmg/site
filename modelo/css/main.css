@@ -387,8 +387,9 @@ input.search-form:hover {
     margin-top: 140px;
 }
 
+#main-slider .carousel h1,
 #main-slider .carousel h2 {
-    color: #fff;
+    color: #f5c302;
 }
 
 #main-slider .carousel .btn-slide {
@@ -489,7 +490,7 @@ input.search-form:hover {
 #main-slider .carousel-indicators .active {
     width: 20px;
     height: 20px;
-    background-color: #009900;
+    background-color: #254C49;
     margin: 0 15px 0 0;
     border: 1px solid #4e4e4e;
     position: relative;
@@ -501,7 +502,7 @@ input.search-form:hover {
     width: 24px;
     height: 24px;
     border-radius: 100%;
-    background: #c52d2f;
+    background: #254C49;
     border: 1px solid #c52d2f;
     left: -3px;
     top: -3px;
