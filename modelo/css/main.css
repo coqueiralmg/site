@@ -370,10 +370,6 @@ input.search-form:hover {
         float: inherit;
         width: 100%;
     }
-    .navbar-header a {
-        position: relative;
-        left: 15%;
-    }
     .navbar-brand img {
         max-height: 150px;
     }
