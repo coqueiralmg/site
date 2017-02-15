@@ -365,6 +365,20 @@ input.search-form:hover {
     padding-top: 35px;
 }
 
+@media screen and (max-width: 1200px) and (min-width: 768px) {
+    .navbar-header {
+        float: inherit;
+        width: 100%;
+    }
+    .navbar-header a {
+        position: relative;
+        left: 15%;
+    }
+    .navbar-brand img {
+        max-height: 150px;
+    }
+}
+
 
 /*************************
 *******Home Page******
