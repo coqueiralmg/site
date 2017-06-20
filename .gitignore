@@ -1,3 +1,10 @@
+#Folder Ignore
+.vscode/*
+tmp/*
+admin/tmp/*
+logs/*
+admin/logs/*
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
