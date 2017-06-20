@@ -1,0 +1,24 @@
+.pane-sliders .panel { border: none !important; }
+div.panel > h3 { height: 30px!important;padding:0!important; background: #fff!important; border: 1px solid #ccc; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; font: bold 18px/30px Arial, Helvetica, sans-serif}
+div.panel > h3 a { color: #333!important;}
+div.panel h3.pane-toggler-down{ background:#D5EEFF!important;border: 1px solid #A4CDE9!important; width:100%; height:100%}
+div.panel h3.pane-toggler-down a { color: #333!important; }
+.sub-heading {background:#D5EEFF!important;border: 1px solid #A4CDE9!important; color:#333!important;width:400px;  -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; font: bold 15px/30px Arial, Helvetica, sans-serif; display:block; padding:0 10px; text-align:left!important; margin:0 0 10px 0}
+.description {-moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; font-weight:normal; border:1px solid #ccc; padding:10px; max-width:400px}
+.description p { padding:0; margin:0}
+.sub-heading span {color:#777}
+.pane-toggler span { padding: 10px 0 10px 20px !important;background:none!important; }
+.pane-toggler-down span { padding: 10px 0 10px 20px !important;background:none !important; }
+.pane-sliders .content { margin: 4px auto; width: 100%; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
+.pane-down {border: 1px solid #ccc !important;}
+.panel fieldset.panelform > ul > li > label { color: #444; font-size: 11px; font-weight: bold; height: 24px; line-height: 24px; padding: 0 20px 0 10px; text-align: right; max-width: 30%!important; min-width: 30%!important;}
+.panel fieldset.panelform > ul > li fieldset { line-height:28px; }
+fieldset.panelform input { height: 16px; color: #555; line-height: 16px; padding: 4px; border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; width:250px; }
+fieldset.panelform select { height: 26px; color: #555; line-height: 24px; padding: 4px; font-size:11px; border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;width:150px; }
+fieldset.panelform select[multiple=multiple] { height: auto!important}
+fieldset.panelform textarea {border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;width:250px;padding: 4px;}
+.fltrt ul.adminformlist li { overflow: hidden; border-bottom: 1px solid #eee; padding: 1px 10px; margin: 0; }
+.custom-tabs {background:#D5EEFF!important;border: 1px solid #A4CDE9!important;   -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; font-weight:bold; display:block; padding:0 10px}
+
+label[id^="jform_params_"], label[id*="jform_params_"] { font-weight:bold}
+.credits { font-size:10px}

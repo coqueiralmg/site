@@ -1,57 +1,439 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <?= $this->Html->charset() ?>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Prefeitura Municipal de Coqueiral</title>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    <!-- core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="img/favicon.png">
 </head>
-<body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
-            </ul>
+<!--/head-->
+
+<body class="homepage">
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <header id="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-4">
+                        <div class="top-number">
+                            <p><i class="fa fa-phone-square"></i> +0123 456 70 90</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-8">
+                        <div class="social">
+                            <ul class="social-share">
+                                <li><a href="https://www.facebook.com/prefeituradecoqueiral" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                            <div class="search">
+                                <form role="form">
+                                    <input type="text" class="search-form" autocomplete="off" placeholder="Buscar">
+                                    <i class="fa fa-search"></i>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/.container-->
         </div>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </div>
-    <footer>
+        <!--/.top-bar-->
+
+        <nav class="navbar navbar-inverse" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" title="Clique neste botão para acessar o menu" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Clique neste botão para acessar o menu</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"><img class="img-responsive" src="img/logotipo.png" alt="logo"></a>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">A Cidade <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="historico.html">Histórico</a></li>
+                                <li><a href="perfil.html">Dados Gerais</a></li>
+                                <li><a href="localizacao.html">Localização</a></li>
+                                <li><a href="turismo.html">Pontos Turísticos</a></li>
+                                <li><a href="prefeitura.html">A Prefeitura</a></li>
+                                <li><a href="prefeito.html">O Prefeito</a></li>
+                                <li><a href="simbolos.html">Símbolos Oficiais</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="http://www.transparencia.mg.gov.br/municipios/coqueiral" target="_blank">Transparência</a></li>
+                        <li><a href="legislacao.html">Legislação</a></li>
+                        <li><a href="publicacoes.html">Publicações</a></li>
+                        <li><a href="noticias.html">Notícias</a></li>
+                        <li><a href="contato.html">Fale com a Prefeitura</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--/.container-->
+        </nav>
+        <!--/nav-->
+
+    </header>
+    <!--/header-->
+
+    <section id="main-slider" class="no-margin">
+        <div class="carousel slide">
+            <ol class="carousel-indicators">
+                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+                <li data-target="#main-slider" data-slide-to="1"></li>
+                <li data-target="#main-slider" data-slide-to="2"></li>
+                <li data-target="#main-slider" data-slide-to="3"></li>
+                <li data-target="#main-slider" data-slide-to="4"></li>
+            </ol>
+            <div class="carousel-inner">
+
+                <div class="item active" style="background-image: url(images/slide/praca.jpg)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">Praça Dom Pedro II</h1>
+                                    <h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem aperiam, eaque ipsa...</h2>
+                                    <a class="btn-slide animation animated-item-3" href="turismo.html">Saiba mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+
+                <div class="item" style="background-image: url(images/slide/capituvas.jpg)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">Capituvas</h1>
+                                    <h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem aperiam, eaque ipsa...</h2>
+                                    <a class="btn-slide animation animated-item-3" href="turismo.html">Saiba Mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+
+                <div class="item" style="background-image: url(images/slide/pedra.jpg)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">Pedra do Ermo</h1>
+                                    <h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem aperiam, eaque ipsa...</h2>
+                                    <a class="btn-slide animation animated-item-3" href="turismo.html">Saiba Mais</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item" style="background-image: url(images/slide/serra.jpg)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">Serra dos Pedros</h1>
+                                    <h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem aperiam, eaque ipsa...</h2>
+                                    <a class="btn-slide animation animated-item-3" href="turismo.html">Saiba Mais</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item" style="background-image: url(images/slide/pevitor.jpg)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">Árvore do Padre Vitor</h1>
+                                    <h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem aperiam, eaque ipsa...</h2>
+                                    <a class="btn-slide animation animated-item-3" href="turismo.html">Saiba Mais</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+            </div>
+            <!--/.carousel-inner-->
+        </div>
+        <!--/.carousel-->
+        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        <a class="next hidden-xs" href="#main-slider" data-slide="next">
+            <i class="fa fa-chevron-right"></i>
+        </a>
+    </section>
+    <!--/#main-slider-->
+
+    <section id="feature">
+        <div class="container">
+            <div class="row">
+                <div class="features">
+                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <a href="#" target="_blank">
+                            <a href="contato.html">
+                                <div class="feature-wrap">
+                                    <i class="fa fa-bullhorn"></i>
+                                    <h2>Ouvidoria</h2>
+                                    <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h3>
+                                </div>
+                            </a>
+                        </a>
+                    </div>
+                    <!--/.col-md-4-->
+
+                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <a href="http://www.transparencia.mg.gov.br/municipios/coqueiral" target="_blank">
+                            <div class="feature-wrap">
+                                <i class="fa fa-files-o"></i>
+                                <h2>Transparência</h2>
+                                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h3>
+                            </div>
+                        </a>
+                    </div>
+                    <!--/.col-md-4-->
+
+                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <a href="publicacoes.html">
+                            <div class="feature-wrap">
+                                <i class="fa fa-archive"></i>
+                                <h2>Publicações</h2>
+                                <h3>Portarias, editais, licitações e concursos</h3>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!--/.col-md-4-->
+                </div>
+                <!--/.services-->
+            </div>
+            <!--/.row-->
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/#feature-->
+
+    <section id="recent-works">
+        <div class="container">
+            <div class="center wow fadeInDown">
+                <h2>Últimas Notícias</h2>
+                <p class="lead">Novidades Recentes no município</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="fh5co-blog wow fadeInDown">
+                        <a href="#"><img class="img-responsive" src="images/cover_bg_1.jpg" alt=""></a>
+                        <div class="blog-text">
+                            <div class="prod-title">
+                                <h3><a href="" #>Medical Mission in Southern Kenya</a></h3>
+                                <span class="posted_by">Sep. 15th</span>
+                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                <p><a href="noticia_item.html">Veja Mais...</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="fh5co-blog wow fadeInDown">
+                        <a href="#"><img class="img-responsive" src="images/cover_bg_2.jpg" alt=""></a>
+                        <div class="blog-text">
+                            <div class="prod-title">
+                                <h3><a href="" #>Medical Mission in Southern Kenya</a></h3>
+                                <span class="posted_by">Sep. 15th</span>
+                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                <p><a href="noticia_item.html">Veja Mais...</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="fh5co-blog wow fadeInDown">
+                        <a href="#"><img class="img-responsive" src="images/cover_bg_3.jpg" alt=""></a>
+                        <div class="blog-text">
+                            <div class="prod-title">
+                                <h3><a href="" #>Medical Mission in Southern Kenya</a></h3>
+                                <span class="posted_by">Sep. 15th</span>
+                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                <p><a href="noticia_item.html">Veja Mais...</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix visible-md-block"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center wow fadeInDown">
+                    <a href="noticias.html" class="btn btn-primary btn-lg">Mais notícias</a>
+                </div>
+            </div>
+        </div>
+        <!--/.container-->
+    </section>
+    <!--/#recent-works-->
+
+    <section id="services" class="service-item">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-sm-12 col-md-12">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="media-body">
+                            <div class="col-md-6">
+                                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprefeituradecoqueiral&tabs=timeline%2C%20events&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                                    width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="media-heading">Publicações Recentes</h3>
+                                <p>Licitações, Portarias, Concursos e Contratos</p>
+                                <div class="list-group">
+                                    <a href="publicacao_item.html" class="list-group-item">
+                                        <h4 class="list-group-item-heading">Edital de Licitação 001/2017</h4>
+                                        <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <p class="list-group-item-text"><i>03/02/2017 10:00</i></p>
+                                    </a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="publicacao_item.html" class="list-group-item">
+                                        <h4 class="list-group-item-heading">Concurso Público 001/2017</h4>
+                                        <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <p class="list-group-item-text"><i>03/02/2017 10:00</i></p>
+                                    </a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="publicacao_item.html" class="list-group-item">
+                                        <h4 class="list-group-item-heading">Edital de Licitação 001/2017</h4>
+                                        <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <p class="list-group-item-text"><i>03/02/2017 10:00</i></p>
+                                    </a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="publicacao_item.html" class="list-group-item">
+                                        <h4 class="list-group-item-heading">Edital de Licitação 001/2017</h4>
+                                        <p class="list-group-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <p class="list-group-item-text"><i>03/02/2017 10:00</i></p>
+                                    </a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="publicacoes.html" class="mais-publicacoes list-group-item active">
+                                        <h4 class="list-group-item-heading">Veja mais</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--/.row-->
+            </div>
+            <!--/.container-->
+    </section>
+    <!--/#services-->
+
+    <section id="bottom">
+        <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget">
+                        <a href="index.html">
+                            <img src="img/logo_footer.png" class="img-responsive" />
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                </div>
+
+                <div class="col-md-7 col-sm-6">
+                    <div class="widget">
+                        <h3>Secretarias</h3>
+                        <ul>
+                            <li><a href="secretaria.html">Procuradoria Geral do Município</a></li>
+                            <li><a href="secretaria.html">Secretaria Municipal de Bem Estar e Ação Social</a></li>
+                            <li><a href="secretaria.html">Departamento de Cultura</a></li>
+                            <li><a href="secretaria.html">Departamento de Meio Ambiente</a></li>
+                            <li><a href="secretaria.html">Secretaria Municipal de Educação e Cultura</a></li>
+                            <li><a href="secretaria1.html">Secretaria Municipal de Saúde</a></li>
+                            <li><a href="secretaria.html">Secretaria Municipal de Obras</a></li>
+                            <li><a href="secretaria.html">Departamento de Obras e Serviços</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <!--/#bottom-->
+
+    <footer id="footer" class="midnight-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; 2017 Prefeitura Municipal de Coqueiral. Todos os direitos reservados.
+                </div>
+                <div class="col-sm-6">
+                    <ul class="pull-right">
+                        <li><a href="index.html">Página Inicial</a></li>
+                        <li><a href="http://www.transparencia.mg.gov.br/municipios/coqueiral" target="_blank">Transparência</a></li>
+                        <li><a href="legislacao.html">Legislação</a></li>
+                        <li><a href="publicacoes.html">Publicações</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </footer>
+    <!--/#footer-->
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/wow.min.js"></script>
 </body>
+
 </html>
