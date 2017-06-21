@@ -131,19 +131,17 @@
                     <div class="widget">
                         <h3>Secretarias</h3>
                         <ul>
-                            <li><a href="secretaria.html">Procuradoria Geral do Município</a></li>
-                            <li><a href="secretaria.html">Secretaria Municipal de Bem Estar e Ação Social</a></li>
-                            <li><a href="secretaria.html">Departamento de Cultura</a></li>
-                            <li><a href="secretaria.html">Departamento de Meio Ambiente</a></li>
-                            <li><a href="secretaria.html">Secretaria Municipal de Educação e Cultura</a></li>
-                            <li><a href="secretaria1.html">Secretaria Municipal de Saúde</a></li>
-                            <li><a href="secretaria.html">Secretaria Municipal de Obras</a></li>
-                            <li><a href="secretaria.html">Departamento de Obras e Serviços</a></li>
+                            <li><a href="#">Departamento de Meio Ambiente</a></li>
+                            <li><a href="#">Secretaria Municipal de Educação e Cultura</a></li>
+                            <li><a href="#">Secretaria Municipal de Saúde</a></li>
+                            <li><a href="#">Departamento de Cultura</a></li>
+                            <li><a href="#">Departamento de Obras e Serviços</a></li>
+                            <li><a href="#">Secretaria Municipal de Obras</a></li>
+                            <li><a href="#">Secretaria Municipal de Bem Estar e Ação Social</a></li>
+                            <li><a href="#">Procuradoria Geral do Município</a></li>
                         </ul>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </section>

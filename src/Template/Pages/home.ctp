@@ -185,27 +185,31 @@
 
         <div class="row">
 
-             <?php foreach($noticias as $noticia):?>
-                <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="fh5co-blog wow fadeInDown">
-                        <a href="<?= '/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
-                            <img class="img-responsive" src="<?= $noticia->foto ?>" alt="<?= $noticia->post->titulo ?>">
-                        </a>
-                        <div class="blog-text"> 
-                            <div class="prod-title">
-                                <h3 style="text-transform: uppercase;">
-                                    <a href="<?= '/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
-                                        <?= $noticia->post->titulo ?>
-                                    </a>
-                                </h3>
-                                <span class="posted_by"><?= $this->Format->date($noticia->post->dataPostagem) ?></span>
-                                <p><?= $noticia->resumo ?></p>
-                                <p><a href="<?= '/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">Veja Mais...</a></p>
+             <?php if(count($noticias) > 0): ?>
+                <?php foreach($noticias as $noticia):?>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="fh5co-blog wow fadeInDown">
+                            <a href="<?= '/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
+                                <img class="img-responsive" src="<?= $noticia->foto ?>" alt="<?= $noticia->post->titulo ?>">
+                            </a>
+                            <div class="blog-text"> 
+                                <div class="prod-title">
+                                    <h3 style="text-transform: uppercase;">
+                                        <a href="<?= '/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
+                                            <?= $noticia->post->titulo ?>
+                                        </a>
+                                    </h3>
+                                    <span class="posted_by"><?= $this->Format->date($noticia->post->dataPostagem) ?></span>
+                                    <p><?= $noticia->resumo ?></p>
+                                    <p><a href="<?= '/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">Veja Mais...</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-             <?php endforeach; ?>
+                <?php endforeach; ?>
+             <?php else: ?>
+                <p>Nenhuma notícia disponível no momento!</p>
+             <?php endif; ?>
             
             <div class="clearfix visible-md-block"></div>
         </div>
@@ -234,6 +238,20 @@
                         </div>
                         <div class="col-md-7  col-sm-6">
                             <h3 class="media-heading">Licitações Recentes</h3>
+                            <?php if(count($licitacoes) > 0): ?>
+                                <?php foreach($licitacoes as $licitacao): ?>
+                                    <div class="list-group">
+                                        <a href="<?= '/licitacao/' . $licitacao->slug . '-' . $licitacao->id ?>" class="list-group-item">
+                                            <h4 class="list-group-item-heading" style="text-transform: uppercase;"><?= $licitacao->titulo ?></h4>
+                                            <p class="list-group-item-text">Início: <?= $this->Format->date($licitacao->dataInicio, true) ?></p>
+                                            <p class="list-group-item-text">Término: <?= $this->Format->date($licitacao->dataTermino, true) ?></p>
+                                        </a>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>Nenhuma licitação disponível no momento!</p>
+                            <?php endif; ?>
+                            <!--
                             {% if licitacoes | length > 0 %}
                                     {% for licitacao in licitacoes %}
                                     <div class="list-group">
@@ -247,7 +265,7 @@
                             {% else %}
                             <p>Nenhuma licitação disponível!</p>
                             {% endif %}
-
+                            -->
                             <div class="list-group">
                                 <a href="/licitacoes" class="mais-publicacoes list-group-item active">
                                     <h4 class="list-group-item-heading">Veja mais</h4>
