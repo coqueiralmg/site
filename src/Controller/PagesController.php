@@ -31,6 +31,7 @@ class PagesController extends AppController
     public function home()
     {
         $t_noticia = TableRegistry::get('Noticia');
+        $t_licitacoes = TableRegistry::get('Licitacao');
         
         $noticias = $t_noticia->find('all', [
             'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
@@ -38,6 +39,12 @@ class PagesController extends AppController
             'limit' => 3
         ]);
 
+        $licitacoes = $t_licitacoes->find('all', [
+            'order' => ['Licitacao.id' => 'DESC'],
+            'limit' => 5
+        ]);
+
          $this->set('noticias', $noticias);
+         $this->set('licitacoes', $licitacoes);
     }
 }
