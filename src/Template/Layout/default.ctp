@@ -2,16 +2,16 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Site oficial da Prefeitura Municipal de Coqueiral">
-
-    <meta charset="UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="7fEpE0IROydpIMxVfMVazAHHWbWeAH3t8RIHZVCLjFM" />
     <meta name="description" content="Site oficial da Prefeitura Municipal de Coqueiral">
     <meta name="theme-color" content="#254C49">
 
+    <?php $this->fetch('metas') ?>
     <meta property="og:image" content="img/logotipo1.png"/>
 
     <title>
