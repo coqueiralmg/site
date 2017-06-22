@@ -47,4 +47,14 @@ class PagesController extends AppController
          $this->set('noticias', $noticias);
          $this->set('licitacoes', $licitacoes);
     }
+
+    public function contato()
+    {
+
+    }
+
+    public function faleConosco()
+    {
+        
+    }
 }
