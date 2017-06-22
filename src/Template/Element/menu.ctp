@@ -29,7 +29,7 @@
                 <li class="{{menuAtivo('/publicacoes')}}"><a href="/publicacoes">Publicações</a></li>
                 <li class="{{menuAtivo('/licitacoes')}}"><a href="/licitacoes">Licitações</a></li>
                 <li class="{{menuAtivo('/noticias')}}"><a href="/noticias">Notícias</a></li>
-                <li class="{{menuAtivo('/fale-conosco')}}"><a href="/fale-conosco">Fale com a Prefeitura</a></li>
+                <li class="{{menuAtivo('/fale-conosco')}}"><a href="/contato">Fale com a Prefeitura</a></li>
             </ul>
         </div>
     </div>
