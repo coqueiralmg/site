@@ -241,7 +241,7 @@
                             <?php if(count($licitacoes) > 0): ?>
                                 <?php foreach($licitacoes as $licitacao): ?>
                                     <div class="list-group">
-                                        <a href="<?= '/licitacao/' . $licitacao->slug . '-' . $licitacao->id ?>" class="list-group-item">
+                                        <a href="<?= 'licitacoes/licitacao/' . $licitacao->slug . '-' . $licitacao->id ?>" class="list-group-item">
                                             <h4 class="list-group-item-heading" style="text-transform: uppercase;"><?= $licitacao->titulo ?></h4>
                                             <p class="list-group-item-text">Início: <?= $this->Format->date($licitacao->dataInicio, true) ?></p>
                                             <p class="list-group-item-text">Término: <?= $this->Format->date($licitacao->dataTermino, true) ?></p>
