@@ -53,6 +53,10 @@ class PublicacoesController extends AppController
 
     public function publicacao(int $id)
     {
+        $t_publicacoes = TableRegistry::get('Publicacao');
+        $publicacao = $t_publicacoes->get($id);
 
+        $this->set('title', $publicacao->titulo);
+        $this->set('publicacao', $publicacao);
     }
 }
