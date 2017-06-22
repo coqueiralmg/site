@@ -1,7 +1,7 @@
 <?php
 
 return[
-    'limitPagination' => 20,
+    'limitPagination' => 10,
     'system' => [
         'name'=> 'Prefeitura Municipal de Coqueiral',
         'shortName' => 'Prefeitura de Coqueiral',
