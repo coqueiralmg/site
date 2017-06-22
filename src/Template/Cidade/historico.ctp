@@ -1,9 +1,3 @@
-<?php
-    $this->start('metas');
-    echo 'Teste';
-    echo $this->Html->meta('og:locale', 'pt_BR');
-    $this->end();
-?>
 
 <section id="about-us">
         <div class="container">
@@ -95,12 +89,12 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-md-3">
                             <div class="recent-work-wrap">
-                                <img class="img-responsive" src="{{ siteUrl() }}/public/images/historico/thumb/vista_aerea.jpg" alt="">
+                                <?= $this->Html->image('historico/thumb/vista_aerea.jpg', ['class' => 'img-responsive']); ?>
                                 <div class="overlay">
                                     <div class="recent-work-inner">
-                                        <h3><a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="{{ siteUrl() }}/public/images/historico/full/vista_aerea.jpg" rel="prettyPhoto">Viasta Aérea</a> </h3>
+                                        <h3><a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="../img/historico/full/vista_aerea.jpg" rel="prettyPhoto">Vista Aérea</a> </h3>
                                         <p>Vista aérea da cidade de Coqueiral</p>
-                                        <a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="{{ siteUrl() }}/public/images/historico/full/vista_aerea.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
+                                        <a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="../img/historico/full/vista_aerea.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
                                     </div>
                                 </div>
                             </div>
@@ -108,84 +102,84 @@
                         
                         <div class="col-xs-12 col-sm-4 col-md-3">
                             <div class="recent-work-wrap">
-                                <img class="img-responsive" src="{{ siteUrl() }}/public/images/historico/thumb/igreja_matriz.jpg" alt="">
+                                <?= $this->Html->image('historico/thumb/igreja_matriz.jpg', ['class' => 'img-responsive']); ?>
                                 <div class="overlay">
                                     <div class="recent-work-inner">
-                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="{{ siteUrl() }}/public/images/historico/full/igreja_matriz.jpg" rel="prettyPhoto">Igreja Matriz</a> </h3>
+                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="../img/historico/full/igreja_matriz.jpg" rel="prettyPhoto">Igreja Matriz</a> </h3>
                                         <p>Igreja matriz da cidade de Coqueiral, localizado no centro da cidade.</p>
-                                        <a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="{{ siteUrl() }}/public/images/historico/full/igreja_matriz.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
+                                        <a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="../img/historico/full/igreja_matriz.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3">
                             <div class="recent-work-wrap">
-                                <img class="img-responsive" src="{{ siteUrl() }}/public/images/historico/thumb/frei_eustaquio.jpg" alt="">
+                                <?= $this->Html->image('historico/thumb/frei_eustaquio.jpg', ['class' => 'img-responsive']); ?>
                                 <div class="overlay">
                                     <div class="recent-work-inner">
-                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="{{ siteUrl() }}/public/images/historico/full/frei_eustaquio.jpg" rel="prettyPhoto">Igreja em Frei Eustáquio</a> </h3>
+                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="../img/historico/full/frei_eustaquio.jpg" rel="prettyPhoto">Igreja em Frei Eustáquio</a> </h3>
                                         <p>Igreja construída no distrito de Frei Eustáquio</p>
-                                        <a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="{{ siteUrl() }}/public/images/historico/full/frei_eustaquio.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
+                                        <a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="../img/historico/full/frei_eustaquio.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3">
                             <div class="recent-work-wrap">
-                                <img class="img-responsive" src="{{ siteUrl() }}/public/images/historico/thumb/cruzeiro.jpg" alt="">
+                                <?= $this->Html->image('historico/thumb/cruzeiro.jpg', ['class' => 'img-responsive']); ?>
                                 <div class="overlay">
                                     <div class="recent-work-inner">
-                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="{{ siteUrl() }}/public/images/historico/full/cruzeiro.jpg" rel="prettyPhoto">Cruzeiro</a> </h3>
+                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="../img/historico/full/cruzeiro.jpg" rel="prettyPhoto">Cruzeiro</a> </h3>
                                         <p>Construção do Cruzeiro na Praça 7 de Setembro</p>
-                                        <a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="{{ siteUrl() }}/public/images/historico/full/cruzeiro.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
+                                        <a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="../img/historico/full/cruzeiro.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3">
                             <div class="recent-work-wrap">
-                                <img class="img-responsive" src="{{ siteUrl() }}/public/images/historico/thumb/coqueiral_antiga.jpg" alt="">
+                                <?= $this->Html->image('historico/thumb/coqueiral_antiga.jpg', ['class' => 'img-responsive']); ?>
                                 <div class="overlay">
                                     <div class="recent-work-inner">
-                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="{{ siteUrl() }}/public/images/historico/full/coqueiral_antiga.jpg" rel="prettyPhoto">Praça 7 de Setembro</a> </h3>
+                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="../img/historico/full/coqueiral_antiga.jpg" rel="prettyPhoto">Praça 7 de Setembro</a> </h3>
                                         <p>Foto antiga da Praça 7 de Setembro</p>
-                                        <a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="{{ siteUrl() }}/public/images/historico/full/coqueiral_antiga.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
+                                        <a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="../img/historico/full/coqueiral_antiga.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3">
                             <div class="recent-work-wrap">
-                                <img class="img-responsive" src="{{ siteUrl() }}/public/images/historico/thumb/centro_antiga.jpg" alt="">
+                                <?= $this->Html->image('historico/thumb/centro_antiga.jpg', ['class' => 'img-responsive']); ?>
                                 <div class="overlay">
                                     <div class="recent-work-inner">
-                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="{{ siteUrl() }}/public/images/historico/full/centro_antiga.jpg" rel="prettyPhoto">Igreja Matriz</a> </h3>
+                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="../img/historico/full/centro_antiga.jpg" rel="prettyPhoto">Igreja Matriz</a> </h3>
                                         <p>Vista frontal da Igreja Matriz, do local onde hoje é Praça D Pedro II</p>
-                                        <a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="{{ siteUrl() }}/public/images/historico/full/centro_antiga.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
+                                        <a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="../img/historico/full/centro_antiga.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3">
                             <div class="recent-work-wrap">
-                                <img class="img-responsive" src="{{ siteUrl() }}/public/images/historico/thumb/praca_antiga.jpg" alt="">
+                                <?= $this->Html->image('historico/thumb/praca_antiga.jpg', ['class' => 'img-responsive']); ?>
                                 <div class="overlay">
                                     <div class="recent-work-inner">
-                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="{{ siteUrl() }}/public/images/historico/full/praca_antiga.jpg" rel="prettyPhoto">Praça Dom Pedro II</a> </h3>
+                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="../img/historico/full/praca_antiga.jpg" rel="prettyPhoto">Praça Dom Pedro II</a> </h3>
                                         <p>Foto antiga da Praça Dom Pedro II</p>
-                                        <a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="{{ siteUrl() }}/public/images/historico/full/praca_antiga.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
+                                        <a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="../img/historico/full/praca_antiga.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3">
                             <div class="recent-work-wrap">
-                                <img class="img-responsive" src="{{ siteUrl() }}/public/images/historico/thumb/vista_antiga.jpg" alt="">
+                                <?= $this->Html->image('historico/thumb/vista_antiga.jpg', ['class' => 'img-responsive']); ?>
                                 <div class="overlay">
                                     <div class="recent-work-inner">
-                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="{{ siteUrl() }}/public/images/historico/full/vista_antiga.jpg" rel="prettyPhoto">Praça Dom Pedro II</a> </h3>
+                                        <h3><a  onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" href="../img/historico/full/vista_antiga.jpg" rel="prettyPhoto">Praça Dom Pedro II</a> </h3>
                                         <p>Foto antiga da vista aérea da Praça Dom Pedro II</p>
-                                        <a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="{{ siteUrl() }}/public/images/historico/full/vista_antiga.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
+                                        <a onclick="ga('send', 'event', 'Mídia', 'Fotos', 'Galeria Histórico');" class="preview" href="../img/historico/full/vista_antiga.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> Ver imagem maior</a>
                                     </div>
                                 </div>
                             </div>
