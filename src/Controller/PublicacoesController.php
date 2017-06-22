@@ -14,9 +14,15 @@ class PublicacoesController extends AppController
 
         if($this->request->is('get') && count($this->request->query) > 0)
         {
-            $chave = $this->request->query('publicacao');
+            $chave = $this->request->query('chave');
 
-            $conditions['Publicacao.titulo LIKE'] = '%' . $chave . '%';
+            $conditions['titulo LIKE'] = '%' . $chave . '%';
+
+            $data = array();
+
+            $data['chave'] = $chave;
+
+            $this->request->data = $data;
         }
 
         $this->paginate = [
