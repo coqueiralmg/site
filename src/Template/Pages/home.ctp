@@ -251,21 +251,6 @@
                             <?php else: ?>
                                 <p>Nenhuma licitação disponível no momento!</p>
                             <?php endif; ?>
-                            <!--
-                            {% if licitacoes | length > 0 %}
-                                    {% for licitacao in licitacoes %}
-                                    <div class="list-group">
-                                        <a href="/licitacao/{{ gerarSlug(licitacao.getTitulo()) ~" / "~ licitacao.getId() }}" class="list-group-item">
-                                            <h4 class="list-group-item-heading">{{ licitacao.getTitulo() | upper }}</h4>
-                                            <p class="list-group-item-text">Início: {{ licitacao.getDataInicio() | date("d/m/Y H:i") }}</p>
-                                            <p class="list-group-item-text">Término: {{ licitacao.getDataTermino() | date("d/m/Y H:i") }}</p>
-                                        </a>
-                                    </div>
-                             {% endfor %}
-                            {% else %}
-                            <p>Nenhuma licitação disponível!</p>
-                            {% endif %}
-                            -->
                             <div class="list-group">
                                 <a href="/licitacoes" class="mais-publicacoes list-group-item active">
                                     <h4 class="list-group-item-heading">Veja mais</h4>
