@@ -10,7 +10,7 @@
                 <?php
                 echo $this->Form->create("Publicacao", [
                     "url" => [
-                        "controller" => "usuario",
+                        "controller" => "publicacoes",
                         "action" => "index"
                     ],
                     'idPrefix' => 'pesquisar-publicacao',
@@ -19,11 +19,10 @@
                     
                 ?>
 
+                <?= $this->Form->search('chave', ['class' => 'form-control busca', 'placeholder' => 'Digite aqui para buscar']) ?>
+                 <button type="submit" id="btn-pesquisar" class="btn btn-success"><i class="fa fa-search"></i>&nbsp;Buscar</button>
+
                 <?php echo $this->Form->end(); ?>
-                <form id="pesquisar-legislacao">
-                    <input id="pesquisa" name="search" type="search" class="form-control busca" placeholder="O que deseja buscar?">
-                    <button type="button" id="btn-pesquisar" name="submit" class="btn btn-success"><i class="fa fa-search"></i>&nbsp;Buscar</button>
-                </form>
             </div>
         </div>
 
@@ -39,18 +38,6 @@
             <?php else: ?>
                 <p>Nenhuma publicação disponível!</p>
             <?php endif; ?>
-            <!--
-            {% if publicacoes | length > 0 %} {% for publicacao in publicacoes %}
-            <div class="item col-md-12 col-lg-6">
-                <h3 class="media-heading">{{ publicacao.getTitulo() | upper }}</h3>
-                <p>{{ cortarTexto(publicacao.getDescricao(), 350, true, true) }}</p>
-                <a href="/publicacao/{{ gerarSlug(publicacao.getTitulo()) ~" / "~ publicacao.getId() }}" class="btn btn-success">Veja mais</a>
-            </div>
-
-            {% endfor %} {% else %}
-            <p>Nenhuma publicação disponível!</p>
-            {% endif %}
-            -->
         </div>
 
         <?=$this->element('pagination', $opcao_paginacao) ?>
