@@ -17,7 +17,7 @@ class CidadeController extends AppController
            'og:description' => 'A história da cidade de Coqueiral - MG.',
            'og:url' => 'http://coqueiral.mg.gov.br/cidade/historico',
            'og:site_name' => 'Prefeitura Municipal de Coqueiral',
-           'og:image' => '../img/slide/slider_historico1.jpg',
+           'og:image' => 'http://coqueiral.mg.gov.br/img/slide/slider_historico1.jpg',
            'og:image:width' => '600',
            'og:image:height' => '400'
        ];
@@ -36,7 +36,7 @@ class CidadeController extends AppController
            'og:description' => 'Perfil e dados gerais sobre a cidade de Coqueiral - MG.',
            'og:url' => 'http://coqueiral.mg.gov.br/cidade/perfil',
            'og:site_name' => 'Prefeitura Municipal de Coqueiral',
-           'og:image' => '../img/slide/praca.jpg',
+           'og:image' => 'http://coqueiral.mg.gov.br/img/slide/praca.jpg',
            'og:image:width' => '600',
            'og:image:height' => '400'
        ];
@@ -55,7 +55,7 @@ class CidadeController extends AppController
            'og:description' => 'Localização da cidade de Coqueiral - MG.',
            'og:url' => 'http://coqueiral.mg.gov.br/cidade/localizacao',
            'og:site_name' => 'Prefeitura Municipal de Coqueiral',
-           'og:image' => '../img/slide/praca.jpg',
+           'og:image' => 'http://coqueiral.mg.gov.br/img/slide/praca.jpg',
            'og:image:width' => '600',
            'og:image:height' => '400'
        ];
