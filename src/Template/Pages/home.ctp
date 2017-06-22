@@ -189,19 +189,19 @@
                 <?php foreach($noticias as $noticia):?>
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="fh5co-blog wow fadeInDown">
-                            <a href="<?= '/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
+                            <a href="<?= 'noticias/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
                                 <img class="img-responsive" src="<?= $noticia->foto ?>" alt="<?= $noticia->post->titulo ?>">
                             </a>
                             <div class="blog-text"> 
                                 <div class="prod-title">
                                     <h3 style="text-transform: uppercase;">
-                                        <a href="<?= '/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
+                                        <a href="<?= 'noticias/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
                                             <?= $noticia->post->titulo ?>
                                         </a>
                                     </h3>
                                     <span class="posted_by"><?= $this->Format->date($noticia->post->dataPostagem) ?></span>
                                     <p><?= $noticia->resumo ?></p>
-                                    <p><a href="<?= '/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">Veja Mais...</a></p>
+                                    <p><a href="<?= 'noticias/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">Veja Mais...</a></p>
                                 </div>
                             </div>
                         </div>
