@@ -3,16 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Site oficial da Prefeitura Municipal de Coqueiral">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="7fEpE0IROydpIMxVfMVazAHHWbWeAH3t8RIHZVCLjFM" />
-    <meta name="description" content="Site oficial da Prefeitura Municipal de Coqueiral">
     <meta name="theme-color" content="#254C49">
 
-    <?php $this->fetch('metas') ?>
-    <meta property="og:image" content="img/logotipo1.png"/>
+    <?= $this->element('social_tags') ?>
 
     <title>
         <?php
@@ -119,8 +115,8 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
-                        <a href="index.html">
-                            <img src="img/logo_footer.png" class="img-responsive" />
+                        <a href="/">
+                            <?= $this->Html->image('logo_footer.png', ['class' => 'img-responsive', 'alt' => 'Prefeitura Municipal de Coqueiral']); ?>
                         </a>
                     </div>
                 </div>
@@ -167,12 +163,50 @@
     </footer>
     <!--/#footer-->
 
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/wow.min.js"></script>
+    
+    <?= $this->Html->script('jquery.js') ?>
+    <?= $this->Html->script('bootstrap.min.js') ?>
+    <?= $this->Html->script('jquery.prettyPhoto.js') ?>
+    <?= $this->Html->script('jquery.isotope.min.js') ?>
+    <?= $this->Html->script('main.js') ?>
+    <?= $this->Html->script('wow.min.js') ?>
+
+    <!-- Go to www.addthis.com/dashboard to customize your tools --> 
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5692cd67b91382fb"></script>
+
+    <script>
+        function efetuarBusca(e) {
+            LE.info("O usuário buscou " + $("#busca").val() + " no site.");
+            $("#formBusca").submit();
+        }
+
+    </script>
+
+    <script>
+        var data = {
+            url: window.location.href,
+            navigator: navigator.appName,
+            language: navigator.language,
+            version: navigator.appVersion,
+            codification: navigator.appCodeName,
+            platform: navigator.platform,
+            agent: navigator.userAgent,
+            resolution: screen.width + " x " + screen.height
+        };
+
+        LE.log(JSON.stringify(data));
+    </script>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-98408659-1', 'auto');
+        ga('send', 'pageview');
+
+   </script>
 </body>
 
 </html>
