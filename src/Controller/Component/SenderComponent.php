@@ -4,6 +4,7 @@ namespace App\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Mailer\Email;
+use Cake\Log\Log;
 
 /**
  * Componente de envio de e-mail e outras ferramentas de envio.
@@ -27,6 +28,13 @@ class SenderComponent extends Component
         $email->to($to);
         $email->subject($subject);
 
+        $headMail = [
+            'from' => $from,
+            'to' => $to
+        ];
+
+        $this->registrarLog($headMail);
+
         return $email->send($message);
     }
 
@@ -49,6 +57,17 @@ class SenderComponent extends Component
         $email->subject($headMail["subject"]);
         $email->viewVars($params);
 
+        $this->registrarLog($headMail);
+
         return $email->send();
+    }
+
+    /**
+     * Faz o registro de log de envio de e-mails
+     * @param array $headMail Informações do cabeçalho do e-mail
+     */
+    private function registrarLog($headMail)
+    {
+        Log::write('info', 'Date: ' . date('d/m/Y H:i:s') .  '; From: ' . $headMail["from"] . '; To: ' . $headMail["to"] . '; IP:' . $_SERVER['REMOTE_ADDR'], ['scope' => 'mail']);
     }
 }
