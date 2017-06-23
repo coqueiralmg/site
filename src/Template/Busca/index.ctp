@@ -38,7 +38,7 @@
                     <div class="col-md-12">
                         <div class="pull-left">
                             <a href="<?= 'noticias/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
-                                <img class="img-responsive" src="<?= '../' . $noticia->foto ?>" width="250px"/>
+                                <img id="busca_noticia" class="img-responsive" src="<?= '../' . $noticia->foto ?>" width="250px"/>
                             </a>
                         </div>
                         <div class="media-body" style="padding-left: 10px">

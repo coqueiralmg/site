@@ -2718,3 +2718,13 @@ shortcodes page css
     display: block;
     margin-top: 5px;
 }
+
+#busca_noticia {
+    width: 250px;
+}
+
+@media screen and (max-width: 400px){
+    video{
+        width: 100px;
+    }
+}
