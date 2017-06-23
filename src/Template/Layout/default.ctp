@@ -90,7 +90,7 @@
                             </ul>
                             <div class="search">
                                 <form id="formBusca" action="/busca" method="get" role="form">
-                                    <input type="text" id="busca" name="busca" class="search-form" autocomplete="off" placeholder="Pesquisar" minlength="3"  onkeypress="efetuarBusca(e)" required>
+                                    <input type="text" id="chave" name="chave" class="search-form" autocomplete="off" placeholder="Pesquisar" minlength="3"  onkeypress="efetuarBusca(e)" required>
                                     <a href="#" onclick="efetuarBusca()"><i class="fa fa-search"></i></a>
                                 </form>
                             </div>
