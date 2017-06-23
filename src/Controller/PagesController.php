@@ -50,11 +50,39 @@ class PagesController extends AppController
 
     public function contato()
     {
+        if($this->request->is('post'))
+        {
+            $nome = $this->request->getData('nome');
+            $email = $this->request->getData('email');
+            $telefone = $this->request->getData('telefone');
+            $assunto = $this->request->getData('assunto');
+            $mensagem = $this->request->getData('mensagem');
 
+            $nameSystem = Configure::read("system.shortName");
+
+            $header = array(
+                'name' => $nome,
+                'from' => $email,
+                'to' => 'frotas@coqueiral.mg.gov.br',
+                'subject' => 'Formulário de Contato - ' . $assunto
+            );
+
+            $params = array(
+                'nome' => $nome,
+                'email' => $email,
+                'telefone' => $telefone,
+                'mensagem' => nl2br($mensagem)
+            );
+
+            if($this->Sender->sendEmailTemplate($header, 'default', $params))
+            {
+                $this->redirect(['controller' => 'pages', 'action' => 'contatosucesso']);
+            }
+        }
     }
 
-    public function faleConosco()
+    public function contatosucesso()
     {
-        
+
     }
 }
