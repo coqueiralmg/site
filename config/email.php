@@ -39,8 +39,8 @@ return [
             'host' => 'ssl://smtp.gmail.com',
             'port' => 465,
             'timeout' => 30,
-            'username' => 'atendimento@nicklandia.com.br',
-            'password' => 'plinio123456',
+            'username' => 'frotas@coqueiral.mg.gov.br',
+            'password' => 'mariaqueta-2845',
             'client' => null,
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null)
