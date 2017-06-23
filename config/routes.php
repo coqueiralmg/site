@@ -55,7 +55,9 @@ Router::scope('/', function (RouteBuilder $routes) {
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     //$routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
-
+    $routes->connect('/fale-conosco', ['controller' => 'Pages', 'action' => 'contato']);
+    $routes->connect('/contato', ['controller' => 'Pages', 'action' => 'contato']);
+    $routes->connect('/fale-sucesso', ['controller' => 'Pages', 'action' => 'contatosucesso']);
     /**
      * Connect catchall routes for all controllers.
      *
