@@ -32,7 +32,7 @@ class NoticiasController extends AppController
             'conditions' => $conditions,
             'contain' => $joins,
             'order' => [
-                'Noticia.post.dataPublicacao' => 'DESC'
+                'Noticia.post.dataPostagem' => 'DESC'
             ]
         ];
 
