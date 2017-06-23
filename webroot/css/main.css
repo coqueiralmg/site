@@ -712,7 +712,7 @@ input.search-form:hover {
 }
 
 #services {
-    background: #000 url(../images/services/bg_services.png);
+    background: #000 url(../img/services/bg_services.png);
     background-size: cover;
 }
 
@@ -1064,7 +1064,7 @@ a.accordion-toggle i {
 }
 
 #conatcat-info {
-    background: #fff url(../images/contact.png) no-repeat 90% 0;
+    background: #fff url(../img/contact.png) no-repeat 90% 0;
     padding: 30px 0;
 }
 
@@ -1595,7 +1595,7 @@ ul.social_icons li a i {
 }
 
 .clients-comments {
-    background-image: url("../images/image_bg.png");
+    background-image: url("../img/image_bg.png");
     background-position: center 118px;
     background-repeat: no-repeat;
     margin-bottom: 100px;
@@ -2010,7 +2010,7 @@ ul.social_icons li a i {
 **************************/
 
 .gmap-area {
-    background-image: url("../images/map.jpg");
+    background-image: url("../img/map.jpg");
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: cover;
@@ -2321,7 +2321,7 @@ ul.pagination>li:hover>a {
 }
 
 .search_box {
-    background-image: url("../images/search_icon.png");
+    background-image: url("../img/search_icon.png");
     background-position: 314px 15px;
     background-repeat: no-repeat;
     border-color: #DEDEDE;
