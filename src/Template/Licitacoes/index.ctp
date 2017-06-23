@@ -31,8 +31,8 @@
                 <?php foreach($licitacoes as $licitacao): ?>
                     <div class="item col-md-12 col-lg-6">
                         <h3 class="media-heading" style="text-transform: uppercase;"><?= $licitacao->titulo ?></h3>
-                        <p>Início: <?= $this->Format->date($licitacao->dataInicio) ?></p>
-                        <p>Término: <?= $this->Format->date($licitacao->dataTermino) ?></p>
+                        <p>Início: <?= $this->Format->date($licitacao->dataInicio, true) ?></p>
+                        <p>Término: <?= $this->Format->date($licitacao->dataTermino, true) ?></p>
                         <?= $this->Html->link('Veja mais', ['controller' => 'licitacoes', 'action' =>  'licitacao', $licitacao->slug . '-' . $licitacao->id], ['class' => 'btn btn-success']) ?>
                     </div>
                 <?php endforeach; ?>
