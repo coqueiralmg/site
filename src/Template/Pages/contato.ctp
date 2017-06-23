@@ -37,7 +37,7 @@
         </div>
         <div class="row contact-wrap">
             <div class="status alert alert-success" style="display: none"></div>
-            <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="/fale-prefeitura/enviar">
+            <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="/pages/contato">
                 <div class="col-sm-5 col-sm-offset-1">
                     <div class="form-group">
                         <label>Nome *</label>
@@ -51,23 +51,6 @@
                         <label>Telefone de Contato</label>
                         <input type="tel" id="telefone" name="telefone" class="form-control">
                     </div>
-                    <!--
-                    <div class="form-group">
-                        <label>Secretaria *</label>
-                        <select class="form-control">
-                            <option selected>Selecione</option>
-                            <option>Procuradoria Geral do Município</option>
-                            <option>Secretaria Municipal de Bem Estar e Ação Social</option>
-                            <option>Departamento de Cultura</option>
-                            <option>Departamento de Meio Ambiente</option>
-                            <option>Secretaria Municipal de Educação e Cultura</option>
-                            <option>Secretaria Municipal de Saúde</option>
-                            <option>Secretaria Municipal de Obras</option>
-                            <option>Departamento de Obras e Serviços</option>
-                            <option>Conselho Tutelar</option>
-                        </select>
-                    </div>
-                    -->
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
