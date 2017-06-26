@@ -75,6 +75,12 @@ use Cake\Utility\Security;
 try {
     Configure::config('default', new PhpConfig());
     Configure::load('app', 'default', false);
+
+    Configure::load('system');
+    Configure::load('database');
+    Configure::load('email');
+    Configure::load('debug');
+    Configure::load('log');
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
