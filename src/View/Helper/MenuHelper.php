@@ -15,11 +15,19 @@ class MenuHelper extends Helper
     public function activeMenu(array $location)
     {
         $style = '';
-        $controller = $this->request->params['controller'];
-        //$action = $this->request->params['action'];
+        $controller = strtolower($this->request->getParam('controller'));
+        $action = strtolower($this->request->getParam('action'));
 
-        if($controller == $location['controller'])
-            $style = 'active';
+        if(isset($location['action']))
+        {
+            if($controller == $location['controller'] && $action == $location['action'])
+                $style = 'active';
+        }
+        else
+        {
+            if($controller == $location['controller'])
+                $style = 'active';
+        }
 
         return $style;
     }
