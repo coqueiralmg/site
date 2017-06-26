@@ -151,11 +151,10 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="index.html">Página Inicial</a></li>
-                        <li><a href="http://www.transparencia.mg.gov.br/municipios/coqueiral" target="_blank">Transparência</a></li>
-                        <li><a href="legislacao.html">Legislação</a></li>
-                        <li><a href="publicacoes.html">Publicações</a></li>
-                        <li><a href="contato.html">Contato</a></li>
+                        <li><a href="/">Página Inicial</a></li>
+                        <li><a href="https://e-gov.betha.com.br/transparencia/01030-015/recursos.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O" target="_blank">Transparência</a></li>
+                        <li><a href="/licitacoes">Licitações</a></li>
+                        <li><a href="/contato">Contato</a></li>
                     </ul>
                 </div>
             </div>
