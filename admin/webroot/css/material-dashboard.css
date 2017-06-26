@@ -427,7 +427,6 @@ h2.title {
 .wrapper {
   position: relative;
   top: 0;
-  height: 100vh;
 }
 
 .sidebar,
@@ -442,8 +441,6 @@ h2.title {
 .sidebar .sidebar-wrapper,
 .off-canvas-sidebar .sidebar-wrapper {
   position: relative;
-  height: calc(100vh - 75px);
-  overflow: auto;
   width: 260px;
   z-index: 4;
 }
@@ -5062,4 +5059,43 @@ footer .btn {
     margin-left: -20px;
     margin-right: -20px;
   }
+}
+
+.sidebar .user,
+.off-canvas-sidebar .user {
+  padding-bottom: 20px;
+  margin: 20px auto 0;
+  position: relative;
+}
+.sidebar .user:after,
+.off-canvas-sidebar .user:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 15px;
+  height: 1px;
+  width: calc(100% - 30px);
+  background-color: rgba(180, 180, 180, 0.3);
+}
+.sidebar .user .photo,
+.off-canvas-sidebar .user .photo {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+.sidebar .user .photo img,
+.off-canvas-sidebar .user .photo img {
+  width: 100%;
+}
+.sidebar .user a,
+.off-canvas-sidebar .user a {
+  text-align: center;
+  color: #3C4858;
+  padding: 6px 10px;
+  text-align: center;
+  display: block;
+  white-space: nowrap;
 }
