@@ -6,26 +6,10 @@
             <li data-target="#main-slider" data-slide-to="2"></li>
             <li data-target="#main-slider" data-slide-to="3"></li>
             <li data-target="#main-slider" data-slide-to="4"></li>
-            <li data-target="#main-slider" data-slide-to="5"></li>
         </ol>
         <div class="carousel-inner">
 
-            <div class="item active" style="background-image: url(img/slide/100dias.jpg)">
-                <div class="container">
-                    <div class="row slide-margin">
-                        <div class="col-sm-6">
-                            <div class="carousel-content">
-                                <!--<h1 class="animation animated-item-1">Praça Dom Pedro II</h1>-->
-                                <!--<h2 class="animation animated-item-2">No coração de Coqueiral</h2>-->
-                                <!--<a class="btn-slide animation animated-item-3" href="turismo.html">Saiba mais</a>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/.item-->
-
-            <div class="item" style="background-image: url(img/slide/praca.jpg)">
+            <div class="item active" style="background-image: url(img/slide/praca.jpg)">
                 <div class="container">
                     <div class="row slide-margin">
                         <div class="col-sm-6">
