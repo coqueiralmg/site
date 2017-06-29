@@ -9,7 +9,8 @@
         
         <div class="info">
             <a data-toggle="collapse" href="#collapseExample" class="collapsed" aria-expanded="false">
-                Tania Andrew
+                <i class="material-icons">assignment_ind</i> 
+                Nome do Usuário
                 <b class="caret"></b>
             </a>
             <div class="collapse" id="collapseExample" aria-expanded="false" style="height: auto;">
@@ -33,7 +34,7 @@
             <li class="active">
                 <a href="dashboard.html">
                     <i class="material-icons">dashboard</i>
-                    <p>Painel</p>
+                    <p>Início</p>
                 </a>
             </li>
             <li>
@@ -64,6 +65,18 @@
                 <a href="maps.html">
                     <i class="material-icons">style</i>
                     <p>Notícias</p>
+                </a>
+            </li>
+            <li>
+                <a href="maps.html">
+                   <i class="material-icons">location_city</i>
+                    <p>Legislação</p>
+                </a>
+            </li>
+            <li>
+                <a href="maps.html">
+                   <i class="material-icons">location_city</i>
+                    <p>Legislação</p>
                 </a>
             </li>
             
