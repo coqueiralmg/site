@@ -75,8 +75,8 @@
             </li>
             <li>
                 <a href="maps.html">
-                   <i class="material-icons">location_city</i>
-                    <p>Legislação</p>
+                   <i class="material-icons">fingerprint</i>
+                    <p>Auditoria</p>
                 </a>
             </li>
             
