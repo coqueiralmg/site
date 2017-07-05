@@ -1,8 +1,9 @@
 <div class="sidebar" data-background-color="white" data-color="green">
     <div class="logo">
-        <a href="#" class="simple-text">
-            Prefeitura de Coqueiral
-        </a>
+        <center>
+            <?= $this->Html->image('brasao_coqueiral.png', ['class' => 'img-responsive', 'width' => '100px;', 'title' => 'Prefeitura Municipal de Coqueiral', 'alt' => 'Prefeitura Municipal de Coqueiral', 'url' => ['controller' => 'System', 'action' => 'board']]); ?>
+        </center>
+        <?= $this->Html->link('Painel de Controle', ['controller' => 'System', 'action' => 'board'],  ['class' => 'simple-text']) ?>
     </div>
     
     <div class="user">
@@ -16,13 +17,13 @@
             <div class="collapse" id="collapseExample" aria-expanded="false" style="height: auto;">
                 <ul class="nav">
                     <li>
-                        <a href="#">My Profile</a>
+                        <a href="#">Perfil</a>
                     </li>
                     <li>
-                        <a href="#">Edit Profile</a>
+                        <a href="#">Log de Acesso</a>
                     </li>
                     <li>
-                        <a href="#">Settings</a>
+                        <a href="#">Opções</a>
                     </li>
                 </ul>
             </div>
