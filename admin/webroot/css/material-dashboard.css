@@ -442,6 +442,8 @@ h2.title {
 .off-canvas-sidebar .sidebar-wrapper {
   position: relative;
   width: 260px;
+  height: calc(100vh - 75px);
+  overflow: auto;
   z-index: 4;
 }
 .sidebar .logo-tim,
