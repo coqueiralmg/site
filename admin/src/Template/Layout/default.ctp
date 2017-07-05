@@ -19,14 +19,11 @@
         ?>
     </title>
 
-	
-
     <!-- Bootstrap core CSS     -->
     <?= $this->Html->css('bootstrap.min.css') ?>
     <!--  Material Dashboard CSS    -->
     <?= $this->Html->css('material-dashboard.css') ?>
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <?= $this->Html->css('demo.css') ?>
+
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
@@ -47,16 +44,31 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#">Painel Principal</a>
+						<a class="navbar-brand" href="#"><i class="material-icons">dashboard</i> Painel Principal</a>
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
-							
+							<li>
+								<a href="#" class="dropdown-toggle">
+									<i class="material-icons">info</i>Último acesso: 09/06/2017 às 09:00
+								</a>
+							</li>
+
+							<li>
+								<a href="#" class="dropdown-toggle center" data-toggle="dropdown">
+	 							   <i class="material-icons">schedule</i><span id="hora_atual"> Carregando a Hora Corrente</span>
+		 						</a>
+							</li>
+
+							<li>
+								<a href="#" class="dropdown-toggle center" data-toggle="dropdown">
+	 							   <i class="material-icons">mail_outline</i> Mensagens
+		 						</a>
+							</li>
 							
 							<li>
-								<a href="#pablo" class="dropdown-toggle center" data-toggle="dropdown">
-	 							   <i class="material-icons">power_settings_new</i>
-	 							   <p>Sair</p>
+								<a href="#" class="dropdown-toggle center" data-toggle="dropdown">
+	 							   <i class="material-icons">power_settings_new</i> Sair
 		 						</a>
 							</li>
 						</ul>
@@ -109,15 +121,5 @@
     <?= $this->Html->script('chartlist.min.js') ?>
     <?= $this->Html->script('bootstrap-notify.js') ?>
     <?= $this->Html->script('material-dashboard.js') ?>
-    <?= $this->Html->script('demo.js') ?>
-
-	<script type="text/javascript">
-    	$(document).ready(function(){
-
-			// Javascript method's body can be found in assets/js/demos.js
-        	demo.initDashboardPageCharts();
-
-    	});
-	</script>
-
+	<?= $this->Html->script('painel.js') ?>
 </html>
