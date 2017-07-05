@@ -107,9 +107,17 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="pull-left">
+                <h3>Notícias Recentes </h3>
+            </div>
+            <div class="pull-right">
+                <button class="btn btn-success btn-simple">Nova Notícia<div class="ripple-container"></div></button>|
+                <button class="btn btn-success btn-simple">Ver todas<div class="ripple-container"></div></button>
+            </div>
+        </div>
 
-        <h3>Notícias Recentes </h3>
-        <br>
+        <br/>        
 
         <div class="row">
             <div class="col-md-4">
@@ -120,17 +128,7 @@
                         </a>
                     </div>
                     <div class="card-content">
-                        <div class="card-actions">
-                            <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
-                                <i class="material-icons">art_track</i>
-                            </button>
-                            <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="Edit">
-                                <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="Remove">
-                                <i class="material-icons">close</i>
-                            </button>
-                        </div>
+                       
                         <h4 class="card-title">
                             <a href="#pablo">Cozy 5 Stars Apartment</a>
                         </h4>
@@ -140,11 +138,8 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <div class="price">
-                            <h4>$899/night</h4>
-                        </div>
                         <div class="stats pull-right">
-                            <p class="category"><i class="material-icons">place</i> Barcelona, Spain</p>
+                             <button class="btn btn-success btn-simple">Editar<div class="ripple-container"></div></button>
                         </div>
                     </div>
                 </div>
@@ -157,17 +152,6 @@
                         </a>
                     </div>
                     <div class="card-content">
-                        <div class="card-actions">
-                            <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
-                                <i class="material-icons">art_track</i>
-                            </button>
-                            <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="Edit">
-                                <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="Remove">
-                                <i class="material-icons">close</i>
-                            </button>
-                        </div>
                         <h4 class="card-title">
                             <a href="#pablo">Office Studio</a>
                         </h4>
@@ -177,11 +161,8 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <div class="price">
-                            <h4>$1.119/night</h4>
-                        </div>
                         <div class="stats pull-right">
-                            <p class="category"><i class="material-icons">place</i> London, UK</p>
+                             <button class="btn btn-success btn-simple">Editar<div class="ripple-container"></div></button>
                         </div>
                     </div>
                 </div>
@@ -194,17 +175,6 @@
                         </a>
                     </div>
                     <div class="card-content">
-                        <div class="card-actions">
-                            <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
-                                <i class="material-icons">art_track</i>
-                            </button>
-                            <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="Edit">
-                                <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="Remove">
-                                <i class="material-icons">close</i>
-                            </button>
-                        </div>
                         <h4 class="card-title">
                             <a href="#pablo">Beautiful Castle</a>
                         </h4>
@@ -214,11 +184,8 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <div class="price">
-                            <h4>$459/night</h4>
-                        </div>
                         <div class="stats pull-right">
-                            <p class="category"><i class="material-icons">place</i> Milan, Italy</p>
+                             <button class="btn btn-success btn-simple">Editar<div class="ripple-container"></div></button>
                         </div>
                     </div>
                 </div>
