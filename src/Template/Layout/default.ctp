@@ -146,12 +146,12 @@
     <footer id="footer" class="midnight-blue">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
-                    &copy; 2017 Prefeitura Municipal de Coqueiral. Todos os direitos reservados.
+                <div class="col-sm-7">
+                    &copy; 2017 Prefeitura Municipal de Coqueiral. Desenvolvido por <a href="http://www.baudovalentim.net" target="_blank">Fábio Valentim</a>.
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <ul class="pull-right">
-                        <li><a href="/">Página Inicial</a></li>
+                        <li><a href="/">Inicial</a></li>
                         <li><a href="https://e-gov.betha.com.br/transparencia/01030-015/recursos.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O" target="_blank">Transparência</a></li>
                         <li><a href="/licitacoes">Licitações</a></li>
                         <li><a href="/contato">Contato</a></li>
