@@ -81,32 +81,11 @@
 
 			<footer class="footer">
 				<div class="container-fluid">
-					<nav class="pull-left">
-						<ul>
-							<li>
-								<a href="#">
-									Home
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									Company
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									Portfolio
-								</a>
-							</li>
-							<li>
-								<a href="#">
-								   Blog
-								</a>
-							</li>
-						</ul>
-					</nav>
+					<p class="copyright pull-left">
+						Versão <?= \Cake\Core\Configure::read('system.version') ?>
+					</p>
 					<p class="copyright pull-right">
-						&copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+						&copy; 2017 Prefeitura Municipal de Coqueiral. Todos os Direitos Reservados. Sistema desenvolvido por <a href="http://www.baudovalentim.net" target="_blank">Fábio Valentim</a>.
 					</p>
 				</div>
 			</footer>
