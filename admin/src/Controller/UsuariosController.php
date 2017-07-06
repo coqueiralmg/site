@@ -18,6 +18,7 @@ class UsuariosController extends AppController
     public function index()
     {
         $this->set('title', "Lista de Usuários");
+        $this->set('icon', 'person');
     }
 
     
