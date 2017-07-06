@@ -32,49 +32,49 @@
     
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="active">
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'system', 'action' => 'board']) ?>">
                 <a href="dashboard.html">
                     <i class="material-icons">dashboard</i>
                     <p>Início</p>
                 </a>
             </li>
-            <li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'usuarios']) ?>">
                 <a href="user.html">
                     <i class="material-icons">person</i>
                     <p>Usuários</p>
                 </a>
             </li>
-            <li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'grupos']) ?>">
                 <a href="table.html">
                     <i class="material-icons">group_work</i>
                     <p>Grupo de Usuários</p>
                 </a>
             </li>
-            <li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'publicacoes']) ?>">
                 <a href="typography.html">
                     <i class="material-icons">library_books</i>
                     <p>Publicações</p>
                 </a>
             </li>
-            <li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'licitacoes']) ?>">
                 <a href="icons.html">
                     <i class="material-icons">work</i>
                     <p>Licitações</p>
                 </a>
             </li>
-            <li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'noticias']) ?>">
                 <a href="maps.html">
                     <i class="material-icons">style</i>
                     <p>Notícias</p>
                 </a>
             </li>
-            <li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao']) ?>">
                 <a href="maps.html">
                    <i class="material-icons">location_city</i>
                     <p>Legislação</p>
                 </a>
             </li>
-            <li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'auditoria']) ?>">
                 <a href="maps.html">
                    <i class="material-icons">fingerprint</i>
                     <p>Auditoria</p>
