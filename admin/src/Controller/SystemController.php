@@ -18,12 +18,12 @@ class SystemController extends AppController
     public function login()
     {
         $this->viewBuilder()->layout('guest');
-        $this->set('title', "Controle de Acesso");
+        $this->set('title', 'Controle de Acesso');
     }
 
     public function board()
     {
-        $this->set('title', "Painel Principal");
+        $this->set('title', 'Painel Principal');
         $this->set('icon', 'dashboard');
     }
 }
