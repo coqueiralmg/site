@@ -9,20 +9,20 @@
                         <form>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label">Nome</label>
+                                    <div class="form-group form-group-min">
+                                        <label>Nome</label>
                                         <input class="form-control" type="text">
                                         <span class="material-input"></span></div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label">Usuário</label>
+                                    <div class="form-group form-group-min">
+                                        <label>Usuário</label>
                                         <input class="form-control" type="text">
                                         <span class="material-input"></span></div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label">E-mail</label>
+                                    <div class="form-group form-group-min">
+                                        <label>E-mail</label>
                                         <input class="form-control" type="email">
                                     <span class="material-input"></span></div>
                                 </div>
@@ -30,7 +30,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group form-group-min">
                                          <label>Mostrar</label> <br/>
                                         <select class="form-control" data-style="select-with-transition" title="Choose City" data-size="7" tabindex="-98">
                                             <option value="2">Todos</option>
@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group form-group-min">
                                          <label>Grupo</label> <br/>
                                         <select class="form-control" data-style="select-with-transition" title="Choose City" data-size="7" tabindex="-98">
                                             <option value="2">Todos</option>
