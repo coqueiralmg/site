@@ -3,7 +3,7 @@
 return[
     'limitPagination' => 15,
     'system' => [
-        'name'=> 'Prefeitura Municipal de Coqueiral',
+        'name'=> 'Painel de Controle | Prefeitura Municipal de Coqueiral',
         'shortName' => 'Prefeitura de Coqueiral',
         'version' => '1.0',
         'fullVersion' => '1.0.0',
