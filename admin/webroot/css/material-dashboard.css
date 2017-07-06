@@ -2361,7 +2361,7 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
   padding-bottom: 4px;
 }
 .table .td-actions {
-  display: flex;
+  /*display: flex;*/
 }
 .table .td-actions .btn {
   margin: 0px;
