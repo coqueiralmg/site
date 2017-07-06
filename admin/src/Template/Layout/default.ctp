@@ -27,6 +27,17 @@
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+
+	<?= $this->Html->script('jquery-3.1.0.min.js') ?>
+    <?= $this->Html->script('bootstrap.min.js') ?>
+    <?= $this->Html->script('material.min.js') ?>
+    <?= $this->Html->script('chartlist.min.js') ?>
+	<?= $this->Html->script('bootstrap-notify.js') ?>
+	<?= $this->Html->script('moment.min.js') ?>
+	<?= $this->Html->script('locale/pt-br.js') ?>
+	<?= $this->Html->script('bootstrap-datetimepicker.js') ?>
+    <?= $this->Html->script('material-dashboard.js') ?>
+	<?= $this->Html->script('painel.js') ?>
 </head>
 
 <body>
@@ -94,11 +105,5 @@
 
 </body>
 
-	<?= $this->Html->script('jquery-3.1.0.min.js') ?>
-    <?= $this->Html->script('bootstrap.min.js') ?>
-    <?= $this->Html->script('material.min.js') ?>
-    <?= $this->Html->script('chartlist.min.js') ?>
-    <?= $this->Html->script('bootstrap-notify.js') ?>
-    <?= $this->Html->script('material-dashboard.js') ?>
-	<?= $this->Html->script('painel.js') ?>
+	
 </html>
