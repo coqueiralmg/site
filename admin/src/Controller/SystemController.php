@@ -23,6 +23,7 @@ class SystemController extends AppController
 
     public function board()
     {
-
+        $this->set('title', "Painel Principal");
+        $this->set('icon', 'dashboard');
     }
 }
