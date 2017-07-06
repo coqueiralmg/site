@@ -1944,7 +1944,7 @@ label.control-label {
 
 .form-group {
   padding-bottom: 0px;
-  margin: 0 0 0 0;
+  margin: 27px 0 0 0;
 }
 .form-group .form-control {
   margin-bottom: 7px;
@@ -2004,9 +2004,19 @@ label.control-label {
   line-height: 1.07143;
 }
 
+/* Form Group Min */
+
+.form-group-min {
+  padding-bottom: 0px;
+  margin: 0 0 0 0;
+}
+
+
+/*Fim Form Group Min */
+
 .form-group.form-group-sm {
   padding-bottom: 3px;
-  margin: 21px 0 0 0;
+  margin: 0 0 0 0;
 }
 .form-group.form-group-sm .form-control {
   margin-bottom: 3px;
