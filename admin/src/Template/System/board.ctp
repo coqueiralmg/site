@@ -66,7 +66,7 @@
                                 <tr>
                                     <td colspan="3" class="text-right">
                                         <a href="#" class="btn btn-default btn-info">Ver Todos</a>
-                                        <a href="#" class="btn btn-default btn-success">Nova Licitação</a>
+                                        <a href="#" class="btn btn-default btn-warning">Nova Licitação</a>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -138,7 +138,7 @@
                                 <tr>
                                     <td colspan="3" class="text-right">
                                         <a href="#" class="btn btn-default btn-info">Ver Todos</a>
-                                        <a href="#" class="btn btn-default btn-success">Nova Publicação</a>
+                                        <a href="#" class="btn btn-default btn-warning">Nova Publicação</a>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -152,7 +152,7 @@
                 <h3>Notícias Recentes </h3>
             </div>
             <div class="pull-right">
-                <button class="btn btn-success btn-simple">Nova Notícia<div class="ripple-container"></div></button>|
+                <button class="btn btn-warning btn-simple">Nova Notícia<div class="ripple-container"></div></button>|
                 <button class="btn btn-info btn-simple">Ver todas<div class="ripple-container"></div></button>
             </div>
         </div>
@@ -179,7 +179,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats pull-right">
-                             <button class="btn btn-success btn-simple">Editar<div class="ripple-container"></div></button>
+                             <button class="btn btn-primary btn-simple">Editar<div class="ripple-container"></div></button>
                              <button class="btn btn-danger btn-simple">Excluir<div class="ripple-container"></div></button>
                         </div>
                     </div>
@@ -203,7 +203,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats pull-right">
-                             <button class="btn btn-success btn-simple">Editar<div class="ripple-container"></div></button>
+                             <button class="btn btn-primary btn-simple">Editar<div class="ripple-container"></div></button>
                              <button class="btn btn-danger btn-simple">Excluir<div class="ripple-container"></div></button>
                         </div>
                     </div>
@@ -227,7 +227,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats pull-right">
-                             <button class="btn btn-success btn-simple">Editar<div class="ripple-container"></div></button>
+                             <button class="btn btn-primary btn-simple">Editar<div class="ripple-container"></div></button>
                              <button class="btn btn-danger btn-simple">Excluir<div class="ripple-container"></div></button>
                         </div>
                     </div>
