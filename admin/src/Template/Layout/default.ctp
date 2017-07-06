@@ -44,7 +44,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#"><i class="material-icons">dashboard</i> Painel Principal</a>
+						<a class="navbar-brand" href="#"><i class="material-icons"><?=$icon?></i> <?=$title?></a>
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
