@@ -18,28 +18,48 @@
                                 <tr>
                                     <td>Processo: 0086/2017 Modalidade:Pregão Presencial - Materiais de Papelaria, Toners e Cartuchos</td>
                                     <td>05/07/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Processo: 0084/2017 Modalidade:Pregão Presencial - Sacos de Lixo</td>
                                     <td>04/07/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Processo: 0080/2017 Modalidade:Pregão Presencial - Materiais de Pintura para Reforma
                                         de PSFs</td>
                                     <td>27/06/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Processo: 0078/2017 Modalidade:Pregão Presencial - Concentrador de Oxigênio</td>
                                     <td>27/06/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Processo: 0078/2017 Modalidade:Pregão Presencial - Concentrador de Oxigênio</td>
                                     <td>27/06/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                             <tfoot>
@@ -71,27 +91,47 @@
                                 <tr>
                                     <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
                                     <td>05/07/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>PORTARIAS DE NOMEAÇÃO - SERVIDORES</td>
                                     <td>04/07/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>PORTARIA 056/2017 - NOMEAÇÃO FÁBIO MENDONÇA</td>
                                     <td>27/06/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>LEI COMPLEMENTAR 012/2011 - GRATIFICAÇÃO NATALINA</td>
                                     <td>27/06/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>DECRETO N.º 1.895.2016 - HOMOLOGAÇÃO DO CONCURSO PÚBLICO - EDITAL 001.2016</td>
                                     <td>27/06/2017</td>
-                                    <td><i class="material-icons">mode_edit</i></td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                             <tfoot>
