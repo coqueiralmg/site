@@ -33,13 +33,13 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li class="<?= $this->Menu->activeMenu(['controller' => 'system', 'action' => 'board']) ?>">
-                <a href="dashboard.html">
+                <a href="<?= $this->Url->build(['controller' => 'system', 'action' => 'board']) ?>">
                     <i class="material-icons">dashboard</i>
                     <p>Início</p>
                 </a>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'usuarios']) ?>">
-                <a href="user.html">
+                <a href="<?= $this->Url->build('/usuarios') ?>">
                     <i class="material-icons">person</i>
                     <p>Usuários</p>
                 </a>
