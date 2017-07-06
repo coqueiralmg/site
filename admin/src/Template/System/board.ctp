@@ -113,7 +113,7 @@
             </div>
             <div class="pull-right">
                 <button class="btn btn-success btn-simple">Nova Notícia<div class="ripple-container"></div></button>|
-                <button class="btn btn-success btn-simple">Ver todas<div class="ripple-container"></div></button>
+                <button class="btn btn-info btn-simple">Ver todas<div class="ripple-container"></div></button>
             </div>
         </div>
 
@@ -140,6 +140,7 @@
                     <div class="card-footer">
                         <div class="stats pull-right">
                              <button class="btn btn-success btn-simple">Editar<div class="ripple-container"></div></button>
+                             <button class="btn btn-danger btn-simple">Excluir<div class="ripple-container"></div></button>
                         </div>
                     </div>
                 </div>
@@ -163,6 +164,7 @@
                     <div class="card-footer">
                         <div class="stats pull-right">
                              <button class="btn btn-success btn-simple">Editar<div class="ripple-container"></div></button>
+                             <button class="btn btn-danger btn-simple">Excluir<div class="ripple-container"></div></button>
                         </div>
                     </div>
                 </div>
@@ -186,6 +188,7 @@
                     <div class="card-footer">
                         <div class="stats pull-right">
                              <button class="btn btn-success btn-simple">Editar<div class="ripple-container"></div></button>
+                             <button class="btn btn-danger btn-simple">Excluir<div class="ripple-container"></div></button>
                         </div>
                     </div>
                 </div>
