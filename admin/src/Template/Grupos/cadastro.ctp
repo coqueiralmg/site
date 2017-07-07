@@ -72,6 +72,58 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group form-group-min">
+                                            <label>Secretarias</label> <br/>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Listar Secretarias
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Nova Secretaria
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Editar Secretaria
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Excluir Secretaria
+                                                </label>
+                                            </div>
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group form-group-min">
+                                            <label>Banners</label> <br/>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Listar Banners
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Novo Banner
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Editar Banner
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Excluir Banner
+                                                </label>
+                                            </div>
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group form-group-min">
                                             <label>Publicações</label> <br/>
                                             <div class="togglebutton">
                                                 <label>
@@ -176,6 +228,58 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group form-group-min">
+                                            <label>Categorias da Legislação</label> <br/>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Listar Categorias
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Nova Categoria
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Editar Categoria
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Excluir Categoria
+                                                </label>
+                                            </div>
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group form-group-min">
+                                            <label>Tags Legislação</label> <br/>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Listar Tags
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Nova Tag
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Editar Tag
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Excluir Tag
+                                                </label>
+                                            </div>
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group form-group-min">
                                             <label>Auditoria</label> <br/>
                                             <div class="togglebutton">
                                                 <label>
@@ -187,14 +291,40 @@
                                                     <input type="checkbox"> Detalhes do Registro
                                                 </label>
                                             </div>
+                                             <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Excluir Registro
+                                                </label>
+                                            </div>
                                             <div class="togglebutton">
                                                 <label>
                                                     <input type="checkbox"> Relatório de Auditoria
                                                 </label>
                                             </div>
+                                           <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Configurar Auditoria
+                                                </label>
+                                            </div>
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group form-group-min">
+                                            <label>Gerenciamento de Conteúdo</label> <br/>
                                             <div class="togglebutton">
                                                 <label>
-                                                    <input type="checkbox"> Excluir Registro
+                                                    <input type="checkbox"> Comandos da Home
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Páginas Fixas
+                                                </label>
+                                            </div>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox"> Infomações Extras
                                                 </label>
                                             </div>
                                             <span class="material-input"></span>
