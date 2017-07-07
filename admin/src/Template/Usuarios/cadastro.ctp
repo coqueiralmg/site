@@ -5,6 +5,7 @@
                 <div class="card">
                     <div class="card-content">
                         <form>
+                            <legend>Dados Cadastrais</legend>
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group label-control">
