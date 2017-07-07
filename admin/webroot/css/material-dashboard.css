@@ -442,7 +442,7 @@ h2.title {
 .off-canvas-sidebar .sidebar-wrapper {
   position: relative;
   width: 260px;
-  height: calc(100vh - 75px);
+  /*height: calc(100vh - 75px);*/
   overflow: auto;
   z-index: 4;
 }
@@ -463,8 +463,16 @@ h2.title {
 }
 .sidebar .nav,
 .off-canvas-sidebar .nav {
-  margin-top: 20px;
+  margin-top: 15px;
 }
+
+.sidebar .nav .caret,
+.off-canvas-sidebar .nav .caret {
+  margin-top: 13px;
+  position: absolute;
+  right: 18px;
+}
+
 .sidebar .nav li > a,
 .off-canvas-sidebar .nav li > a {
   margin: 10px 15px;
