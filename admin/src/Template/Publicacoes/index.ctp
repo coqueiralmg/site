@@ -8,48 +8,39 @@
                         
                         <form>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group form-group-min">
-                                        <label>Nome</label>
+                                        <label>Número</label>
                                         <input class="form-control" type="text">
                                         <span class="material-input"></span></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group form-group-min">
-                                        <label>Usuário</label>
+                                        <label>Título</label>
                                         <input class="form-control" type="text">
                                         <span class="material-input"></span></div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-group-min">
-                                        <label>E-mail</label>
-                                        <input class="form-control" type="email">
-                                    <span class="material-input"></span></div>
-                                </div>
-                                
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-min">
+                                        <label>Data Inicial</label>
+                                        <input class="form-control" type="text">
+                                        <span class="material-input"></span></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-min">
+                                        <label>Data Final</label>
+                                        <input class="form-control" type="text">
+                                        <span class="material-input"></span></div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group form-group-min">
                                          <label>Mostrar</label> <br/>
                                         <select class="form-control" data-style="select-with-transition" title="Choose City" data-size="7" tabindex="-98">
                                             <option value="2">Todos</option>
                                             <option value="3">Somente Ativos</option>
                                             <option value="4">Somente Inativos</option>
-                                        </select>
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-min">
-                                         <label>Grupo</label> <br/>
-                                        <select class="form-control" data-style="select-with-transition" title="Choose City" data-size="7" tabindex="-98">
-                                            <option value="2">Todos</option>
-                                            <option value="3">Administrador</option>
-                                            <option value="4">Gerente</option>
-                                            <option value="4">Comunicação</option>
-                                            <option value="4">Compras</option>
-                                            <option value="4">Jurídico</option>
                                         </select>
                                         <span class="material-input"></span>
                                     </div>
@@ -72,7 +63,6 @@
                         <table class="table">
                             <thead class="text-primary">
                                 <tr>
-                                    <th style="width: 25%">Nome</th>
                                     <th>Número</th>
                                     <th>Título</th>
                                     <th>Data</th>
@@ -82,41 +72,10 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="width: 30%">Plinio Jose Naves</td>
-                                    <td style="width: 15%">pnaves</td>
-                                    <td style="width: 20%">pliniopjn@gmail.com</td>
-                                    <td>Não</td>
-                                    <td>Comunicação</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Fábio Bugança</td>
-                                    <td>fabio</td>
-                                    <td>fabio@flymedia.com.br</td>
-                                    <td>Não</td>
-                                    <td>Comunicação</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Franciana</td>
-                                    <td>Franciana</td>
-                                    <td>comunicacao@coqueiral.mg.gov.br</td>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
                                     <td>Sim</td>
-                                    <td>Administrador</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -127,11 +86,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Guilherme</td>
-                                    <td>Guilherme</td>
-                                    <td>ti@coqueiral.mg.gov.br</td>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
                                     <td>Sim</td>
-                                    <td>Administrador</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -142,11 +100,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Fábio Valentim</td>
-                                    <td>maitabom</td>
-                                    <td>frotas@coqueiral.mg.gov.br</td>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
                                     <td>Sim</td>
-                                    <td>Administrador</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -157,11 +114,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Rognei Lázaro</td>
-                                    <td>dindico</td>
-                                    <td>compras@coqueiral.mg.gov.br</td>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
                                     <td>Sim</td>
-                                    <td>Compras</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -172,41 +128,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 30%">Plinio Jose Naves</td>
-                                    <td style="width: 15%">pnaves</td>
-                                    <td style="width: 20%">pliniopjn@gmail.com</td>
-                                    <td>Não</td>
-                                    <td>Comunicação</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Fábio Bugança</td>
-                                    <td>fabio</td>
-                                    <td>fabio@flymedia.com.br</td>
-                                    <td>Não</td>
-                                    <td>Comunicação</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Franciana</td>
-                                    <td>Franciana</td>
-                                    <td>comunicacao@coqueiral.mg.gov.br</td>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
                                     <td>Sim</td>
-                                    <td>Administrador</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -217,11 +142,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Guilherme</td>
-                                    <td>Guilherme</td>
-                                    <td>ti@coqueiral.mg.gov.br</td>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
                                     <td>Sim</td>
-                                    <td>Administrador</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -232,11 +156,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Fábio Valentim</td>
-                                    <td>maitabom</td>
-                                    <td>frotas@coqueiral.mg.gov.br</td>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
                                     <td>Sim</td>
-                                    <td>Administrador</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -247,11 +170,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Rognei Lázaro</td>
-                                    <td>dindico</td>
-                                    <td>compras@coqueiral.mg.gov.br</td>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
                                     <td>Sim</td>
-                                    <td>Compras</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -262,41 +184,108 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 30%">Plinio Jose Naves</td>
-                                    <td style="width: 15%">pnaves</td>
-                                    <td style="width: 20%">pliniopjn@gmail.com</td>
-                                    <td>Não</td>
-                                    <td>Comunicação</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Fábio Bugança</td>
-                                    <td>fabio</td>
-                                    <td>fabio@flymedia.com.br</td>
-                                    <td>Não</td>
-                                    <td>Comunicação</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Franciana</td>
-                                    <td>Franciana</td>
-                                    <td>comunicacao@coqueiral.mg.gov.br</td>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
                                     <td>Sim</td>
-                                    <td>Administrador</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
+                                    <td>Sim</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
+                                    <td>Sim</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
+                                    <td>Sim</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
+                                    <td>Sim</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
+                                    <td>Sim</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
+                                    <td>Sim</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Decreto 1899/2017</td>
+                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
+                                    <td>02/01/2017</td>
+                                    <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -314,7 +303,7 @@
                         <div class="material-datatables">
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_info">50 usuários encontrados</div>
+                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_info">50 publicações encontradas</div>
                                 </div>
                                 <div class="col-sm-7 text-right">
                                     <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
