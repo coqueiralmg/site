@@ -17,7 +17,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group label-control input-group date">
                                         <label>Data de Nascimento</label>
-                                        <input id="data_nascimento" class="form-control" type="date">
+                                        <input id="data_nascimento" class="form-control" type="text">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
