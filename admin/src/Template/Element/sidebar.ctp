@@ -45,37 +45,37 @@
                 </a>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'grupos']) ?>">
-                <a href="table.html">
+                <a href="<?= $this->Url->build('/grupos') ?>">
                     <i class="material-icons">group_work</i>
                     <p>Grupo de Usuários</p>
                 </a>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'publicacoes']) ?>">
-                <a href="typography.html">
+                <a href="<?= $this->Url->build('/publicacoes') ?>">
                     <i class="material-icons">library_books</i>
                     <p>Publicações</p>
                 </a>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'licitacoes']) ?>">
-                <a href="icons.html">
+                <a href="<?= $this->Url->build('/licitacoes') ?>">
                     <i class="material-icons">work</i>
                     <p>Licitações</p>
                 </a>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'noticias']) ?>">
-                <a href="maps.html">
+                <a href="<?= $this->Url->build('/noticias') ?>">
                     <i class="material-icons">style</i>
                     <p>Notícias</p>
                 </a>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao']) ?>">
-                <a href="maps.html">
+                <a href="<?= $this->Url->build('/legislacao') ?>">
                    <i class="material-icons">location_city</i>
                     <p>Legislação</p>
                 </a>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'auditoria']) ?>">
-                <a href="maps.html">
+                <a href="<?= $this->Url->build('/auditoria') ?>">
                    <i class="material-icons">fingerprint</i>
                     <p>Auditoria</p>
                 </a>
