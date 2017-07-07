@@ -2633,16 +2633,16 @@ fieldset[disabled] .form-group.is-focused .radio label {
 }
 .togglebutton label {
   cursor: pointer;
-  color: rgba(0,0,0, 0.26);
+  color: #AAA;
 }
 .form-group.is-focused .togglebutton label {
-  color: rgba(0,0,0, 0.26);
+  color: #AAA;
 }
 .form-group.is-focused .togglebutton label:hover, .form-group.is-focused .togglebutton label:focus {
-  color: rgba(0,0,0, .54);
+  color: #4caf50;
 }
 fieldset[disabled] .form-group.is-focused .togglebutton label {
-  color: rgba(0,0,0, 0.26);
+  color: #AAA;
 }
 .togglebutton label input[type=checkbox] {
   opacity: 0;
