@@ -129,7 +129,7 @@
                         </li>
                         <li>
                             <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
-                                Tabelas de Informações
+                                Informações Extras
                             </a>
                         </li>
                     </ul>
