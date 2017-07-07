@@ -442,10 +442,21 @@ h2.title {
 .off-canvas-sidebar .sidebar-wrapper {
   position: relative;
   width: 260px;
-  /*height: calc(100vh - 75px);*/
-  overflow: auto;
   z-index: 4;
 }
+
+@media screen and (max-width: 1000px){
+    .sidebar .sidebar-wrapper,
+    .off-canvas-sidebar .sidebar-wrapper {
+      position: relative;
+      width: 260px;
+      height: 68vh;
+      overflow: auto;
+      z-index: 4;
+    }
+}
+
+
 .sidebar .logo-tim,
 .off-canvas-sidebar .logo-tim {
   border-radius: 50%;
