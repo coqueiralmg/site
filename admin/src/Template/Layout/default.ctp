@@ -24,6 +24,9 @@
     <!--  Material Dashboard CSS    -->
     <?= $this->Html->css('material-dashboard.css') ?>
 
+	<!-- Bootstrap DatePicker -->
+	<?= $this->Html->css('bootstrap-datepicker.css') ?>
+
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
@@ -33,9 +36,9 @@
     <?= $this->Html->script('material.min.js') ?>
     <?= $this->Html->script('chartlist.min.js') ?>
 	<?= $this->Html->script('bootstrap-notify.js') ?>
-	<?= $this->Html->script('moment.min.js') ?>
-	<?= $this->Html->script('locale/pt-br.js') ?>
-	<?= $this->Html->script('bootstrap-datetimepicker.js') ?>
+	<?= $this->Html->script('bootstrap-datepicker.min.js') ?>
+	<?= $this->Html->script('locales/bootstrap-datepicker.pt-BR.min.js') ?>
+	<?= $this->Html->script('jquery.mask.min.js') ?>
     <?= $this->Html->script('material-dashboard.js') ?>
 	<?= $this->Html->script('painel.js') ?>
 </head>
@@ -103,7 +106,8 @@
 		</div>
 	</div>
 
+	
 </body>
-
+	
 	
 </html>
