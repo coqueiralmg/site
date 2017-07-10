@@ -22,8 +22,13 @@ CKEDITOR.editorConfig = function (config) {
 	];
 
 	config.removeButtons = 'Save,NewPage,Preview,Print,Form,Checkbox,Radio,Templates,TextField,Textarea,Button,ImageButton,HiddenField,Outdent,Indent,CreateDiv,Language,BidiRtl,BidiLtr,Flash,Iframe,Styles,About,Select,PasteFromWord,Font';
+
 	config.extraPlugins = 'uploadimage';
+	config.extraPlugins = 'uploadwidget';
+
+	config.filebrowserImageUploadUrl = '/admin/upload/image.json';
+
+	config.language = 'pt-br';
 	config.height = 400;
 	config.toolbarCanCollapse = true;
-
 };
