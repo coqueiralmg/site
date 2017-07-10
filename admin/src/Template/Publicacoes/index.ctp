@@ -25,13 +25,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-group-min">
                                         <label>Data Inicial</label>
-                                        <input class="form-control" type="text">
+                                        <input id="data_inicial" class="form-control" type="text">
                                         <span class="material-input"></span></div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-group-min">
                                         <label>Data Final</label>
-                                        <input class="form-control" type="text">
+                                        <input id="data_final" class="form-control" type="text">
                                         <span class="material-input"></span></div>
                                 </div>
                                 <div class="col-md-4">
@@ -325,3 +325,19 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#data_inicial').datepicker({
+            language: 'pt-BR'
+        });
+
+         $('#data_final').datepicker({
+            language: 'pt-BR'
+        });
+
+        $('#data_inicial').mask('00/00/0000');
+        $('#data_final').mask('00/00/0000');
+    });
+
+</script>
