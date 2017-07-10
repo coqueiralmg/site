@@ -42,6 +42,7 @@ use Cake\Routing\Route\DashedRoute;
  *
  */
 Router::defaultRouteClass(DashedRoute::class);
+Router::extensions(['json', 'xml']);
 
 Router::scope('/', function (RouteBuilder $routes) {
     /**
