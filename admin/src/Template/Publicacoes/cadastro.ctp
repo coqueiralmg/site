@@ -17,7 +17,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group label-control">
                                         <label>Título</label>
-                                        <input id="data_nascimento" class="form-control" type="text">
+                                        <input id="titulo" class="form-control" type="text">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -66,11 +66,11 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        $('#data_nascimento').datepicker({
+        $('#data').datepicker({
             language: 'pt-BR'
         });
 
-        $('#data_nascimento').mask('00/00/0000');
+        $('#data').mask('00/00/0000');
 
         CKEDITOR.replace('descricao');
     });
