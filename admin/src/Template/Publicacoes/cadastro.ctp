@@ -34,7 +34,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Descrição da Publicação</label>
-                                        <textarea class="form-control"></textarea>
+                                        <textarea id="descricao" class="form-control"></textarea>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -71,6 +71,8 @@
         });
 
         $('#data_nascimento').mask('00/00/0000');
+
+        CKEDITOR.replace('descricao');
     });
 
 </script>
