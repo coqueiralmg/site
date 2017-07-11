@@ -26,7 +26,7 @@ CKEDITOR.editorConfig = function (config) {
 	config.extraPlugins = 'uploadimage';
 	config.extraPlugins = 'uploadwidget';
 
-	config.filebrowserImageUploadUrl = '/admin/upload/image.json';
+	config.filebrowserImageUploadUrl = '/admin/upload/imageEditor';
 
 	config.language = 'pt-br';
 	config.height = 400;
