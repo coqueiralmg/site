@@ -16,35 +16,22 @@ class UploadController extends AppController
         parent::initialize();
     }
 
-    public function image()
+    public function imageEditor()
     {
         if($this->request->is('post'))
         {
+            $this->autoRender = false;
             $diretorio = ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS;
             $url_relativa = '/public/editor/';
             $arquivo = $this->request->getData('upload');
             $temp = $arquivo['tmp_name'];
             $nome_arquivo = $arquivo['name'];
+            $response = array();
 
             $file = new File($temp);
+            $file->copy($diretorio . $nome_arquivo, true);
 
-            if($file->copy($diretorio . $nome_arquivo, true))
-            {
-                $this->set([
-                    'uploaded' => 1,
-                    'fileName' => $nome_arquivo,
-                    'url' => $url_relativa . $nome_arquivo,
-                    '_serialize' => ['uploaded', 'fileName', 'url']
-                ]);
-            }
-            else
-            {
-                $this->set([
-                    'uploaded' => 0,
-                    'error' => ['message' => 'Ocorreu um erro ao subir a imagem.'],
-                    '_serialize' => ['uploaded', 'error']
-                ]);
-            }
+            echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(1, '" . $url_relativa . $nome_arquivo . "', '');</script>";
             
         }
     }
