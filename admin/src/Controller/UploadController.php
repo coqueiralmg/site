@@ -21,8 +21,8 @@ class UploadController extends AppController
         if($this->request->is('post'))
         {
             $this->autoRender = false;
-            $diretorio = ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS;
-            $url_relativa = '/public/editor/';
+            $diretorio = ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS . 'images' . DS;
+            $url_relativa = '/public/editor/images/';
             $arquivo = $this->request->getData('upload');
             $temp = $arquivo['tmp_name'];
             $nome_arquivo = $arquivo['name'];
