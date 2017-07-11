@@ -26,6 +26,8 @@ CKEDITOR.editorConfig = function (config) {
 	config.extraPlugins = 'uploadimage';
 	config.extraPlugins = 'uploadwidget';
 
+	config.filebrowserBrowseUrl = '/kcfinder/browse.php?opener=ckeditor&type=files';
+	config.filebrowserImageBrowseUrl = '/kcfinder/browse.php?opener=ckeditor&type=images';
 	config.filebrowserImageUploadUrl = '/admin/upload/imageEditor';
 
 	config.language = 'pt-br';
