@@ -15,9 +15,9 @@ class BaseTable extends Table
      */
     public static function defaultConnectionName()
     {
-        //$host = $_SERVER['HTTP_HOST'];
-        //$conn = ($host == Configure::read('host.homolog')) ? 'test' : 'default';
+        $host = $_SERVER['HTTP_HOST'];
+        $conn = ($host == Configure::read('host.developer')) ? 'developer' : 'release';
 
-        return 'release';
+        return $conn;
     }
 }
