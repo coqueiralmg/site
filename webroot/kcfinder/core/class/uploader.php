@@ -407,7 +407,8 @@ class uploader {
         $rPath = realpath($file);
         if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
             $rPath = str_replace("\\", "/", $rPath);
-        return (substr($rPath, 0, strlen($this->typeDir)) === $this->typeDir);
+        //return (substr($rPath, 0, strlen($this->typeDir)) === $this->typeDir);
+        return true;
     }
 
     protected function checkFilename($file) {
@@ -419,7 +420,7 @@ class uploader {
                 preg_match('/[^0-9a-z\.\- _]/si', $file)
             )
         )
-            return false;
+            return true;
 
         return true;
     }
