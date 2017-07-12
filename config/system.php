@@ -22,7 +22,7 @@ return[
         ]
     ],
     'host' => [
-        'developer' => 'localhost',
+        'developer' => 'localhost:81',
         'release' => 'coqueiral.mg.gov.br'
     ]
 ];
