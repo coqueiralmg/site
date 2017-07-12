@@ -14,17 +14,24 @@
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group label-control">
                                         <label>Título</label>
                                         <input id="titulo" class="form-control" type="text">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group label-control">
                                         <label>Data</label>
                                         <input id="data" class="form-control" type="email">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group label-control">
+                                        <label>Hora</label>
+                                        <input id="hora" class="form-control" type="email">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -35,6 +42,16 @@
                                     <div class="form-group">
                                         <label>Descrição da Publicação</label>
                                         <textarea id="descricao" class="form-control"></textarea>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Arquivo</label>
+                                        <input type="file" class="form-control">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -71,6 +88,8 @@
         });
 
         $('#data').mask('00/00/0000');
+        $('#hora').mask('00:00');
+
 
         CKEDITOR.replace('descricao');
     });
