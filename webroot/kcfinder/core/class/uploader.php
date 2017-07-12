@@ -420,7 +420,7 @@ class uploader {
                 preg_match('/[^0-9a-z\.\- _]/si', $file)
             )
         )
-            return true;
+            return false;
 
         return true;
     }
