@@ -60,14 +60,27 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <div class="form-group label-control">
+                                        <label>Categoria</label>
+                                        <select class="form-control" data-style="select-with-transition" title="Choose City" data-size="7" tabindex="-98">
+                                            <option value="2"></option>
+                                            <option value="2">Geral</option>
+                                            <option value="3">Tributário</option>
+                                            <option value="4">Comercial</option>
+                                            <option value="3">Posses</option>
+                                        </select>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group label-control">
                                         <label>Responsável</label>
                                         <input id="titulo" class="form-control" type="text">
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group label-control">
                                         <label>Co-Responsáveis ou Testemunhas</label>
                                         <input id="titulo" class="form-control" type="text">
