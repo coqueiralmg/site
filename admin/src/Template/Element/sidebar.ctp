@@ -68,29 +68,29 @@
                     <p>Notícias</p>
                 </a>
             </li>
-            <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao']) ?>">
+            <li>
                 <a data-toggle="collapse" href="#legislacao">
                    <i class="material-icons">location_city</i>
                    <p>Legislação <b class="caret"></b></p>
                 </a>
                 <div class="collapse" id="legislacao" aria-expanded="true" style="padding: 0 0 0 40px">
                     <ul class="nav">
-                        <li>
+                        <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'index']) ?>">
                             <a href="<?= $this->Url->build('/legislacao') ?>">
                                 Cadastro e Pesquisa
                             </a>
                         </li>
-                        <li>
+                        <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'importacao']) ?>">
                             <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'importacao']) ?>">
                                 Cadastro em Massa
                             </a>
                         </li>
-                        <li>
+                        <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
                             <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
                                 Categorias
                             </a>
                         </li>
-                        <li>
+                        <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'tags']) ?>">
                             <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'tags']) ?>">
                                 Tags
                             </a>
