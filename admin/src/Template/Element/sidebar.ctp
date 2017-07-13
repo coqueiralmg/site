@@ -77,7 +77,7 @@
                     <ul class="nav">
                         <li>
                             <a href="<?= $this->Url->build('/legislacao') ?>">
-                                Pesquisa de Legislação
+                                Cadastro e Pesquisa
                             </a>
                         </li>
                         <li>
