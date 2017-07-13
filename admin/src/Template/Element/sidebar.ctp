@@ -80,19 +80,9 @@
                                 Cadastro e Pesquisa
                             </a>
                         </li>
-                        <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'importacao']) ?>">
-                            <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'importacao']) ?>">
-                                Cadastro em Massa
-                            </a>
-                        </li>
                         <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
                             <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
                                 Categorias
-                            </a>
-                        </li>
-                        <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'tags']) ?>">
-                            <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'tags']) ?>">
-                                Tags
                             </a>
                         </li>
                     </ul>
@@ -109,31 +99,6 @@
                     <i class="material-icons">slideshow</i>
                     <p>Banners</p>
                 </a>
-            </li>
-            <li class="<?= $this->Menu->activeMenu(['controller' => 'outros']) ?>">
-                <a  data-toggle="collapse" href="#outros">
-                    <i class="material-icons">extension</i>
-                    <p>Outros <b class="caret"></b></p> 
-                </a>
-                <div class="collapse" id="outros" aria-expanded="true" style="padding: 0 0 0 40px">
-                    <ul class="nav">
-                        <li>
-                            <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'importacao']) ?>">
-                                Páginas Fixas
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= $this->Url->build('/comandos') ?>">
-                                Comandos da Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
-                                Informações Extras
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'auditoria']) ?>">
                 <a href="<?= $this->Url->build('/auditoria') ?>">
