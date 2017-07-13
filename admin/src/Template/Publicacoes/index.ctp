@@ -59,7 +59,7 @@
                 <div class="card">
                    
                     <div class="card-content table-responsive">
-                        <h4 class="card-title">Lista de Usuários</h4>
+                        <h4 class="card-title">Lista de Publicações</h4>
                         <table class="table">
                             <thead class="text-primary">
                                 <tr>
