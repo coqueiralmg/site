@@ -17,7 +17,7 @@ class LegislacaoController extends AppController
 
     public function index()
     {
-        $this->set('title', 'Legislacao');
+        $this->set('title', 'Legislação');
         $this->set('icon', 'location_city');
     }
 
@@ -33,7 +33,7 @@ class LegislacaoController extends AppController
 
     public function cadastro(int $id)
     {
-        $title = ($id > 0) ? 'Edição da Notícia' : 'Nova Notícia';
+        $title = ($id > 0) ? 'Edição da Legislação' : 'Nova Legislação';
         $icon = 'location_city';
 
         $this->set('title', $title);
