@@ -6,35 +6,27 @@
                     <div class="card-content">
                         <h4 class="card-title">Buscar</h4>
                         
-                        <form>
+                       <form>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-min">
-                                        <label>Número</label>
-                                        <input class="form-control" type="text">
-                                        <span class="material-input"></span></div>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <label>Título</label>
                                         <input class="form-control" type="text">
                                         <span class="material-input"></span></div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <label>Data Inicial</label>
                                         <input id="data_inicial" class="form-control" type="text">
                                         <span class="material-input"></span></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <label>Data Final</label>
                                         <input id="data_final" class="form-control" type="text">
                                         <span class="material-input"></span></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                          <label>Mostrar</label> <br/>
                                         <select class="form-control" data-style="select-with-transition" title="Choose City" data-size="7" tabindex="-98">
@@ -46,6 +38,7 @@
                                     </div>
                                 </div>
                             </div>
+                           
                             <div class="form-group form-button">
                             <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
                                 <button type="submit" class="btn btn-fill btn-warning pull-right">Novo<div class="ripple-container"></div></button>
@@ -59,22 +52,22 @@
                 <div class="card">
                    
                     <div class="card-content table-responsive">
-                        <h4 class="card-title">Lista de Usuários</h4>
+                        <h4 class="card-title">Licitações Cadastradas</h4>
                         <table class="table">
                             <thead class="text-primary">
                                 <tr>
-                                    <th>Número</th>
                                     <th>Título</th>
-                                    <th>Data</th>
+                                    <th>Data Início</th>
+                                    <th>Data Término</th>
                                     <th>Ativo</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -85,10 +78,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -99,10 +92,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -113,10 +106,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -127,10 +120,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -141,10 +134,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -155,10 +148,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -169,10 +162,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -183,10 +176,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -197,10 +190,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -211,10 +204,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -225,10 +218,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -239,10 +232,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -253,38 +246,10 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
+                                 <tr>
+                                    <td>Processo: 0090/2017 Modalidade:Pregão Presencial - Kit Escolar</td>
+                                    <td>20/07/2017</td>
+                                    <td>20/07/2017</td>
                                     <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
@@ -303,7 +268,7 @@
                         <div class="material-datatables">
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_info">50 publicações encontradas</div>
+                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_info">120 licitações encontradas</div>
                                 </div>
                                 <div class="col-sm-7 text-right">
                                     <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
