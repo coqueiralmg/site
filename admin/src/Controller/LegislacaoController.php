@@ -40,4 +40,10 @@ class LegislacaoController extends AppController
         $this->set('icon', $icon);
     }
 
+    public function categorias()
+    {
+        $this->set('title', 'Categorias da Legislação');
+        $this->set('icon', 'storage');
+    }
+
 }
