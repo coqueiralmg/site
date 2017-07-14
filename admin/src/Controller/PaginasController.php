@@ -17,8 +17,8 @@ class PaginasController extends AppController
 
     public function index()
     {
-        $this->set('title', 'Banners');
-        $this->set('icon', 'slideshow');
+        $this->set('title', 'Páginas');
+        $this->set('icon', 'public');
     }
 
     public function add()
@@ -33,8 +33,8 @@ class PaginasController extends AppController
 
     public function cadastro(int $id)
     {
-        $title = ($id > 0) ? 'Edição do Banner' : 'Nova Banner';
-        $icon = ($id > 0) ? 'slideshow' : 'slideshow';
+        $title = ($id > 0) ? 'Edição da Página' : 'Nova Página';
+        $icon = 'public';
 
         $this->set('title', $title);
         $this->set('icon', $icon);
