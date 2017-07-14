@@ -106,8 +106,8 @@
                     <p>Banners</p>
                 </a>
             </li>
-            <li class="<?= $this->Menu->activeMenu(['controller' => 'paginas']) ?>">
-                <a href="<?= $this->Url->build('/paginas') ?>">
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'controles']) ?>">
+                <a href="<?= $this->Url->build('/controles') ?>">
                     <i class="material-icons">gamepad</i>
                     <p>Controles</p>
                 </a>
