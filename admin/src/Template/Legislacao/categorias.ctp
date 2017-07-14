@@ -18,6 +18,8 @@
                                     <th>Código</th>
                                     <th>Nome</th>
                                     <th>Ordem</th>
+                                    <th>Destaque</th>
+                                    <th>Ativo</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -26,6 +28,8 @@
                                     <td>1</td>
                                     <td>Geral</td>
                                     <td>3</td>
+                                    <td>Sim</td>
+                                    <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -39,6 +43,8 @@
                                     <td>2</td>
                                     <td>Tributário</td>
                                     <td>1</td>
+                                    <td>Sim</td>
+                                    <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -52,6 +58,8 @@
                                     <td>3</td>
                                     <td>Comercial</td>
                                     <td>2</td>
+                                    <td>Sim</td>
+                                    <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -65,6 +73,8 @@
                                     <td>3</td>
                                     <td>Lei Orgânica</td>
                                     <td>2</td>
+                                    <td>Sim</td>
+                                    <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -78,6 +88,8 @@
                                     <td>3</td>
                                     <td>Posses</td>
                                     <td>2</td>
+                                    <td>Sim</td>
+                                    <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
@@ -91,6 +103,8 @@
                                     <td>3</td>
                                     <td>Habitação</td>
                                     <td>2</td>
+                                    <td>Sim</td>
+                                    <td>Sim</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                             <i class="material-icons">edit</i>
