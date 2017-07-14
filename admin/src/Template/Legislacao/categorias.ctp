@@ -1,48 +1,10 @@
-<!-- Sart Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 5000">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					<i class="material-icons">clear</i>
-				</button>
-                <h4 class="modal-title">Nova Categoria</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group label-control">
-                                <label>Nome</label>
-                                <input id="titulo" class="form-control" type="text">
-                                <span class="material-input"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group label-control">
-                                <label>Ordem</label>
-                                <input id="titulo" class="form-control" type="number">
-                                <span class="material-input"></span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-success btn-simple">Salvar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--  End Modal -->
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <button type="submit" class="btn btn-fill btn-warning pull-right" data-toggle="modal" data-target="#myModal">Novo<div class="ripple-container"></div></button>
+                        <button type="submit" class="btn btn-fill btn-warning pull-right">Novo<div class="ripple-container"></div></button>
                     </div>
                 </div>
             </div>
