@@ -31,6 +31,6 @@ CKEDITOR.editorConfig = function (config) {
 	config.filebrowserImageUploadUrl = '/admin/upload/imageEditor';
 
 	config.language = 'pt-br';
-	config.height = 400;
+	config.height = 350;
 	config.toolbarCanCollapse = true;
 };
