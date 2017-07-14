@@ -2864,6 +2864,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .modal-backdrop {
+  position: inherit;
   background: rgba(0, 0, 0, 0.3);
 }
 
