@@ -17,8 +17,8 @@ class ControlesController extends AppController
 
     public function index()
     {
-        $this->set('title', 'Banners');
-        $this->set('icon', 'slideshow');
+        $this->set('title', 'Controles');
+        $this->set('icon', 'gamepad');
     }
 
     public function add()
@@ -33,8 +33,8 @@ class ControlesController extends AppController
 
     public function cadastro(int $id)
     {
-        $title = ($id > 0) ? 'Edição do Banner' : 'Nova Banner';
-        $icon = ($id > 0) ? 'slideshow' : 'slideshow';
+        $title = ($id > 0) ? 'Edição do Controle' : 'Novo Controle';
+        $icon = 'gamepad';
 
         $this->set('title', $title);
         $this->set('icon', $icon);
