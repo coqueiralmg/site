@@ -46,4 +46,13 @@ class LegislacaoController extends AppController
         $this->set('icon', 'storage');
     }
 
+    public function categoria(int $id)
+    {
+        $title = ($id > 0) ? 'Edição da Categoria da Legislação' : 'Nova Categoria da Legislação';
+        $icon = 'storage';
+
+        $this->set('title', $title);
+        $this->set('icon', $icon);
+    }
+
 }
