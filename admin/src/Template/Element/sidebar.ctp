@@ -94,10 +94,22 @@
                     <p>Secretarias</p>
                 </a>
             </li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'paginas']) ?>">
+                <a href="<?= $this->Url->build('/paginas') ?>">
+                    <i class="material-icons">public</i>
+                    <p>Páginas</p>
+                </a>
+            </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'banners']) ?>">
                 <a href="<?= $this->Url->build('/banners') ?>">
                     <i class="material-icons">slideshow</i>
                     <p>Banners</p>
+                </a>
+            </li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'paginas']) ?>">
+                <a href="<?= $this->Url->build('/paginas') ?>">
+                    <i class="material-icons">gamepad</i>
+                    <p>Controles</p>
                 </a>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'auditoria']) ?>">
