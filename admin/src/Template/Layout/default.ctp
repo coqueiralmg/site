@@ -100,7 +100,7 @@
 						Versão <?= \Cake\Core\Configure::read('system.version') ?>
 					</p>
 					<p class="copyright pull-right">
-						&copy; 2017 Prefeitura Municipal de Coqueiral. Todos os Direitos Reservados. Sistema desenvolvido por <a href="http://www.baudovalentim.net" target="_blank">Fábio Valentim</a>.
+						&copy; 2017 Prefeitura Municipal de Coqueiral. Todos os Direitos Reservados.
 					</p>
 				</div>
 			</footer>
