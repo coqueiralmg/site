@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-default pull-right">Enviar</button>
+                                        <button type="submit" class="btn btn-default btn-round pull-right">Enviar</button>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-default pull-right">Enviar</button>
+                                        <button type="submit" class="btn btn-default btn-round pull-right">Enviar</button>
                                     </div>
                                 </div>
                             </div>
