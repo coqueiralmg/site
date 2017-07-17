@@ -17,7 +17,7 @@ class AuditoriaController extends AppController
 
     public function index()
     {
-        $this->set('title', 'Controles');
+        $this->set('title', ' Auditoria do Sistema');
         $this->set('icon', 'fingerprint');
     }
 
