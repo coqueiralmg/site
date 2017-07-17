@@ -47,6 +47,11 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
+                                                <input type="checkbox"> Abrir em Nova Janela
+                                            </label>
+                                        </div>
+                                        <div class="togglebutton">
+                                            <label>
                                                 <input type="checkbox"> Ativo
                                             </label>
                                         </div>
