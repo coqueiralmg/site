@@ -61,4 +61,24 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
+
+    /**
+     * Redireciona para a tela de login com uma mensagem.
+     *
+     * @param string $mensagem Mensagem a ser exibida na tela de login.
+     * @param bool $error Se a mensagem de erro é sucesso.
+     */
+    protected function redirectLogin(string $mensagem, bool $error = true)
+    {
+        if ($error)
+        {
+            $this->Flash->error($mensagem);
+        }
+        else
+        {
+            $this->Flash->success($mensagem);
+        }
+
+        $this->redirect(['controller' => 'system', 'action' => 'login']);
+    }
 }
