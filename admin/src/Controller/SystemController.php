@@ -141,6 +141,10 @@ class SystemController extends AppController
         {
             $this->redirectLogin('Você tentou o acesso ' . $aviso . ' vezes. Caso você tente ' . $limite . ' vezes sem sucesso, você será bloqueado.');
         }
+        elseif($tentativa == $limite)
+        {
+            
+        }
         else
         {
             $this->redirectLogin($mensagem);
