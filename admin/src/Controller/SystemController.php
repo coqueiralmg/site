@@ -18,6 +18,9 @@ class SystemController extends AppController
     public function login()
     {
         $this->viewBuilder()->layout('guest');
+        $this->configurarSuporteCookies();
+        $this->configurarTentativas();
+
         $this->set('title', 'Controle de Acesso');
     }
 
@@ -64,7 +67,7 @@ class SystemController extends AppController
                     if($usuario->senha != sha1($senha))
                     {
                         $this->request->session()->destroy();
-                        $this->redirectLogin("A senha informada é inválida.");
+                        $this->atualizarTentativas('A senha informada é inválida.');
                     }
 
                     if($usuario->verificar)
@@ -85,9 +88,8 @@ class SystemController extends AppController
                 }
                 else
                 {
-                    $this->redirectLogin("Os dados estão inválidos.");
+                    $this->atualizarTentativas('Os dados estão inválidos');
                 }
-
             }
         }
     }
@@ -102,5 +104,48 @@ class SystemController extends AppController
     {
         $this->set('title', 'Painel Principal');
         $this->set('icon', 'dashboard');
+    }
+
+    public function fail(string $mensagem)
+    {
+        $this->viewBuilder()->layout('guest');
+        $this->set('title', 'Acesso Indisponível');
+        $this->set('mensagem', base64_decode($mensagem));
+    }
+
+    protected function configurarSuporteCookies()
+    {
+        if(count($_COOKIE) == 0) 
+        {
+            $mensagem = base64_encode('Para utilizar este sistema, você deve habilitar Cookies em seu navegador.');
+            $this->redirect(['controller' => 'system', 'action' => 'fail', $mensagem]);
+        }
+    }
+    
+    protected function configurarTentativas()
+    {
+        if(!$this->Cookie->check('login_attemps'))
+        {
+            $this->Cookie->configKey('login_attemps', 'expires', '+4 hours');
+            $this->Cookie->write('login_attemps', 0);
+        }
+    }
+
+    protected function atualizarTentativas(string $mensagem)
+    {
+        $tentativa = $this->Cookie->read('login_attemps');
+        $aviso = Configure::read('security.login.warningAttemp');
+        $limite = Configure::read('security.login.maxAttemps');
+
+        if($tentativa >= $aviso)
+        {
+            $this->redirectLogin('Você tentou o acesso ' . $aviso . ' vezes. Caso você tente ' . $limite . ' vezes sem sucesso, você será bloqueado.');
+        }
+        else
+        {
+            $this->redirectLogin($mensagem);
+        }
+
+        $this->Cookie->write('login_attemps', $tentativa + 1);
     }
 }
