@@ -74,4 +74,18 @@ class AuditoriaComponent extends Component
 
         return $query->count();
     }
+
+    /**
+    * Busca o nome da ocorrência da auditoria por código
+    * @param int Código da ocorrência
+    * @return string Nome da ocorrência pré-cadastrada na lista
+    */
+    public function buscarNomeOcorrencia(int $codigo)
+    {
+        $ocorrencias = [
+            1 => 'Login no sistema'
+        ];
+
+        return $ocorrencias[$codigo];
+    }
 }
