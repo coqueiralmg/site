@@ -35,7 +35,7 @@
                         </p>
                         <center>
                             <?= $this->Flash->render() ?>
-                             <span id="erro" class="text-danger"></span>
+                            <span id="erro" class="text-danger"></span>
                         </center>
                         <div class="card-content">
                             <div class="input-group">
