@@ -17,5 +17,11 @@ class UsuarioTable extends BaseTable
             'joinType' => 'INNER'
         ]);
 
+        $this->belongsTo('GrupoUsuario', [
+            'className' => 'GrupoUsuario',
+            'foreignKey' => 'grupo',
+            'propertyName' => 'grupoUsuario',
+            'joinType' => 'INNER'
+        ]);
     }
 }
