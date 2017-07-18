@@ -61,6 +61,12 @@ class SystemController extends AppController
                         $this->redirectLogin("O usuário encontra-se em um grupo de usuário inativo.");
                     }
 
+                    if($usuario->senha != sha1($senha))
+                    {
+                        $this->request->session()->destroy();
+                        $this->redirectLogin("A senha informada é inválida.");
+                    }
+
                     if($usuario->verificar)
                     {
                         $this->request->session()->write('Usuario', $usuario);
@@ -68,6 +74,14 @@ class SystemController extends AppController
                         $this->Flash->success('Por favor, troque a senha.');
                         $this->redirect(['controller' => 'system', 'action' => 'password']);
                     }
+
+                    $this->request->session()->write('Usuario', $usuario);
+                    $this->request->session()->write('UsuarioID', $usuario->id);
+                    $this->request->session()->write('UsuarioNick', $usuario->nickname);
+                    $this->request->session()->write('UsuarioNome', $usuario->nome);
+                    $this->request->session()->write('UsuarioEmail', $usuario->email);
+
+                    $this->redirect(['controller' => 'system', 'action' => 'board']);
                 }
                 else
                 {
