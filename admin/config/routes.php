@@ -57,6 +57,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/painel/', ['controller' => 'System', 'action' => 'board']);
     $routes->connect('/trocasenha/', ['controller' => 'System', 'action' => 'password']);
+    $routes->connect('/fail/*', ['controller' => 'System', 'action' => 'fail']);
 
     /**
      * Connect catchall routes for all controllers.
