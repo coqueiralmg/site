@@ -18,9 +18,8 @@ class SystemController extends AppController
     public function login()
     {
         $this->viewBuilder()->layout('guest');
-        $this->configurarSuporteCookies();
         $this->configurarTentativas();
-
+        $this->configurarAcesso();
         $this->set('title', 'Controle de Acesso');
     }
 
@@ -51,22 +50,25 @@ class SystemController extends AppController
                 if($query->count() > 0)
                 {
                     $usuario = $query->first();
+                    $this->Cookie->write('login_user', $login);
 
                     if(!$usuario->ativo)
                     {
-                        $this->request->session()->destroy();
                         $this->redirectLogin("O usuário encontra-se inativo para o sistema.");
+                    }
+
+                    if($usuario->suspenso)
+                    {
+                        $this->redirectLogin("O usuário encontra-se suspenso no sistema. Favor entrar em contato com o administrador do sistema.");
                     }
 
                     if(!$usuario->grupoUsuario->ativo)
                     {
-                        $this->request->session()->destroy();
                         $this->redirectLogin("O usuário encontra-se em um grupo de usuário inativo.");
                     }
 
                     if($usuario->senha != sha1($senha))
                     {
-                        $this->request->session()->destroy();
                         $this->atualizarTentativas('A senha informada é inválida.');
                     }
 
@@ -113,43 +115,133 @@ class SystemController extends AppController
         $this->set('mensagem', base64_decode($mensagem));
     }
 
-    protected function configurarSuporteCookies()
+    protected function configurarAcesso()
     {
-        if(count($_COOKIE) == 0) 
+        if(!$this->Firewall->verificar())
         {
-            $mensagem = base64_encode('Para utilizar este sistema, você deve habilitar Cookies em seu navegador.');
-            $this->redirect(['controller' => 'system', 'action' => 'fail', $mensagem]);
+            $mensagem = "O acesso ao sistema está bloqueado para este endereço de IP. Caso tenha sido por engano, entre em contato com administrador.";
+            $this->redirect(['controller' => 'system', 'action' => 'fail', base64_encode($mensagem)]);
         }
     }
-    
+
     protected function configurarTentativas()
     {
-        if(!$this->Cookie->check('login_attemps'))
+        if(!$this->request->session()->check('LoginAttemps'))
         {
-            $this->Cookie->configKey('login_attemps', 'expires', '+4 hours');
-            $this->Cookie->write('login_attemps', 0);
+            $this->request->session()->write('LoginAttemps', 1);
         }
     }
 
     protected function atualizarTentativas(string $mensagem)
     {
-        $tentativa = $this->Cookie->read('login_attemps');
+        $tentativa = $this->request->session()->read('LoginAttemps');
         $aviso = Configure::read('security.login.warningAttemp');
         $limite = Configure::read('security.login.maxAttemps');
+        $this->request->session()->write('LoginAttemps', $tentativa + 1);
 
-        if($tentativa >= $aviso)
+        if($tentativa >= $aviso && $tentativa < $limite)
         {
-            $this->redirectLogin('Você tentou o acesso ' . $aviso . ' vezes. Caso você tente ' . $limite . ' vezes sem sucesso, você será bloqueado.');
+            $this->alertarTentativasIntermitentes();
+            $this->redirectLogin('Você tentou o acesso ' . $tentativa . ' vezes. Caso você tente ' . $limite . ' vezes sem sucesso, você será bloqueado.');
         }
-        elseif($tentativa == $limite)
+        elseif($tentativa >= $limite)
         {
-            
+            $this->alertarUsuarioBloqueado();
+            $this->bloquearAcesso();
+            $this->redirectLogin('O acesso ao sistema encontra-se bloqueado.');
         }
         else
         {
             $this->redirectLogin($mensagem);
         }
+    }
 
-        $this->Cookie->write('login_attemps', $tentativa + 1);
+    protected function alertarTentativasIntermitentes()
+    {
+        $emails = $this->buscarEmailsAdministradores();
+        
+        $header = array(
+            'name' => 'Segurança Coqueiral',
+            'from' => 'security@coqueiral.mg.gov.br',
+            'to' => $emails,
+            'subject' => 'Possível tentativa não autorizada de acesso ao Administrador do Site'
+        );
+
+        $params = array(
+            'usuário' => $this->Cookie->read('login_user'),
+            'ip' => $_SERVER['REMOTE_ADDR'],
+            'agent' => $_SERVER['HTTP_USER_AGENT']
+        );
+
+        $this->Sender->sendEmailTemplate($header, 'hacking', $params);
+    }
+
+    protected function alertarUsuarioBloqueado()
+    {
+        $emails = $this->buscarEmailsAdministradores();
+        
+        $header = array(
+            'name' => 'Segurança Coqueiral',
+            'from' => 'security@coqueiral.mg.gov.br',
+            'to' => $emails,
+            'subject' => 'Acesso bloqueado ao Administrador da Prefeitura de Coqueiral'
+        );
+
+        $params = array(
+            'usuário' => $this->Cookie->read('login_user'),
+            'ip' => $_SERVER['REMOTE_ADDR'],
+            'agent' => $_SERVER['HTTP_USER_AGENT']
+        );
+
+        $this->Sender->sendEmailTemplate($header, 'blocked', $params);
+    }
+
+    protected function bloquearAcesso()
+    {
+        $login = $this->Cookie->read('login_user');
+        $t_usuario = TableRegistry::get('Usuario');
+
+        $query = $t_usuario->find('all', [
+            'conditions' => [
+                'usuario.usuario' => $login
+            ]
+        ])->orWhere([
+            'usuario.email' => $login
+        ]);
+
+        if($query->count() > 0)
+        {
+            $resultado = $query->all();
+
+            foreach($resultado as $usuario)
+            {
+                $usuario->suspenso = true;
+                $t_usuario->save($usuario);
+            }
+        }
+
+        $this->Firewall->bloquear('Tentativas de acesso indevidos.');
+    }
+
+    private function buscarEmailsAdministradores()
+    {
+        $t_usuario = TableRegistry::get('Usuario');
+        $query = $t_usuario->find('all', [
+            'contain' => ['GrupoUsuario'],
+            'conditions' => [
+                'GrupoUsuario.administrativo' => true,
+                'Usuario.ativo' => true
+            ]
+        ])->select(['email']);
+
+        $resultado = $query->all();
+        $emails = array();
+
+        foreach($resultado as $item)
+        {
+            array_push($emails, $item->email);
+        }
+
+        return $emails;
     }
 }
