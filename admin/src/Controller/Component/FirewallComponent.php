@@ -27,11 +27,25 @@ class FirewallComponent extends Component
         $bloqueado->data_bloqueio = date("Y-m-d H:i:s");
         $bloqueado->motivo = $motivo;
 
-        if($table->save())
+        if($table->save($bloqueado))
         {
             $id = $bloqueado->id;
         }
 
         return $id;
+    }
+
+    /**
+    * Verifica se o Endereço de IP de acesso possui a permissão de acessar o sistema
+    * @return bool Se o IP possui o acesso ao sistema.
+    */
+    public function verificar()
+    {
+        $table = TableRegistry::get('Bloqueado');
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $query = $table->find()->where(['ip' => $ip]);
+
+        return ($query->count == 0);
     }
 }
