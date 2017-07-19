@@ -47,13 +47,32 @@ class SenderComponent extends Component
      */
     public function sendEmailTemplate($headMail, $template, $params = NULL)
     {
+        var_dump($headMail);
         $email = new Email('default');
         $email->template($template);
         $email->emailFormat("html");
         $email->helpers(['Html', 'Url']);
         $email->from([$headMail["from"] => $headMail["name"]]);
         $email->replyTo($headMail["from"]);
-        $email->to($headMail["to"]);
+
+        if(is_array($headMail["to"]))
+        {
+            $i = 0;
+            $email->to($headMail["to"][$i]);
+
+            $i = $i + 1;
+
+            while($i < count($headMail["to"]))
+            {
+                $email->addTo($headMail["to"][$i]);
+                $i = $i + 1;
+            }
+        }
+        else
+        {
+            $email->to($headMail["to"]);
+        }
+        
         $email->subject($headMail["subject"]);
         $email->viewVars($params);
 
@@ -68,6 +87,6 @@ class SenderComponent extends Component
      */
     private function registrarLog($headMail)
     {
-        Log::write('info', 'Date: ' . date('d/m/Y H:i:s') .  '; From: ' . $headMail["from"] . '; To: ' . $headMail["to"] . '; IP:' . $_SERVER['REMOTE_ADDR'], ['scope' => 'mail']);
+        Log::write('info', 'Date: ' . date('d/m/Y H:i:s') .  '; From: ' . $headMail["from"] . '; To: ' . json_encode($headMail["to"]) . '; IP:' . $_SERVER['REMOTE_ADDR'], ['scope' => 'mail']);
     }
 }
