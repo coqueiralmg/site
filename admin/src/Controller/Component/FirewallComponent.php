@@ -21,7 +21,7 @@ class FirewallComponent extends Component
     {
         $id = 0;
 
-        if(!$this->verificar())
+        if($this->verificar())
         {
             $table = TableRegistry::get('Bloqueado');
             $bloqueado = $table->newEntity();
