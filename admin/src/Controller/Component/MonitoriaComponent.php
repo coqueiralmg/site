@@ -86,6 +86,27 @@ class MonitoriaComponent extends Component
     }
 
     /**
+    * Envia e-mail aos proprietário da conta de que a mesma encontra-se suspensa.
+    * @param Usuario Usuário a ser avisado da conta suspensa.
+    */
+    public function alertarContaSuspensa(string $nome, string $email)
+    {
+        $header = array(
+            'name' => 'Segurança Coqueiral',
+            'from' => 'security@coqueiral.mg.gov.br',
+            'to' => $email,
+            'subject' => 'Sua conta encontra-se suspensa!'
+        );
+
+        $params = array(
+            'nome' => $nome,
+            'ip' => $_SERVER['REMOTE_ADDR']
+        );
+
+        $this->Sender->sendEmailTemplate($header, 'suspended', $params);
+    }
+
+    /**
     * Faz uma busca de todos os e-mails de administradores do sistema ativos.
     * @return array Lista de e-mails de administradores 
     */
