@@ -29,7 +29,7 @@ class MonitoriaComponent extends Component
         );
 
         $params = array(
-            'usuário' => $dados['usuario'],
+            'usuário' => $this->Cookie->read('login_user'),
             'ip' => $_SERVER['REMOTE_ADDR'],
             'agent' => $_SERVER['HTTP_USER_AGENT'],
             'atividade' => $this->Auditoria->buscarNomeOcorrencia($dados['ocorrencia']),
