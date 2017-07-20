@@ -114,15 +114,6 @@ class SystemController extends AppController
         $this->set('mensagem', base64_decode($mensagem));
     }
 
-    protected function configurarAcesso()
-    {
-        if(!$this->Firewall->verificar())
-        {
-            $mensagem = "O acesso ao sistema está bloqueado para este endereço de IP. Caso tenha sido bloqueado por engano, entre em contato com administrador.";
-            $this->redirect(['controller' => 'system', 'action' => 'fail', base64_encode($mensagem)]);
-        }
-    }
-
     protected function configurarTentativas()
     {
         if(!$this->request->session()->check('LoginAttemps'))

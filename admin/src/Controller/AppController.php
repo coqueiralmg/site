@@ -83,4 +83,13 @@ class AppController extends Controller
 
         $this->redirect(['controller' => 'system', 'action' => 'login']);
     }
+
+    protected function configurarAcesso()
+    {
+        if(!$this->Firewall->verificar())
+        {
+            $mensagem = "O acesso ao sistema está bloqueado para este endereço de IP. Caso tenha sido bloqueado por engano, entre em contato com administrador.";
+            $this->redirect(['controller' => 'system', 'action' => 'fail', base64_encode($mensagem)]);
+        }
+    }
 }
