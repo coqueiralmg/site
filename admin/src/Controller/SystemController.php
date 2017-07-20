@@ -9,7 +9,6 @@ use Cake\ORM\TableRegistry;
 
 class SystemController extends AppController
 {
-
     public function initialize()
     {
         parent::initialize();
@@ -119,7 +118,7 @@ class SystemController extends AppController
     {
         if(!$this->Firewall->verificar())
         {
-            $mensagem = "O acesso ao sistema está bloqueado para este endereço de IP. Caso tenha sido por engano, entre em contato com administrador.";
+            $mensagem = "O acesso ao sistema está bloqueado para este endereço de IP. Caso tenha sido bloqueado por engano, entre em contato com administrador.";
             $this->redirect(['controller' => 'system', 'action' => 'fail', base64_encode($mensagem)]);
         }
     }

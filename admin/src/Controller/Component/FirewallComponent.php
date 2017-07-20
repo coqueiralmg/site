@@ -44,8 +44,12 @@ class FirewallComponent extends Component
         $table = TableRegistry::get('Bloqueado');
         $ip = $_SERVER['REMOTE_ADDR'];
 
-        $query = $table->find()->where(['ip' => $ip]);
+        $query = $table->find('all', [
+            'conditions' => [
+                'ip' => $ip
+            ]
+        ]);
 
-        return ($query->count == 0);
+        return ($query->count() == 0);
     }
 }
