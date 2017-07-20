@@ -252,7 +252,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 			<table>
 				<tr>
 					<td>
-						<p class="lead">Um usuário conseguiu acessar o login com sucesso, depois de muitas tentativas falhas. Portanto, ele estará sendo monitorado, para acompanhamento dos administradores, para verificar se está sob suspeita.</p>
+						<p class="lead">Um usuário conseguiu acessar o sistema com sucesso, depois de muitas tentativas falhas. Portanto, ele estará sendo monitorado, para acompanhamento dos administradores, para verificar se está sob suspeita.</p>
                         <p class="lead">Segue abaixo, os dados de acesso e atividade.</p>
 						<!-- Callout Panel -->
 												

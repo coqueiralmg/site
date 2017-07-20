@@ -11,15 +11,32 @@ use Cake\ORM\TableRegistry;
  */
 class MonitoriaComponent extends Component
 {
-    public $components = ['Cookie', 'Sender'];
+    public $components = ['Cookie', 'Sender', 'Auditoria'];
     
     /*
     * Faz o registro de monitoramento, alertando os administradores
     *
     */
-    public function registrar(array $dados)
+    public function monitorar(array $dados)
     {
+        $emails = $this->buscarEmailsAdministradores();
+        
+        $header = array(
+            'name' => 'Segurança Coqueiral',
+            'from' => 'security@coqueiral.mg.gov.br',
+            'to' => $emails,
+            'subject' => 'Monitoramento de Atividade do Usuário Suspeito'
+        );
 
+        $params = array(
+            'usuário' => $dados['usuario'],
+            'ip' => $_SERVER['REMOTE_ADDR'],
+            'agent' => $_SERVER['HTTP_USER_AGENT'],
+            'atividade' => $this->Auditoria->buscarNomeOcorrencia($dados['ocorrencia']),
+            'descricao_atividade' => empty($dados['descricao']) ? 'Não informado' : $dados['descricao']
+        );
+
+        $this->Sender->sendEmailTemplate($header, 'monitoring', $params);
     }
 
     /**
