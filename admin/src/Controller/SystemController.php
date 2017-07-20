@@ -168,6 +168,7 @@ class SystemController extends AppController
         $t_usuario = TableRegistry::get('Usuario');
 
         $query = $t_usuario->find('all', [
+            'contain' => ['Pessoa'],
             'conditions' => [
                 'usuario.usuario' => $login
             ]
@@ -183,6 +184,7 @@ class SystemController extends AppController
             {
                 $usuario->suspenso = true;
                 $t_usuario->save($usuario);
+                $this->Monitoria->alertarContaSuspensa($usuario->pessoa->nome, $usuario->email);
             }
         }
 
