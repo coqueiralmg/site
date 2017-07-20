@@ -47,6 +47,7 @@ class AppController extends Controller
         $this->loadComponent('Auditoria');
         $this->loadComponent('Sender');
         $this->loadComponent('Firewall');
+        $this->loadComponent('Monitoria');
     }
 
     /**
