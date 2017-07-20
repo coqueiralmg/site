@@ -85,6 +85,22 @@ class SystemController extends AppController
                     $this->request->session()->write('UsuarioNome', $usuario->nome);
                     $this->request->session()->write('UsuarioEmail', $usuario->email);
 
+                    $auditoria = [
+                        'ocorrencia' => 1,
+                        'descricao' => 'O usuário acessou o sistema com sucesso.',
+                        'usuario' => $usuario->id
+                    ];
+
+                    $this->Auditoria->registrar($auditoria);
+
+                    $tentativa = $this->request->session()->read('LoginAttemps');
+
+                    if($tentativa >= Configure::read('security.login.warningAttemp'))
+                    {
+                        $this->request->session()->write('UsuarioSuspeito', true);
+                        $this->Monitoria->monitorar($auditoria);
+                    }
+
                     $this->redirect(['controller' => 'system', 'action' => 'board']);
                 }
                 else
