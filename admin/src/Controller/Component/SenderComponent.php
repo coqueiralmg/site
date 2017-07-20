@@ -30,7 +30,8 @@ class SenderComponent extends Component
 
         $headMail = [
             'from' => $from,
-            'to' => $to
+            'to' => $to,
+            'subject' => $subject
         ];
 
         $this->registrarLog($headMail);
@@ -47,7 +48,6 @@ class SenderComponent extends Component
      */
     public function sendEmailTemplate($headMail, $template, $params = NULL)
     {
-        var_dump($headMail);
         $email = new Email('default');
         $email->template($template);
         $email->emailFormat("html");
@@ -87,6 +87,6 @@ class SenderComponent extends Component
      */
     private function registrarLog($headMail)
     {
-        Log::write('info', 'Date: ' . date('d/m/Y H:i:s') .  '; From: ' . $headMail["from"] . '; To: ' . json_encode($headMail["to"]) . '; IP:' . $_SERVER['REMOTE_ADDR'], ['scope' => 'mail']);
+        Log::write('info', 'Date: ' . date('d/m/Y H:i:s') .  '; From: ' . $headMail["from"] . '; To: ' . json_encode($headMail["to"]) . '; IP:' . $_SERVER['REMOTE_ADDR'], ['scope' => 'mail'] . '; Assunto:' . $headMail["subject"]);
     }
 }
