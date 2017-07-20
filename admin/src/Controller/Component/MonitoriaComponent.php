@@ -22,6 +22,9 @@ class MonitoriaComponent extends Component
 
     }
 
+    /**
+    * Envia e-mail aos administradores de que o usuário está tentando várias vezes o acesso ao sistema.
+    */
     public function alertarTentativasIntermitentes()
     {
         $emails = $this->buscarEmailsAdministradores();
@@ -42,6 +45,9 @@ class MonitoriaComponent extends Component
         $this->Sender->sendEmailTemplate($header, 'hacking', $params);
     }
 
+    /**
+    * Envia e-mail aos administradores de que o usuário está com acesso bloqueado ao sistema.
+    */
     public function alertarUsuarioBloqueado()
     {
         $emails = $this->buscarEmailsAdministradores();
@@ -62,6 +68,10 @@ class MonitoriaComponent extends Component
         $this->Sender->sendEmailTemplate($header, 'blocked', $params);
     }
 
+    /**
+    * Faz uma busca de todos os e-mails de administradores do sistema ativos.
+    * @return array Lista de e-mails de administradores 
+    */
     private function buscarEmailsAdministradores()
     {
         $t_usuario = TableRegistry::get('Usuario');
