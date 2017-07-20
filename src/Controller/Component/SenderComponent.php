@@ -87,6 +87,6 @@ class SenderComponent extends Component
      */
     private function registrarLog($headMail)
     {
-        Log::write('info', 'Date: ' . date('d/m/Y H:i:s') .  '; From: ' . $headMail["from"] . '; To: ' . json_encode($headMail["to"]) . '; IP:' . $_SERVER['REMOTE_ADDR'], ['scope' => 'mail'] . '; Assunto:' . $headMail["subject"]);
+        Log::write('info', 'Date: ' . date('d/m/Y H:i:s') .  '; From: ' . $headMail["from"] . '; To: ' . json_encode($headMail["to"]) . '; IP:' . $_SERVER['REMOTE_ADDR'] . '; Assunto:' . $headMail["subject"], ['scope' => 'mail']);
     }
 }
