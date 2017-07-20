@@ -20,16 +20,20 @@ class FirewallComponent extends Component
     public function bloquear(string $motivo = 'Não definido')
     {
         $id = 0;
-        $table = TableRegistry::get('Bloqueado');
-        $bloqueado = $table->newEntity();
 
-        $bloqueado->ip = $_SERVER['REMOTE_ADDR'];
-        $bloqueado->data_bloqueio = date("Y-m-d H:i:s");
-        $bloqueado->motivo = $motivo;
-
-        if($table->save($bloqueado))
+        if(!$this->verificar())
         {
-            $id = $bloqueado->id;
+            $table = TableRegistry::get('Bloqueado');
+            $bloqueado = $table->newEntity();
+
+            $bloqueado->ip = $_SERVER['REMOTE_ADDR'];
+            $bloqueado->data_bloqueio = date("Y-m-d H:i:s");
+            $bloqueado->motivo = $motivo;
+
+            if($table->save($bloqueado))
+            {
+                $id = $bloqueado->id;
+            }
         }
 
         return $id;
