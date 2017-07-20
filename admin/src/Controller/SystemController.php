@@ -131,12 +131,12 @@ class SystemController extends AppController
 
         if($tentativa >= $aviso && $tentativa < $limite)
         {
-            $this->alertarTentativasIntermitentes();
+            $this->Monitoria->alertarTentativasIntermitentes();
             $this->redirectLogin('Você tentou o acesso ' . $tentativa . ' vezes. Caso você tente ' . $limite . ' vezes sem sucesso, você será bloqueado.');
         }
         elseif($tentativa >= $limite)
         {
-            $this->alertarUsuarioBloqueado();
+            $this->Monitoria->alertarUsuarioBloqueado();
             $this->bloquearAcesso();
             $this->redirectLogin('O acesso ao sistema encontra-se bloqueado.');
         }
@@ -144,46 +144,6 @@ class SystemController extends AppController
         {
             $this->redirectLogin($mensagem);
         }
-    }
-
-    protected function alertarTentativasIntermitentes()
-    {
-        $emails = $this->buscarEmailsAdministradores();
-        
-        $header = array(
-            'name' => 'Segurança Coqueiral',
-            'from' => 'security@coqueiral.mg.gov.br',
-            'to' => $emails,
-            'subject' => 'Possível tentativa não autorizada de acesso ao Administrador do Site'
-        );
-
-        $params = array(
-            'usuário' => $this->Cookie->read('login_user'),
-            'ip' => $_SERVER['REMOTE_ADDR'],
-            'agent' => $_SERVER['HTTP_USER_AGENT']
-        );
-
-        $this->Sender->sendEmailTemplate($header, 'hacking', $params);
-    }
-
-    protected function alertarUsuarioBloqueado()
-    {
-        $emails = $this->buscarEmailsAdministradores();
-        
-        $header = array(
-            'name' => 'Segurança Coqueiral',
-            'from' => 'security@coqueiral.mg.gov.br',
-            'to' => $emails,
-            'subject' => 'Acesso bloqueado ao Administrador da Prefeitura de Coqueiral'
-        );
-
-        $params = array(
-            'usuário' => $this->Cookie->read('login_user'),
-            'ip' => $_SERVER['REMOTE_ADDR'],
-            'agent' => $_SERVER['HTTP_USER_AGENT']
-        );
-
-        $this->Sender->sendEmailTemplate($header, 'blocked', $params);
     }
 
     protected function bloquearAcesso()
@@ -211,27 +171,5 @@ class SystemController extends AppController
         }
 
         $this->Firewall->bloquear('Tentativas de acesso indevidos.');
-    }
-
-    private function buscarEmailsAdministradores()
-    {
-        $t_usuario = TableRegistry::get('Usuario');
-        $query = $t_usuario->find('all', [
-            'contain' => ['GrupoUsuario'],
-            'conditions' => [
-                'GrupoUsuario.administrativo' => true,
-                'Usuario.ativo' => true
-            ]
-        ])->select(['email']);
-
-        $resultado = $query->all();
-        $emails = array();
-
-        foreach($resultado as $item)
-        {
-            array_push($emails, $item->email);
-        }
-
-        return $emails;
     }
 }
