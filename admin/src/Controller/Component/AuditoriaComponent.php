@@ -83,7 +83,14 @@ class AuditoriaComponent extends Component
     public function buscarNomeOcorrencia(int $codigo)
     {
         $ocorrencias = [
-            1 => 'Login no sistema'
+            1 => 'Login no sistema',
+            2 => 'Troca de senha',
+            3 => 'Bloqueio de IP',
+            4 => 'Suspensão da conta',
+            5 => 'Limpeza de cache e sessão',
+            6 => 'Acesso suspeito',
+            7 => 'Acesso bloqueado',
+            8 => ''
         ];
 
         return $ocorrencias[$codigo];
