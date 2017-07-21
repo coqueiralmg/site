@@ -255,6 +255,10 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 						<p class="lead">Alguém está tentando acessar o administrador do site da Prefeitura Municipal de Coqueiral. O mesmo pode ser bloqueado automaticamente, caso insista em acessar o sistema sem sucesso.</p>
                         <p class="lead">O sistema poderá monitorar as atividades do usuário, caso ele consiga acessar com sucesso, enviando e-mail aos grupos administradores, em cada atividade feita.</p>
 						<!-- Callout Panel -->
+
+						<p class="callout">
+							<?= $this->Html->link('Clique aqui para bloquear o usuário mal intencionado imediatamente', ['controller' => 'System', 'action' => 'block', $chave, '_full' => true]) ?> 
+						</p>
 												
 						<!-- social & contact -->
 						<table class="social" width="100%">

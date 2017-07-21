@@ -253,8 +253,14 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 				<tr>
 					<td>
 						<p class="lead">Prezado <?=$nome?></p>
-                        <p class="lead">Sinto informar que sua conta foi suspensa por motivos de diversas tentativas sem sucesso ao painel de controle da Prefeitura Municipal de Coqueiral, através do endereço de ip <b><?=$ip?></b>
+						<?php if($direto): ?>
+							<p class="lead">Sinto informar que sua conta foi suspensa pelo administrador do sistema.
 						 Favor procurar o administrador do sistema para tomar devidas providências.</p>
+						<?php else: ?>
+							<p class="lead">Sinto informar que sua conta foi suspensa por motivos de diversas tentativas sem sucesso ao painel de controle da Prefeitura Municipal de Coqueiral, através do endereço de ip <b><?=$ip?></b>
+							Favor procurar o administrador do sistema para tomar devidas providências.</p>
+						<?php endif; ?>
+                        
 					</td>
 				</tr>
 			</table>

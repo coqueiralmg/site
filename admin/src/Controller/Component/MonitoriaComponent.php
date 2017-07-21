@@ -33,7 +33,8 @@ class MonitoriaComponent extends Component
             'ip' => $_SERVER['REMOTE_ADDR'],
             'agent' => $_SERVER['HTTP_USER_AGENT'],
             'atividade' => $this->Auditoria->buscarNomeOcorrencia($dados['ocorrencia']),
-            'descricao_atividade' => empty($dados['descricao']) ? 'Não informado' : $dados['descricao']
+            'descricao_atividade' => empty($dados['descricao']) ? 'Não informado' : $dados['descricao'],
+            'chave' => $this->montaChave($this->Cookie->read('login_user'), $_SERVER['REMOTE_ADDR'])
         );
 
         $this->Sender->sendEmailTemplate($header, 'monitoring', $params);
@@ -56,7 +57,8 @@ class MonitoriaComponent extends Component
         $params = array(
             'usuário' => $this->Cookie->read('login_user'),
             'ip' => $_SERVER['REMOTE_ADDR'],
-            'agent' => $_SERVER['HTTP_USER_AGENT']
+            'agent' => $_SERVER['HTTP_USER_AGENT'],
+            'chave' => $this->montaChave($this->Cookie->read('login_user'), $_SERVER['REMOTE_ADDR'])
         );
 
         $this->Sender->sendEmailTemplate($header, 'hacking', $params);
@@ -89,7 +91,7 @@ class MonitoriaComponent extends Component
     * Envia e-mail aos proprietário da conta de que a mesma encontra-se suspensa.
     * @param Usuario Usuário a ser avisado da conta suspensa.
     */
-    public function alertarContaSuspensa(string $nome, string $email)
+    public function alertarContaSuspensa(string $nome, string $email, bool $direto = false)
     {
         $header = array(
             'name' => 'Segurança Coqueiral',
@@ -100,7 +102,8 @@ class MonitoriaComponent extends Component
 
         $params = array(
             'nome' => $nome,
-            'ip' => $_SERVER['REMOTE_ADDR']
+            'ip' => $_SERVER['REMOTE_ADDR'],
+            'direto' => $direto
         );
 
         $this->Sender->sendEmailTemplate($header, 'suspended', $params);
@@ -130,5 +133,19 @@ class MonitoriaComponent extends Component
         }
 
         return $emails;
+    }
+
+    /**
+    * Monta uma chave criptografada para bloqueio direto
+    * @return Chave criptografada para bloqueio
+    */
+    private function montaChave(string $login, string $ip)
+    {
+        $pivot = [
+            'login' => $login,
+            'ip' => $ip
+        ];
+
+        return base64_encode(json_encode($pivot));
     }
 }
