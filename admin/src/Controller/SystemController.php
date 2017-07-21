@@ -135,6 +135,14 @@ class SystemController extends AppController
 
             $t_usuario->save($usuario);
 
+            $auditoria = [
+                'ocorrencia' => 2,
+                'descricao' => 'O usuário trocou a senha, por ter sido obrigado a efetuar a troca.',
+                'usuario' => $usuario->id
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
             $this->redirectLogin('Sua senha foi alterada com sucesso.', false);
         }
         else
@@ -185,6 +193,14 @@ class SystemController extends AppController
 
         if($query->count() > 0) $usuario = $query->first(); 
 
+        $auditoria = [
+            'ocorrencia' => 3,
+            'descricao' => 'O administrador do sistema bloqueou o endereço de IP ' . $ip . ' através do link de e-mail, por motivos de atividades suspeitas',
+            'usuario' => null
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
         $this->set('title', 'Bloquear Acesso');
         $this->set('ip', $ip);
         $this->set('login', $login);
@@ -204,11 +220,27 @@ class SystemController extends AppController
         $t_usuario->save($usuario);
         $this->Monitoria->alertarContaSuspensa($pessoa->nome, $usuario->email, true);
 
+        $auditoria = [
+            'ocorrencia' => 4,
+            'descricao' => 'O administrador do sistema decidiu suspender a conta ' . $usuario->usuario . ', devido a esta conta ser usada para atividades suspeitas.',
+            'usuario' => null
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
         $this->redirectLogin('O usuário ' . $usuario->usuario . ' encontra-se suspenso. O mesmo foi notificado por e-mail.', false);
     }
 
     public function reset()
     {
+        $auditoria = [
+            'ocorrencia' => 5,
+            'descricao' => 'Feita a limpeza de cache e de sessão.',
+            'usuario' => null
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+        
         $this->request->session()->destroy();
         $this->redirectLogin("As sessões foram zeradas com sucesso.");
     }
@@ -230,11 +262,27 @@ class SystemController extends AppController
 
         if($tentativa >= $aviso && $tentativa < $limite)
         {
+            $auditoria = [
+                'ocorrencia' => 6,
+                'descricao' => 'O usuário tem tentado acessar o sistema por ' . $aviso . ' ou mais vezes.',
+                'usuario' => null
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+            
             $this->Monitoria->alertarTentativasIntermitentes();
             $this->redirectLogin('Você tentou o acesso ' . $tentativa . ' vezes. Caso você tente ' . $limite . ' vezes sem sucesso, você será bloqueado.');
         }
         elseif($tentativa >= $limite)
         {
+            $auditoria = [
+                'ocorrencia' => 7,
+                'descricao' => 'O usuário foi bloqueado pelo sistema automaticamente, por muitas tentativas de acesso sem sucesso.',
+                'usuario' => null
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+            
             $this->Monitoria->alertarUsuarioBloqueado();
             $this->bloquearAcesso();
             $this->redirectLogin('O acesso ao sistema encontra-se bloqueado.');
