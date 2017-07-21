@@ -253,7 +253,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 				<tr>
 					<td>
 						<p class="lead">O usuário encontra-se bloqueado no acesso ao sistema. Caso ele tenha tentado com usuário válido, o mesmo se encontrará suspenso.</p>
-                        <p class="lead">Caso o IP informado abaixo seja válido, favor, verificar com o responsável o motivo do insucesso no acesso ao sistemaa.</p>
+                        <p class="lead">Caso o IP informado abaixo seja válido, favor, verificar com o responsável o motivo do insucesso no acesso ao sistema.</p>
 						<!-- Callout Panel -->
 												
 						<!-- social & contact -->
