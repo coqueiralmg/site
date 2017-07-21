@@ -17,7 +17,7 @@ class FirewallComponent extends Component
      * @param string $motivo Motivo do bloqueio ter sido ocorrido.
      * @return int|mixed Código do registro de bloqueio, se salvo com sucesso.
      */
-    public function bloquear(string $motivo = 'Não definido')
+    public function bloquear(string $motivo = 'Não definido', string $ip = '')
     {
         $id = 0;
 
@@ -26,7 +26,7 @@ class FirewallComponent extends Component
             $table = TableRegistry::get('Bloqueado');
             $bloqueado = $table->newEntity();
 
-            $bloqueado->ip = $_SERVER['REMOTE_ADDR'];
+            $bloqueado->ip = ($ip == '') ? $_SERVER['REMOTE_ADDR'] : $ip;
             $bloqueado->data_bloqueio = date("Y-m-d H:i:s");
             $bloqueado->motivo = $motivo;
 
