@@ -29,6 +29,12 @@ class AppController extends Controller
 {
 
     /**
+     * Define se a tela irá validar a role dentro do sistema.
+     * @var bool
+     */
+    protected $validationRole;
+    
+    /**
      * Initialization hook method.
      *
      * Use this method to add common initialization code like loading components.
@@ -48,6 +54,8 @@ class AppController extends Controller
         $this->loadComponent('Sender');
         $this->loadComponent('Firewall');
         $this->loadComponent('Monitoria');
+
+        $this->validationRole = true;
     }
 
     /**
@@ -62,6 +70,58 @@ class AppController extends Controller
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
             $this->set('_serialize', true);
+        }
+
+        if($this->validationRole)
+        {
+            $this->configurarAcesso();
+            $this->controlAuth();
+        }
+    }
+
+    /**
+     * Controle simplificado de autenticação do usuário
+     */
+    protected function controlAuth()
+    {
+        if (!$this->isAuthorized())
+        {
+            $this->redirectLogin("A sessão foi expirada!");
+        }
+    }
+
+    /**
+     * Verifica se a sessão do usuário foi criada e ativa, ou seja, se o mesmo efetuou o login.
+     *
+     * @return boolean Se o usuário está logado no sistema e com acesso
+     */
+    protected function isAuthorized()
+    {
+        return $this->request->session()->check('Usuario');
+    }
+
+
+    /**
+     * Verifica se o usuário possui a permissão de acessar a tela do sistema.
+     * @throws ForbiddenException O usuário não tem a permissão de acessar a determinada tela do sistema.
+     */
+    protected function accessRole()
+    {
+        $controller = strtolower($this->request->param('controller'));
+        $action = strtolower($this->request->param('action'));
+
+        $url = ["controller" => $controller, "action" => $action];
+        $userID = (int) $this->request->session()->read('UsuarioID');
+
+        //Setagem de variáveis para debug
+        $this->set('url', $url);
+        $this->set('function', $this->Membership->getFunctions($url));
+        $this->set('role', $this->Membership->getRoles($url));
+        $this->set('roles', $this->Membership->roles);
+
+        if($this->validationRole && !$this->Membership->handleRole($url, $userID))
+        {
+            throw new ForbiddenException();
         }
     }
 
