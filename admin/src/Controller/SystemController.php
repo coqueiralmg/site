@@ -117,8 +117,29 @@ class SystemController extends AppController
 
     public function password()
     {
-        $this->viewBuilder()->layout('guest');
-        $this->set('title', 'Troca de Senha');
+        if($this->request->is('post'))
+        {
+            $idUsuario = $this->request->data['idUsuario'];
+            $senha = $this->request->data['senha'];
+
+            $t_usuario = TableRegistry::get('Usuario');
+            $usuario = $t_usuario->get($idUsuario);
+
+            $usuario->senha = sha1($senha);
+            $usuario->verificar = false;
+
+            $t_usuario->save($usuario);
+
+            $this->redirectLogin('Sua senha foi alterada com sucesso.', false);
+        }
+        else
+        {
+            $usuario = $this->request->session()->read('Usuario');
+            
+            $this->viewBuilder()->layout('guest');
+            $this->set('title', 'Troca de Senha');
+            $this->set('idUsuario', $usuario->id);
+        }
     }
 
     public function board()
@@ -178,14 +199,20 @@ class SystemController extends AppController
         $t_usuario->save($usuario);
         $this->Monitoria->alertarContaSuspensa($pessoa->nome, $usuario->email, true);
 
-        $this->redirectLogin('O usuário ' . $usuario->usuario . ' encontra-se suspenso. O mesmo foi notificado por e-mail.');
+        $this->redirectLogin('O usuário ' . $usuario->usuario . ' encontra-se suspenso. O mesmo foi notificado por e-mail.', false);
+    }
+
+    public function reset()
+    {
+        $this->request->session()->destroy();
+        $this->redirectLogin("As sessões foram zeradas com sucesso.");
     }
 
     protected function configurarTentativas()
     {
         if(!$this->request->session()->check('LoginAttemps'))
         {
-            $this->request->session()->write('LoginAttemps', 1);
+            $this->request->session()->write('LoginAttemps', 0);
         }
     }
 
