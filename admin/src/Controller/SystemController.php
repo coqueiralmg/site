@@ -35,6 +35,7 @@ class SystemController extends AppController
             }
             else
             {
+                $this->Cookie->write('login_user', $login);
                 $t_usuario = TableRegistry::get('Usuario');
 
                 $query = $t_usuario->find('all', [
@@ -49,7 +50,6 @@ class SystemController extends AppController
                 if($query->count() > 0)
                 {
                     $usuario = $query->first();
-                    $this->Cookie->write('login_user', $login);
 
                     if(!$usuario->ativo)
                     {
@@ -100,6 +100,10 @@ class SystemController extends AppController
                         $this->request->session()->write('UsuarioSuspeito', true);
                         $this->Monitoria->monitorar($auditoria);
                     }
+                    else
+                    {
+                        $this->request->session()->write('UsuarioSuspeito', false);
+                    }
 
                     $this->redirect(['controller' => 'system', 'action' => 'board']);
                 }
@@ -128,6 +132,53 @@ class SystemController extends AppController
         $this->viewBuilder()->layout('guest');
         $this->set('title', 'Acesso Indisponível');
         $this->set('mensagem', base64_decode($mensagem));
+    }
+
+    public function block(string $chave)
+    {
+        $this->viewBuilder()->layout('guest');
+        
+        $chave = base64_decode($chave);
+        $valores = json_decode($chave);
+        
+        $login = $valores->login;
+        $ip = $valores->ip;
+        $usuario = null;
+
+        $this->Firewall->bloquear('Bloqueado pelo administrador, por motivo de atividades suspeitas', $ip);
+
+        $t_usuario = TableRegistry::get('Usuario');
+        
+        $query = $t_usuario->find('all', [
+            'conditions' => [
+                'usuario.usuario' => $login
+            ]
+        ])->orWhere([
+            'usuario.email' => $login
+        ]);
+
+        if($query->count() > 0) $usuario = $query->first(); 
+
+        $this->set('title', 'Bloquear Acesso');
+        $this->set('ip', $ip);
+        $this->set('login', $login);
+        $this->set('usuario', $usuario);
+    }
+
+    public function suspend(int $idUsuario)
+    {
+        $t_usuario = TableRegistry::get('Usuario');
+        $t_pessoa = TableRegistry::get('Pessoa');
+        
+        $usuario = $t_usuario->get($idUsuario);
+        $pessoa = $t_pessoa->get($usuario->pessoa);
+
+        $usuario->suspenso = true;
+
+        $t_usuario->save($usuario);
+        $this->Monitoria->alertarContaSuspensa($pessoa->nome, $usuario->email, true);
+
+        $this->redirectLogin('O usuário ' . $usuario->usuario . ' encontra-se suspenso. O mesmo foi notificado por e-mail.');
     }
 
     protected function configurarTentativas()
