@@ -12,13 +12,15 @@ class SystemController extends AppController
     public function initialize()
     {
         parent::initialize();
+
+        $this->validationRole = false;
+        $this->configurarAcesso();
     }
 
     public function login()
     {
         $this->viewBuilder()->layout('guest');
         $this->configurarTentativas();
-        $this->configurarAcesso();
         $this->set('title', 'Controle de Acesso');
     }
 
@@ -120,6 +122,22 @@ class SystemController extends AppController
         }
     }
 
+    public function logoff()
+    {
+        $usuario =  $this->request->session()->read('Usuario');
+        
+        $auditoria = [
+            'ocorrencia' => 8,
+            'descricao' => 'O usuário efetuou o logoff no sistema.',
+            'usuario' => $usuario->id
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        $this->request->session()->destroy();
+        $this->redirectLogin("Você saiu do sistema.", false);
+    }
+
     public function password()
     {
         if($this->request->is('post'))
@@ -157,6 +175,7 @@ class SystemController extends AppController
 
     public function board()
     {
+        $this->controlAuth();
         $this->set('title', 'Painel Principal');
         $this->set('icon', 'dashboard');
     }
@@ -242,7 +261,7 @@ class SystemController extends AppController
         $this->Auditoria->registrar($auditoria);
         
         $this->request->session()->destroy();
-        $this->redirectLogin("As sessões foram zeradas com sucesso.");
+        $this->redirectLogin("As sessões foram zeradas com sucesso.", false);
     }
 
     protected function configurarTentativas()

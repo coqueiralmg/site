@@ -82,7 +82,7 @@
 							</li>
 							
 							<li>
-								<a href="#" class="dropdown-toggle center" data-toggle="dropdown">
+								<a href="<?= $this->Url->build(['controller' => 'system', 'action' => 'logoff']) ?>" >
 	 							   <i class="material-icons">power_settings_new</i> Sair
 		 						</a>
 							</li>
