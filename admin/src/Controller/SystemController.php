@@ -54,21 +54,25 @@ class SystemController extends AppController
                     if(!$usuario->ativo)
                     {
                         $this->redirectLogin("O usuário encontra-se inativo para o sistema.");
+                        return;
                     }
 
                     if($usuario->suspenso)
                     {
                         $this->redirectLogin("O usuário encontra-se suspenso no sistema. Favor entrar em contato com o administrador do sistema.");
+                        return;
                     }
 
                     if(!$usuario->grupoUsuario->ativo)
                     {
                         $this->redirectLogin("O usuário encontra-se em um grupo de usuário inativo.");
+                        return;
                     }
 
                     if($usuario->senha != sha1($senha))
                     {
                         $this->atualizarTentativas('A senha informada é inválida.');
+                        return;
                     }
 
                     if($usuario->verificar)
@@ -77,6 +81,7 @@ class SystemController extends AppController
 
                         $this->Flash->success('Por favor, troque a senha.');
                         $this->redirect(['controller' => 'system', 'action' => 'password']);
+                        return;
                     }
 
                     $this->request->session()->write('Usuario', $usuario);
