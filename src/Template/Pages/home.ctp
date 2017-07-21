@@ -126,11 +126,11 @@
                 <!--/.col-md-4-->
 
                 <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="/publicacoes">
+                    <a href="#">
                         <div class="feature-wrap">
-                            <i class="fa fa-archive"></i>
-                            <h2>Publicações</h2>
-                            <h3>Portarias, editais, concursos e outros documentos públicos</h3>
+                            <i class="fa fa-file-text"></i>
+                            <h2>Nota Fiscal Eletrônica</h2>
+                            <h3>Emissão e consulta de notas fiscais eletrônicas</h3>
                         </div>
                     </a>
                 </div>
