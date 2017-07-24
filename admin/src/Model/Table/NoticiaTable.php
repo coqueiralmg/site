@@ -9,5 +9,13 @@ class NoticiaTable extends BaseTable
     {
         $this->table('noticia');
         $this->primaryKey('id');
+        $this->entityClass('Noticia');
+
+        $this->belongsTo('Post', [
+            'className' => 'Post',
+            'foreignKey' => 'post',
+            'propertyName' => 'post',
+            'joinType' => 'INNER'
+        ]);
     }
 }
