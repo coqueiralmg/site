@@ -16,7 +16,7 @@
                                 <?php foreach ($log as $item): ?>
                                     <tr>
                                         <td><?= $item->ip ?></td>
-                                        <td>Sim</td>
+                                        <td><?= date_format($item->data, 'd/m/Y H:i:s') ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
