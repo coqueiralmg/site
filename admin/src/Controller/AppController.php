@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -76,6 +77,7 @@ class AppController extends Controller
         {
             $this->configurarAcesso();
             $this->controlAuth();
+            $this->carregarDadosSistema();
         }
     }
 
@@ -152,5 +154,22 @@ class AppController extends Controller
             $mensagem = "O acesso ao sistema está bloqueado para este endereço de IP. Caso tenha sido bloqueado por engano, entre em contato com administrador.";
             $this->redirect(['controller' => 'system', 'action' => 'fail', base64_encode($mensagem)]);
         }
+    }
+
+    protected function carregarDadosSistema()
+    {
+        $t_logs = TableRegistry::get('Log');
+        $query = $t_logs->find('all', [
+            'conditions' => [
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ],
+            'limit' => 1,
+            'page' => 2,
+            'order' => ['data' => 'DESC']
+        ]);
+
+        $log = $query->first();
+
+        $this->set('ultimo_acesso', $log->data);
     }
 }

@@ -65,7 +65,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li>
 								<a href="#" class="dropdown-toggle">
-									<i class="material-icons">info</i>Último acesso: 09/06/2017 às 09:00
+									<i class="material-icons">info</i>Último acesso: <?= date_format($ultimo_acesso, 'd/m/Y H:i:s') ?>
 								</a>
 							</li>
 
