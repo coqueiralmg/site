@@ -23,7 +23,7 @@
                         <a href="#">Opções</a>
                     </li>
                     <li>
-                        <a href="#">Log de Acesso</a>
+                        <a href="<?= $this->Url->build(['controller' => 'log', 'action' => 'index']) ?>">Log de Acesso</a>
                     </li>
                 </ul>
             </div>

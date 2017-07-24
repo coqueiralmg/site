@@ -64,7 +64,7 @@
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a href="#" class="dropdown-toggle">
+								<a href="<?= $this->Url->build(['controller' => 'log', 'action' => 'index']) ?>">
 									<i class="material-icons">info</i>Último acesso: <?= date_format($ultimo_acesso, 'd/m/Y H:i:s') ?>
 								</a>
 							</li>
