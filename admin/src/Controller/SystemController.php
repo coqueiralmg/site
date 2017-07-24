@@ -19,12 +19,45 @@ class SystemController extends AppController
 
     public function login()
     {
-        $login = $this->obterLoginCookie();
-        $this->viewBuilder()->layout('guest');
-        $this->configurarTentativas();
+        if($this->request->session()->check('Usuario'))
+        {
+            if(!$this->request->session()->read('UsuarioSuspeito'))
+            {
+                $idUsuario = $this->request->session()->read('UsuarioID');
+                $t_usuario = TableRegistry::get('Usuario');
 
-        $this->set('title', 'Controle de Acesso');
-        $this->set('login', $login);
+                $query = $t_usuario->find('all', [
+                    'contain' => ['GrupoUsuario', 'Pessoa'],
+                    'conditions' => [
+                        'usuario.id' => $idUsuario
+                    ]
+                ]);
+
+                if($query->count() > 0)
+                {
+                    $usuario = $query->first();
+                    $this->validarLogin($usuario);
+                }
+                else
+                {
+                    $this->atualizarTentativas('Os dados estão inválidos');
+                }
+            }
+            else
+            {
+                $this->request->session()->destroy();
+                $this->redirectLogin("Efetue o login no sistema.", false);
+            }
+        }
+        else
+        {
+            $login = $this->obterLoginCookie();
+            $this->viewBuilder()->layout('guest');
+            $this->configurarTentativas();
+
+            $this->set('title', 'Controle de Acesso');
+            $this->set('login', $login);
+        }
     }
 
     public function logon()
@@ -55,75 +88,7 @@ class SystemController extends AppController
                 if($query->count() > 0)
                 {
                     $usuario = $query->first();
-
-                    if(!$usuario->ativo)
-                    {
-                        $this->redirectLogin("O usuário encontra-se inativo para o sistema.");
-                        return;
-                    }
-
-                    if($usuario->suspenso)
-                    {
-                        $this->redirectLogin("O usuário encontra-se suspenso no sistema. Favor entrar em contato com o administrador do sistema.");
-                        return;
-                    }
-
-                    if(!$usuario->grupoUsuario->ativo)
-                    {
-                        $this->redirectLogin("O usuário encontra-se em um grupo de usuário inativo.");
-                        return;
-                    }
-
-                    if($usuario->senha != sha1($senha))
-                    {
-                        $this->atualizarTentativas('A senha informada é inválida.');
-                        return;
-                    }
-
-                    if($usuario->verificar)
-                    {
-                        $this->request->session()->write('Usuario', $usuario);
-
-                        $this->Flash->success('Por favor, troque a senha.');
-                        $this->redirect(['controller' => 'system', 'action' => 'password']);
-                        return;
-                    }
-
-                    $this->request->session()->write('Usuario', $usuario);
-                    $this->request->session()->write('UsuarioID', $usuario->id);
-                    $this->request->session()->write('UsuarioNick', $usuario->usuario);
-                    $this->request->session()->write('UsuarioNome', $usuario->pessoa->nome);
-                    $this->request->session()->write('UsuarioEmail', $usuario->email);
-
-                    $auditoria = [
-                        'ocorrencia' => 1,
-                        'descricao' => 'O usuário acessou o sistema com sucesso.',
-                        'usuario' => $usuario->id
-                    ];
-
-                    $this->Auditoria->registrar($auditoria);
-
-                    $tentativa = $this->request->session()->read('LoginAttemps');
-
-                    if($tentativa >= Configure::read('security.login.warningAttemp'))
-                    {
-                        $this->request->session()->write('UsuarioSuspeito', true);
-                        $this->Monitoria->monitorar($auditoria);
-                    }
-                    else
-                    {
-                        $this->request->session()->write('UsuarioSuspeito', false);
-                    }
-
-                    $t_logs = TableRegistry::get('Log');
-                    $log = $t_logs->newEntity();
-
-                    $log->usuario = $usuario->id;
-                    $log->data = date("Y-m-d H:i:s");
-
-                    $t_logs->save($log);
-
-                    $this->redirect(['controller' => 'system', 'action' => 'board']);
+                    $this->validarLogin($usuario, $senha);
                 }
                 else
                 {
@@ -387,5 +352,86 @@ class SystemController extends AppController
         }
         
         return $login;
+    }
+
+    protected function validarLogin($usuario, $senha = '')
+    {
+        if(!$usuario->ativo)
+        {
+            $this->redirectLogin("O usuário encontra-se inativo para o sistema.");
+            return;
+        }
+
+        if($usuario->suspenso)
+        {
+            $this->redirectLogin("O usuário encontra-se suspenso no sistema. Favor entrar em contato com o administrador do sistema.");
+            return;
+        }
+
+        if(!$usuario->grupoUsuario->ativo)
+        {
+            $this->redirectLogin("O usuário encontra-se em um grupo de usuário inativo.");
+            return;
+        }
+
+        if($senha != '')
+        {
+            if($usuario->senha != sha1($senha))
+            {
+                $this->atualizarTentativas('A senha informada é inválida.');
+                return;
+            }
+        } 
+
+        if($usuario->verificar)
+        {
+            $this->request->session()->write('Usuario', $usuario);
+
+            $this->Flash->success('Por favor, troque a senha.');
+            $this->redirect(['controller' => 'system', 'action' => 'password']);
+            return;
+        }
+
+        if($senha != '')
+        {
+            $this->request->session()->write('Usuario', $usuario);
+            $this->request->session()->write('UsuarioID', $usuario->id);
+            $this->request->session()->write('UsuarioNick', $usuario->usuario);
+            $this->request->session()->write('UsuarioNome', $usuario->pessoa->nome);
+            $this->request->session()->write('UsuarioEmail', $usuario->email);
+        }
+
+        $auditoria = [
+            'ocorrencia' => 1,
+            'descricao' => 'O usuário acessou o sistema com sucesso.',
+            'usuario' => $usuario->id
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($senha != '')
+        {
+            $tentativa = $this->request->session()->read('LoginAttemps');
+
+            if($tentativa >= Configure::read('security.login.warningAttemp'))
+            {
+                $this->request->session()->write('UsuarioSuspeito', true);
+                $this->Monitoria->monitorar($auditoria);
+            }
+            else
+            {
+                $this->request->session()->write('UsuarioSuspeito', false);
+            }
+        }
+
+        $t_logs = TableRegistry::get('Log');
+        $log = $t_logs->newEntity();
+
+        $log->usuario = $usuario->id;
+        $log->data = date("Y-m-d H:i:s");
+
+        $t_logs->save($log);
+
+        $this->redirect(['controller' => 'system', 'action' => 'board']);
     }
 }
