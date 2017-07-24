@@ -11,7 +11,7 @@
         <div class="info">
             <a data-toggle="collapse" href="#collapseExample" class="collapsed" aria-expanded="false">
                 <i class="material-icons">assignment_ind</i> 
-                Nome do Usuário
+                 <?=$this->request->session()->read('UsuarioNome')?>
                 <b class="caret"></b>
             </a>
             <div class="collapse" id="collapseExample" aria-expanded="false" style="height: auto;">
@@ -20,10 +20,10 @@
                         <a href="#">Perfil</a>
                     </li>
                     <li>
-                        <a href="#">Log de Acesso</a>
+                        <a href="#">Opções</a>
                     </li>
                     <li>
-                        <a href="#">Opções</a>
+                        <a href="#">Log de Acesso</a>
                     </li>
                 </ul>
             </div>
