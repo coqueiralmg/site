@@ -15,58 +15,23 @@
                                 <th></th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Processo: 0086/2017 Modalidade:Pregão Presencial - Materiais de Papelaria, Toners e Cartuchos</td>
-                                    <td>05/07/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Processo: 0084/2017 Modalidade:Pregão Presencial - Sacos de Lixo</td>
-                                    <td>04/07/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Processo: 0080/2017 Modalidade:Pregão Presencial - Materiais de Pintura para Reforma
-                                        de PSFs</td>
-                                    <td>27/06/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Processo: 0078/2017 Modalidade:Pregão Presencial - Concentrador de Oxigênio</td>
-                                    <td>27/06/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Processo: 0078/2017 Modalidade:Pregão Presencial - Concentrador de Oxigênio</td>
-                                    <td>27/06/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php foreach ($licitacoes as $licitacao): ?>
+                                    <tr>
+                                        <td><?=$licitacao->titulo?></td>
+                                        <td><?=date_format($licitacao->dataInicio, 'd/m/Y') ?></td>
+                                        <td class="td-actions text-right">
+                                            <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'edit', $licitacao->id]) ?>" class="btn btn-primary btn-round" title="Editar">
+                                                <i class="material-icons">edit</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="3" class="text-right">
-                                        <a href="#" class="btn btn-default btn-info">Ver Todos</a>
-                                        <a href="#" class="btn btn-default btn-warning">Nova Licitação</a>
+                                        <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todos</a>
+                                        <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'add']) ?>" class="btn btn-default btn-warning">Nova Licitação</a>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -88,57 +53,23 @@
                                 <th></th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>05/07/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PORTARIAS DE NOMEAÇÃO - SERVIDORES</td>
-                                    <td>04/07/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PORTARIA 056/2017 - NOMEAÇÃO FÁBIO MENDONÇA</td>
-                                    <td>27/06/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>LEI COMPLEMENTAR 012/2011 - GRATIFICAÇÃO NATALINA</td>
-                                    <td>27/06/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>DECRETO N.º 1.895.2016 - HOMOLOGAÇÃO DO CONCURSO PÚBLICO - EDITAL 001.2016</td>
-                                    <td>27/06/2017</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php foreach ($publicacoes as $publicacao): ?>
+                                    <tr>
+                                        <td><?=$publicacao->titulo?></td>
+                                        <td><?=date_format($publicacao->data, 'd/m/Y') ?></td>
+                                        <td class="td-actions text-right">
+                                            <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round" title="Editar">
+                                                <i class="material-icons">edit</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="3" class="text-right">
-                                        <a href="#" class="btn btn-default btn-info">Ver Todos</a>
-                                        <a href="#" class="btn btn-default btn-warning">Nova Publicação</a>
+                                        <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todos</a>
+                                        <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'add']) ?>" class="btn btn-default btn-warning">Nova Publicação</a>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -152,87 +83,40 @@
                 <h3>Notícias Recentes </h3>
             </div>
             <div class="pull-right">
-                <button class="btn btn-warning btn-simple">Nova Notícia<div class="ripple-container"></div></button>|
-                <button class="btn btn-info btn-simple">Ver todas<div class="ripple-container"></div></button>
+                <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'add']) ?>" class="btn btn-warning btn-simple">Nova Notícia<div class="ripple-container"></div></a> |
+                <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'index']) ?>" class="btn btn-info btn-simple">Ver Todas<div class="ripple-container"></div></a>
             </div>
         </div>
 
         <br/>        
 
         <div class="row">
-            <div class="col-md-4">
-                <div class="card card-product" data-count="9">
-                    <div class="card-image" data-header-animation="true">
-                        <a href="#pablo">
-                            <img class="img" src="http://demos.creative-tim.com/material-dashboard-pro/assets/img/card-2.jpeg">
-                        </a>
-                    </div>
-                    <div class="card-content">
-                       
-                        <h4 class="card-title">
-                            <a href="#pablo">Cozy 5 Stars Apartment</a>
-                        </h4>
-                        <div class="card-description">
-                            The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main
-                            night life in Barcelona.
+            <?php foreach ($noticias as $noticia): ?>
+                <div class="col-md-4">
+                    <div class="card card-product" data-count="9">
+                        <div class="card-image" data-header-animation="true">
+                            <a href="#pablo">
+                                <img class="img" src="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/' . $noticia->foto?>">
+                            </a>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats pull-right">
-                             <button class="btn btn-primary btn-simple">Editar<div class="ripple-container"></div></button>
-                             <button class="btn btn-danger btn-simple">Excluir<div class="ripple-container"></div></button>
+                        <div class="card-content">
+                        
+                            <h4 class="card-title">
+                                <a href="#pablo"><?= $noticia->post->titulo ?></a>
+                            </h4>
+                            <div class="card-description">
+                                <?= $noticia->resumo ?> 
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-product" data-count="9">
-                    <div class="card-image" data-header-animation="true">
-                        <a href="#pablo">
-                            <img class="img" src="http://demos.creative-tim.com/material-dashboard-pro/assets/img/card-3.jpeg">
-                        </a>
-                    </div>
-                    <div class="card-content">
-                        <h4 class="card-title">
-                            <a href="#pablo">Office Studio</a>
-                        </h4>
-                        <div class="card-description">
-                            The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the night
-                            life in London, UK.
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats pull-right">
-                             <button class="btn btn-primary btn-simple">Editar<div class="ripple-container"></div></button>
-                             <button class="btn btn-danger btn-simple">Excluir<div class="ripple-container"></div></button>
+                        <div class="card-footer">
+                            <div class="stats pull-right">
+                                <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'edit', $noticia->id]) ?>" class="btn btn-primary btn-simple">Editar<div class="ripple-container"></div></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-product" data-count="5">
-                    <div class="card-image" data-header-animation="true">
-                        <a href="#pablo">
-                            <img class="img" src="http://demos.creative-tim.com/material-dashboard-pro/assets/img/card-1.jpeg">
-                        </a>
-                    </div>
-                    <div class="card-content">
-                        <h4 class="card-title">
-                            <a href="#pablo">Beautiful Castle</a>
-                        </h4>
-                        <div class="card-description">
-                            The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night
-                            life in Milan.
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats pull-right">
-                             <button class="btn btn-primary btn-simple">Editar<div class="ripple-container"></div></button>
-                             <button class="btn btn-danger btn-simple">Excluir<div class="ripple-container"></div></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
+            
         </div>
 
     </div>
