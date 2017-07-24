@@ -20,7 +20,7 @@ return [
             'password' => '123456',
             'database' => 'coqueiralmg',
             'encoding' => 'latin1',
-            //'timezone' => 'UTC',
+            //'timezone' => 'GMT',
             'flags' => [],
             'cacheMetadata' => true,
             'log' => true,
