@@ -44,7 +44,7 @@
                                 </span>
                                 <div class="form-group label-floating">
                                     <?= $this->Form->label('usuario', 'Login ou e-mail', ['class' => 'control-label']) ?>
-                                    <?= $this->Form->text('usuario', ['id' => 'usuario', 'class' => 'form-control']) ?>
+                                    <?= $this->Form->text('usuario', ['id' => 'usuario', 'class' => 'form-control', 'value' => $login]) ?>
                                 </div>
                             </div>
                             <div class="input-group">

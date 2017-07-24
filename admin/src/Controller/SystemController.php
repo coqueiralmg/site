@@ -19,9 +19,12 @@ class SystemController extends AppController
 
     public function login()
     {
+        $login = $this->obterLoginCookie();
         $this->viewBuilder()->layout('guest');
         $this->configurarTentativas();
+
         $this->set('title', 'Controle de Acesso');
+        $this->set('login', $login);
     }
 
     public function logon()
@@ -372,5 +375,17 @@ class SystemController extends AppController
         }
 
         $this->Firewall->bloquear('Tentativas de acesso indevidos.');
+    }
+
+    protected function obterLoginCookie()
+    {
+        $login = "";
+
+        if($this->Cookie->check('login_user'))
+        {
+            $login = $this->Cookie->read('login_user');
+        }
+        
+        return $login;
     }
 }
