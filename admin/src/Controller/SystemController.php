@@ -112,6 +112,14 @@ class SystemController extends AppController
                         $this->request->session()->write('UsuarioSuspeito', false);
                     }
 
+                    $t_logs = TableRegistry::get('Log');
+                    $log = $t_logs->newEntity();
+
+                    $log->usuario = $usuario->id;
+                    $log->data = date("Y-m-d H:i:s");
+
+                    $t_logs->save($log);
+
                     $this->redirect(['controller' => 'system', 'action' => 'board']);
                 }
                 else
@@ -176,6 +184,7 @@ class SystemController extends AppController
     public function board()
     {
         $this->controlAuth();
+        $this->carregarDadosSistema();
 
         $t_licitacoes = TableRegistry::get('Licitacao');
         $t_publicacoes = TableRegistry::get('Publicacao');
