@@ -41,7 +41,7 @@ class SystemController extends AppController
                 $t_usuario = TableRegistry::get('Usuario');
 
                 $query = $t_usuario->find('all', [
-                    'contain' => ['GrupoUsuario'],
+                    'contain' => ['GrupoUsuario', 'Pessoa'],
                     'conditions' => [
                         'usuario.usuario' => $login
                     ]
@@ -88,8 +88,8 @@ class SystemController extends AppController
 
                     $this->request->session()->write('Usuario', $usuario);
                     $this->request->session()->write('UsuarioID', $usuario->id);
-                    $this->request->session()->write('UsuarioNick', $usuario->nickname);
-                    $this->request->session()->write('UsuarioNome', $usuario->nome);
+                    $this->request->session()->write('UsuarioNick', $usuario->usuario);
+                    $this->request->session()->write('UsuarioNome', $usuario->pessoa->nome);
                     $this->request->session()->write('UsuarioEmail', $usuario->email);
 
                     $auditoria = [
