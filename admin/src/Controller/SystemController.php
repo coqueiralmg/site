@@ -176,8 +176,32 @@ class SystemController extends AppController
     public function board()
     {
         $this->controlAuth();
+
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_publicacoes = TableRegistry::get('Publicacao');
+        $t_noticias = TableRegistry::get('Noticia');
+
+        $noticias = $t_noticias->find('all', [
+            'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
+            'order' => ['Post.datapostagem' => 'DESC'], 
+            'limit' => 3
+        ]);
+
+        $licitacoes = $t_licitacoes->find('all', [
+            'order' => ['Licitacao.id' => 'DESC'],
+            'limit' => 5
+        ]);
+
+        $publicacoes = $t_publicacoes->find('all', [
+            'order' => ['Publicacao.id' => 'DESC'],
+            'limit' => 5
+        ]);
+
         $this->set('title', 'Painel Principal');
         $this->set('icon', 'dashboard');
+        $this->set('noticias', $noticias);
+        $this->set('licitacoes', $licitacoes);
+        $this->set('publicacoes', $publicacoes);
     }
 
     public function fail(string $mensagem)
