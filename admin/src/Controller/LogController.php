@@ -23,7 +23,8 @@ class LogController extends AppController
             'conditions' => [
                 'usuario' =>  $this->request->session()->read('UsuarioID'),
                 'ocorrencia' => 1
-            ]
+            ],
+            'order' => ['data' => 'DESC']
         ]);
         
         $this->set('title', 'Log de Acesso');
