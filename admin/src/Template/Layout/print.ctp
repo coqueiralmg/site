@@ -50,33 +50,26 @@
     </script>
 </head>
 
-<body style="width:21cm">
+<body style="width:21cm; background: white;">
 	<div class="wrapper">
 	    <div>
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
-                                <table>
-                                    <tr>
-                                        <td style="width: 15%">
-                                            <?= $this->Html->image('brasao_coqueiral.png', ['class' => 'img-responsive', 'style' => 'padding: 15px;', 'width' => '100px;', 'title' => 'Prefeitura Municipal de Coqueiral', 'alt' => 'Prefeitura Municipal de Coqueiral']); ?>
-                                        </td>
-                                        <td>
-                                            <h4><b>Prefeitura Municipal de Coqueiral</b></h1>
-                                            <span>Estado de Minas Gerais</span>
-                                            <address>Rua Minas Gerais, 62 - Vila Sônia - Coqueiral - MG</address>
-                                        </td>
-                                        <td>
-                                            <p></p>
-                                            <p>Data de Impressão: <?= date('d/m/Y H:i:s') ?></p>
-                                            <p>Impresso por: <?=$this->request->session()->read('UsuarioNome') ?></p>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <?= $this->fetch('content') ?>
-                            </div>
+                            <table>
+                                <tr>
+                                    <td style="width: 15%">
+                                        <?= $this->Html->image('brasao_coqueiral.png', ['class' => 'img-responsive', 'style' => 'padding: 15px;', 'width' => '100px;', 'title' => 'Prefeitura Municipal de Coqueiral', 'alt' => 'Prefeitura Municipal de Coqueiral']); ?>
+                                    </td>
+                                    <td>
+                                        <h4><b>Prefeitura Municipal de Coqueiral</b></h1>
+                                        <span>Estado de Minas Gerais</span>
+                                        <address>Rua Minas Gerais, 62 - Vila Sônia - Coqueiral - MG</address>
+                                    </td>
+                                </tr>
+                            </table>
+                            <?= $this->fetch('content') ?>
                         </div>
                     </div>
                 </div>
@@ -85,10 +78,10 @@
 			<footer class="footer">
 				<div class="container-fluid">
 					<p class="copyright pull-left">
-						Versão <?= \Cake\Core\Configure::read('system.version') ?>
+						Data da Impressão: <?= date('d/m/Y H:i:s') ?>
 					</p>
 					<p class="copyright pull-right">
-						&copy; 2017 Prefeitura Municipal de Coqueiral. Todos os Direitos Reservados.
+						Impresso por: <?=$this->request->session()->read('UsuarioNome') ?>
 					</p>
 				</div>
 			</footer>

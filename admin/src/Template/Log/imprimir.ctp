@@ -1,5 +1,5 @@
 <h4 class="card-title">Log de Acesso ao Sistema</h4>
-<table class="table">
+<table class="table  table-striped">
     <thead class="text-primary">
         <tr>
             <th>IP</th>
