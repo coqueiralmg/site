@@ -36,8 +36,8 @@ class FirewallController extends AppController
         $log = $this->paginate($t_auditoria);
         $quantidade = $t_auditoria->find('all', ['conditions' => $conditions])->count();
         
-        $this->set('title', 'Log de Acesso');
-        $this->set('icon', 'receipt');
+        $this->set('title', 'Firewall');
+        $this->set('icon', 'security');
         $this->set('log', $log);
         $this->set('qtd_total', $quantidade);
         $this->set('limit_pagination', $limite_paginacao);
