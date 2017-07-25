@@ -20,7 +20,7 @@
                         <a href="#">Perfil</a>
                     </li>
                     <li>
-                        <a href="#">Opções</a>
+                        <a href="<?= $this->Url->build(['controller' => 'firewall', 'action' => 'index']) ?>">Firewall</a>
                     </li>
                     <li>
                         <a href="<?= $this->Url->build(['controller' => 'log', 'action' => 'index']) ?>">Log de Acesso</a>
