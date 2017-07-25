@@ -34,7 +34,6 @@
 	<?= $this->Html->script('jquery-3.1.0.min.js') ?>
     <?= $this->Html->script('bootstrap.min.js') ?>
     <?= $this->Html->script('material.min.js') ?>
-    <?= $this->Html->script('chartlist.min.js') ?>
 	<?= $this->Html->script('bootstrap-notify.js') ?>
 	<?= $this->Html->script('bootstrap-datepicker.min.js') ?>
 	<?= $this->Html->script('locales/bootstrap-datepicker.pt-BR.min.js') ?>
