@@ -77,7 +77,11 @@ class AppController extends Controller
         {
             $this->configurarAcesso();
             $this->controlAuth();
-            $this->carregarDadosSistema();
+
+            if ($this->isAuthorized())
+            {
+                $this->carregarDadosSistema();
+            }
         }
     }
 
