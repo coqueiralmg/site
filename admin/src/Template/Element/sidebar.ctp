@@ -20,9 +20,6 @@
                         <a href="#">Perfil</a>
                     </li>
                     <li>
-                        <a href="<?= $this->Url->build(['controller' => 'firewall', 'action' => 'index']) ?>">Firewall</a>
-                    </li>
-                    <li>
                         <a href="<?= $this->Url->build(['controller' => 'log', 'action' => 'index']) ?>">Log de Acesso</a>
                     </li>
                 </ul>
@@ -48,6 +45,12 @@
                 <a href="<?= $this->Url->build('/grupos') ?>">
                     <i class="material-icons">group_work</i>
                     <p>Grupo de Usuários</p>
+                </a>
+            </li>
+            <li class="<?= $this->Menu->activeMenu(['controller' => 'firewall']) ?>">
+                <a href="<?= $this->Url->build(['controller' => 'firewall', 'action' => 'index']) ?>">
+                    <i class="material-icons">security</i>
+                    <p>Firewall</p>
                 </a>
             </li>
             <li class="<?= $this->Menu->activeMenu(['controller' => 'publicacoes']) ?>">
