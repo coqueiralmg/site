@@ -21,10 +21,17 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($log as $item): ?>
-                                    <tr>
-                                        <td><?= $item->ip ?></td>
-                                        <td><?= date_format($item->data, 'd/m/Y H:i:s') ?></td>
-                                    </tr>
+                                    <?php if(date_format($item->data, 'Y-m-d H:i:s') == $this->request->session()->read('UsuarioEntrada')): ?>
+                                        <tr style="background: gold;" rel="tooltip" title="Sessão atual">
+                                            <td><?= $item->ip ?></td>
+                                            <td><?= date_format($item->data, 'd/m/Y H:i:s') ?></td>
+                                        </tr>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td><?= $item->ip ?></td>
+                                            <td><?= date_format($item->data, 'd/m/Y H:i:s') ?></td>
+                                        </tr>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
