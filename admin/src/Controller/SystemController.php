@@ -6,7 +6,6 @@ use Cake\Core\Configure;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 
-
 class SystemController extends AppController
 {
     public function initialize()
@@ -408,6 +407,7 @@ class SystemController extends AppController
         ];
 
         $this->Auditoria->registrar($auditoria);
+        $this->request->session()->write('UsuarioEntrada', date("Y-m-d H:i:s"));
 
         if($senha != '')
         {
