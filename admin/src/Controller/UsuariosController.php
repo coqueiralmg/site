@@ -22,6 +22,7 @@ class UsuariosController extends AppController
 
         $limite_paginacao = Configure::read('limitPagination');
         $condicoes = array();
+        $data = array();
 
         if(count($this->request->getQueryParams()) > 0)
         {
@@ -45,9 +46,6 @@ class UsuariosController extends AppController
                 $condicoes["Usuario.ativo"] = ($mostrar == "A") ? "1" : "0";
             }
 
-            $data = array();
-
-            $data['mostra'] = $mostrar;
             $data['nome'] = $nome;
             $data['usuario'] = $usuario;
             $data['email'] = $email;
@@ -92,6 +90,58 @@ class UsuariosController extends AppController
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
+        $this->set('data', $data);
+    }
+
+    public function imprimir()
+    {
+        $t_usuarios = TableRegistry::get('Usuario');
+        
+        $condicoes = array();
+        
+        if(count($this->request->getQueryParams()) > 0)
+        {
+            $nome = $this->request->query('nome');
+            $usuario = $this->request->query('usuario');
+            $email = $this->request->query('email');
+            $grupo = $this->request->query('grupo');
+            $mostrar = $this->request->query('mostrar');
+
+            $condicoes['Pessoa.nome LIKE'] = '%' . $nome . '%';
+            $condicoes['Usuario.usuario LIKE'] = '%' . $usuario . '%';
+            $condicoes['Usuario.email LIKE'] = '%' . $email . '%';
+
+            if($grupo != "")
+            {
+                $condicoes['Usuario.grupo'] = $grupo;
+            }
+
+            if($mostrar != 'T')
+            {
+                $condicoes["Usuario.ativo"] = ($mostrar == "A") ? "1" : "0";
+            }
+
+            $data['nome'] = $nome;
+            $data['usuario'] = $usuario;
+            $data['email'] = $email;
+            $data['grupo'] = $grupo;
+            $data['mostrar'] = $mostrar;
+
+            $this->request->data = $data;
+        }
+
+        $usuarios = $t_usuarios->find('all', [ 
+            'contain' => ['Pessoa', 'GrupoUsuario'],
+            'conditions' => $condicoes
+        ]);
+
+        $qtd_total = $usuarios->count();
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Lista de Usuários');
+        $this->set('usuarios', $usuarios);
+        $this->set('qtd_total', $qtd_total);
     }
 
     public function add()
