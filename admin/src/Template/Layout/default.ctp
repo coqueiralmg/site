@@ -32,6 +32,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 
 	<?= $this->Html->script('jquery-3.1.0.min.js') ?>
+	<?= $this->Html->script('jquery-ui.min.js') ?>
     <?= $this->Html->script('bootstrap.min.js') ?>
     <?= $this->Html->script('material.min.js') ?>
 	<?= $this->Html->script('bootstrap-notify.js') ?>
