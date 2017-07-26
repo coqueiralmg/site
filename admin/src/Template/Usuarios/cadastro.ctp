@@ -24,22 +24,22 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("nome", "Nome") ?>
-                                        <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("pessoa.nome", "Nome") ?>
+                                        <?= $this->Form->text("pessoa.nome", ["id" => "nome", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control input-group date">
-                                        <?= $this->Form->label("apelido", "Apelido") ?>
-                                        <?= $this->Form->text("apelido", ["id" => "apelido", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("pessoa.apelido", "Apelido") ?>
+                                        <?= $this->Form->text("pessoa.apelido", ["id" => "apelido", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control input-group date">
-                                        <?= $this->Form->label("dataNascimento", "Data de Nascimento") ?>
-                                        <?= $this->Form->text("dataNascimento", ["id" => "data_nascimento", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("pessoa.dataNascimento", "Data de Nascimento") ?>
+                                        <?= $this->Form->text("pessoa.dataNascimento", ["id" => "data_nascimento", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -126,16 +126,16 @@
 
         if ($("#nome").val() === "") {
             mensagem += "<li> O nome do usuário é obrigatório.</li>";
-            $("label[for='nome']").css("color", "red");
+            $("label[for='pessoa-nome']").css("color", "red");
         } else {
-            $("label[for='nome']").css("color", "#aaa");
+            $("label[for='pessoa-nome']").css("color", "#aaa");
         }
 
         if ($("#data_nascimento").val() === "") {
             mensagem += "<li> É obrigatório informa a data de nascimento.</li>";
-            $("label[for='datanascimento']").css("color", "red");
+            $("label[for='pessoa-datanascimento']").css("color", "red");
         } else {
-            $("label[for='datanascimento']").css("color", "#aaa");
+            $("label[for='pessoa-datanascimento']").css("color", "#aaa");
         }
 
         if ($("#email").val() === "") {
@@ -173,14 +173,14 @@
             $("label[for='grupo']").css("color", "red");
         }
 
-        if ($("#senha").val() != "" && $("#senha-confirma").val() != "") {
-            if ($("#senha").val() !== $("#senha-confirma").val()) {
+        if ($("#senha").val() != "" && $("#confirma_senha").val() != "") {
+            if ($("#senha").val() !== $("#confirma_senha").val()) {
                 mensagem += "<li>A senha e a confirmação estão diferentes.</li>";
                 $("label[for='senha']").css("color", "red");
-                $("label[for='confirma_senha']").css("color", "red");
+                $("label[for='confirma-senha']").css("color", "red");
             } else {
                 $("label[for='senha']").css("color", "#aaa");
-                $("label[for='confirma_senha']").css("color", "#aaa");
+                $("label[for='confirma-senha']").css("color", "#aaa");
             }
         }
 

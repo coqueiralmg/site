@@ -9,7 +9,6 @@ use Cake\ORM\TableRegistry;
 
 class UsuariosController extends AppController
 {
-
     public function initialize()
     {
         parent::initialize();
@@ -137,6 +136,19 @@ class UsuariosController extends AppController
 
         $qtd_total = $usuarios->count();
 
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão da lista de usuários.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
         $this->viewBuilder()->layout('print');
 
         $this->set('title', 'Lista de Usuários');
@@ -172,7 +184,7 @@ class UsuariosController extends AppController
 
         if($id > 0)
         {
-            $usuario = $t_usuarios->get($id);
+            $usuario = $t_usuarios->get($id, ['contain' => ['Pessoa']]);
             $this->set('usuario', $usuario);
         }
         else
@@ -184,5 +196,113 @@ class UsuariosController extends AppController
         $this->set('icon', $icon);
         $this->set('id', $id);
         $this->set('grupos', $grupos);
+    }
+
+    public function save(int $id)
+    {
+        if ($this->request->is('post'))
+        {
+            $this->insert();
+        }
+        else if($this->request->is('put'))
+        {
+            $this->update($id);
+        }
+    }
+
+    protected function insert()
+    {
+        $usuarios = TableRegistry::get('Usuario');
+
+        $entity = $usuarios->newEntity($this->request->data(), ['associated' => ['Pessoa']]);
+        
+        $entity->senha = sha1($entity->senha);
+        $entity->pessoa->dataNascimento = $this->Format->formatDateDB($entity->pessoa->dataNascimento);
+        $entity->suspenso = false;
+
+        try
+        {
+            $qtd = $usuarios->find('all', [
+                'conditions' => [
+                    'usuario' => $entity->usuario
+                ]
+            ])->count();
+
+            if($qtd > 0)
+            {
+                throw new Exception("Existe um usuário com o login escolhido.");
+            }
+
+            $propriedades = $entity->getOriginalValues();
+
+            $usuarios->save($entity);
+            $this->Flash->greatSuccess('Usuário salvo com sucesso');
+
+            $auditoria = [
+                'ocorrencia' => 10,
+                'descricao' => 'O usuário criou um novo usuário.',
+                'dado_adicional' => json_encode(['id_novo_usuario' => $entity->id, 'campos' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            $this->redirect(['controller' => 'usuarios', 'action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o usuário', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['controller' => 'usuarios', 'action' => 'cadastro', 0]);
+        }
+    }
+
+    protected function update(int $id)
+    {
+        $usuarios = TableRegistry::get('Usuario');
+        $entity = $usuarios->get($id);
+
+        $usuarios->patchEntity($entity, $this->request->data());
+
+        $entity->telefone = $this->Format->clearMask($entity->telefone);
+        $entity->celular = $this->Format->clearMask($entity->celular);
+
+        if(strlen($entity->senha) != 32)
+        {
+            $entity->senha = md5($entity->senha);
+        }
+
+        try
+        {
+            $propriedades = $this->changedFields($entity);
+
+            $usuarios->save($entity);
+            $this->Flash->greatSuccess('Usuário salvo com sucesso');
+
+            $auditoria = [
+                'ocorrencia' => 'Alteração do usuário',
+                'descricao' => 'O usuário modificou os dados de um determinado usuário.',
+                'dado_adicional' => json_encode(['usuario_modificado' => $id, 'campos_modificados' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            $this->redirect(['controller' => 'usuario', 'action' => 'cadastro', $id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o usuário', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['controller' => 'usuario', 'action' => 'cadastro', $id]);
+        }
     }
 }
