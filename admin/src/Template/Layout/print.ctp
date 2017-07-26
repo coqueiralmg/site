@@ -59,13 +59,15 @@
                         <div class="col-md-12">
                             <table>
                                 <tr>
-                                    <td style="width: 15%">
-                                        <?= $this->Html->image('brasao_coqueiral.png', ['class' => 'img-responsive', 'style' => 'padding: 15px;', 'width' => '100px;', 'title' => 'Prefeitura Municipal de Coqueiral', 'alt' => 'Prefeitura Municipal de Coqueiral']); ?>
+                                    <td style="width: 20%">
+                                        <?= $this->Html->image('brasao_coqueiral.png', ['class' => 'img-responsive', 'style' => 'padding: 15px;', 'title' => 'Prefeitura Municipal de Coqueiral', 'alt' => 'Prefeitura Municipal de Coqueiral']); ?>
                                     </td>
                                     <td>
                                         <h4><b>Prefeitura Municipal de Coqueiral</b></h1>
-                                        <span>Estado de Minas Gerais</span>
-                                        <address>Rua Minas Gerais, 62 - Vila Sônia - Coqueiral - MG</address>
+                                        <span><b>Estado de Minas Gerais</b></span><br/>
+                                        <span>Rua Minas Gerais, 62 - Vila Sônia - Coqueiral - MG</span><br/>
+                                        <span>Telefone: (35) 3855-1162 | (35) 3855-1166</span><br/>
+                                        <span>CNPJ: 18.239.624/0001-21</span>
                                     </td>
                                 </tr>
                             </table>
