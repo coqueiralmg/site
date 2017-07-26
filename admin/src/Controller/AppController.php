@@ -55,6 +55,7 @@ class AppController extends Controller
         $this->loadComponent('Sender');
         $this->loadComponent('Firewall');
         $this->loadComponent('Monitoria');
+        $this->loadComponent('Format');
 
         $this->validationRole = true;
     }
