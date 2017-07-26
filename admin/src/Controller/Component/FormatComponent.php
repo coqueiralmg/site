@@ -13,7 +13,7 @@ class FormatComponent extends Component
      * @param string $masked String com máscara.
      * @return string String sem máscara.
      */
-    public function clearMask($masked)
+    public function clearMask(string $masked)
     {
         return str_replace($this->charMask, '', $masked);
     }
@@ -23,7 +23,7 @@ class FormatComponent extends Component
      * @param string $data A data usada na tela, reconhecida pelo usuário
      * @return string A data no formato reconhecido pelo banco de dados.
      */
-    public function formatDateDB($data)
+    public function formatDateDB(string $data)
     {
         $result = null;
 
@@ -40,7 +40,7 @@ class FormatComponent extends Component
      * @param string $data A data usada no formato do banco de dados.
      * @return string A data no formato do usuário.
      */
-    public function formatDateView($data)
+    public function formatDateView(string $data)
     {
         $result = null;
 
