@@ -64,7 +64,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li>
 								<a href="<?= $this->Url->build(['controller' => 'log', 'action' => 'index']) ?>">
-									<i class="material-icons">info</i>Último acesso: <?= date_format($ultimo_acesso, 'd/m/Y H:i:s') ?>
+									<i class="material-icons">info</i>Último acesso: <?= $this->Format->date($ultimo_acesso, true) ?>
 								</a>
 							</li>
 

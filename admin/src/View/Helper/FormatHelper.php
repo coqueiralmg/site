@@ -53,16 +53,22 @@ class FormatHelper extends Helper
         return explode(" ", $name)[0];
     }
 
-    public function date(string $data, bool $complete = false)
+    /**
+     * Retorna a data formatada visível para usuário.
+     * @param $data Data em formato padrão.
+     * @param bool $complete Se é possível exibir o formato completo.
+     * @return string Data em formato visível para usuário.
+     */
+    public function date($data, bool $complete = false)
     {
         if ($data == null) {
             $data = '';
         } else {
 
             if ($complete) {
-                $data = date('d/m/Y H:i:s', strtotime($data));
+                $data = date_format($data, 'd/m/Y H:i:s');
             } else {
-                $data = date('d/m/Y', strtotime($data));
+                $data = date_format($data, 'd/m/Y');
             }
         }
 

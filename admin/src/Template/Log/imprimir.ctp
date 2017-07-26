@@ -10,7 +10,7 @@
         <?php foreach ($log as $item): ?>
             <tr>
                 <td><?= $item->ip ?></td>
-                <td><?= date_format($item->data, 'd/m/Y H:i:s') ?></td>
+                <td><?= $this->Format->date($item->data, true) ?></td>
             </tr>
         <?php endforeach; ?>
     </tbody>
