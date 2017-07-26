@@ -9,7 +9,6 @@ use Cake\ORM\TableRegistry;
 
 class LogController extends AppController
 {
-
     public function initialize()
     {
         parent::initialize();
@@ -61,7 +60,20 @@ class LogController extends AppController
 
         $quantidade = $t_auditoria->find('all', ['conditions' => $conditions])->count();
 
-         $this->viewBuilder()->layout('print');
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão de seu próprio log de acesso.',
+            'usuario' => $usuario->id
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->viewBuilder()->layout('print');
 
         $this->set('title', 'Log de Acesso');
         $this->set('log', $log);
