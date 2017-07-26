@@ -4,20 +4,42 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <form>
+                        <?php
+                            echo $this->Form->create($usuario, [
+                                "url" => [
+                                    "controller" => "usuarios",
+                                    "action" => "save",
+                                    $id
+                                ],
+                                "role" => "form"]);
+                            ?>
+                             <?=$this->element('message', [
+                                'name' => 'cadastro_erro',
+                                'type' => 'error',
+                                'message' => 'Ocorreu um erro ao salvar o usuário',
+                                'details' => ''
+                            ]) ?>
+                            <?= $this->Flash->render() ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-6">
                                     <div class="form-group label-control">
-                                        <label>Nome</label>
-                                        <input class="form-control" type="text">
+                                        <?= $this->Form->label("nome", "Nome") ?>
+                                        <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control input-group date">
-                                        <label>Data de Nascimento</label>
-                                        <input id="data_nascimento" class="form-control" type="text">
+                                        <?= $this->Form->label("apelido", "Apelido") ?>
+                                        <?= $this->Form->text("apelido", ["id" => "apelido", "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-control input-group date">
+                                        <?= $this->Form->label("dataNascimento", "Data de Nascimento") ?>
+                                        <?= $this->Form->text("dataNascimento", ["id" => "data_nascimento", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -25,29 +47,29 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <label>E-mail</label>
-                                        <input class="form-control" type="email">
+                                        <?= $this->Form->label("email", "E-mail") ?>
+                                        <?= $this->Form->email("email", ["id" => "email", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Usuário</label>
-                                        <input class="form-control" type="text">
+                                        <?= $this->Form->label("usuario", "Usuário") ?>
+                                        <?= $this->Form->text("usuario", ["id" => "usuario", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Senha</label>
-                                        <input class="form-control" type="password">
+                                        <?= $this->Form->label("senha", "Senha") ?>
+                                        <?= $this->Form->password("senha", ["id" => "senha", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Confirme a Senha</label>
-                                        <input class="form-control" type="password">
+                                        <?= $this->Form->label("confirma_senha", "Confirme a Senha") ?>
+                                        <?= $this->Form->password("confirma_senha", ["id" => "confirma_senha", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -55,15 +77,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Grupo de Usuários</label> <br/>
-                                        <select class="form-control" data-style="select-with-transition" title="Choose City" data-size="7" tabindex="-98">
-                                            <option value="2"></option>
-                                            <option value="3">Administrador</option>
-                                            <option value="4">Gerente</option>
-                                            <option value="4">Comunicação</option>
-                                            <option value="4">Compras</option>
-                                            <option value="4">Jurídico</option>
-                                        </select>
+                                        <?= $this->Form->label("grupo", "Grupo") ?> <br/>
+                                        <?=$this->Form->select('grupo', $grupos, ['id' => 'grupo', 'empty' => true, 'class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -74,24 +89,23 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox"> Ativo
+                                                <?= $this->Form->checkbox("ativo") ?> Ativo
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox"> Obrigar o usuário a trocar de senha
+                                                <?= $this->Form->checkbox("verificar") ?> Obrigar o usuário a trocar de senha
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
-
-                            <button type="submit" class="btn btn-success pull-right">Salvar</button>
-                            <button type="reset" class="btn btn-primary pull-right">Limpar</button>
-                            <button type="button" class="btn btn-primary pull-right">Voltar</button>
+                            <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Salvar</button>
+                            <button type="reset" class="btn btn-default pull-right">Limpar</button>
+                            <button type="button" onclick="window.location="<?= $this->Url->build('/usuarios') ?>" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
-                        </form>
+                        <?php echo $this->Form->end(); ?>
                     </div>
                 </div>
             </div>
@@ -107,4 +121,75 @@
         $('#data_nascimento').mask('00/00/0000');
     });
 
+     function validar(){
+        var mensagem = "";
+
+        if ($("#nome").val() === "") {
+            mensagem += "<li> O nome do usuário é obrigatório.</li>";
+            $("label[for='nome']").css("color", "red");
+        } else {
+            $("label[for='nome']").css("color", "#aaa");
+        }
+
+        if ($("#data_nascimento").val() === "") {
+            mensagem += "<li> É obrigatório informa a data de nascimento.</li>";
+            $("label[for='datanascimento']").css("color", "red");
+        } else {
+            $("label[for='datanascimento']").css("color", "#aaa");
+        }
+
+        if ($("#email").val() === "") {
+            mensagem += "<li> O e-mail do usuário é obrigatório.</li>";
+            $("label[for='email']").css("color", "red");
+        } else {
+            $("label[for='email']").css("color", "#aaa");            
+        }
+
+        if ($("#usuario").val() === "") {
+            mensagem += "<li> É obrigatório informar o login do usuário.</li>";
+            $("label[for='usuario']").css("color", "red");
+        } else {
+            $("label[for='usuario']").css("color", "#aaa");
+        }
+
+        if ($("#senha").val() === "") {
+            mensagem += "<li> É obrigatório informar a senha do usuário.</li>";
+            $("label[for='senha']").css("color", "red");
+        } else {
+            $("label[for='senha']").css("color", "#aaa");
+        }
+
+        if ($("#confirma_senha").val() === "") {
+            mensagem += "<li> É obrigatório informar a confirmação da senha.</li>";
+            $("label[for='confirma-senha']").css("color", "red");
+        } else {
+            $("label[for='confirma-senha']").css("color", "#aaa");
+        }
+
+        if ($("#grupo").val() === "") {
+            mensagem += "<li> É obrigatório informar o grupo de usuário.</li>";
+            $("label[for='grupo']").css("color", "red");
+        } else {
+            $("label[for='grupo']").css("color", "red");
+        }
+
+        if ($("#senha").val() != "" && $("#senha-confirma").val() != "") {
+            if ($("#senha").val() !== $("#senha-confirma").val()) {
+                mensagem += "<li>A senha e a confirmação estão diferentes.</li>";
+                $("label[for='senha']").css("color", "red");
+                $("label[for='confirma_senha']").css("color", "red");
+            } else {
+                $("label[for='senha']").css("color", "#aaa");
+                $("label[for='confirma_senha']").css("color", "#aaa");
+            }
+        }
+
+        if(mensagem == ""){
+            return true;
+        } else {
+            $("#cadastro_erro").show('shake');
+            $("#details").html("<ol>" + mensagem + "</ol>");
+            return false;
+        }
+    }
 </script>
