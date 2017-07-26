@@ -53,8 +53,7 @@
                             </div>
                             <div class="form-group form-button">
                             <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
-                            <button type="submit" class="btn btn-fill btn-warning pull-right">Novo<div class="ripple-container"></div></button>
-                            
+                            <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                             <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                             </div>
                          <?php echo $this->Form->end(); ?>
@@ -87,11 +86,10 @@
                                             <td><?=$usuario->ativado?></td>
                                             <td><?=$usuario->grupoUsuario->nome?></td>
                                             <td class="td-actions text-right">
-                                                <a href="#" class="btn btn-primary btn-round">
+                                                <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'edit', $usuario->id]) ?>" class="btn btn-primary btn-round">
                                                     <i class="material-icons">edit</i>
                                                 </a>
-
-                                                <a href="#" class="btn btn-danger btn-round">
+                                                <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'delete', $usuario->id]) ?>" class="btn btn-danger btn-round">
                                                     <i class="material-icons">close</i>
                                                 </a>
                                             </td>
