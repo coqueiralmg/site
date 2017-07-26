@@ -102,4 +102,12 @@ class AuditoriaComponent extends Component
     {
         return $this->ocorrencias[$codigo];
     }
+
+    /**
+    * Obtém todas as ocorrências pré definidas do código
+    */
+    public function obterOcorrencias()
+    {
+        return $this->ocorrencias;
+    }
 }
