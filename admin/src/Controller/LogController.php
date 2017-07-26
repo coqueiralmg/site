@@ -63,7 +63,7 @@ class LogController extends AppController
         $auditoria = [
             'ocorrencia' => 9,
             'descricao' => 'O usuário solicitou a impressão de seu próprio log de acesso.',
-            'usuario' => $usuario->id
+            'usuario' => $this->request->session()->read('UsuarioID')
         ];
 
         $this->Auditoria->registrar($auditoria);
