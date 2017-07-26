@@ -159,7 +159,30 @@ class UsuariosController extends AppController
         $title = ($id > 0) ? 'Edição de Usuário' : 'Novo Usuário';
         $icon = ($id > 0) ? 'person_outline' : 'person_add';
 
+        $t_usuarios = TableRegistry::get('Usuario');
+        $t_grupos = TableRegistry::get('GrupoUsuario');
+
+        $grupos = $t_grupos->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'conditions' => [
+                'ativo' => true
+            ]
+        ]);
+
+        if($id > 0)
+        {
+            $usuario = $t_usuarios->get($id);
+            $this->set('usuario', $usuario);
+        }
+        else
+        {
+            $this->set('usuario', null);
+        }
+
         $this->set('title', $title);
         $this->set('icon', $icon);
+        $this->set('id', $id);
+        $this->set('grupos', $grupos);
     }
 }
