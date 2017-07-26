@@ -23,21 +23,26 @@ class UsuariosController extends AppController
         $limite_paginacao = Configure::read('limitPagination');
         $condicoes = array();
 
-        if($this->request->is('get') && count($this->request->query) > 0)
+        if(count($this->request->getQueryParams()) > 0)
         {
             $nome = $this->request->query('nome');
             $usuario = $this->request->query('usuario');
-            $email = $nome = $this->request->query('email');
-            $grupo = $nome = $this->request->query('grupo');
+            $email = $this->request->query('email');
+            $grupo = $this->request->query('grupo');
+            $mostrar = $this->request->query('mostrar');
 
-            $conditions['Usuario.nome LIKE'] = '%' . $nome . '%';
-            $conditions['Usuario.usuario LIKE'] = '%' . $usuario . '%';
-            $conditions['Usuario.email LIKE'] = '%' . $email . '%';
-            $conditions['Usuario.grupo'] = $grupo;
+            $condicoes['Pessoa.nome LIKE'] = '%' . $nome . '%';
+            $condicoes['Usuario.usuario LIKE'] = '%' . $usuario . '%';
+            $condicoes['Usuario.email LIKE'] = '%' . $email . '%';
+
+            if($grupo != "")
+            {
+                $condicoes['Usuario.grupo'] = $grupo;
+            }
 
             if($mostrar != 'T')
             {
-                $conditions["Usuario.ativo"] = ($mostrar == "A") ? "1" : "0";
+                $condicoes["Usuario.ativo"] = ($mostrar == "A") ? "1" : "0";
             }
 
             $data = array();
@@ -47,6 +52,7 @@ class UsuariosController extends AppController
             $data['usuario'] = $usuario;
             $data['email'] = $email;
             $data['grupo'] = $grupo;
+            $data['mostrar'] = $mostrar;
 
             $this->request->data = $data;
         }
@@ -63,7 +69,10 @@ class UsuariosController extends AppController
         ];
 
         $usuarios = $this->paginate($t_usuarios);
-        $qtd_total = $t_usuarios->find('all', ['conditions' => $condicoes])->count();
+        $qtd_total = $t_usuarios->find('all', [
+            'contain' => ['Pessoa', 'GrupoUsuario'],
+            'conditions' => $condicoes]
+            )->count();
 
         $combo_mostra = ["T" => "Todos", "A" => "Somente ativos", "I" => "Somente inativos"];
         
