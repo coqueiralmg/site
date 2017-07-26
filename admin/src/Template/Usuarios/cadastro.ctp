@@ -20,6 +20,7 @@
                                 'details' => ''
                             ]) ?>
                             <?= $this->Flash->render() ?>
+                            <?= $this->Form->hidden('mudasenha', ["id" => "mudasenha", "value" => false]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
                                 <div class="col-md-6">
@@ -119,6 +120,7 @@
         });
 
         $('#data_nascimento').mask('00/00/0000');
+        $("#confirma_senha").val($("#senha").val());
     });
 
      function validar(){

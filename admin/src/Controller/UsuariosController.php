@@ -185,6 +185,10 @@ class UsuariosController extends AppController
         if($id > 0)
         {
             $usuario = $t_usuarios->get($id, ['contain' => ['Pessoa']]);
+            
+            $usuario->pessoa->dataNascimento = $this->Format->formatDateView($usuario->pessoa->dataNascimento);
+            $usuario->mudasenha = false;
+
             $this->set('usuario', $usuario);
         }
         else
@@ -268,8 +272,7 @@ class UsuariosController extends AppController
 
         $usuarios->patchEntity($entity, $this->request->data());
 
-        $entity->telefone = $this->Format->clearMask($entity->telefone);
-        $entity->celular = $this->Format->clearMask($entity->celular);
+        $entity->pessoa->dataNascimento = $this->Format->formatDateDB($entity->pessoa->dataNascimento);
 
         if(strlen($entity->senha) != 32)
         {
@@ -284,7 +287,7 @@ class UsuariosController extends AppController
             $this->Flash->greatSuccess('Usuário salvo com sucesso');
 
             $auditoria = [
-                'ocorrencia' => 'Alteração do usuário',
+                'ocorrencia' => 11,
                 'descricao' => 'O usuário modificou os dados de um determinado usuário.',
                 'dado_adicional' => json_encode(['usuario_modificado' => $id, 'campos_modificados' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
@@ -292,7 +295,7 @@ class UsuariosController extends AppController
 
             $this->Auditoria->registrar($auditoria);
 
-            $this->redirect(['controller' => 'usuario', 'action' => 'cadastro', $id]);
+            $this->redirect(['controller' => 'usuarios', 'action' => 'cadastro', $id]);
         }
         catch(Exception $ex)
         {
@@ -302,7 +305,12 @@ class UsuariosController extends AppController
                 ]
             ]);
 
-            $this->redirect(['controller' => 'usuario', 'action' => 'cadastro', $id]);
+            $this->redirect(['controller' => 'usuarios', 'action' => 'cadastro', $id]);
         }
+    }
+
+    private function changedFields(Entity $entity)
+    {
+        return $entity->extractOriginalChanged($entity->visibleProperties());
     }
 }
