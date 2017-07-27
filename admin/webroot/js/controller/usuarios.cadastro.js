@@ -4,7 +4,9 @@ $(function () {
     });
 
     $('#data_nascimento').mask('00/00/0000');
-    $("#confirma_senha").val($("#senha").val());
+
+    $("#senha").val("");
+    $("#confirma_senha").val("");
 
     $("input[type='password']").change(function () {
         $("#mudasenha").val("true");

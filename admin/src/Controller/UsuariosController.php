@@ -6,7 +6,6 @@ use Cake\Core\Configure;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 
-
 class UsuariosController extends AppController
 {
     public function initialize()
@@ -267,20 +266,26 @@ class UsuariosController extends AppController
     protected function update(int $id)
     {
         $usuarios = TableRegistry::get('Usuario');
-        $entity = $usuarios->get($id);
+        $entity = $usuarios->get($id, ['contain' => ['Pessoa']]);
+        $senha_antiga = $entity->senha;
 
         $usuarios->patchEntity($entity, $this->request->data());
 
         $entity->pessoa->dataNascimento = $this->Format->formatDateDB($entity->pessoa->dataNascimento);
 
-        if(strlen($entity->senha) != 32)
+        if($entity->mudasenha == 'true')
         {
-            $entity->senha = md5($entity->senha);
+            $entity->senha = $entity->senha;
+        }
+        else
+        {
+            $entity->senha = $senha_antiga;
         }
 
         try
         {
-            $propriedades = $this->changedFields($entity);
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
 
             $usuarios->save($entity);
             $this->Flash->greatSuccess('Usuário salvo com sucesso');
@@ -288,7 +293,7 @@ class UsuariosController extends AppController
             $auditoria = [
                 'ocorrencia' => 11,
                 'descricao' => 'O usuário modificou os dados de um determinado usuário.',
-                'dado_adicional' => json_encode(['usuario_modificado' => $id, 'campos_modificados' => $propriedades]),
+                'dado_adicional' => json_encode(['usuario_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
@@ -306,10 +311,5 @@ class UsuariosController extends AppController
 
             $this->redirect(['controller' => 'usuarios', 'action' => 'cadastro', $id]);
         }
-    }
-
-    private function changedFields(Entity $entity)
-    {
-        return $entity->extractOriginalChanged($entity->visibleProperties());
     }
 }
