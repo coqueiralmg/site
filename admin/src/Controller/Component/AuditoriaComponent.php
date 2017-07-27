@@ -4,6 +4,7 @@ namespace App\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\ORM\TableRegistry;
+use Cake\ORM\Entity;
 
 /**
  * Classe que representa o componente de controle e gerenciamento de auditoria.
@@ -105,9 +106,38 @@ class AuditoriaComponent extends Component
 
     /**
     * Obtém todas as ocorrências pré definidas do código
+    * @return array Coletânea de todas as ocorrências pré definidas
     */
     public function obterOcorrencias()
     {
         return $this->ocorrencias;
+    }
+
+    /**
+    * Obtém a lista de campos originais que foram modificados
+    * @param Entity Entidade a ser analisada
+    * @return array Lista de campos modificados com seus valores originais
+    */
+    public function changedOriginalFields(Entity $entity)
+    {
+        return $entity->extractOriginalChanged($entity->visibleProperties());
+    }
+
+    /**
+    * Obtém a lista de campos modificados em uma entidade, com seus respectivos valores atualizados
+    * @param Entity Entidade a ser analisada
+    * @param array Lista de campos de uma propriedade com seus respectivos valores.
+    * @return array Lista de campos modificados com seus valores originais
+    */
+    public function changedFields(Entity $entity, array $propriedades)
+    {
+        $campos = array();
+
+        foreach($propriedades as $chave => $valor)
+        {
+            $campos[$chave] = $entity->get($chave);
+        }
+
+        return $campos;
     }
 }
