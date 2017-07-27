@@ -95,6 +95,16 @@ class AuditoriaComponent extends Component
     }
 
     /**
+     * Exclui toda a auditoria de um determinado usuário
+     * @param int $usuario Um usuário do sistema
+     */
+    public function limpar(int $usuario)
+    {
+        $table = TableRegistry::get('Auditoria');
+        $table->deleteAll(['usuario' => $usuario]);
+    }
+
+    /**
     * Busca o nome da ocorrência da auditoria por código
     * @param int Código da ocorrência
     * @return string Nome da ocorrência pré-cadastrada na lista
