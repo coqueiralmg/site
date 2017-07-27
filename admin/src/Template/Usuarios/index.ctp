@@ -1,9 +1,11 @@
+<?= $this->Html->script('controller/usuarios.lista.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                        <?= $this->Flash->render() ?>
                         <h4 class="card-title">Buscar</h4>
                         <?php
                         echo $this->Form->create("Usuario", [
@@ -89,9 +91,7 @@
                                                 <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'edit', $usuario->id]) ?>" class="btn btn-primary btn-round">
                                                     <i class="material-icons">edit</i>
                                                 </a>
-                                                <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'delete', $usuario->id]) ?>" class="btn btn-danger btn-round">
-                                                    <i class="material-icons">close</i>
-                                                </a>
+                                                <button type="button" onclick="excluirUsuario(<?= $usuario->id ?>, '<?= $usuario->pessoa->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

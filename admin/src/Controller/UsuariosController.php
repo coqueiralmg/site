@@ -212,6 +212,66 @@ class UsuariosController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $usuarios = TableRegistry::get('Usuario');
+            $log = TableRegistry::get('Log');
+
+            $exclui_auditoria = $this->request->query('auditoria');
+
+            $marcado = $usuarios->get($id);
+            $nome = $marcado->nome;
+            $propriedades = $marcado->getOriginalValues();
+
+            $qa = $this->Auditoria->quantidade($id);
+
+            if($qa > 0)
+            {
+                if($exclui_auditoria)
+                {
+                    $this->Auditoria->limpar($id);
+                }
+                else
+                {
+                    throw new Exception('Este usuário não pode ser excluído, porque tem o registro de auditoria. Verifique a tabela de auditoria antes de excluir definitivamente ou deixe-o inativo.');
+                }
+            }
+
+            $log->deleteAll(['usuario' => $id]);
+            $usuarios->delete($marcado);
+
+            $this->Flash->greatSuccess('O usuário ' . $nome . ' foi excluído com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 12,
+                'descricao' => 'O usuário excluiu um determinado usuário do sistema.',
+                'dado_adicional' => json_encode(['usuario_excluido' => $id, 'dados_usuario_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['controller' => 'usuarios', 'action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir o usuário', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['controller' => 'usuarios', 'action' => 'index']);
+        }
+    }
+
     protected function insert()
     {
         $usuarios = TableRegistry::get('Usuario');
@@ -248,6 +308,11 @@ class UsuariosController extends AppController
             ];
 
             $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
 
             $this->redirect(['controller' => 'usuarios', 'action' => 'cadastro', $entity->id]);
         }
@@ -298,6 +363,11 @@ class UsuariosController extends AppController
             ];
 
             $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
 
             $this->redirect(['controller' => 'usuarios', 'action' => 'cadastro', $id]);
         }
