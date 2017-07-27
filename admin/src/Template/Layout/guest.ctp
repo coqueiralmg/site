@@ -45,6 +45,7 @@
     <?= $this->Html->script('bootstrap-notify.js') ?>
     <?= $this->Html->script('material-dashboard.js') ?>
     <?= $this->Html->script('demo.js') ?>
+    <?= $this->fetch('scriptBottom') ?>
 </body>
 
 </html>

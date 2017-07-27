@@ -1,3 +1,4 @@
+<?= $this->Html->script('controller/usuarios.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -20,7 +21,7 @@
                                 'details' => ''
                             ]) ?>
                             <?= $this->Flash->render() ?>
-                            <?= $this->Form->hidden('mudasenha', ["id" => "mudasenha", "value" => false]) ?>
+                            <?= $this->Form->hidden('mudasenha', ["id" => "mudasenha", "value" => ($id == 0) ? "true" : "false"]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
                                 <div class="col-md-6">
@@ -113,85 +114,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function () {
-        $('#data_nascimento').datepicker({
-            language: 'pt-BR'
-        });
-
-        $('#data_nascimento').mask('00/00/0000');
-        $("#confirma_senha").val($("#senha").val());
-    });
-
-     function validar(){
-        var mensagem = "";
-
-        if ($("#nome").val() === "") {
-            mensagem += "<li> O nome do usuário é obrigatório.</li>";
-            $("label[for='pessoa-nome']").css("color", "red");
-        } else {
-            $("label[for='pessoa-nome']").css("color", "#aaa");
-        }
-
-        if ($("#data_nascimento").val() === "") {
-            mensagem += "<li> É obrigatório informa a data de nascimento.</li>";
-            $("label[for='pessoa-datanascimento']").css("color", "red");
-        } else {
-            $("label[for='pessoa-datanascimento']").css("color", "#aaa");
-        }
-
-        if ($("#email").val() === "") {
-            mensagem += "<li> O e-mail do usuário é obrigatório.</li>";
-            $("label[for='email']").css("color", "red");
-        } else {
-            $("label[for='email']").css("color", "#aaa");            
-        }
-
-        if ($("#usuario").val() === "") {
-            mensagem += "<li> É obrigatório informar o login do usuário.</li>";
-            $("label[for='usuario']").css("color", "red");
-        } else {
-            $("label[for='usuario']").css("color", "#aaa");
-        }
-
-        if ($("#senha").val() === "") {
-            mensagem += "<li> É obrigatório informar a senha do usuário.</li>";
-            $("label[for='senha']").css("color", "red");
-        } else {
-            $("label[for='senha']").css("color", "#aaa");
-        }
-
-        if ($("#confirma_senha").val() === "") {
-            mensagem += "<li> É obrigatório informar a confirmação da senha.</li>";
-            $("label[for='confirma-senha']").css("color", "red");
-        } else {
-            $("label[for='confirma-senha']").css("color", "#aaa");
-        }
-
-        if ($("#grupo").val() === "") {
-            mensagem += "<li> É obrigatório informar o grupo de usuário.</li>";
-            $("label[for='grupo']").css("color", "red");
-        } else {
-            $("label[for='grupo']").css("color", "red");
-        }
-
-        if ($("#senha").val() != "" && $("#confirma_senha").val() != "") {
-            if ($("#senha").val() !== $("#confirma_senha").val()) {
-                mensagem += "<li>A senha e a confirmação estão diferentes.</li>";
-                $("label[for='senha']").css("color", "red");
-                $("label[for='confirma-senha']").css("color", "red");
-            } else {
-                $("label[for='senha']").css("color", "#aaa");
-                $("label[for='confirma-senha']").css("color", "#aaa");
-            }
-        }
-
-        if(mensagem == ""){
-            return true;
-        } else {
-            $("#cadastro_erro").show('shake');
-            $("#details").html("<ol>" + mensagem + "</ol>");
-            return false;
-        }
-    }
-</script>

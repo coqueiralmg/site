@@ -41,7 +41,7 @@
 	<?= $this->Html->script('jquery.mask.min.js') ?>
 	<?= $this->Html->script('ckeditor/ckeditor.js') ?>
     <?= $this->Html->script('material-dashboard.js') ?>
-	<?= $this->Html->script('painel.js') ?>
+	<?= $this->Html->script('painel.js') ?>	
 </head>
 
 <body>
@@ -106,9 +106,7 @@
 			</footer>
 		</div>
 	</div>
-
-	
+	<?= $this->fetch('scriptBottom') ?>
 </body>
-	
 	
 </html>
