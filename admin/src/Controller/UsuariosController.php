@@ -187,7 +187,6 @@ class UsuariosController extends AppController
             $usuario = $t_usuarios->get($id, ['contain' => ['Pessoa']]);
             
             $usuario->pessoa->dataNascimento = $this->Format->formatDateView($usuario->pessoa->dataNascimento);
-            $usuario->mudasenha = false;
 
             $this->set('usuario', $usuario);
         }
