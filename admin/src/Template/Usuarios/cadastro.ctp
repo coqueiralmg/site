@@ -105,7 +105,7 @@
                             </div>
                             <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Salvar</button>
                             <button type="reset" class="btn btn-default pull-right">Limpar</button>
-                            <button type="button" onclick="window.location="<?= $this->Url->build('/usuarios') ?>" class="btn btn-info pull-right">Voltar</button>
+                            <button type="button" onclick="window.location='<?= $this->Url->build('/usuarios') ?>'" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
                         <?php echo $this->Form->end(); ?>
                     </div>
