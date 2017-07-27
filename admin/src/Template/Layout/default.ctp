@@ -40,8 +40,8 @@
 	<?= $this->Html->script('locales/bootstrap-datepicker.pt-BR.min.js') ?>
 	<?= $this->Html->script('jquery.mask.min.js') ?>
 	<?= $this->Html->script('ckeditor/ckeditor.js') ?>
-    <?= $this->Html->script('material-dashboard.js') ?>
-	<?= $this->Html->script('painel.js') ?>	
+    
+	
 </head>
 
 <body>
@@ -106,6 +106,8 @@
 			</footer>
 		</div>
 	</div>
+	<?= $this->Html->script('material-dashboard.js') ?>
+	<?= $this->Html->script('default.js') ?>	
 	<?= $this->fetch('scriptBottom') ?>
 </body>
 	
