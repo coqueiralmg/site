@@ -109,6 +109,11 @@ class SystemController extends AppController
 
         $this->Auditoria->registrar($auditoria);
 
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
         $this->request->session()->destroy();
         $this->redirectLogin("Você saiu do sistema.", false);
     }
