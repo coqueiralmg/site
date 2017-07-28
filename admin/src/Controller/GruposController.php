@@ -75,8 +75,16 @@ class GruposController extends AppController
         $title = ($id > 0) ? 'Edição do Grupo' : 'Novo Grupo';
         $icon = ($id > 0) ? 'group' : 'group_add';
 
+        $t_funcao = TableRegistry::get('Funcao');
+        $t_grupo_funcao = TableRegistry::get('GrupoFuncao');
+
+        $funcoes = $t_funcao->find('all');
+        $grupos_funcoes = $t_grupo_funcao->find('all');
+
         $this->set('title', $title);
         $this->set('icon', $icon);
+        $this->set('funcoes', $funcoes);
+        $this->set('grupos_funcoes', $grupos_funcoes);
     }
 
 }
