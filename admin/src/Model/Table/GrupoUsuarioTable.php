@@ -8,6 +8,8 @@ class GrupoUsuarioTable extends BaseTable
     {
         $this->table('grupos');
         $this->primaryKey('id');
+        $this->entityClass('GrupoUsuario');
+
         /* $this->belongsToMany('Funcao', [
             'joinTable' => 'funcoes_grupos',
             'foreignKey' => 'grupos_id',
