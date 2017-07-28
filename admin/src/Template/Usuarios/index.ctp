@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var usuario = <?=$this->request->session()->read('UsuarioID')?>;
+</script>
 <?= $this->Html->script('controller/usuarios.lista.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">

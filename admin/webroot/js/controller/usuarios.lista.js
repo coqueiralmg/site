@@ -1,6 +1,4 @@
 function excluirUsuario(id, nome) {
-    var usuario = 0;
-
     if (id == usuario) {
         swal('Erro na exclusão', 'Você não pode excluir a si mesmo no sistema!', 'error');
     } else {
