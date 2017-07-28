@@ -40,6 +40,19 @@ class GruposController extends AppController
         $grupos = $t_grupos->find('all');
         $qtd_total = $grupos->count();
 
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão de listagem de grupos de usuário.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
         $this->viewBuilder()->layout('print');
 
         $this->set('title', 'Lista de Grupos Usuários');
