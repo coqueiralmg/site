@@ -9,3 +9,22 @@ function desmarcarTodos() {
         $(this).prop("checked", false);
     });
 }
+
+function validar() {
+    var mensagem = "";
+
+    if ($("#nome").val() === "") {
+        mensagem += "<li> O nome do grupo usuário é obrigatório.</li>";
+        $("label[for='pessoa-nome']").css("color", "red");
+    } else {
+        $("label[for='pessoa-nome']").css("color", "#aaa");
+    }
+
+    if (mensagem == "") {
+        return true;
+    } else {
+        $("#cadastro_erro").show('shake');
+        $("#details").html("<ol>" + mensagem + "</ol>");
+        return false;
+    }
+}
