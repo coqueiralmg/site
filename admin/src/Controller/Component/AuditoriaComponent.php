@@ -27,7 +27,10 @@ class AuditoriaComponent extends Component
         9 => 'Impressão de documento',
         10 => 'Inclusão do usuário',
         11 => 'Alteração do usuário',
-        12 => 'Exclusão do usuário'
+        12 => 'Exclusão do usuário',
+        13 => 'Inclusão do grupo de usuário',
+        14 => 'Alteração do grupo de usuário',
+        15 => 'Exclusão do grupo de usuário'
     ];
     
     /**
