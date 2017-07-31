@@ -3,13 +3,13 @@
     <button type="button" aria-hidden="true" class="close" onclick="$(this).parent().hide()">
         <i class="material-icons">close</i>
     </button>
-     <?php if(isset($details)): ?>
+     <?php if(isset($params['details'])): ?>
         <span data-notify="message">
             <?= h($message) ?>
             &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="$('#details').toggle('blind');">Detalhes</a>
         </span>
         <div id="details" class="detalhes">
-            <?= h($details) ?>
+            <?= h($params['details']) ?>
         </div>
     <?php else: ?>
         <span data-notify="message">
