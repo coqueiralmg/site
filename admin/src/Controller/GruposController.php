@@ -164,13 +164,18 @@ class GruposController extends AppController
             $this->Flash->greatSuccess('O grupo de usuário ' . $nome . ' foi excluído com sucesso!');
 
             $auditoria = [
-                'ocorrencia' => 'Delete grupo usuário',
+                'ocorrencia' => 15,
                 'descricao' => 'O usuário excluiu um determinado grupo de usuário do sistema.',
                 'dado_adicional' => json_encode(['grupo_usuario_excluido' => $id, 'dados_grupo_usuario_excluido' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
             $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
 
             $this->redirect(['controller' => 'grupos', 'action' => 'index']);
         }
