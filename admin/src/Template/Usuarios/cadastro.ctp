@@ -27,14 +27,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("pessoa.nome", "Nome") ?>
-                                        <?= $this->Form->text("pessoa.nome", ["id" => "nome", "class" => "form-control"]) ?>
+                                        <?= $this->Form->text("pessoa.nome", ["id" => "nome", "class" => "form-control", "maxlength" => 60]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control input-group date">
                                         <?= $this->Form->label("pessoa.apelido", "Apelido") ?>
-                                        <?= $this->Form->text("pessoa.apelido", ["id" => "apelido", "class" => "form-control"]) ?>
+                                        <?= $this->Form->text("pessoa.apelido", ["id" => "apelido", "class" => "form-control", "maxlength" => 45]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -50,14 +50,14 @@
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("email", "E-mail") ?>
-                                        <?= $this->Form->email("email", ["id" => "email", "class" => "form-control"]) ?>
+                                        <?= $this->Form->email("email", ["id" => "email", "class" => "form-control", "maxlength" => 50]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <?= $this->Form->label("usuario", "Usuário") ?>
-                                        <?= $this->Form->text("usuario", ["id" => "usuario", "class" => "form-control"]) ?>
+                                        <?= $this->Form->text("usuario", ["id" => "usuario", "class" => "form-control", "maxlength" => 30]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
