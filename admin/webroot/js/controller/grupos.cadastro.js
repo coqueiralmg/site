@@ -15,9 +15,9 @@ function validar() {
 
     if ($("#nome").val() === "") {
         mensagem += "<li> O nome do grupo usuário é obrigatório.</li>";
-        $("label[for='pessoa-nome']").css("color", "red");
+        $("label[for='nome']").css("color", "red");
     } else {
-        $("label[for='pessoa-nome']").css("color", "#aaa");
+        $("label[for='nome']").css("color", "#aaa");
     }
 
     if (mensagem == "") {
