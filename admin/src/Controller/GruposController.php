@@ -133,6 +133,59 @@ class GruposController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_grupos = TableRegistry::get('GrupoUsuario');
+            $t_usuarios = TableRegistry::get('Usuario');
+            $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
+            
+            $marcado = $t_grupos->get($id);
+            $nome = $marcado->nome;
+            $propriedades = $marcado->getOriginalValues();
+
+            $qu = $t_usuarios->find('all', [
+                'conditions' => [
+                    'grupo' => $id
+                ]
+            ])->count();
+
+            if($qu > 0)
+            {
+                throw new Exception('Este grupo de usuário não pode ser excluído, porque existem usuários associados a este grupo. Verifique os usuários associados a ele ou deixe o mesmo grupo inativo.');
+            }
+
+            $conn->delete('funcoes_grupos', [
+                'grupos_id' => $id
+            ]);
+
+            $t_grupos->delete($marcado);
+            $this->Flash->greatSuccess('O grupo de usuário ' . $nome . ' foi excluído com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 'Delete grupo usuário',
+                'descricao' => 'O usuário excluiu um determinado grupo de usuário do sistema.',
+                'dado_adicional' => json_encode(['grupo_usuario_excluido' => $id, 'dados_grupo_usuario_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            $this->redirect(['controller' => 'grupos', 'action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir o grupo de usuário', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['controller' => 'grupos', 'action' => 'index']);
+        }
+    }
+
     protected function insert()
     {
         try

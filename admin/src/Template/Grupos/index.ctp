@@ -1,9 +1,18 @@
+<?php
+    $usuario = $this->request->session()->read('Usuario');
+    $grupo = $usuario->grupo;
+?>
+<script type="text/javascript">
+    var grupoUsuario = <?=$grupo?>;
+</script>
+<?= $this->Html->script('controller/grupos.lista.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                        <?= $this->Flash->render() ?>
                         <a href="<?= $this->Url->build(['controller' => 'Grupos', 'action' => 'add']) ?>" class="btn btn-fill btn-warning pull-right">Novo<div class="ripple-container"></div></a>
                         <a href="<?= $this->Url->build(['controller' => 'Grupos', 'action' => 'imprimir']) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                     </div>
@@ -30,7 +39,7 @@
                                             <a href="<?= $this->Url->build(['controller' => 'Grupos', 'action' => 'edit', $grupo->id]) ?>" class="btn btn-primary btn-round">
                                                 <i class="material-icons">edit</i>
                                             </a>
-                                            <button type="button" onclick="excluirUsuario(<?= $grupo->id ?>, '<?= $grupo->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                            <button type="button" onclick="excluirGrupoUsuario(<?= $grupo->id ?>, '<?= $grupo->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                         </td>
                                     </tr>   
                                 <?php endforeach; ?>
