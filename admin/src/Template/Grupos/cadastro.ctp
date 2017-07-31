@@ -5,13 +5,28 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <form>
+                        <?php
+                            echo $this->Form->create($grupo_usuario, [
+                                "url" => [
+                                    "controller" => "grupos",
+                                    "action" => "save",
+                                    $id
+                                ],
+                                "role" => "form"]);
+                            ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_erro',
+                                'type' => 'error',
+                                'message' => 'Ocorreu um erro ao salvar o grupo de usuário.',
+                                'details' => ''
+                            ]) ?>
+                            <?= $this->Flash->render() ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <legend>Dados Cadastrais</legend>
                                     <div class="form-group label-control">
-                                        <label>Nome</label>
-                                        <input class="form-control" type="text">
+                                        <?= $this->Form->label("nome", "Nome") ?>
+                                        <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -27,7 +42,9 @@
                                                     <?php if($funcao->grupo == $grupo->id):?>
                                                         <div class="togglebutton">
                                                             <label>
-                                                                <input type="checkbox"> <?=$funcao->nome?>
+                                                                <?= $this->Form->checkbox('chk_' . $funcao->chave, [
+                                                                    'checked' => array_key_exists($funcao->chave, $funcoes_grupo)
+                                                                ]) ?> <?=$funcao->nome?>
                                                             </label>
                                                         </div>
                                                     <?php endif; ?>
@@ -51,17 +68,17 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox"> Ativo
+                                                <?= $this->Form->checkbox("ativo") ?> Ativo
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox"> Permitir integração com outros sistemas da prefeitura
+                                                <?= $this->Form->checkbox("integrado") ?> Permitir integração com outros sistemas da prefeitura
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox"> Grupo Administrativo
+                                                <?= $this->Form->checkbox("administrativo") ?> Grupo Administrativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
@@ -69,11 +86,11 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success pull-right">Salvar</button>
-                            <button type="reset" class="btn btn-primary pull-right">Limpar</button>
-                            <button type="button" class="btn btn-primary pull-right">Voltar</button>
+                            <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Salvar</button>
+                            <button type="reset" class="btn btn-default pull-right">Limpar</button>
+                            <button type="button" onclick="window.location='<?= $this->Url->build('/grupos') ?>'" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
-                        </form>
+                        <?php echo $this->Form->end(); ?>
                     </div>
                 </div>
             </div>
