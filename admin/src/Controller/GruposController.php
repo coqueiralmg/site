@@ -185,18 +185,19 @@ class GruposController extends AppController
 
     protected function update(int $id)
     {
-        $grupos = TableRegistry::get('GrupoUsuario');
-
-        $entity = $grupos->get($id);
-        $grupos->patchEntity($entity, $this->request->data());
-
-        $campos = $entity->visibleProperties();
-
         try
         {
-            $propriedades = $this->changedFields($entity);
+            $t_grupo_usuario = TableRegistry::get('GrupoUsuario');
 
-            $grupos->save($entity);
+            $entity = $t_grupo_usuario->get($id);
+            $t_grupo_usuario->patchEntity($entity, $this->request->data());
+
+            $campos = $entity->visibleProperties();
+            
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_grupo_usuario->save($entity);
 
             $auditoria_funcoes = $this->atualizarFuncoesGrupos($entity, $id, $campos, true);
 
@@ -207,7 +208,8 @@ class GruposController extends AppController
                 'descricao' => 'O usuário modificou os dados de um determinado grupo de usuário.',
                 'dado_adicional' => json_encode([
                     'grupo_usuario_modificado' => $id,
-                    'campos_modificados' => $propriedades,
+                    'valores_originais' => $propriedades,
+                    'valores_modificados' => $modificadas,
                     'funcoes_associadas' => $auditoria_funcoes
                 ]),
                 'usuario' => $this->request->session()->read('UsuarioID')
@@ -251,7 +253,7 @@ class GruposController extends AppController
                 'contain' => ['Funcao']
             ]);
 
-            foreach($e->Funcoes as $func)
+            foreach($e->funcoes as $func)
             {
                 $f_antigas[$func->chave] = $func->nome;
             }

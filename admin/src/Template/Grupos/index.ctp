@@ -27,12 +27,10 @@
                                         <td><?= $grupo->nome ?></td>
                                         <td><?= $grupo->ativado ?></td>
                                         <td class="td-actions text-right">
-                                            <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
+                                            <a href="<?= $this->Url->build(['controller' => 'Grupos', 'action' => 'edit', $grupo->id]) ?>" class="btn btn-primary btn-round">
                                                 <i class="material-icons">edit</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                                <i class="material-icons">close</i>
-                                            </button>
+                                            </a>
+                                            <button type="button" onclick="excluirUsuario(<?= $grupo->id ?>, '<?= $grupo->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                         </td>
                                     </tr>   
                                 <?php endforeach; ?>
