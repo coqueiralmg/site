@@ -57,6 +57,27 @@ class FirewallController extends AppController
 
     public function imprimir()
     {
+        $t_firewall = TableRegistry::get('Firewall');
+
+        $condicoes = array();
         
+        if(count($this->request->getQueryParams()) > 0)
+        {
+            $mostrar = $this->request->query('mostrar');
+
+            if($mostrar != 'T')
+            {
+                $condicoes["lista_branca"] = ($mostrar == "B") ? "1" : "0";
+            }
+        }
+
+        $firewall = $t_firewall->find('all', ['conditions' => $condicoes]);
+        $qtd_total = $firewall->count();
+        
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Firewall');
+        $this->set('firewall', $firewall);
+        $this->set('qtd_total', $qtd_total);
     }
 }
