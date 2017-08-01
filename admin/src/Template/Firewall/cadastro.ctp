@@ -31,8 +31,15 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
+                                    
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-2">
+                                    <div class="form-group label-control">
+                                        <label>Data do Cadastro</label>
+                                        <p><i><?= $firewall->data?></i></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("tipo_lista", "Tipo de Registro") ?> <br/>
                                         <?= $this->Form->radio("tipo_lista", $tipo_lista) ?>

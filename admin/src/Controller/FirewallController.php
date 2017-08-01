@@ -111,21 +111,26 @@ class FirewallController extends AppController
 
         $t_firewall = TableRegistry::get('Firewall');
 
-        $tipo_lista = [
-            ['value' => 'N', 'text' => 'Lista Negra', 'style' => 'margin-left:5px;'],
-            ['value' => 'B', 'text' => 'Lista Branca', 'style' => 'margin-left:15px;']
-        ];
+        $tipo_lista = array();
 
         if($id > 0)
         {
             $firewall = $t_firewall->get($id);
 
-            $firewall->data = $this->Format->formatDateView($firewall->data);
+            $tipo_lista = [
+                ['value' => 'N', 'text' => 'Lista Negra', 'style' => 'margin-left:5px;', 'checked' => (!$firewall->lista_branca)],
+                ['value' => 'B', 'text' => 'Lista Branca', 'style' => 'margin-left:15px;', 'checked' => ($firewall->lista_branca)]
+            ];
 
             $this->set('firewall', $firewall);
         }
         else
         {
+            $tipo_lista = [
+                ['value' => 'N', 'text' => 'Lista Negra', 'style' => 'margin-left:5px;'],
+                ['value' => 'B', 'text' => 'Lista Branca', 'style' => 'margin-left:15px;']
+            ];
+            
             $this->set('firewall', null);
         }
 
@@ -205,6 +210,21 @@ class FirewallController extends AppController
 
     protected function update(int $id)
     {
-       
+       try
+       {
+            $t_firewall = TableRegistry::get('Firewall');
+
+            
+       }
+       catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o registro.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['controller' => 'firewall', 'action' => 'cadastro', $id]);
+        }
     }
 }
