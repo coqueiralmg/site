@@ -6,7 +6,6 @@ use Cake\Core\Configure;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 
-
 class FirewallController extends AppController
 {
 
@@ -17,54 +16,47 @@ class FirewallController extends AppController
 
     public function index()
     {
-        $t_auditoria = TableRegistry::get('Auditoria');
-        $limite_paginacao = Configure::read('limitPagination');
+        $t_firewall = TableRegistry::get('Firewall');
 
-        $conditions = [
-            'usuario' =>  $this->request->session()->read('UsuarioID'),
-            'ocorrencia' => 1
-        ];
+        $limite_paginacao = Configure::read('limitPagination');
+        $condicoes = array();
+        $data = array();
+        
+        if(count($this->request->getQueryParams()) > 0)
+        {
+            $mostrar = $this->request->query('mostrar');
+
+            if($mostrar != 'T')
+            {
+                $condicoes["lista_branca"] = ($mostrar == "B") ? "1" : "0";
+            }
+
+            $data['mostrar'] = $mostrar;
+
+            $this->request->data = $data;
+        }
+        
+        $combo_mostra = ["T" => "Todos", "N" => "Lista Negra", "B" => "Lista Branca"];
 
         $this->paginate = [
             'limit' => $limite_paginacao,
-            'conditions' => $conditions,
-            'order' => [
-                'data' => 'DESC'
-            ]
+            'conditions' => $condicoes
         ];
 
-        $log = $this->paginate($t_auditoria);
-        $quantidade = $t_auditoria->find('all', ['conditions' => $conditions])->count();
+        $firewall = $this->paginate($t_firewall);
+        $qtd_total = $t_firewall->find('all', ['conditions' => $condicoes])->count();
         
         $this->set('title', 'Firewall');
         $this->set('icon', 'security');
-        $this->set('log', $log);
-        $this->set('qtd_total', $quantidade);
+        $this->set('combo_mostra', $combo_mostra);
+        $this->set('firewall', $firewall);
+        $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
+        $this->set('data', $data);
     }
 
     public function imprimir()
     {
-        $t_auditoria = TableRegistry::get('Auditoria');
-
-        $conditions = [
-            'usuario' =>  $this->request->session()->read('UsuarioID'),
-            'ocorrencia' => 1
-        ];
-
-        $log = $t_auditoria->find('all', [
-            'conditions' => $conditions,
-            'order' => [
-                'data' => 'DESC'
-            ]
-        ]);
-
-        $quantidade = $t_auditoria->find('all', ['conditions' => $conditions])->count();
-
-         $this->viewBuilder()->layout('print');
-
-        $this->set('title', 'Log de Acesso');
-        $this->set('log', $log);
-        $this->set('qtd_total', $quantidade);
+        
     }
 }
