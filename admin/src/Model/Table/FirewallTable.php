@@ -9,5 +9,6 @@ class FirewallTable extends BaseTable
     {
         $this->table('firewall');
         $this->primaryKey('id');
+        $this->entityClass('Firewall');
     }
 }
