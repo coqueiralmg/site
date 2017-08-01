@@ -30,6 +30,7 @@ class FirewallComponent extends Component
             $bloqueado->data = date("Y-m-d H:i:s");
             $bloqueado->lista_branca = false;
             $bloqueado->site = false;
+            $bloqueado->ativo = true;
             $bloqueado->motivo = $motivo;
 
             if($table->save($bloqueado))
@@ -53,7 +54,8 @@ class FirewallComponent extends Component
         $query = $table->find('all', [
             'conditions' => [
                 'ip' => $ip,
-                'lista_branca' => false
+                'lista_branca' => false,
+                'ativo' => true
             ]
         ]);
 

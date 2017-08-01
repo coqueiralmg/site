@@ -16,4 +16,9 @@ class Firewall extends Entity
     {
         return $this->_properties['site'] ? 'Sim' : 'Não';
     }
+
+    protected function _getAtivado()
+    {
+        return $this->_properties['ativo'] ? 'Sim' : 'Não';
+    }
 }    

@@ -44,6 +44,7 @@
                                         <th>Data do Cadastro</th>
                                         <th>Lista Branca</th>
                                         <th>Bloqueio no Site</th>
+                                        <th>Ativo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -54,6 +55,7 @@
                                             <td><?= $this->Format->date($item->data) ?></td>
                                             <td><?= $item->whitelist ?></td>
                                             <td><?= $item->bloqueiaSite ?></td>
+                                            <td><?= $item->ativado ?></td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
                                                     <i class="material-icons">edit</i>
