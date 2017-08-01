@@ -73,6 +73,19 @@ class FirewallController extends AppController
 
         $firewall = $t_firewall->find('all', ['conditions' => $condicoes]);
         $qtd_total = $firewall->count();
+
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão da lista de IPs cadastrados no Firewall.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
         
         $this->viewBuilder()->layout('print');
 
@@ -120,5 +133,78 @@ class FirewallController extends AppController
         $this->set('icon', $icon);
         $this->set('id', $id);
         $this->set('tipo_lista', $tipo_lista);
+    }
+
+    public function save(int $id)
+    {
+        if ($this->request->is('post'))
+        {
+            $this->insert();
+        }
+        else if($this->request->is('put'))
+        {
+            $this->update($id);
+        }
+    }
+
+    protected function insert()
+    {
+        try
+        {
+            $t_firewall = TableRegistry::get('Firewall');
+
+            $entity = $t_firewall->newEntity($this->request->data());
+            $entity->data = date("Y-m-d H:i:s");
+            $entity->lista_branca = ($entity->tipo_lista == 'B');
+
+            $t_firewall->save($entity);
+            $this->Flash->greatSuccess('Registro salvo com sucesso');
+
+            $propriedades = $entity->getOriginalValues();
+            $auditoria = array();
+
+            if($entity->tipo_lista == 'N')
+            {
+                $auditoria = [
+                    'ocorrencia' => 16,
+                    'descricao' => 'O usuário criou um novo registro de firewall lista negra.',
+                    'dado_adicional' => json_encode(['id_novo_usuario' => $entity->id, 'campos' => $propriedades]),
+                    'usuario' => $this->request->session()->read('UsuarioID')
+                ];
+            }
+            elseif($entity->tipo_lista == 'B')
+            {
+                $auditoria = [
+                    'ocorrencia' => 17,
+                    'descricao' => 'O usuário criou um novo registro de firewall lista branca.',
+                    'dado_adicional' => json_encode(['id_novo_usuario' => $entity->id, 'campos' => $propriedades]),
+                    'usuario' => $this->request->session()->read('UsuarioID')
+                ];
+            }
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['controller' => 'firewall', 'action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o registro.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['controller' => 'firewall', 'action' => 'cadastro', 0]);
+        }
+    }
+
+    protected function update(int $id)
+    {
+       
     }
 }

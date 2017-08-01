@@ -55,12 +55,12 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox">Aplicável também ao site
+                                                <?= $this->Form->checkbox("site") ?>Aplicável também ao site
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox"> Ativo
+                                                <?= $this->Form->checkbox("ativo") ?> Ativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
