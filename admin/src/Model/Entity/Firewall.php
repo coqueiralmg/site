@@ -5,7 +5,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 
-class Bloqueado extends Entity
+class Firewall extends Entity
 {
     
 }

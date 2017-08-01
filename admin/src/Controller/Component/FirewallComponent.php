@@ -23,7 +23,7 @@ class FirewallComponent extends Component
 
         if($this->verificar())
         {
-            $table = TableRegistry::get('Bloqueado');
+            $table = TableRegistry::get('Firewall');
             $bloqueado = $table->newEntity();
 
             $bloqueado->ip = ($ip == '') ? $_SERVER['REMOTE_ADDR'] : $ip;
@@ -47,7 +47,7 @@ class FirewallComponent extends Component
     */
     public function verificar()
     {
-        $table = TableRegistry::get('Bloqueado');
+        $table = TableRegistry::get('Firewall');
         $ip = $_SERVER['REMOTE_ADDR'];
 
         $query = $table->find('all', [

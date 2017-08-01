@@ -3,11 +3,11 @@
 namespace App\Model\Table;
 
 
-class BloqueadoTable extends BaseTable
+class FirewallTable extends BaseTable
 {
     public function initialize(array $config)
     {
-        $this->table('bloqueados');
+        $this->table('firewall');
         $this->primaryKey('id');
     }
 }
