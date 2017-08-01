@@ -26,7 +26,7 @@
                                     <legend>Dados Cadastrais</legend>
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("nome", "Nome") ?>
-                                        <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control"]) ?>
+                                        <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control", "maxlength" => 50]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
