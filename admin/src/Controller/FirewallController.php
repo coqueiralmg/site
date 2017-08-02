@@ -213,8 +213,33 @@ class FirewallController extends AppController
        try
        {
             $t_firewall = TableRegistry::get('Firewall');
+            $entity = $t_firewall->get($id);
 
-            
+            $t_firewall->patchEntity($entity, $this->request->data());
+
+            $entity->lista_branca = ($entity->tipo_lista == 'B');
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_firewall->save($entity);
+            $this->Flash->greatSuccess('Registro salvo com sucesso');
+
+            $auditoria = [
+                'ocorrencia' => 18,
+                'descricao' => 'O usuário editou um registro do firewall.',
+                'dado_adicional' => json_encode(['usuario_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['controller' => 'firewall', 'action' => 'cadastro', $id]);
        }
        catch(Exception $ex)
         {
