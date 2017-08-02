@@ -1,9 +1,11 @@
+<?= $this->Html->script('controller/firewall.lista.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                        <?= $this->Flash->render() ?>
                         <h4 class="card-title">Buscar</h4>
                          <?php
                         echo $this->Form->create("Firewall", [
@@ -60,7 +62,7 @@
                                                 <a href="<?= $this->Url->build(['controller' => 'Firewall', 'action' => 'edit', $item->id]) ?>" class="btn btn-primary btn-round">
                                                     <i class="material-icons">edit</i>
                                                 </a>
-                                                <button type="button" onclick="excluirUsuario(<?= $item->id ?>, '<?= $item->ip ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <button type="button" onclick="excluirRegistro(<?= $item->id ?>, '<?= $item->ip ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

@@ -152,6 +152,47 @@ class FirewallController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_firewall = TableRegistry::get('Firewall');
+            $marcado = $t_firewall->get($id);
+            $ip = $marcado->ip;
+            $propriedades = $marcado->getOriginalValues();
+
+            $t_firewall->delete($marcado);
+
+            $this->Flash->greatSuccess('O registro para o endereço de IP ' . $ip . ' foi excluído com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 19,
+                'descricao' => 'O usuário excluiu um registro do firewall.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['controller' => 'firewall', 'action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir o registro.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['controller' => 'firewall', 'action' => 'index']);
+        }
+    }
+
     protected function insert()
     {
         try
