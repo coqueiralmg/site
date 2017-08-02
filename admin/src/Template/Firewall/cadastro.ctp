@@ -33,12 +33,14 @@
                                 <div class="col-md-2">
                                     
                                 </div>
+                                <?php if($firewall != null): ?>
                                 <div class="col-md-2">
                                     <div class="form-group label-control">
                                         <label>Data do Cadastro</label>
                                         <p><i><?= $firewall->data?></i></p>
                                     </div>
                                 </div>
+                                <?php endif; ?>
                                 <div class="col-md-6">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("tipo_lista", "Tipo de Registro") ?> <br/>
