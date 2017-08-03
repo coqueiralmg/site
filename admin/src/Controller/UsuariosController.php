@@ -341,7 +341,7 @@ class UsuariosController extends AppController
 
         if($entity->mudasenha == 'true')
         {
-            $entity->senha = $entity->senha;
+            $entity->senha = sha1($entity->senha);
         }
         else
         {
