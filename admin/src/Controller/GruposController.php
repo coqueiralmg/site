@@ -187,7 +187,7 @@ class GruposController extends AppController
                 ]
             ]);
 
-            $this->redirect(['controller' => 'grupos', 'action' => 'index']);
+            $this->redirect(['action' => 'index']);
         }
     }
 
@@ -237,7 +237,7 @@ class GruposController extends AppController
                 ]
             ]);
 
-            $this->redirect(['controller' => 'grupo-usuario', 'action' => 'cadastro', 0]);
+            $this->redirect(['action' => 'cadastro', 0]);
         }
     }
 
@@ -291,7 +291,7 @@ class GruposController extends AppController
                 ]
             ]);
 
-            $this->redirect(['controller' => 'grupo-usuario', 'action' => 'cadastro', 0]);
+            $this->redirect(['action' => 'cadastro', $id]);
         }
     }
 
