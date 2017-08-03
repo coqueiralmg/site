@@ -2,6 +2,7 @@
 
 namespace App\Controller\Component;
 
+use Cake\Cache\Cache;
 use Cake\Controller\Component;
 use Cake\ORM\TableRegistry;
 
@@ -11,12 +12,11 @@ use Cake\ORM\TableRegistry;
  */
 class MembershipComponent extends Component
 {
-    public $roles;
     protected $history;
 
     public function initialize(array $config)
     {
-        $this->roles = $this->actionRoles();
+
     }
 
     /**
@@ -57,9 +57,10 @@ class MembershipComponent extends Component
      */
     public function getFunctions(array $url)
     {
+        $actionRoles = $this->actionRoles();
         $funcoes = array();
 
-        foreach ($this->roles as $key => $values)
+        foreach ($actionRoles as $key => $values)
         {
             foreach($values as $value)
             {
@@ -80,9 +81,10 @@ class MembershipComponent extends Component
      */
     public function getRoles(array $url)
     {
+        $actionRoles = $this->actionRoles();
         $roles = array();
 
-        foreach ($this->roles as $key => $values)
+        foreach ($actionRoles as $key => $values)
         {
             foreach($values as $value)
             {
@@ -109,7 +111,7 @@ class MembershipComponent extends Component
         $grupo = $grupos->get($usuario->grupo, ['contain' => ['Funcao']]);
         $fs = array();
 
-        foreach($grupo->Funcoes as $func)
+        foreach($grupo->funcoes as $func)
         {
             $fs[$func->chave] = $func->nome;
         }
@@ -121,66 +123,49 @@ class MembershipComponent extends Component
 
 
     /**
-     * Obtém a lista de roles padrão
+     * Obtém a lista de roles e suas respectivas ações
      * @return array Lista de roles padrão do sistema.
      */
-    private function actionRoles()
+    public function actionRoles()
     {
-        return [
-            "LISTA_USUARIOS" => [
-                ["controller" => "usuario", "action" => "index"]
-            ],
-            "ADICIONAR_USUARIOS" => [
-                ["controller" => "usuario", "action" => "add"],
-                ["controller" => "usuario", "action" => "cadastro"]
-            ],
-            "EDITAR_USUARIOS" => [
-                ["controller" => "usuario", "action" => "edit"],
-                ["controller" => "usuario", "action" => "cadastro"]
-            ],
-            "EXCLUIR_USUARIOS" => [
-                ["controller" => "usuario", "action" => "delete"]
-            ],
-            "LISTAR_GRUPOS_USUARIOS" => [
-                ["controller" => "grupousuario", "action" => "index"]
-            ],
-            "ADICIONAR_GRUPOS_USUARIOS" => [
-                ["controller" => "grupousuario", "action" => "add"],
-                ["controller" => "grupousuario", "action" => "cadastro"]
-            ],
-            "EDITAR_GRUPOS_USUARIOS" => [
-                ["controller" => "grupousuario", "action" => "edit"],
-                ["controller" => "grupousuario", "action" => "cadastro"]
-            ],
-            "EXCLUIR_GRUPOS_USUARIOS" => [
-                ["controller" => "grupousuario", "action" => "delete"]
-            ],
-            "LISTAR_TRANSACAO" => [
-                ["controller" => "transacao", "action" => "index"]
-            ],
-            "VISUALIZAR_TRANSACAO" => [
-                ["controller" => "transacao", "action" => "documento"]
-            ],
-            "ADICIONAR_TRANSACAO" => [
-                ["controller" => "transacao", "action" => "add"],
-                ["controller" => "transacao", "action" => "cadastro"]
-            ],
-            "EDITAR_TRANSACAO" => [
-                ["controller" => "transacao", "action" => "edit"],
-                ["controller" => "transacao", "action" => "cadastro"]
-            ],
-            "EXCLUIR_TRANSACAO" => [
-                ["controller" => "transacao", "action" => "delete"]
-            ],
-            "CONSULTAR_AUDITORIA" => [
-                ["controller" => "auditoria", "action" => "index"]
-            ],
-            "VISUALIZAR_DETALHE_AUDITORIA" => [
-                ["controller" => "auditoria", "action" => "detalhe"]
-            ],
-            "EXCLUIR_AUDITORIA" => [
-                ["controller" => "auditoria", "action" => "delete"]
-            ]
-        ];
+        $actionRoles = array();
+
+        if(Cache::read('ACTION_ROLES') != null)
+        {
+            $actionRoles = Cache::read('ACTION_ROLES');
+        }
+        else
+        {
+            $t_funcao = TableRegistry::get('Funcao');
+            $t_acao = TableRegistry::get('Acao');
+
+            $funcoes = $t_funcao->find('all');
+
+            foreach($funcoes as $funcao)
+            {
+                $action = array();
+                $query = $t_acao->find('all', [
+                    'conditions' => [
+                        'funcao' => $funcao->id
+                    ]
+                ]);
+                
+                foreach($query as $acao)
+                {
+                    $valor = [
+                        'controller' => $acao->controller,
+                        'action' => $acao->action
+                    ];
+
+                    array_push($action, $valor);
+                }
+
+                $actionRoles[$funcao->chave] = $action;
+            }
+
+            Cache::write('ACTION_ROLES', $actionRoles);
+        }
+
+        return $actionRoles;
     }
 }
