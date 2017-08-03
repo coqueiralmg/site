@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use \Exception;
 
 /**
  * Application Controller
@@ -56,6 +57,7 @@ class AppController extends Controller
         $this->loadComponent('Firewall');
         $this->loadComponent('Monitoria');
         $this->loadComponent('Format');
+        $this->loadComponent('Membership');
 
         $this->validationRole = true;
     }
@@ -82,6 +84,7 @@ class AppController extends Controller
             if ($this->isAuthorized())
             {
                 $this->carregarDadosSistema();
+                $this->accessRole();
             }
         }
     }
@@ -124,11 +127,11 @@ class AppController extends Controller
         $this->set('url', $url);
         $this->set('function', $this->Membership->getFunctions($url));
         $this->set('role', $this->Membership->getRoles($url));
-        $this->set('roles', $this->Membership->roles);
+        $this->set('roles', $this->Membership->actionRoles());
 
-        if($this->validationRole && !$this->Membership->handleRole($url, $userID))
+        if(!$this->Membership->handleRole($url, $userID))
         {
-            throw new ForbiddenException();
+            //throw new ForbiddenException();
         }
     }
 
