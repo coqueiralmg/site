@@ -58,7 +58,9 @@
                             </div>
                             <div class="form-group form-button">
                             <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
-                            <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                            <?php if ($this->Membership->handleRole("adicionar_usuario")): ?>
+                                <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                            <?php endif; ?>
                             <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                             </div>
                          <?php echo $this->Form->end(); ?>
@@ -91,17 +93,25 @@
                                             <td><?=$usuario->ativado?></td>
                                             <td><?=$usuario->grupoUsuario->nome?></td>
                                             <td class="td-actions text-right">
-                                                <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'edit', $usuario->id]) ?>" class="btn btn-primary btn-round">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <button type="button" onclick="excluirUsuario(<?= $usuario->id ?>, '<?= $usuario->pessoa->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php if ($this->Membership->handleRole("editar_usuario")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'edit', $usuario->id]) ?>" class="btn btn-primary btn-round">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($this->Membership->handleRole("excluir_usuario")): ?>
+                                                    <button type="button" onclick="excluirUsuario(<?= $usuario->id ?>, '<?= $usuario->pessoa->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
                         <?php else: ?>
-                            <h3>Nenhum usuário encontrado. Para adicionar novo usuário, <?=$this->Html->link("clique aqui", ["controller" => "usuarios", "action" => "add"])?>.</h3>
+                            <?php if ($this->Membership->handleRole("adicionar_usuario")): ?>
+                                <h3>Nenhum usuário encontrado. Para adicionar novo usuário, <?=$this->Html->link("clique aqui", ["controller" => "usuarios", "action" => "add"])?>.</h3>
+                            <?php else:?>
+                                <h3>Nenhum usuário encontrado.</h3>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                      <div class="card-content">
