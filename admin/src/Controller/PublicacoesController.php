@@ -25,7 +25,33 @@ class PublicacoesController extends AppController
 
         if(count($this->request->getQueryParams()) > 0)
         {
+            $numero = $this->request->query('numero');
+            $titulo = $this->request->query('titulo');
+            $data_inicial = $this->request->query('data_inicial');
+            $data_final = $this->request->query('data_final');
+            $mostrar = $this->request->query('mostrar');
 
+            $condicoes['numero LIKE'] = '%' . $numero . '%';
+            $condicoes['titulo LIKE'] = '%' . $titulo . '%';
+
+            if($data_inicial != "" && $data_final != "")
+            {
+                $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
+                $condicoes["data <="] = $this->Format->formatDateDB($data_final);
+            }
+
+            if($mostrar != 'T')
+            {
+                $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
+            }
+
+            $data['numero'] = $numero;
+            $data['titulo'] = $titulo;
+            $data['data_inicial'] = $data_inicial;
+            $data['data_final'] = $data_final;
+            $data['mostrar'] = $mostrar;
+
+            $this->request->data = $data;
         }
 
         $this->paginate = [

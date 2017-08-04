@@ -107,9 +107,9 @@
                         </table>
                         <?php else: ?>
                             <?php if ($this->Membership->handleRole("adicionar_usuario")): ?>
-                                <h3>Nenhum usuário encontrado. Para adicionar novo usuário, <?=$this->Html->link("clique aqui", ["controller" => "usuarios", "action" => "add"])?>.</h3>
+                                <h3>Nenhuma publicação encontrada. Para adicionar nova publicação, <?=$this->Html->link("clique aqui", ["controller" => "publicacoes", "action" => "add"])?>.</h3>
                             <?php else:?>
-                                <h3>Nenhum usuário encontrado.</h3>
+                                <h3>Nenhuma publicação encontrada.</h3>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
