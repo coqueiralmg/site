@@ -48,7 +48,10 @@
                             </div>
                             <div class="form-group form-button">
                             <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
-                                <button type="submit" class="btn btn-fill btn-warning pull-right">Novo<div class="ripple-container"></div></button>
+                            <?php if ($this->Membership->handleRole("adicionar_publicacao")): ?>
+                                <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                            <?php endif; ?>
+                            <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                             </div>
                         </form>
                         
@@ -57,8 +60,8 @@
             </div>
             <div class="col-md-12">
                 <div class="card">
-                   
                     <div class="card-content table-responsive">
+                        <?php if(count($publicacoes) > 0):?>
                         <h4 class="card-title">Lista de Publicações</h4>
                         <table class="table">
                             <thead class="text-primary">
@@ -71,252 +74,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Decreto 1899/2017</td>
-                                    <td>DECRETO Nº1899/2017 - CALAMIDADE ADMINISTRATIVA E FINANCEIRA</td>
-                                    <td>02/01/2017</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php foreach ($publicacoes as $publicacao): ?>
+                                    <tr>
+                                        <td><?=$publicacao->numero?></td>
+                                        <td><?=$publicacao->titulo?></td>
+                                        <td><?= $this->Format->date($publicacao->data) ?></td>
+                                        <td><?= $publicacao->ativado ?></td>
+                                        <td class="td-actions text-right" style="width: 8%">
+                                            <?php if ($this->Membership->handleRole("editar_publicacao")): ?>
+                                                <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round">
+                                                    <i class="material-icons">edit</i>
+                                                </a>
+                                            <?php endif; ?>
+                                            <?php if ($this->Membership->handleRole("excluir_publicacao")): ?>
+                                                <button type="button" onclick="excluirPublicacao(<?= $publicacao->id ?>, '<?= $publicacao->ip ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
-                        
+                        <?php else: ?>
+                            <?php if ($this->Membership->handleRole("adicionar_usuario")): ?>
+                                <h3>Nenhum usuário encontrado. Para adicionar novo usuário, <?=$this->Html->link("clique aqui", ["controller" => "usuarios", "action" => "add"])?>.</h3>
+                            <?php else:?>
+                                <h3>Nenhum usuário encontrado.</h3>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
                      <div class="card-content">
                         <div class="material-datatables">
                             <div class="row">
-                                <div class="col-sm-5">
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_info">50 publicações encontradas</div>
-                                </div>
-                                <div class="col-sm-7 text-right">
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                        <ul class="pagination pagination-success" style="margin: 0">
-                                            <li class="paginate_button first" id="datatables_first"><a href="#" aria-controls="datatables" data-dt-idx="0" tabindex="0">Primeiro</a></li>
-                                            <li class="paginate_button previous" id="datatables_previous"><a href="#" aria-controls="datatables" data-dt-idx="1" tabindex="0">Anterior</a></li>
-                                            <li class="paginate_button active"><a href="#" aria-controls="datatables" data-dt-idx="2" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="datatables" data-dt-idx="3" tabindex="0">2</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="datatables" data-dt-idx="4" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="datatables" data-dt-idx="5" tabindex="0">4</a></li>
-                                            <li class="paginate_button next" id="datatables_next"><a href="#" aria-controls="datatables" data-dt-idx="6" tabindex="0">Próximo</a></li>
-                                            <li class="paginate_button last" id="datatables_last"><a href="#" aria-controls="datatables" data-dt-idx="7" tabindex="0">Último</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                               <?=$this->element('pagination', $opcao_paginacao) ?>
                             </div>
                         </div>
                     </div>
@@ -325,19 +114,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        $('#data_inicial').datepicker({
-            language: 'pt-BR'
-        });
-
-         $('#data_final').datepicker({
-            language: 'pt-BR'
-        });
-
-        $('#data_inicial').mask('00/00/0000');
-        $('#data_final').mask('00/00/0000');
-    });
-
-</script>
