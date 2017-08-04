@@ -163,6 +163,14 @@ class UsuariosController extends AppController
 
     public function edit(int $id)
     {
+        $t_usuarios = TableRegistry::get('Usuario');
+        $pivot = $t_usuarios->get($id);
+
+        if($pivot->suspenso)
+        {
+             $this->Flash->greatWarning('Este usuário encontra-se suspenso para acessar ao sistema. Para que ele volte a acessar o sistema, clique no botão liberar.');
+        }
+        
         $this->redirect(['action' => 'cadastro', $id]);
     }
 
@@ -271,6 +279,21 @@ class UsuariosController extends AppController
 
             $this->redirect(['controller' => 'usuarios', 'action' => 'index']);
         }
+    }
+
+    public function liberar(int $id)
+    {
+        $usuarios = TableRegistry::get('Usuario');
+        $usuario = $usuarios->get($id);
+
+        $usuario->suspenso = false;
+        $usuario->verificar = true;
+        $usuario->ativo = true;
+
+        $usuarios->save($usuario);
+
+        $this->Flash->greatSuccess('Liberado com sucesso o acesso do usuário ao sistema. Recomendamos deixar que o usuário troque sua senha no próximo acesso.');
+        $this->redirect(['controller' => 'usuarios', 'action' => 'cadastro', $id]);
     }
 
     protected function insert()

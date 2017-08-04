@@ -104,6 +104,9 @@
                                 </div>
                             </div>
                             <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Salvar</button>
+                            <?php if($usuario->suspenso): ?>
+                                <a href="<?= $this->Url->build(['controller' => 'Usuarios', 'action' => 'liberar', $id]) ?>" class="btn btn-default pull-right">Liberar<div class="ripple-container"></div></a>
+                            <?php endif; ?>
                             <button type="reset" class="btn btn-default pull-right">Limpar</button>
                             <button type="button" onclick="window.location='<?= $this->Url->build('/usuarios') ?>'" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
