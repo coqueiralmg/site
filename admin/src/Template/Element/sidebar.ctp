@@ -85,7 +85,7 @@
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if ($this->Membership->handleMenu("legislacao", "categorias_legislacao")): ?>
+            <?php if ($this->Membership->handleSubmenus("legislacao", "categorias_legislacao")): ?>
                 <li>
                     <a data-toggle="collapse" href="#legislacao">
                     <i class="material-icons">location_city</i>
