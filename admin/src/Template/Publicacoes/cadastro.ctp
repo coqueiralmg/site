@@ -17,7 +17,7 @@
                             <?=$this->element('message', [
                                 'name' => 'cadastro_erro',
                                 'type' => 'error',
-                                'message' => 'Ocorreu um erro ao salvar o usuário',
+                                'message' => 'Ocorreu um erro ao salvar a publicação',
                                 'details' => ''
                             ]) ?>
                             <?= $this->Flash->render() ?>
