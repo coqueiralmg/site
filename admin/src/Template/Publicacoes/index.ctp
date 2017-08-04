@@ -1,60 +1,71 @@
+<?= $this->Html->script('controller/publicacoes.lista.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                        <?= $this->Flash->render() ?>
+                         <?=$this->element('message', [
+                            'name' => 'lista_erro',
+                            'type' => 'error',
+                            'message' => 'Ocorreu um erro ao buscar as publicações',
+                            'details' => ''
+                        ]) ?>
                         <h4 class="card-title">Buscar</h4>
                         
-                        <form>
+                        <?php
+                        echo $this->Form->create("Usuario", [
+                            "url" => [
+                                "controller" => "publicacoes",
+                                "action" => "index"
+                            ],
+                            'type' => 'get',
+                            "role" => "form"]);
+                        ?>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-group-min">
-                                        <label>Número</label>
-                                        <input class="form-control" type="text">
+                                        <?= $this->Form->label("numero", "Número") ?>
+                                        <?= $this->Form->text("numero", ["class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-group-min">
-                                        <label>Título</label>
-                                        <input class="form-control" type="text">
+                                        <?= $this->Form->label("titulo", "Título") ?>
+                                        <?= $this->Form->text("titulo", ["class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group form-group-min">
-                                        <label>Data Inicial</label>
-                                        <input id="data_inicial" class="form-control" type="text">
+                                        <?= $this->Form->label("data_inicial", "Data Inicial") ?>
+                                        <?= $this->Form->text("data_inicial", ["id" => "data_inicial", "class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-group-min">
-                                        <label>Data Final</label>
-                                        <input id="data_final" class="form-control" type="text">
+                                        <?= $this->Form->label("data_final", "Data Inicial") ?>
+                                        <?= $this->Form->text("data_final", ["id" => "data_final", "class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-group-min">
-                                         <label>Mostrar</label> <br/>
-                                        <select class="form-control" data-style="select-with-transition" title="Choose City" data-size="7" tabindex="-98">
-                                            <option value="2">Todos</option>
-                                            <option value="3">Somente Ativos</option>
-                                            <option value="4">Somente Inativos</option>
-                                        </select>
+                                        <?= $this->Form->label("mostrar", "Mostrar") ?> <br/>
+                                        <?=$this->Form->select('mostrar', $combo_mostra, ['class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group form-button">
-                            <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
+                            <button type="submit" onclick="return validar()" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
                             <?php if ($this->Membership->handleRole("adicionar_publicacao")): ?>
                                 <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                             <?php endif; ?>
                             <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                             </div>
-                        </form>
-                        
+                         <?php echo $this->Form->end(); ?>
                     </div>
                 </div>
             </div>
