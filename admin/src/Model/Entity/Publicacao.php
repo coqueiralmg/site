@@ -24,4 +24,9 @@ class Publicacao extends Entity
 
         return $texto . $reticences;
     }
+
+    protected function _getAtivado()
+    {
+        return $this->_properties['ativo'] ? 'Sim' : 'Não';
+    }
 }
