@@ -160,8 +160,22 @@ class PublicacoesController extends AppController
         $title = ($id > 0) ? 'Edição da Publicação' : 'Nova Publicação';
         $icon = ($id > 0) ? 'group' : 'group_add';
 
+        $t_publicacao = TableRegistry::get('Publicacao');
+
+        if($id > 0)
+        {
+            $publicacao = $t_publicacao->get($id);
+            
+            $this->set('publicacao', $publicacao);
+        }
+        else
+        {
+            $this->set('publicacao', null);
+        }
+
         $this->set('title', $title);
         $this->set('icon', $icon);
+        $this->set('id', $id);
     }
 
 }
