@@ -61,10 +61,24 @@ class MembershipHelper extends Helper
         return $item["active"];
     }
 
+    /**
+    * Executa o processo de validação de menu, juntamente com seus submenus
+    * @param array $chaves Chaves do menu do sistema, que fazem parte do submenu.
+    * @return boolean Se o usuário possui ou não a permissão de acessar o sistema.
+    */
     public function handleSubmenus()
     {
         $qtd_args = func_num_args();
         $args = func_get_args();
+        $autorizado = false;
+
+        for($i = 0; $i < $qtd_args && !$autorizado; $i++)
+        {
+            $chave = $args[$i];
+            $autorizado = $this->handleMenu($chave);
+        }
+
+        return $autorizado;
     }
 
     /**
@@ -188,6 +202,10 @@ class MembershipHelper extends Helper
         return $actionRoles;
     }
 
+    /**
+    * Retorna uma lista de chaves de permissão do menu
+    * @return Lista de permissões do menu.
+    */
     private function actionsMenu()
     {
         return [

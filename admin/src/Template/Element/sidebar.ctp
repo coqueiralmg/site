@@ -85,31 +85,32 @@
                     </a>
                 </li>
             <?php endif; ?>
-            
-            <li>
-                <a data-toggle="collapse" href="#legislacao">
-                   <i class="material-icons">location_city</i>
-                   <p>Legislação <b class="caret"></b></p>
-                </a>
-                <div class="collapse" id="legislacao" aria-expanded="true" style="padding: 0 0 0 40px">
-                    <ul class="nav">
-                        <?php if ($this->Membership->handleMenu("legislacao")): ?>
-                            <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'index']) ?>">
-                                <a href="<?= $this->Url->build('/legislacao') ?>">
-                                    Cadastro e Pesquisa
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                        <?php if ($this->Membership->handleMenu("categorias_legislacao")): ?>
-                            <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
-                                <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
-                                    Categorias
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </div>
-            </li>
+            <?php if ($this->Membership->handleMenu("legislacao", "categorias_legislacao")): ?>
+                <li>
+                    <a data-toggle="collapse" href="#legislacao">
+                    <i class="material-icons">location_city</i>
+                    <p>Legislação <b class="caret"></b></p>
+                    </a>
+                    <div class="collapse" id="legislacao" aria-expanded="true" style="padding: 0 0 0 40px">
+                        <ul class="nav">
+                            <?php if ($this->Membership->handleMenu("legislacao")): ?>
+                                <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'index']) ?>">
+                                    <a href="<?= $this->Url->build('/legislacao') ?>">
+                                        Cadastro e Pesquisa
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($this->Membership->handleMenu("categorias_legislacao")): ?>
+                                <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
+                                    <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'categorias']) ?>">
+                                        Categorias
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </li>
+            <?php endif; ?>
             <?php if ($this->Membership->handleMenu("secretarias")): ?>
                 <li class="<?= $this->Menu->activeMenu(['controller' => 'secretarias']) ?>">
                     <a href="<?= $this->Url->build('/secretarias') ?>">
