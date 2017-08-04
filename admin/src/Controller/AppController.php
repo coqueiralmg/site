@@ -176,8 +176,16 @@ class AppController extends Controller
             'order' => ['data' => 'DESC']
         ]);
 
+        
         $log = $query->first();
 
-        $this->set('ultimo_acesso', $log->data);
+        if($log != null)
+        {
+            $this->set('ultimo_acesso', $log->data);
+        }
+        else
+        {
+            $this->set('ultimo_acesso', null);
+        }    
     }
 }

@@ -20,9 +20,11 @@
                                         <td><?=$licitacao->titulo?></td>
                                         <td><?=date_format($licitacao->dataInicio, 'd/m/Y') ?></td>
                                         <td class="td-actions text-right">
-                                            <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'edit', $licitacao->id]) ?>" class="btn btn-primary btn-round" title="Editar">
-                                                <i class="material-icons">edit</i>
-                                            </a>
+                                            <?php if ($this->Membership->handleRole("editar_licitacao")): ?>
+                                                <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'edit', $licitacao->id]) ?>" class="btn btn-primary btn-round" title="Editar">
+                                                    <i class="material-icons">edit</i>
+                                                </a>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -30,8 +32,12 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="3" class="text-right">
-                                        <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todos</a>
-                                        <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'add']) ?>" class="btn btn-default btn-warning">Nova Licitação</a>
+                                        <?php if ($this->Membership->handleRole("listar_licitacoes")): ?>
+                                            <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todos</a>
+                                        <?php endif; ?>
+                                        <?php if ($this->Membership->handleRole("adicionar_licitacao")): ?>
+                                            <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'add']) ?>" class="btn btn-default btn-warning">Nova Licitação</a>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -58,9 +64,11 @@
                                         <td><?=$publicacao->titulo?></td>
                                         <td><?=date_format($publicacao->data, 'd/m/Y') ?></td>
                                         <td class="td-actions text-right">
-                                            <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round" title="Editar">
-                                                <i class="material-icons">edit</i>
-                                            </a>
+                                            <?php if ($this->Membership->handleRole("editar_publicacao")): ?>
+                                                <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round" title="Editar">
+                                                    <i class="material-icons">edit</i>
+                                                </a>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -68,8 +76,12 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="3" class="text-right">
-                                        <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todos</a>
-                                        <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'add']) ?>" class="btn btn-default btn-warning">Nova Publicação</a>
+                                        <?php if ($this->Membership->handleRole("listar_publicacoes")): ?>
+                                            <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todos</a>
+                                        <?php endif; ?>
+                                        <?php if ($this->Membership->handleRole("adicionar_publicacao")): ?>
+                                            <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'add']) ?>" class="btn btn-default btn-warning">Nova Publicação</a>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -83,8 +95,12 @@
                 <h3>Notícias Recentes </h3>
             </div>
             <div class="pull-right">
-                <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'add']) ?>" class="btn btn-warning btn-simple">Nova Notícia<div class="ripple-container"></div></a> |
-                <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'index']) ?>" class="btn btn-info btn-simple">Ver Todas<div class="ripple-container"></div></a>
+                <?php if ($this->Membership->handleRole("adicionar_noticia")): ?>
+                    <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'add']) ?>" class="btn btn-warning btn-simple">Nova Notícia<div class="ripple-container"></div></a> |
+                <?php endif; ?>
+                <?php if ($this->Membership->handleRole("listar_noticias")): ?>
+                    <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'index']) ?>" class="btn btn-info btn-simple">Ver Todas<div class="ripple-container"></div></a>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -110,7 +126,9 @@
                         </div>
                         <div class="card-footer">
                             <div class="stats pull-right">
-                                <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'edit', $noticia->id]) ?>" class="btn btn-primary btn-simple">Editar<div class="ripple-container"></div></a>
+                                <?php if ($this->Membership->handleRole("editar_noticia")): ?>
+                                    <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'edit', $noticia->id]) ?>" class="btn btn-primary btn-simple">Editar<div class="ripple-container"></div></a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
