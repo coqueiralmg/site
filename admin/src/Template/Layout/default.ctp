@@ -66,9 +66,15 @@
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
+								<?php if ($ultimo_acesso == null): ?>
+									<a href="#">
+										<i class="material-icons">info</i>Este é o seu primeiro acesso ao sistema
+									</a>	
+								<?php else: ?>
 								<a href="<?= $this->Url->build(['controller' => 'log', 'action' => 'index']) ?>">
 									<i class="material-icons">info</i>Último acesso: <?= $this->Format->date($ultimo_acesso, true) ?>
 								</a>
+								<?php endif; ?>
 							</li>
 
 							<li>
