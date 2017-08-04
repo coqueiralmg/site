@@ -12,6 +12,7 @@
                                     "action" => "save",
                                     $id
                                 ],
+                                'enctype' => 'multipart/form-data',
                                 "role" => "form"]);
                             ?>
                             <?=$this->element('message', [
