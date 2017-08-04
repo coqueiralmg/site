@@ -18,14 +18,14 @@ function validar() {
 
     if (dataInicial != "" || dataFinal != "") {
         if (dataInicial == "") {
-            mensagem += "Favor, informe a data inicial para efetuar a busca por data.";
+            mensagem += "<li>Favor, informe a data inicial para efetuar a busca por data.</li>";
             $("label[for='data-inicial']").css("color", "red");
         } else {
             $("label[for='data-inicial']").css("color", "#aaa");
         }
 
         if (dataFinal == "") {
-            mensagem += "Favor, informe a data final para efetuar a busca por data.";
+            mensagem += "<li>Favor, informe a data final para efetuar a busca por data.</li>";
             $("label[for='data-final']").css("color", "red");
         } else {
             $("label[for='data-final']").css("color", "#aaa");
@@ -36,7 +36,7 @@ function validar() {
             var final = new Date(dataFinal);
 
             if (inicial > final) {
-                mensagem += "A data inicial é maior do que a data final.";
+                mensagem += "<li>A data inicial é maior do que a data final.</li>";
                 $("label[for='data-inicial']").css("color", "red");
                 $("label[for='data-final']").css("color", "red");
             } else {
