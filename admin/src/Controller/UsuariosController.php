@@ -293,6 +293,23 @@ class UsuariosController extends AppController
         $usuarios->save($usuario);
 
         $this->Flash->greatSuccess('Liberado com sucesso o acesso do usuário ao sistema. Recomendamos deixar que o usuário troque sua senha no próximo acesso.');
+
+        $propriedades = $usuario->getOriginalValues();
+
+        $auditoria = [
+            'ocorrencia' => 20,
+            'descricao' => 'O usuário excluiu um determinado usuário do sistema.',
+            'dado_adicional' => json_encode(['usuario_liberado' => $id, 'dados_usuario' => $propriedades]),
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
         $this->redirect(['controller' => 'usuarios', 'action' => 'cadastro', $id]);
     }
 
