@@ -298,7 +298,7 @@ class UsuariosController extends AppController
 
         $auditoria = [
             'ocorrencia' => 20,
-            'descricao' => 'O usuário excluiu um determinado usuário do sistema.',
+            'descricao' => 'O administrador do sistema liberou um determinado usuário para o acesso ao sistema, a qual estava suspenso.',
             'dado_adicional' => json_encode(['usuario_liberado' => $id, 'dados_usuario' => $propriedades]),
             'usuario' => $this->request->session()->read('UsuarioID')
         ];
