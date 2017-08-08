@@ -58,7 +58,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <?= $this->Form->label("descricao", "Descrição da Publicação") ?>
-                                        <?= $this->Form->text("descricao", ["id" => "descricao", "class" => "form-control"]) ?>
+                                        <?= $this->Form->textarea("descricao", ["id" => "descricao", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>

@@ -6,6 +6,7 @@ use Cake\Core\Configure;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 use \Exception;
+use \DateTime;
 
 class PublicacoesController extends AppController
 {
@@ -23,7 +24,7 @@ class PublicacoesController extends AppController
         $condicoes = array();
         $data = array();
 
-        if(count($this->request->getQueryParams()) > 0)
+        if (count($this->request->getQueryParams()) > 0) 
         {
             $numero = $this->request->query('numero');
             $titulo = $this->request->query('titulo');
@@ -34,14 +35,12 @@ class PublicacoesController extends AppController
             $condicoes['numero LIKE'] = '%' . $numero . '%';
             $condicoes['titulo LIKE'] = '%' . $titulo . '%';
 
-            if($data_inicial != "" && $data_final != "")
-            {
+            if ($data_inicial != "" && $data_final != "") {
                 $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
                 $condicoes["data <="] = $this->Format->formatDateDB($data_final);
             }
 
-            if($mostrar != 'T')
-            {
+            if ($mostrar != 'T') {
                 $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
             }
 
@@ -93,7 +92,7 @@ class PublicacoesController extends AppController
 
         $condicoes = array();
 
-        if(count($this->request->getQueryParams()) > 0)
+        if (count($this->request->getQueryParams()) > 0) 
         {
             $numero = $this->request->query('numero');
             $titulo = $this->request->query('titulo');
@@ -104,13 +103,13 @@ class PublicacoesController extends AppController
             $condicoes['numero LIKE'] = '%' . $numero . '%';
             $condicoes['titulo LIKE'] = '%' . $titulo . '%';
 
-            if($data_inicial != "" && $data_final != "")
+            if ($data_inicial != "" && $data_final != "") 
             {
                 $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
                 $condicoes["data <="] = $this->Format->formatDateDB($data_final);
             }
 
-            if($mostrar != 'T')
+            if ($mostrar != 'T') 
             {
                 $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
             }
@@ -133,8 +132,7 @@ class PublicacoesController extends AppController
 
         $this->Auditoria->registrar($auditoria);
 
-        if($this->request->session()->read('UsuarioSuspeito'))
-        {
+        if ($this->request->session()->read('UsuarioSuspeito')) {
             $this->Monitoria->monitorar($auditoria);
         }
 
@@ -162,13 +160,13 @@ class PublicacoesController extends AppController
 
         $t_publicacao = TableRegistry::get('Publicacao');
 
-        if($id > 0)
+        if ($id > 0) 
         {
             $publicacao = $t_publicacao->get($id);
             
             $this->set('publicacao', $publicacao);
-        }
-        else
+        } 
+        else 
         {
             $this->set('publicacao', null);
         }
@@ -178,4 +176,67 @@ class PublicacoesController extends AppController
         $this->set('id', $id);
     }
 
+    public function save(int $id)
+    {
+        if ($this->request->is('post')) 
+        {
+            $this->insert();
+        } 
+        elseif ($this->request->is('put')) 
+        {
+            $this->update($id);
+        }
+    }
+
+    protected function insert()
+    {
+        try
+        {
+            $t_publicacoes = TableRegistry::get('Publicacao');
+            $entity = $t_publicacoes->newEntity($this->request->data());
+
+            if($entity->hora == '')
+            {
+                $pivot = new DateTime();
+                $hora = $pivot->format('H:i:s');
+            }
+            else
+            {
+                $hora = $entity->hora;
+            }
+
+            $entity->data = $this->Format->mergeDateDB($entity->data, $hora);
+        
+            $t_publicacoes->save($entity);
+            $this->Flash->greatSuccess('Publicação salva com sucesso.');
+
+            $propriedades = $entity->getOriginalValues();
+
+            $auditoria = [
+                'ocorrencia' => 21,
+                'descricao' => 'O usuário criou uma nova publicação.',
+                'dado_adicional' => json_encode(['id_nova_publicacao' => $entity->id, 'dados_publicacao' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a publicação', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
 }
