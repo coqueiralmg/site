@@ -5,3 +5,7 @@ $pivot = new DateTime();
 $hora = $pivot->format('H:i:s');
 
 echo date('Y-m-d H:i:s', strtotime("$data $hora"));
+
+$valor = 'image/jpeg';
+
+echo strpos($valor, 'image');

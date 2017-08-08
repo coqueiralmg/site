@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 use \Exception;
@@ -215,6 +217,10 @@ class PublicacoesController extends AppController
             }
 
             $entity->data = $this->Format->mergeDateDB($entity->data, $hora);
+
+            $arquivo = $this->request->getData('arquivo');
+            
+
         
             $t_publicacoes->save($entity);
             $this->Flash->greatSuccess('Publicação salva com sucesso.');
@@ -247,5 +253,29 @@ class PublicacoesController extends AppController
 
             $this->redirect(['action' => 'cadastro', 0]);
         }
+    }
+
+    private function salvarArquivoPublicacao($arquivo)
+    {
+        $diretorio = ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS;
+        $url_relativa = 'public/storage/legislacao-arquivo/';
+
+        $file_temp = $arquivo['tmp_name'];
+        $file = new File($temp);
+        $novo_nome = uniqid() . '.' . $file->ext();
+
+
+        if(!$this->File->validationExtension($file, $this->File::TYPE_FILE_DOCUMENT))
+        {
+            throw new Exception("A extensão do arquivo é inválida.");
+        }
+        elseif(!$this->File->validationSize($file))
+        {
+            throw new Exception("O tamaho do arquivo enviado é muito grande.");
+        }   
+        
+        $file->copy($diretorio . $novo_nome, true);
+
+        return $url_relativa . $novo_nome;
     }
 }

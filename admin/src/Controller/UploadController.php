@@ -7,7 +7,7 @@ use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
-
+use \Exception;
 
 class UploadController extends AppController
 {
@@ -29,6 +29,18 @@ class UploadController extends AppController
             $response = array();
 
             $file = new File($temp);
+
+            var_dump($this->File::TYPE_FILE_IMAGE);
+
+            if(!$this->File->validationExtension($file, $this->File::TYPE_FILE_IMAGE))
+            {
+                throw new Exception("A extensão do arquivo é inválida.");
+            }
+            elseif(!$this->File->validationSize($file))
+            {
+                throw new Exception("O tamaho do arquivo enviado é muito grande.");
+            }  
+
             $file->copy($diretorio . $nome_arquivo, true);
 
             echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(1, '" . $url_relativa . $nome_arquivo . "', '');</script>";
