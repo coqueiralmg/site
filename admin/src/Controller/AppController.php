@@ -58,6 +58,7 @@ class AppController extends Controller
         $this->loadComponent('Monitoria');
         $this->loadComponent('Format');
         $this->loadComponent('Membership');
+        $this->loadComponent('File');
 
         $this->validationRole = true;
     }
