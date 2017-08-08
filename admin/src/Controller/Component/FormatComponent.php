@@ -3,6 +3,7 @@
 namespace App\Controller\Component;
 
 use Cake\Controller\Component;
+use \DateTime;
 
 class FormatComponent extends Component
 {
@@ -54,5 +55,17 @@ class FormatComponent extends Component
         }
 
         return $result;
+    }
+
+    /**
+    * Mescla data e hora e retorna em um formato de banco de dados
+    * @param $data Data
+    * @param $data Hora
+    * @return string A data no formato reconhecido pelo banco de dados.
+    */
+    public function mergeDateDB($data, $hora)
+    {
+        $merge = new DateTime($this->formatDateDB($data) . ' ' . $hora);
+        return $merge->format('Y-m-d H:i:s');
     }
 }
