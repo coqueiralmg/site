@@ -16,7 +16,7 @@ class BaseTable extends Table
     public static function defaultConnectionName()
     {
         $host = $_SERVER['HTTP_HOST'];
-        $conn = ($host == Configure::read('host.release')) ? 'release' : 'developer';
+        $conn = ($host == Configure::read('Host.release')) ? 'release' : 'developer';
 
         return $conn;
     }
