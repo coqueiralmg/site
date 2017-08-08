@@ -155,6 +155,9 @@ class AppController extends Controller
         $this->redirect(['controller' => 'system', 'action' => 'login']);
     }
 
+    /**
+    *  Verifica se o usuário possui o acesso ao sistema, caso o seu endereço de IP não esteja na lista negra
+    */
     protected function configurarAcesso()
     {
         if(!$this->Firewall->verificar())
@@ -164,6 +167,9 @@ class AppController extends Controller
         }
     }
 
+    /**
+    * Carrega dados iniciais do sistema para ser utilizado em qualquer tela
+    */
     protected function carregarDadosSistema()
     {
         $t_logs = TableRegistry::get('Log');
