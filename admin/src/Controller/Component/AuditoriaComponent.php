@@ -35,7 +35,10 @@ class AuditoriaComponent extends Component
         17 => 'Adicão do registro do firewall lista branca',
         18 => 'Edição do registro do firewall',
         19 => 'Exclusão do registro do firewall',
-        20 => 'Liberação de usuário suspenso'
+        20 => 'Liberação de usuário suspenso',
+        21 => 'Inclusão da publicação',
+        22 => 'Alteração da publicação',
+        23 => 'Exclusão da publicação'
     ];
     
     /**
