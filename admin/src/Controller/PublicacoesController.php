@@ -24,7 +24,7 @@ class PublicacoesController extends AppController
         $condicoes = array();
         $data = array();
 
-        if (count($this->request->getQueryParams()) > 0) 
+        if (count($this->request->getQueryParams()) > 3) 
         {
             $numero = $this->request->query('numero');
             $titulo = $this->request->query('titulo');
@@ -32,15 +32,24 @@ class PublicacoesController extends AppController
             $data_final = $this->request->query('data_final');
             $mostrar = $this->request->query('mostrar');
 
-            $condicoes['numero LIKE'] = '%' . $numero . '%';
-            $condicoes['titulo LIKE'] = '%' . $titulo . '%';
+            if($numero != "")
+            {
+                $condicoes['numero LIKE'] = '%' . $numero . '%';
+            }
 
-            if ($data_inicial != "" && $data_final != "") {
+            if($titulo != "")
+            {
+                $condicoes['titulo LIKE'] = '%' . $titulo . '%';
+            }
+
+            if ($data_inicial != "" && $data_final != "") 
+            {
                 $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
                 $condicoes["data <="] = $this->Format->formatDateDB($data_final);
             }
 
-            if ($mostrar != 'T') {
+            if ($mostrar != 'T') 
+            {
                 $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
             }
 
