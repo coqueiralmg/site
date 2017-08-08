@@ -19,7 +19,7 @@ class PublicacoesController extends AppController
     public function index()
     {
         $t_publicacao = TableRegistry::get('Publicacao');
-        $limite_paginacao = Configure::read('limitPagination');
+        $limite_paginacao = Configure::read('Pagination.limit');
 
         $condicoes = array();
         $data = array();

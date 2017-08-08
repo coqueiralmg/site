@@ -48,17 +48,6 @@ return [
     ],
 
     /**
-     * Security and encryption configuration
-     *
-     * - salt - A random string used in security hashing methods.
-     *   The salt value is also used as the encryption key.
-     *   You should treat it as extremely sensitive data.
-     */
-    'Security' => [
-        'salt' => env('SECURITY_SALT', 'UHJlZmVpdHVyYSBNdW5pY2lwYWwgZGUgQ29xdWVpcmFsIC0gQW1vciBQb3IgTm9zc2EgR2VudGU='),
-    ],
-
-    /**
      * Apply timestamps with the last modified time to static assets (js, css, images).
      * Will append a querystring parameter containing the time the file was modified.
      * This is useful for busting browser caches.

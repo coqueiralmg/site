@@ -10,11 +10,11 @@
         <?php
             if(isset($title))
             {
-                echo $title . " | " . \Cake\Core\Configure::read('system.name');
+                echo $title . " | " . \Cake\Core\Configure::read('System.name');
             }
             else
             {
-                echo \Cake\Core\Configure::read('system.name');
+                echo \Cake\Core\Configure::read('System.name');
             }
         ?>
     </title>
@@ -105,10 +105,10 @@
 			<footer class="footer">
 				<div class="container-fluid">
 					<p class="copyright pull-left">
-						Versão <?= \Cake\Core\Configure::read('system.version') ?>
+						Versão <?= \Cake\Core\Configure::read('System.version') ?>
 					</p>
 					<p class="copyright pull-right">
-						&copy; 2017 Prefeitura Municipal de Coqueiral. Todos os Direitos Reservados.
+						&copy; <?= \Cake\Core\Configure::read('System.yearCreation') ?> <?= \Cake\Core\Configure::read('Author.name') ?>. Todos os Direitos Reservados.
 					</p>
 				</div>
 			</footer>
