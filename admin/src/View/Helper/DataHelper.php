@@ -28,4 +28,14 @@ class DataHelper extends Helper
 
         return $result;
     }
+
+    /**
+    * Retorna um dado de configuração do sistema
+    * @param string $chave Chave da configuração.
+    * @return string Valor da configuração do sistema.
+    */
+    public function setting(string $chave)
+    {
+        return Configure::read($chave);
+    }
 }
