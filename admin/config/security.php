@@ -14,7 +14,8 @@ return[
             'attemps' => [
                 'max' => 5,
                 'warning' => 3
-            ]
+            ],
+            'access' => 'public'
         ]
-    ],
+    ]
 ];
