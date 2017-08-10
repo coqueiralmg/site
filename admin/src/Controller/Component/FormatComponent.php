@@ -3,6 +3,7 @@
 namespace App\Controller\Component;
 
 use Cake\Controller\Component;
+use Cake\I18n\Date;
 use \DateTime;
 
 class FormatComponent extends Component
@@ -41,20 +42,14 @@ class FormatComponent extends Component
      * @param string $data A data usada no formato do banco de dados.
      * @return string A data no formato do usuário.
      */
-    public function formatDateView(string $data)
+    public function formatDateView($data)
     {
-        $result = null;
+        var_dump($data);
+        $pivot = new Date($data);
+        
+        return $pivot->format('d/m/Y');
 
-        if ($data == null)
-        {
-            $result = '';
-        }
-        else
-        {
-            $result = date('d/m/Y', strtotime($data));
-        }
 
-        return $result;
     }
 
     /**
