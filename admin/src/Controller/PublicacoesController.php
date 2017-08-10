@@ -267,6 +267,7 @@ class PublicacoesController extends AppController
 
         $novo_nome = uniqid() . '.' . $pivot->ext();
 
+
         if(!$this->File->validationExtension($pivot, $this->File::TYPE_FILE_DOCUMENT))
         {
             throw new Exception("A extensão do arquivo é inválida.");
