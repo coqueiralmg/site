@@ -16,6 +16,14 @@ class FileComponent extends Component
     const TYPE_FILE_DOCUMENT = 'document';
     const TYPE_FILE_IMAGE = 'image';
     
+    /**
+    * Faz a validação geral no arquivo. A função retorna os seguintes valores:
+    * 1 = Arquivo válido; 
+    * 0 = Arquivo com extensão inválida; 
+    * -1 = Arquivo com tamanho inválido
+    * @param File $file Arquivo a ser validado
+    * @return 1 = Arquivo válido; 0 = Arquivo com extensão inválida; -1 = Arquivo com tamanho inválido
+    */
     public function validation(File $file)
     {   
         $valido = 1;
@@ -26,6 +34,12 @@ class FileComponent extends Component
         return $valido;
     }
 
+    /**
+    * Valida o arquivo de acordo com a extensão determinada no arquivo de configuração file.
+    * @param File $file Arquivo a ser validado
+    * @param string $tipo Tipo de arquivo analisado. Caso não seja declarado, o método irá detectar o tipo de arquivo automaticamente.
+    * @return Retorna se o arquivo possui uma extensão válida.
+    */
     public function validationExtension(File $file, string $tipo = null)
     {
         $valido = false;
@@ -35,30 +49,15 @@ class FileComponent extends Component
 
         if(tipo == null)
         {
-            $extensoes = (strpos($mime, 'image') !== false) ? Configure::read('Files.validation.document.types') : Configure::read('Files.validation.image.types');
+            $extensoes = (strpos($mime, 'image') !== false) ? Configure::read('Files.validation.image.types') : Configure::read('Files.validation.document.types');
         }
         else
         {
-            switch ($tipo) {
-                case 'document':
-                    $extensoes = Configure::read('Files.validation.document.types');
-                    break;
-                
-                case 'image':
-                    $extensoes = Configure::read('Files.validation.image.types');
-                    break;
-                
-                default:
-                    $extensoes = array();
-                    break;
-            }
+            $extensoes = $this->getExtensions($tipo);
         }
         
-        var_dump($extensoes);
-        var_dump($extensao);
-
         foreach ($extensoes as $tipo) {
-            if($extensao == $tipo)
+            if(strtolower($extensao) == $tipo)
             {
                 $valido = true;
                 break;
@@ -68,12 +67,71 @@ class FileComponent extends Component
         return $valido;
     }
 
+    /**
+    * Valida o arquivo de acordo com o tamanho do arquivo, determinada no arquivo de configuração file.
+    * @param File $file Arquivo a ser validado
+    * @return Retorna se o arquivo possui uma tamanho de arquivo válido.
+    */
     public function validationSize(File $file)
     {
         $mime = $file->mime();
         $tamanho = $file->size();
-        $maximo = (strpos($mime, 'image') !== false) ? Configure::read('Files.validation.document.maxLength') : Configure::read('Files.validation.image.maxLength');
+
+        var_dump($tamanho);
+        $maximo = (strpos($mime, 'image') !== false) ? Configure::read('Files.validation.image.maxLength') : Configure::read('Files.validation.document.maxLength');
 
         return ($tamanho <= $maximo);
+    }
+
+    /**
+    * Obtém a lista de extensões de arquivo válido, por tipo de arquivo.
+    * @param string $tipo Tipo de arquivo para validação
+    * @return Tamanho máximo de arquivo, de acordo com o tipo do arquivo.
+    */
+    public function getExtensions(string $tipo)
+    {
+        $extensoes = 0;
+
+        switch ($tipo) {
+            case 'document':
+                $extensoes = Configure::read('Files.validation.document.types');
+                break;
+            
+            case 'image':
+                $extensoes = Configure::read('Files.validation.image.types');
+                break;
+            
+            default:
+                $extensoes = array();
+                break;
+        }
+
+        return $extensoes;
+    }
+
+    /**
+    * Obtém o tamanho máximo de tamanho de arquivo válido, por tipo de arquivo.
+    * @param string $tipo Tipo de arquivo para validação
+    * @return Tamanho máximo de arquivo, de acordo com o tipo do arquivo.
+    */
+    public function getMaxLengh(string $tipo)
+    {
+        $maximo = 0;
+
+        switch ($tipo) {
+            case 'document':
+                $maximo = Configure::read('Files.validation.document.maxLength');
+                break;
+            
+            case 'image':
+                $maximo = Configure::read('Files.validation.image.maxLength');
+                break;
+            
+            default:
+                $maximo = 0;
+                break;
+        }
+
+        return $maximo;
     }
 }
