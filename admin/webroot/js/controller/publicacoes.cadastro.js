@@ -10,6 +10,11 @@ $(function () {
     CKEDITOR.replace('descricao');
 });
 
+function toggleArquivo() {
+    $("#arquivo").hide();
+    $("#envio").show();
+}
+
 function validar() {
     var mensagem = "";
 

@@ -64,14 +64,35 @@
                                 </div>
                             </div>
                             <div class="row">
-
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <?= $this->Form->label("arquivo", "Arquivo") ?>
-                                        <?= $this->Form->file("arquivo", ["id" => "arquivo", "class" => "form-control"]) ?>
-                                        <span class="material-input"></span>
+                                <?php if($id > 0): ?>
+                                    <div id="arquivo">
+                                        <div class="col-md-9">
+                                            <div class="form-group form-file-upload is-fileinput">
+                                                Arquivo atual: <?=$this->Html->link($publicacao->titulo, 'http://' . DS . $_SERVER['HTTP_HOST'] . DS . $publicacao->arquivo, ['target' => '_blank'])?>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="button" onclick="toggleArquivo()" class="btn btn-default btn-simple btn-wd btn-lg">Substituir Arquivo</button>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div id="envio" style="display: none">
+                                        <div class="col-md-12">
+                                            <div class="form-group form-file-upload is-fileinput">
+                                                <?= $this->Form->label("arquivo", "Arquivo") ?>
+                                                <?= $this->Form->file("arquivo", ["id" => "arquivo", "class" => "form-control"]) ?>
+                                                <span class="material-input"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="col-md-12">
+                                        <div class="form-group form-file-upload is-fileinput">
+                                            <?= $this->Form->label("arquivo", "Arquivo") ?>
+                                            <?= $this->Form->file("arquivo", ["id" => "arquivo", "class" => "form-control"]) ?>
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
