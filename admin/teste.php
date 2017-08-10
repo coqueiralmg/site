@@ -1,11 +1,5 @@
 <?php
 
-$data = '12/08/2017';
-$pivot = new DateTime();
-$hora = $pivot->format('H:i:s');
+$data = date('d/m/Y');
 
-echo date('Y-m-d H:i:s', strtotime("$data $hora"));
-
-$valor = 'image/jpeg';
-
-echo strpos($valor, 'image');
+var_dump($data);
