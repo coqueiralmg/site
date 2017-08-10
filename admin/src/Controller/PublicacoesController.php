@@ -261,7 +261,11 @@ class PublicacoesController extends AppController
         $url_relativa = Configure::read('Files.urls.publicacoes');
 
         $file_temp = $arquivo['tmp_name'];
+        $nome_arquivo = $arquivo['name'];
+
         $file = new File($temp);
+        $pivot = new File($nome_arquivo);
+        
         $novo_nome = uniqid() . '.' . $file->ext();
 
 
