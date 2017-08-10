@@ -129,7 +129,7 @@ class PublicacoesController extends AppController
         $publicacoes = $t_publicacao->find('all', [
             'conditions' => $condicoes,
             'order' => [
-                'data' => 'DESC'
+                'id' => 'DESC'
             ]
         ]);
 
@@ -266,7 +266,6 @@ class PublicacoesController extends AppController
         $pivot = new File($nome_arquivo);
 
         $novo_nome = uniqid() . '.' . $pivot->ext();
-
 
         if(!$this->File->validationExtension($pivot, $this->File::TYPE_FILE_DOCUMENT))
         {
