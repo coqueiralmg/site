@@ -257,8 +257,8 @@ class PublicacoesController extends AppController
 
     private function salvarArquivoPublicacao($arquivo)
     {
-        $diretorio = ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS;
-        $url_relativa = 'public/storage/legislacao-arquivo/';
+        $diretorio = Configure::read('Files.paths.publicacoes');
+        $url_relativa = Configure::read('Files.urls.publicacoes');
 
         $file_temp = $arquivo['tmp_name'];
         $file = new File($temp);
