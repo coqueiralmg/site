@@ -219,8 +219,7 @@ class PublicacoesController extends AppController
             $entity->data = $this->Format->mergeDateDB($entity->data, $hora);
 
             $arquivo = $this->request->getData('arquivo');
-            
-
+            $entity->arquivo = $this->salvarArquivoPublicacao($arquivo);
         
             $t_publicacoes->save($entity);
             $this->Flash->greatSuccess('Publicação salva com sucesso.');
@@ -263,19 +262,25 @@ class PublicacoesController extends AppController
         $file_temp = $arquivo['tmp_name'];
         $nome_arquivo = $arquivo['name'];
 
-        $file = new File($temp);
+        $file = new File($file_temp);
         $pivot = new File($nome_arquivo);
-        
-        $novo_nome = uniqid() . '.' . $file->ext();
 
+        $novo_nome = uniqid() . '.' . $pivot->ext();
 
-        if(!$this->File->validationExtension($file, $this->File::TYPE_FILE_DOCUMENT))
+        if(!$this->File->validationExtension($pivot, $this->File::TYPE_FILE_DOCUMENT))
         {
             throw new Exception("A extensão do arquivo é inválida.");
         }
         elseif(!$this->File->validationSize($file))
         {
-            throw new Exception("O tamaho do arquivo enviado é muito grande.");
+            $maximo = $this->File->getMaxLengh($this->File::TYPE_FILE_IMAGE);
+            $divisor = Configure::read('Files.misc.megabyte');
+
+            $maximo = round($maximo / $divisor, 0);
+
+            $mensagem = "O tamaho do arquivo enviado é muito grande. O tamanho máximo do arquivo de imagens é de $maximo MB.";
+            
+            throw new Exception($mensagem);
         }   
         
         $file->copy($diretorio . $novo_nome, true);
