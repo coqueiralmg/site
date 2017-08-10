@@ -117,7 +117,7 @@ class AuditoriaComponent extends Component
 
     /**
     * Busca o nome da ocorrência da auditoria por código
-    * @param int Código da ocorrência
+    * @param int $codigo Código da ocorrência
     * @return string Nome da ocorrência pré-cadastrada na lista
     */
     public function buscarNomeOcorrencia(int $codigo)
@@ -136,7 +136,7 @@ class AuditoriaComponent extends Component
 
     /**
     * Obtém a lista de campos originais que foram modificados
-    * @param Entity Entidade a ser analisada
+    * @param Entity $entity Entidade a ser analisada
     * @return array Lista de campos modificados com seus valores originais
     */
     public function changedOriginalFields(Entity $entity)
@@ -146,8 +146,8 @@ class AuditoriaComponent extends Component
 
     /**
     * Obtém a lista de campos modificados em uma entidade, com seus respectivos valores atualizados
-    * @param Entity Entidade a ser analisada
-    * @param array Lista de campos de uma propriedade com seus respectivos valores.
+    * @param Entity $entity Entidade a ser analisada
+    * @param array $propriedades Lista de campos de uma propriedade com seus respectivos valores.
     * @return array Lista de campos modificados com seus valores originais
     */
     public function changedFields(Entity $entity, array $propriedades)
