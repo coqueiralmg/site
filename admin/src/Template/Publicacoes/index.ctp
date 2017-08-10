@@ -79,7 +79,7 @@
                                 <tr>
                                     <th>Número</th>
                                     <th>Título</th>
-                                    <th>Data</th>
+                                    <th style="width: 15%">Data</th>
                                     <th>Ativo</th>
                                     <th></th>
                                 </tr>
@@ -89,7 +89,7 @@
                                     <tr>
                                         <td><?=$publicacao->numero?></td>
                                         <td><?=$publicacao->titulo?></td>
-                                        <td><?= $this->Format->date($publicacao->data) ?></td>
+                                        <td><?= $this->Format->date($publicacao->data, true) ?></td>
                                         <td><?= $publicacao->ativado ?></td>
                                         <td class="td-actions text-right" style="width: 8%">
                                             <?php if ($this->Membership->handleRole("editar_publicacao")): ?>
