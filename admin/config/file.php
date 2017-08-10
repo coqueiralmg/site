@@ -19,10 +19,12 @@ return [
             'terabyte' => 10995111627776
         ],
         'paths' => [
-            'editor' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS . 'images' . DS
+            'editor' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS . 'images' . DS,
+            'publicacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS
         ],
         'urls' => [
-            'editor' => '/public/editor/images/'
+            'editor' => '/public/editor/images/',
+            'publicacoes' => 'public/storage/legislacao-arquivo/'
         ]
     ]
 ];
