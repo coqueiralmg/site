@@ -126,7 +126,7 @@
                 <!--/.col-md-4-->
 
                 <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="#">
+                    <a href="https://e-gov.betha.com.br/e-nota/login.faces" target="_blank">
                         <div class="feature-wrap">
                             <i class="fa fa-file-text"></i>
                             <h2>Nota Fiscal Eletrônica</h2>
