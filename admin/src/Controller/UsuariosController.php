@@ -193,8 +193,6 @@ class UsuariosController extends AppController
         if($id > 0)
         {
             $usuario = $t_usuarios->get($id, ['contain' => ['Pessoa']]);
-            var_dump($usuario->pessoa->dataNascimento);
-            $usuario->pessoa->dataNascimento = $this->Format->formatDateView($usuario->pessoa->dataNascimento);
 
             $this->set('usuario', $usuario);
         }

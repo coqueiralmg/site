@@ -174,7 +174,6 @@ class PublicacoesController extends AppController
         if ($id > 0) 
         {
             $publicacao = $t_publicacao->get($id);
-            $publicacao->data = $this->Format->formatDateView($publicacao->data);
             
             $this->set('publicacao', $publicacao);
         } 
