@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var idPublicacao = <?=$id?>;
+</script>
 <?= $this->Html->script('controller/publicacoes.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -22,6 +25,7 @@
                                 'details' => ''
                             ]) ?>
                             <?= $this->Flash->render() ?>
+                            <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
                                 <div class="col-md-3">

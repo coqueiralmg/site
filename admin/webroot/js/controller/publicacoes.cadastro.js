@@ -1,4 +1,6 @@
 $(function () {
+    var enviaArquivo = (idPublicacao == 0);
+
     $('#data').datepicker({
         language: 'pt-BR'
     });
@@ -6,13 +8,17 @@ $(function () {
     $('#data').mask('00/00/0000');
     $('#hora').mask('00:00');
 
-
     CKEDITOR.replace('descricao');
+
+    $('#enviaArquivo').val(enviaArquivo);
 });
 
 function toggleArquivo() {
     $("#arquivo").hide();
     $("#envio").show();
+    
+    enviaArquivo = true;
+    $('#enviaArquivo').val(enviaArquivo);
 }
 
 function validar() {
@@ -46,11 +52,13 @@ function validar() {
         $("label[for='descricao']").css("color", "#aaa");
     }
 
-    if (document.getElementById("arquivo").files.length == 0) {
-        mensagem += "<li> É obrigatório informa a descrição da publicação.</li>";
-        $("label[for='arquivo']").css("color", "red");
-    } else {
-        $("label[for='arquivo']").css("color", "#aaa");
+    if (enviaArquivo) {
+        if (document.getElementById("arquivo").files.length == 0) {
+            mensagem += "<li> É obrigatório informa a descrição da publicação.</li>";
+            $("label[for='arquivo']").css("color", "red");
+        } else {
+            $("label[for='arquivo']").css("color", "#aaa");
+        }
     }
 
     if (mensagem == "") {
