@@ -20,6 +20,7 @@ return [
         ],
         'paths' => [
             'editor' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS . 'images' . DS,
+            'public' => ROOT . DS . '..' . DS . 'webroot' . DS,
             'publicacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS
         ],
         'urls' => [
