@@ -98,7 +98,7 @@
                                                 </a>
                                             <?php endif; ?>
                                             <?php if ($this->Membership->handleRole("excluir_publicacao")): ?>
-                                                <button type="button" onclick="excluirPublicacao(<?= $publicacao->id ?>, '<?= $publicacao->ip ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <button type="button" onclick="excluirPublicacao(<?= $publicacao->id ?>, '<?= $publicacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                             <?php endif; ?>
                                         </td>
                                     </tr>

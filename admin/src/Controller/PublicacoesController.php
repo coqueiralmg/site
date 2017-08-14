@@ -200,6 +200,49 @@ class PublicacoesController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_publicacoes = TableRegistry::get('Publicacao');
+            $marcado = $t_publicacoes->get($id);
+            
+            $propriedades = $marcado->getOriginalValues();
+            
+            $this->removerArquivoPublicacao($marcado->arquivo);
+
+            $t_publicacoes->delete($marcado);
+            
+            $this->Flash->greatSuccess('A publicação foi excluída com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 23,
+                'descricao' => 'O excluiu uma publicação.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir a publicação.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['controller' => 'firewall', 'action' => 'index']);
+        }
+    }
+
     protected function insert()
     {
         try

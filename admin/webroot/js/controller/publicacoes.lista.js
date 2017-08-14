@@ -54,3 +54,18 @@ function validar() {
         return false;
     }
 }
+
+function excluirPublicacao(id, titulo) {
+    swal({
+        title: "Deseja excluir esta publicação?",
+        html: "A exclusão da publicação com o título <b> " + titulo + "</b> irá tornar a operação irreversível.",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não'
+    }).then(function () {
+        window.location = '/admin/publicacoes/delete/' + id;
+    });
+}
