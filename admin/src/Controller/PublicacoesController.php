@@ -12,7 +12,6 @@ use \DateTime;
 
 class PublicacoesController extends AppController
 {
-
     public function initialize()
     {
         parent::initialize();
@@ -143,7 +142,8 @@ class PublicacoesController extends AppController
 
         $this->Auditoria->registrar($auditoria);
 
-        if ($this->request->session()->read('UsuarioSuspeito')) {
+        if ($this->request->session()->read('UsuarioSuspeito')) 
+        {
             $this->Monitoria->monitorar($auditoria);
         }
 
@@ -242,6 +242,34 @@ class PublicacoesController extends AppController
             }
 
             $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a publicação', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    protected function update(int $id)
+    {
+        try
+        {
+            $t_publicacoes = TableRegistry::get('Publicacao');
+            $entity = $t_publicacoes->get($id);
+
+            $t_publicacoes->patchEntity($entity, $this->request->data());
+
+            $entity->data = $this->Format->mergeDateDB($entity->data, $entity->hora);
+
+            if($entity->enviaArquivo)
+            {
+                
+            }
         }
         catch(Exception $ex)
         {
