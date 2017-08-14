@@ -174,6 +174,7 @@ class PublicacoesController extends AppController
         if ($id > 0) 
         {
             $publicacao = $t_publicacao->get($id);
+            $publicacao->hora = $publicacao->data->i18nFormat('HH:mm');
             
             $this->set('publicacao', $publicacao);
         } 
