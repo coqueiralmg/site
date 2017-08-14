@@ -262,14 +262,41 @@ class PublicacoesController extends AppController
             $t_publicacoes = TableRegistry::get('Publicacao');
             $entity = $t_publicacoes->get($id);
 
+            $antigo_arquivo = $entity->arquivo;
+
             $t_publicacoes->patchEntity($entity, $this->request->data());
 
             $entity->data = $this->Format->mergeDateDB($entity->data, $entity->hora);
+            $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
 
-            if($entity->enviaArquivo)
+            if($enviaArquivo)
             {
-                
+                $this->removerArquivoPublicacao($antigo_arquivo);
+                $arquivo = $this->request->getData('arquivo');
+                $entity->arquivo = $this->salvarArquivoPublicacao($arquivo);
             }
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_publicacoes->save($entity);
+            $this->Flash->greatSuccess('Publicação salva com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 22,
+                'descricao' => 'O usuário editou uma publicação.',
+                'dado_adicional' => json_encode(['usuario_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $id]);
         }
         catch(Exception $ex)
         {
@@ -279,7 +306,20 @@ class PublicacoesController extends AppController
                 ]
             ]);
 
-            $this->redirect(['action' => 'cadastro', 0]);
+            $this->redirect(['action' => 'cadastro', $id]);
+        }
+    }
+
+    private function removerArquivoPublicacao($arquivo)
+    {
+        $diretorio = Configure::read('Files.paths.public');
+        $arquivo = $diretorio . $arquivo;
+
+        $file = new File($arquivo);
+
+        if($file->exists())
+        {
+            $file->delete();
         }
     }
 
