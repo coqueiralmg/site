@@ -1,6 +1,6 @@
-$(function () {
-    var enviaArquivo = (idPublicacao == 0);
+var enviaArquivo = (idPublicacao == 0);
 
+$(function () {
     $('#data').datepicker({
         language: 'pt-BR'
     });
@@ -14,9 +14,9 @@ $(function () {
 });
 
 function toggleArquivo() {
-    $("#arquivo").hide();
-    $("#envio").show();
-    
+    $("#panel_arquivo").hide();
+    $("#panel_envio").show();
+
     enviaArquivo = true;
     $('#enviaArquivo').val(enviaArquivo);
 }
@@ -46,7 +46,7 @@ function validar() {
     }
 
     if (CKEDITOR.instances.descricao.getData() === "") {
-        mensagem += "<li> É obrigatório informa a descrição da publicação.</li>";
+        mensagem += "<li> É obrigatório informar a descrição da publicação.</li>";
         $("label[for='descricao']").css("color", "red");
     } else {
         $("label[for='descricao']").css("color", "#aaa");
@@ -54,7 +54,7 @@ function validar() {
 
     if (enviaArquivo) {
         if (document.getElementById("arquivo").files.length == 0) {
-            mensagem += "<li> É obrigatório informa a descrição da publicação.</li>";
+            mensagem += "<li> É obrigatório informar o arquivo em anexo.</li>";
             $("label[for='arquivo']").css("color", "red");
         } else {
             $("label[for='arquivo']").css("color", "#aaa");

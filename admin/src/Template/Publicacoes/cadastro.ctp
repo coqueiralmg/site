@@ -69,7 +69,7 @@
                             </div>
                             <div class="row">
                                 <?php if($id > 0): ?>
-                                    <div id="arquivo">
+                                    <div id="panel_arquivo">
                                         <div class="col-md-9">
                                             <div class="form-group form-file-upload is-fileinput">
                                                 Arquivo atual: <?=$this->Html->link($publicacao->titulo, 'http://' . DS . $_SERVER['HTTP_HOST'] . DS . $publicacao->arquivo, ['target' => '_blank'])?>
@@ -79,7 +79,7 @@
                                             <button type="button" onclick="toggleArquivo()" class="btn btn-default btn-simple btn-wd btn-lg">Substituir Arquivo</button>
                                         </div>
                                     </div>
-                                    <div id="envio" style="display: none">
+                                    <div id="panel_envio" style="display: none">
                                         <div class="col-md-12">
                                             <div class="form-group form-file-upload is-fileinput">
                                                 <?= $this->Form->label("arquivo", "Arquivo") ?>
