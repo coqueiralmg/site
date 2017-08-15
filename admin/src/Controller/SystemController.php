@@ -158,7 +158,7 @@ class SystemController extends AppController
         $this->controlAuth();
         $this->carregarDadosSistema();
 
-        $limite = Configure::read('Pagination.shortLimit');
+        $limite = Configure::read('Pagination.short.limit');
 
         $t_licitacoes = TableRegistry::get('Licitacao');
         $t_publicacoes = TableRegistry::get('Publicacao');
