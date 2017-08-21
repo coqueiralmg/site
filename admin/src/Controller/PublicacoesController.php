@@ -217,7 +217,7 @@ class PublicacoesController extends AppController
 
             $auditoria = [
                 'ocorrencia' => 23,
-                'descricao' => 'O excluiu uma publicação.',
+                'descricao' => 'O usuário excluiu uma publicação.',
                 'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
@@ -239,7 +239,7 @@ class PublicacoesController extends AppController
                 ]
             ]);
 
-            $this->redirect(['controller' => 'firewall', 'action' => 'index']);
+            $this->redirect(['action' => 'index']);
         }
     }
 
