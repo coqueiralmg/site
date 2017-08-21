@@ -38,7 +38,10 @@ class AuditoriaComponent extends Component
         20 => 'Liberação de usuário suspenso',
         21 => 'Inclusão da publicação',
         22 => 'Alteração da publicação',
-        23 => 'Exclusão da publicação'
+        23 => 'Exclusão da publicação',
+        24 => 'Inclusão da licitação',
+        25 => 'Alteração da licitação',
+        26 => 'Exclusão da licitação'
     ];
     
     /**
