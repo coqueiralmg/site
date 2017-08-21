@@ -32,8 +32,8 @@ function validar() {
         }
 
         if (dataInicial != "" && dataFinal != "") {
-            var inicial = new Date(dataInicial);
-            var final = new Date(dataFinal);
+            var inicial = new Date(dataInicial.split('/').reverse().join('/'));
+            var final = new Date(dataFinal.split('/').reverse().join('/'));
 
             if (inicial > final) {
                 mensagem += "<li>A data inicial é maior do que a data final.</li>";
