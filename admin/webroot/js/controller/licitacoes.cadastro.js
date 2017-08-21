@@ -16,6 +16,8 @@ $(function () {
     $('#hora_termino').mask('00:00');
 
     CKEDITOR.replace('descricao');
+
+    $('#enviaArquivo').val(enviaArquivo);
 });
 
 function toggleArquivo() {

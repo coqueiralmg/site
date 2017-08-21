@@ -170,7 +170,10 @@ class LicitacoesController extends AppController
         if ($id > 0) 
         {
             $licitacao = $t_licitacoes->get($id);
-            //$licitacao->hora = $t_licitacoes->data->i18nFormat('HH:mm');
+            $licitacao->data_inicio = $licitacao->dataInicio->i18nFormat('dd/MM/yyyy');
+            $licitacao->hora_inicio = $licitacao->dataInicio->i18nFormat('HH:mm');
+            $licitacao->data_termino = $licitacao->dataTermino->i18nFormat('dd/MM/yyyy');
+            $licitacao->hora_termino = $licitacao->dataTermino->i18nFormat('HH:mm');
             
             $this->set('licitacao', $licitacao);
         } 
@@ -239,6 +242,63 @@ class LicitacoesController extends AppController
             ]);
 
             $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    protected function update(int $id)
+    {
+        try
+        {
+            $t_licitacoes = TableRegistry::get('Licitacao');
+            $entity = $t_licitacoes->get($id);
+
+            $antigo_arquivo = $entity->arquivo;
+
+            $t_licitacoes->patchEntity($entity, $this->request->data());
+
+            $entity->dataInicio = $this->Format->mergeDateDB($entity->data_inicio, $entity->hora_inicio);
+            $entity->dataTermino = $this->Format->mergeDateDB($entity->data_termino, $entity->hora_termino);
+
+            $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
+            
+            if($enviaArquivo)
+            {
+                $this->removerArquivo($antigo_arquivo);
+                $arquivo = $this->request->getData('arquivo');
+                $entity->edital = $this->salvarArquivo($arquivo);
+            }
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_licitacoes->save($entity);
+            $this->Flash->greatSuccess('Licitação salva com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 25,
+                'descricao' => 'O usuário editou uma licitação.',
+                'dado_adicional' => json_encode(['licitacao_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a licitação', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', $id]);
         }
     }
 

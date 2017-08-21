@@ -82,11 +82,11 @@
                                     <div id="panel_arquivo">
                                         <div class="col-md-9">
                                             <div class="form-group form-file-upload is-fileinput">
-                                                Arquivo atual: <?=$this->Html->link($publicacao->titulo, 'http://' . DS . $_SERVER['HTTP_HOST'] . DS . $publicacao->arquivo, ['target' => '_blank'])?>
+                                                Edital atual: <?=$this->Html->link($licitacao->titulo, 'http://' . DS . $_SERVER['HTTP_HOST'] . DS . $licitacao->edital, ['target' => '_blank'])?>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <button type="button" onclick="toggleArquivo()" class="btn btn-default btn-simple btn-wd btn-lg">Substituir Arquivo</button>
+                                            <button type="button" onclick="toggleArquivo()" class="btn btn-default btn-simple btn-wd btn-lg">Substituir Edital</button>
                                         </div>
                                     </div>
                                     <div id="panel_envio" style="display: none">
@@ -114,7 +114,7 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox"> Ativo
+                                                <?= $this->Form->checkbox("ativo") ?> Ativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
