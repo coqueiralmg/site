@@ -328,7 +328,7 @@ class PublicacoesController extends AppController
             $auditoria = [
                 'ocorrencia' => 22,
                 'descricao' => 'O usuário editou uma publicação.',
-                'dado_adicional' => json_encode(['usuario_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'dado_adicional' => json_encode(['publicacao_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
