@@ -15,4 +15,9 @@ class Licitacao extends Entity
         
         return strtolower(str_replace($procurar, $substituir, $titulo));
     }
+
+    protected function _getAtivado()
+    {
+        return $this->_properties['ativo'] ? 'Sim' : 'Não';
+    }
 }
