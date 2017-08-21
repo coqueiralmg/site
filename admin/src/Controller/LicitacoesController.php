@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 use \Exception;
@@ -163,8 +165,127 @@ class LicitacoesController extends AppController
         $title = ($id > 0) ? 'Edição da Licitação' : 'Nova Licitação';
         $icon = 'work';
 
+        $t_licitacoes = TableRegistry::get('Licitacao');
+
+        if ($id > 0) 
+        {
+            $licitacao = $t_licitacoes->get($id);
+            //$licitacao->hora = $t_licitacoes->data->i18nFormat('HH:mm');
+            
+            $this->set('licitacao', $licitacao);
+        } 
+        else 
+        {
+            $this->set('licitacao', null);
+        }
+
         $this->set('title', $title);
         $this->set('icon', $icon);
+        $this->set('id', $id);
     }
 
+    public function save(int $id)
+    {
+        if ($this->request->is('post')) 
+        {
+            $this->insert();
+        } 
+        elseif ($this->request->is('put')) 
+        {
+            $this->update($id);
+        }
+    }
+
+    protected function insert()
+    {
+        try
+        {
+            $t_licitacoes = TableRegistry::get('Licitacao');
+            $entity = $t_licitacoes->newEntity($this->request->data());
+
+            $entity->dataInicio = $this->Format->mergeDateDB($entity->data_inicio, $entity->hora_inicio);
+            $entity->dataTermino = $this->Format->mergeDateDB($entity->data_termino, $entity->hora_termino);
+
+            $arquivo = $this->request->getData('arquivo');
+            $entity->edital = $this->salvarArquivo($arquivo);
+        
+            $t_licitacoes->save($entity);
+            $this->Flash->greatSuccess('Licitação salva com sucesso.');
+
+            $propriedades = $entity->getOriginalValues();
+            
+            $auditoria = [
+                'ocorrencia' => 24,
+                'descricao' => 'O usuário criou uma nova licitação.',
+                'dado_adicional' => json_encode(['id_nova_licitacao' => $entity->id, 'dados_licitacao' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a licitação', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    private function removerArquivo($arquivo)
+    {
+        $diretorio = Configure::read('Files.paths.public');
+        $arquivo = $diretorio . $arquivo;
+
+        $file = new File($arquivo);
+
+        if($file->exists())
+        {
+            $file->delete();
+        }
+    }
+
+    private function salvarArquivo($arquivo)
+    {
+        $diretorio = Configure::read('Files.paths.licitacoes');
+        $url_relativa = Configure::read('Files.urls.licitacoes');
+
+        $file_temp = $arquivo['tmp_name'];
+        $nome_arquivo = $arquivo['name'];
+
+        $file = new File($file_temp);
+        $pivot = new File($nome_arquivo);
+
+        $novo_nome = uniqid() . '.' . $pivot->ext();
+
+        if(!$this->File->validationExtension($pivot, $this->File::TYPE_FILE_DOCUMENT))
+        {
+            throw new Exception("A extensão do arquivo é inválida.");
+        }
+        elseif(!$this->File->validationSize($file))
+        {
+            $maximo = $this->File->getMaxLengh($this->File::TYPE_FILE_DOCUMENT);
+            $divisor = Configure::read('Files.misc.megabyte');
+
+            $maximo = round($maximo / $divisor, 0);
+
+            $mensagem = "O tamaho do arquivo enviado é muito grande. O tamanho máximo do arquivo de imagens é de $maximo MB.";
+            
+            throw new Exception($mensagem);
+        }   
+        
+        $file->copy($diretorio . $novo_nome, true);
+
+        return $url_relativa . $novo_nome;
+    }
 }
