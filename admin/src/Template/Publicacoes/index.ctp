@@ -73,38 +73,38 @@
                 <div class="card">
                     <div class="card-content table-responsive">
                         <?php if(count($publicacoes) > 0):?>
-                        <h4 class="card-title">Lista de Publicações</h4>
-                        <table class="table">
-                            <thead class="text-primary">
-                                <tr>
-                                    <th>Número</th>
-                                    <th>Título</th>
-                                    <th style="width: 15%">Data</th>
-                                    <th>Ativo</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($publicacoes as $publicacao): ?>
+                            <h4 class="card-title">Lista de Publicações</h4>
+                            <table class="table">
+                                <thead class="text-primary">
                                     <tr>
-                                        <td><?=$publicacao->numero?></td>
-                                        <td><?=$publicacao->titulo?></td>
-                                        <td><?= $this->Format->date($publicacao->data, true) ?></td>
-                                        <td><?= $publicacao->ativado ?></td>
-                                        <td class="td-actions text-right" style="width: 8%">
-                                            <?php if ($this->Membership->handleRole("editar_publicacao")): ?>
-                                                <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                            <?php endif; ?>
-                                            <?php if ($this->Membership->handleRole("excluir_publicacao")): ?>
-                                                <button type="button" onclick="excluirPublicacao(<?= $publicacao->id ?>, '<?= $publicacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
-                                            <?php endif; ?>
-                                        </td>
+                                        <th>Número</th>
+                                        <th>Título</th>
+                                        <th style="width: 15%">Data</th>
+                                        <th>Ativo</th>
+                                        <th></th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($publicacoes as $publicacao): ?>
+                                        <tr>
+                                            <td><?=$publicacao->numero?></td>
+                                            <td><?=$publicacao->titulo?></td>
+                                            <td><?= $this->Format->date($publicacao->data, true) ?></td>
+                                            <td><?= $publicacao->ativado ?></td>
+                                            <td class="td-actions text-right" style="width: 8%">
+                                                <?php if ($this->Membership->handleRole("editar_publicacao")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($this->Membership->handleRole("excluir_publicacao")): ?>
+                                                    <button type="button" onclick="excluirPublicacao(<?= $publicacao->id ?>, '<?= $publicacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         <?php else: ?>
                             <?php if ($this->Membership->handleRole("adicionar_usuario")): ?>
                                 <h3>Nenhuma publicação encontrada. Para adicionar nova publicação, <?=$this->Html->link("clique aqui", ["controller" => "publicacoes", "action" => "add"])?>.</h3>
