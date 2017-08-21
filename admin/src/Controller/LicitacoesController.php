@@ -13,7 +13,6 @@ use \DateTime;
 
 class LicitacoesController extends AppController
 {
-
     public function initialize()
     {
         parent::initialize();
@@ -197,6 +196,50 @@ class LicitacoesController extends AppController
         {
             $this->update($id);
         }
+    }
+
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_licitacoes = TableRegistry::get('Licitacao');
+            $marcado = $t_licitacoes->get($id);
+            $titulo = $marcado->titulo;
+
+            $propriedades = $marcado->getOriginalValues();
+
+            $this->removerArquivo($marcado->arquivo);
+
+            $t_licitacoes->delete($marcado);
+
+            $this->Flash->greatSuccess('A licitação ' . $titulo . ' foi excluída com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 26,
+                'descricao' => 'O usuário excluiu uma licitação.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir a licitação.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'index']);
+        }  
     }
 
     protected function insert()
