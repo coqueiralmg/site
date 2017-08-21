@@ -21,11 +21,13 @@ return [
         'paths' => [
             'editor' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS . 'images' . DS,
             'public' => ROOT . DS . '..' . DS . 'webroot' . DS,
-            'publicacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS
+            'publicacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS,
+            'licitacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'licitacao-edital' . DS
         ],
         'urls' => [
             'editor' => '/public/editor/images/',
-            'publicacoes' => 'public/storage/legislacao-arquivo/'
+            'publicacoes' => 'public/storage/legislacao-arquivo/',
+            'licitacoes' => 'public/storage/licitacao-edital/'
         ]
     ]
 ];
