@@ -47,7 +47,7 @@ class FileComponent extends Component
         $extensao = $file->ext();
         $extensoes = array();
 
-        if(tipo == null)
+        if($tipo == null)
         {
             $extensoes = (strpos($mime, 'image') !== false) ? Configure::read('Files.validation.image.types') : Configure::read('Files.validation.document.types');
         }
