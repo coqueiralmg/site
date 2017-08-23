@@ -101,11 +101,11 @@ function validar() {
     }
 
     if (enviaArquivo) {
-        if (document.getElementById("edital").files.length == 0) {
+        if (document.getElementById("arquivo").files.length == 0) {
             mensagem += "<li> É obrigatório informar o arquivo edital em anexo.</li>";
-            $("label[for='edital']").css("color", "red");
+            $("label[for='arquivo']").css("color", "red");
         } else {
-            $("label[for='edital']").css("color", "#aaa");
+            $("label[for='arquivo']").css("color", "#aaa");
         }
     }
 
