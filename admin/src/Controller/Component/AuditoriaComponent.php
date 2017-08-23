@@ -41,7 +41,10 @@ class AuditoriaComponent extends Component
         23 => 'Exclusão da publicação',
         24 => 'Inclusão da licitação',
         25 => 'Alteração da licitação',
-        26 => 'Exclusão da licitação'
+        26 => 'Exclusão da licitação',
+        27 => 'Inclusão da notícia',
+        28 => 'Alteração da notícia',
+        29 => 'Exclusão da notícia'
     ];
     
     /**

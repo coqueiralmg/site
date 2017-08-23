@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
+use \Exception;
+use \DateTime;
 
 
 class NoticiasController extends AppController
@@ -182,6 +186,135 @@ class NoticiasController extends AppController
         $this->set('title', $title);
         $this->set('icon', $icon);
         $this->set('id', $id);
+    }
+
+    public function save(int $id)
+    {
+        if ($this->request->is('post')) 
+        {
+            $this->insert();
+        } 
+        elseif ($this->request->is('put')) 
+        {
+            $this->update($id);
+        }
+    }
+
+    protected function insert()
+    {
+        try
+        {
+            $t_noticias = TableRegistry::get('Noticia');
+            $t_posts = TableRegistry::get('Post');
+
+            $entity = $t_noticias->newEntity($this->request->data());
+            $post = $t_posts->newEntity($this->request->data());
+
+            if($entity->data == "" && $entity->hora == "")
+            {
+                $post->dataPostagem = date("Y-m-d H:i:s");
+            }
+            elseif($entity->data == "" && $entity->hora != "")
+            {
+                $post->dataPostagem = date("Y-m-d") . ' ' . $entity->hora . ':00';
+            }
+            elseif(($entity->data != "" && $entity->hora == ""))
+            {
+                $pivot = $this->Format->formatDateDB($entity->data);
+                $post->dataPostagem = $pivot . ' ' . date('H:i:s');
+            }
+            else
+            {
+                $post->dataPostagem = $this->Format->mergeDateDB($entity->data, $entity->hora);
+            }
+
+            $post->autor = $this->request->session()->read('UsuarioID');
+
+            $arquivo = $this->request->getData('arquivo');
+            $entity->foto = $this->salvarArquivo($arquivo);
+
+            $t_posts->save($post);
+
+            $entity->post = $post->id;
+
+            $t_noticias->save($entity);
+            $this->Flash->greatSuccess('Notícia salva com sucesso.');
+            
+            $propriedades = $entity->getOriginalValues();
+            
+            $auditoria = [
+                'ocorrencia' => 27,
+                'descricao' => 'O usuário publicou a nova notícia.',
+                'dado_adicional' => json_encode(['id_nova_noticia' => $entity->id, 'dados_noticia' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a notícia', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    private function removerArquivo($arquivo)
+    {
+        $diretorio = Configure::read('Files.paths.public');
+        $arquivo = $diretorio . $arquivo;
+
+        $file = new File($arquivo);
+
+        if($file->exists())
+        {
+            $file->delete();
+        }
+    }
+
+    private function salvarArquivo($arquivo)
+    {
+        $diretorio = Configure::read('Files.paths.noticias');
+        $url_relativa = Configure::read('Files.urls.noticias');
+
+        $file_temp = $arquivo['tmp_name'];
+        $nome_arquivo = $arquivo['name'];
+
+        $file = new File($file_temp);
+        $pivot = new File($nome_arquivo);
+
+        $novo_nome = uniqid() . '.' . $pivot->ext();
+
+        if(!$this->File->validationExtension($pivot, $this->File::TYPE_FILE_IMAGE))
+        {
+            throw new Exception("A extensão do arquivo é inválida.");
+        }
+        elseif(!$this->File->validationSize($file))
+        {
+            $maximo = $this->File->getMaxLengh($this->File::TYPE_FILE_IMAGE);
+            $divisor = Configure::read('Files.misc.megabyte');
+
+            $maximo = round($maximo / $divisor, 0);
+
+            $mensagem = "O tamaho da imagem enviada é muito grande. O tamanho máximo do arquivo de imagens é de $maximo MB.";
+            
+            throw new Exception($mensagem);
+        }   
+        
+        $file->copy($diretorio . $novo_nome, true);
+
+        return $url_relativa . $novo_nome;
     }
 
 }
