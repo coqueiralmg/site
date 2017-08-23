@@ -385,12 +385,12 @@ class PublicacoesController extends AppController
         }
         elseif(!$this->File->validationSize($file))
         {
-            $maximo = $this->File->getMaxLengh($this->File::TYPE_FILE_IMAGE);
+            $maximo = $this->File->getMaxLengh($this->File::TYPE_FILE_DOCUMENT);
             $divisor = Configure::read('Files.misc.megabyte');
 
             $maximo = round($maximo / $divisor, 0);
 
-            $mensagem = "O tamaho do arquivo enviado é muito grande. O tamanho máximo do arquivo de imagens é de $maximo MB.";
+            $mensagem = "O tamaho do arquivo enviado é muito grande. O tamanho máximo do arquivo é de $maximo MB.";
             
             throw new Exception($mensagem);
         }   

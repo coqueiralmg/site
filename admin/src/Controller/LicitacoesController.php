@@ -382,7 +382,7 @@ class LicitacoesController extends AppController
 
             $maximo = round($maximo / $divisor, 0);
 
-            $mensagem = "O tamaho do arquivo enviado é muito grande. O tamanho máximo do arquivo de imagens é de $maximo MB.";
+            $mensagem = "O tamaho do arquivo enviado é muito grande. O tamanho máximo do arquivo é de $maximo MB.";
             
             throw new Exception($mensagem);
         }   
