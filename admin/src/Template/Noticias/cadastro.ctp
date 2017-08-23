@@ -62,14 +62,15 @@
                             </div>
                             <div class="row">
                                 <?php if($id > 0): ?>
-                                    <div id="panel_arquivo">
-                                        <div class="col-md-9">
+                                    <div id="panel_arquivo" style="background-color: ">
+                                        <div class="col-md-3">
                                             <div class="form-group form-file-upload is-fileinput">
-                                                Edital atual: <?=$this->Html->link($licitacao->titulo, 'http://' . DS . $_SERVER['HTTP_HOST'] . DS . $licitacao->edital, ['target' => '_blank'])?>
+                                                <img src="<?='http://' . DS . $_SERVER['HTTP_HOST'] . DS . $noticia->foto?>" style="height: 150px; width: auto" class="img-rounded img-responsive img-raised">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <button type="button" onclick="toggleArquivo()" class="btn btn-default btn-simple btn-wd btn-lg">Substituir a Imagem</button>
+                                        <div class="col-md-9" style="vertical-align: middle">
+                                            <a class="btn btn-default btn-simple btn-wd btn-lg" href="<?='http://' . DS . $_SERVER['HTTP_HOST'] . DS . $noticia->foto?>" rel="prettyPhoto">Ver Imagem Completa</a><br/>
+                                            <button type="button" onclick="toggleArquivo()" style="vertical-align: middle" class="btn btn-default btn-simple btn-wd btn-lg">Substituir a Imagem</button>
                                         </div>
                                     </div>
                                     <div id="panel_envio" style="display: none">
@@ -102,7 +103,7 @@
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("destaque") ?> Ativo
+                                                <?= $this->Form->checkbox("ativo") ?> Ativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>

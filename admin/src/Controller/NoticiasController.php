@@ -174,7 +174,13 @@ class NoticiasController extends AppController
 
         if($id > 0)
         {
-            $noticia = $t_noticias->get($id);
+            $noticia = $t_noticias->get($id, ['contain' => ['Post']]);
+
+            $noticia->titulo = $noticia->post->titulo;
+            $noticia->data = $noticia->post->dataPostagem->i18nFormat('dd/MM/yyyy');
+            $noticia->hora = $noticia->post->dataPostagem->i18nFormat('HH:mm');
+            $noticia->destaque = $noticia->post->destaque;
+            $noticia->ativo = $noticia->post->ativo;
 
             $this->set('noticia', $noticia);
         }
