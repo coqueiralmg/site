@@ -1,332 +1,122 @@
+<?= $this->Html->script('controller/noticias.lista.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                        <?= $this->Flash->render() ?>
+                        <?=$this->element('message', [
+                            'name' => 'lista_erro',
+                            'type' => 'error',
+                            'message' => 'Ocorreu um erro ao buscar as notícias',
+                            'details' => ''
+                        ]) ?>
                         <h4 class="card-title">Buscar</h4>
-                        
-                        <form>
+                        <?php
+                        echo $this->Form->create("Noticias", [
+                            "url" => [
+                                "controller" => "noticias",
+                                "action" => "index"
+                            ],
+                            'type' => 'get',
+                            "role" => "form"]);
+                        ?>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-group-min">
-                                        <label>Título</label>
-                                        <input class="form-control" type="text">
-                                        <span class="material-input"></span></div>
+                                        <?= $this->Form->label("titulo", "Título") ?>
+                                        <?= $this->Form->text("titulo", ["class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group form-group-min">
-                                        <label>Data Inicial</label>
-                                        <input id="data_inicial" class="form-control" type="text">
-                                        <span class="material-input"></span></div>
+                                        <?= $this->Form->label("data_inicial", "Data Inicial") ?>
+                                        <?= $this->Form->text("data_inicial", ["id" => "data_inicial", "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group form-group-min">
-                                        <label>Data Final</label>
-                                        <input id="data_final" class="form-control" type="text">
-                                        <span class="material-input"></span></div>
+                                        <?= $this->Form->label("data_final", "Data Inicial") ?>
+                                        <?= $this->Form->text("data_final", ["id" => "data_final", "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group form-group-min">
-                                         <label>Mostrar</label> <br/>
-                                        <select class="form-control" data-style="select-with-transition" title="Choose City" data-size="7" tabindex="-98">
-                                            <option value="2">Todos</option>
-                                            <option value="3">Somente Ativos</option>
-                                            <option value="4">Somente Inativos</option>
-                                        </select>
+                                        <?= $this->Form->label("mostrar", "Mostrar") ?> <br/>
+                                        <?=$this->Form->select('mostrar', $combo_mostra, ['class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group form-button">
-                            <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
-                                <button type="submit" class="btn btn-fill btn-warning pull-right">Novo<div class="ripple-container"></div></button>
+                                <button type="submit" onclick="return validar()" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
+                                <?php if ($this->Membership->handleRole("adicionar_noticia")): ?>
+                                    <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                                <?php endif; ?>
+                                <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                             </div>
-                        </form>
-                        
+                        <?php echo $this->Form->end(); ?>
                     </div>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="card">
-                   
                     <div class="card-content table-responsive">
-                        <h4 class="card-title">Notícias</h4>
-                        <table class="table">
-                            <thead class="text-primary">
-                                <tr>
-                                    <th>Título</th>
-                                    <th>Data da Postagem</th>
-                                    <th>Data da Alteração</th>
-                                    <th>Visto</th>
-                                    <th>Destaque</th>
-                                    <th>Ativo</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Inscrições abertas para o Curso de CUIDADOR DE IDOSO</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>O SIAT informa que já está realizando o Alistamento Militar</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>MAIS DE R$ 1.500.000,00 EM INVESTIMENTOS PARA COQUEIRAL!</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Coqueiral Avança no Turismo</td>
-                                    <td>27/06/2017</td>
-                                    <td>27/06/2017</td>
-                                    <td>51 vezes</td>
-                                    <td>Sim</td>
-                                    <td>Sim</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
+                        <?php if(count($noticias) > 0): ?>
+                            <h4 class="card-title">Notícias</h4>
+                            <table class="table">
+                                <thead class="text-primary">
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Autor</th>
+                                        <th>Data da Postagem</th>
+                                        <th>Data da Alteração</th>
+                                        <th>Visto</th>
+                                        <th>Destaque</th>
+                                        <th>Ativo</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($noticias as $noticia): ?>
+                                        <tr>
+                                            <td><span rel="tooltip" title="<?= $noticia->post->titulo ?>"><?= $noticia->post->truncado ?></span></td>
+                                            <td style="width: 15%"><?= $noticia->post->autor->pessoa->nome ?></td>
+                                            <td style="width: 14%"><?= $this->Format->date($noticia->post->dataPostagem) ?></td>
+                                            <td style="width: 14%"><?= $this->Format->date($noticia->post->dataAlteracao) ?></td>
+                                            <td><?= $noticia->post->visualizacoes ?></td>
+                                            <td><?= $noticia->post->destacado ?></td>
+                                            <td><?= $noticia->post->ativado ?></td>
+                                            <td class="td-actions text-right" style="width: 8%">
+                                                <?php if ($this->Membership->handleRole("editar_noticia")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'Noticias', 'action' => 'edit', $noticia->id]) ?>" class="btn btn-primary btn-round">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($this->Membership->handleRole("excluir_noticia")): ?>
+                                                    <button type="button" onclick="excluirLicitacao(<?= $noticia->id ?>, '<?= $noticia->post->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <?php if ($this->Membership->handleRole("adicionar_noticia")): ?>
+                                <h3>Nenhuma notícia encontrada. Para adicionar nova notícia, <?=$this->Html->link("clique aqui", ["controller" => "noticias", "action" => "add"])?>.</h3>
+                            <?php else:?>
+                                <h3>Nenhuma notícia encontrada.</h3>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
                      <div class="card-content">
                         <div class="material-datatables">
                             <div class="row">
-                                <div class="col-sm-5">
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_info">50 publicações encontradas</div>
-                                </div>
-                                <div class="col-sm-7 text-right">
-                                    <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                        <ul class="pagination pagination-success" style="margin: 0">
-                                            <li class="paginate_button first" id="datatables_first"><a href="#" aria-controls="datatables" data-dt-idx="0" tabindex="0">Primeiro</a></li>
-                                            <li class="paginate_button previous" id="datatables_previous"><a href="#" aria-controls="datatables" data-dt-idx="1" tabindex="0">Anterior</a></li>
-                                            <li class="paginate_button active"><a href="#" aria-controls="datatables" data-dt-idx="2" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="datatables" data-dt-idx="3" tabindex="0">2</a></li>
-                                            <li class="paginate_button "><a href="#" aria-controls="datatables" data-dt-idx="4" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="datatables" data-dt-idx="5" tabindex="0">4</a></li>
-                                            <li class="paginate_button next" id="datatables_next"><a href="#" aria-controls="datatables" data-dt-idx="6" tabindex="0">Próximo</a></li>
-                                            <li class="paginate_button last" id="datatables_last"><a href="#" aria-controls="datatables" data-dt-idx="7" tabindex="0">Último</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <?=$this->element('pagination', $opcao_paginacao) ?>
                             </div>
                         </div>
                     </div>
@@ -334,20 +124,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<script type="text/javascript">
-    $(function () {
-        $('#data_inicial').datepicker({
-            language: 'pt-BR'
-        });
-
-         $('#data_final').datepicker({
-            language: 'pt-BR'
-        });
-
-        $('#data_inicial').mask('00/00/0000');
-        $('#data_final').mask('00/00/0000');
-    });
-
-</script>
+</div>  
