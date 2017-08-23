@@ -22,12 +22,14 @@ return [
             'editor' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS . 'images' . DS,
             'public' => ROOT . DS . '..' . DS . 'webroot' . DS,
             'publicacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS,
-            'licitacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'licitacao-edital' . DS
+            'licitacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'licitacao-edital' . DS,
+            'noticias' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'noticia-foto' . DS . 'large' . DS
         ],
         'urls' => [
             'editor' => '/public/editor/images/',
             'publicacoes' => 'public/storage/legislacao-arquivo/',
-            'licitacoes' => 'public/storage/licitacao-edital/'
+            'licitacoes' => 'public/storage/licitacao-edital/',
+            'noticias' => 'public/storage/noticia-foto/large/'
         ]
     ]
 ];
