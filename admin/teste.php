@@ -1,5 +1,4 @@
 <?php
 
-$data = date('d/m/Y');
+echo  '23/08/2017 ' . date('H:i:s');
 
-var_dump($data);
