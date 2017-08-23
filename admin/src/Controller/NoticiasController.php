@@ -9,7 +9,6 @@ use Cake\ORM\TableRegistry;
 
 class NoticiasController extends AppController
 {
-
     public function initialize()
     {
         parent::initialize();
@@ -89,6 +88,66 @@ class NoticiasController extends AppController
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
         $this->set('data', $data);
+    }
+
+    public function imprimir()
+    {
+        $t_noticias = TableRegistry::get('Noticia');
+
+        $condicoes = array();
+
+        if (count($this->request->getQueryParams()) > 0) 
+        {
+            $titulo = $this->request->query('titulo');
+            $data_inicial = $this->request->query('data_inicial');
+            $data_final = $this->request->query('data_final');
+            $mostrar = $this->request->query('mostrar');
+
+            if($titulo != "")
+            {
+                $condicoes['Post.titulo LIKE'] = '%' . $titulo . '%';
+            }
+
+            if ($data_inicial != "" && $data_final != "") 
+            {
+                $condicoes["Post.dataPostagem >="] = $this->Format->formatDateDB($data_inicial);
+                $condicoes["Post.dataPostagem <="] = $this->Format->formatDateDB($data_final);
+            }
+
+            if ($mostrar != 'T') 
+            {
+                $condicoes["Post.ativo"] = ($mostrar == "A") ? "1" : "0";
+            }
+        }
+
+        $noticias = $t_noticias->find('all', [
+            'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
+            'conditions' => $condicoes,
+            'order' => [
+                'Noticia.id' => 'DESC'
+            ]
+        ]);
+
+        $qtd_total = $noticias->count();
+
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão da lista de notícias.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if ($this->request->session()->read('UsuarioSuspeito')) 
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Licitações');
+        $this->set('noticias', $noticias);
+        $this->set('qtd_total', $qtd_total);
     }
 
     public function add()
