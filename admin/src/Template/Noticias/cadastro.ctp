@@ -69,7 +69,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-9" style="vertical-align: middle">
-                                            <a class="btn btn-default btn-simple btn-wd btn-lg" href="<?='http://' . DS . $_SERVER['HTTP_HOST'] . DS . $noticia->foto?>" rel="prettyPhoto">Ver Imagem Completa</a><br/>
+                                            <a class="btn btn-default btn-simple btn-wd btn-lg" href="#" rel="prettyPhoto">Ver Imagem Completa</a><br/>
                                             <button type="button" onclick="toggleArquivo()" style="vertical-align: middle" class="btn btn-default btn-simple btn-wd btn-lg">Substituir a Imagem</button>
                                         </div>
                                     </div>
