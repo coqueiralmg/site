@@ -152,6 +152,7 @@ class NoticiasController extends AppController
 
     public function add()
     {
+        $this->Flash->info('Dica: Caso deixe campos data e/ou hora em branco, o sistema irá preencher automaticamente, com a data e hora corrente.');
         $this->redirect(['action' => 'cadastro', 0]);
     }
 
@@ -165,8 +166,22 @@ class NoticiasController extends AppController
         $title = ($id > 0) ? 'Edição da Notícia' : 'Nova Notícia';
         $icon = 'style';
 
+        $t_noticias = TableRegistry::get('Noticia');
+
+        if($id > 0)
+        {
+            $noticia = $t_noticias->get($id);
+
+            $this->set('noticia', $noticia);
+        }
+        else
+        {
+            $this->set('noticia', null);
+        }
+
         $this->set('title', $title);
         $this->set('icon', $icon);
+        $this->set('id', $id);
     }
 
 }
