@@ -82,7 +82,7 @@
                                     <div id="panel_arquivo">
                                         <div class="col-md-9">
                                             <div class="form-group form-file-upload is-fileinput">
-                                                Edital atual: <?=$this->Html->link($licitacao->titulo, 'http://' . DS . $_SERVER['HTTP_HOST'] . DS . $licitacao->edital, ['target' => '_blank'])?>
+                                                Edital atual: <?=$this->Html->link($licitacao->titulo, '/../' . $licitacao->edital, ['target' => '_blank'])?>
                                             </div>
                                         </div>
                                         <div class="col-md-3">

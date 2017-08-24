@@ -72,7 +72,7 @@
                                     <div id="panel_arquivo">
                                         <div class="col-md-9">
                                             <div class="form-group form-file-upload is-fileinput">
-                                                Arquivo atual: <?=$this->Html->link($publicacao->titulo, 'http://' . DS . $_SERVER['HTTP_HOST'] . DS . $publicacao->arquivo, ['target' => '_blank'])?>
+                                                Arquivo atual: <?=$this->Html->link($publicacao->titulo, '/../' . $publicacao->arquivo, ['target' => '_blank'])?>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
