@@ -208,7 +208,7 @@ class LicitacoesController extends AppController
 
             $propriedades = $marcado->getOriginalValues();
 
-            $this->removerArquivo($marcado->arquivo);
+            $this->removerArquivo($marcado->edital);
 
             $t_licitacoes->delete($marcado);
 
