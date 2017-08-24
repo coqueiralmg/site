@@ -14,11 +14,11 @@
         <?php
             if(isset($title))
             {
-                echo $title . " | " . \Cake\Core\Configure::read('system.name');
+                echo $title . " | " . $this->Data->setting('System.name');
             }
             else
             {
-                echo \Cake\Core\Configure::read('system.name');
+                echo $this->Data->setting('System.name');
             }
         ?>
     </title>
@@ -131,7 +131,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-7">
-                    &copy; 2017 Prefeitura Municipal de Coqueiral. Desenvolvido por <a href="http://www.baudovalentim.net" target="_blank">Fábio Valentim</a>.
+                    &copy; <?=$this->Data->release()?> <?=$this->Data->setting('Author.company')?>. Desenvolvido por <a href="<?=$this->Data->setting('Author.developer.site')?>" target="_blank"><?=$this->Data->setting('Author.developer.name')?></a>.
                 </div>
                 <div class="col-sm-5">
                     <ul class="pull-right">
