@@ -31,8 +31,8 @@
 	<?= $this->Html->css('lightbox.css') ?>	
 
     <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.js"></script>
 
@@ -83,13 +83,13 @@
 	 							   <i class="material-icons">schedule</i><span id="hora_atual"> Carregando a Hora Corrente</span>
 		 						</a>
 							</li>
-
+							<!--
 							<li>
 								<a href="#" class="dropdown-toggle center" data-toggle="dropdown">
 	 							   <i class="material-icons">mail_outline</i> Mensagens
 		 						</a>
 							</li>
-							
+							-->
 							<li>
 								<a href="<?= $this->Url->build(['controller' => 'system', 'action' => 'logoff']) ?>" >
 	 							   <i class="material-icons">power_settings_new</i> Sair
