@@ -65,11 +65,11 @@
                                     <div id="panel_arquivo" style="background-color: ">
                                         <div class="col-md-3">
                                             <div class="form-group form-file-upload is-fileinput">
-                                                <img src="<?='http://' . DS . $_SERVER['HTTP_HOST'] . DS . $noticia->foto?>" style="height: 150px; width: auto" class="img-rounded img-responsive img-raised">
+                                                <img src="<?=$this->Url->build('/../' . $noticia->foto)?>" style="height: 150px; width: auto" class="img-rounded img-responsive img-raised">
                                             </div>
                                         </div>
                                         <div class="col-md-9" style="vertical-align: middle">
-                                            <a class="btn btn-default btn-simple btn-wd btn-lg" href="#" rel="prettyPhoto">Ver Imagem Completa</a><br/>
+                                            <a class="btn btn-default btn-simple btn-wd btn-lg" href="<?=$this->Url->build('/../' . $noticia->foto)?>" data-lightbox="destaque">Ver Imagem Completa</a><br/>
                                             <button type="button" onclick="toggleArquivo()" style="vertical-align: middle" class="btn btn-default btn-simple btn-wd btn-lg">Substituir a Imagem</button>
                                         </div>
                                     </div>
