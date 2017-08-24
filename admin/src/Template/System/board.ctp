@@ -112,7 +112,7 @@
                     <div class="card card-product" data-count="9">
                         <div class="card-image" data-header-animation="true">
                             <a href="#pablo">
-                                <img class="img" src="<?= 'http://' . $_SERVER['HTTP_HOST'] . '/' . $noticia->foto?>">
+                                <img class="img" src="<?=$this->Url->build('/../' . $noticia->foto)?>">
                             </a>
                         </div>
                         <div class="card-content">
