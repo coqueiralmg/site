@@ -52,12 +52,20 @@ class NoticiasController extends AppController
         $id = end($gate);
 
         $t_noticias = TableRegistry::get('Noticia');
+        $t_posts = TableRegistry::get('Post');
+
         $noticia = $t_noticias->find('all', [
             'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
             'conditions' => [
                 'Noticia.id' => $id
             ]
         ])->first();
+
+        $post = $t_posts->get($noticia->post->id);
+
+        $post->visualizacoes = $post->visualizacoes + 1;
+
+        $t_posts->save($post);
         
         $socialTags = [
            'og:locale' => 'pt_BR',
