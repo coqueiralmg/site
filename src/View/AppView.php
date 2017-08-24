@@ -38,5 +38,6 @@ class AppView extends View
     {
          $this->loadHelper('Format');
          $this->loadHelper('Menu');
+         $this->loadHelper('Data');
     }
 }
