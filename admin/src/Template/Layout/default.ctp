@@ -27,8 +27,8 @@
 	<!-- Bootstrap DatePicker -->
 	<?= $this->Html->css('bootstrap-datepicker.css') ?>
 
-	<!-- PrettyPhoto CSS -->
-	<?= $this->Html->css('prettyPhoto.css') ?>	
+	<!-- LightBox CSS -->
+	<?= $this->Html->css('lightbox.css') ?>	
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -117,7 +117,7 @@
 	</div>
 	<?= $this->Html->script('material-dashboard.js') ?>
 	<?= $this->Html->script('default.js') ?>
-	<?= $this->Html->script('jquery.prettyPhoto.js') ?>	
+	<?= $this->Html->script('lightbox.js') ?>	
 	<?= $this->fetch('scriptBottom') ?>
 </body>
 	
