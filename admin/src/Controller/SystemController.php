@@ -28,7 +28,7 @@ class SystemController extends AppController
                 $query = $t_usuario->find('all', [
                     'contain' => ['GrupoUsuario', 'Pessoa'],
                     'conditions' => [
-                        'usuario.id' => $idUsuario
+                        'Usuario.id' => $idUsuario
                     ]
                 ]);
 
@@ -78,10 +78,10 @@ class SystemController extends AppController
                 $query = $t_usuario->find('all', [
                     'contain' => ['GrupoUsuario', 'Pessoa'],
                     'conditions' => [
-                        'usuario.usuario' => $login
+                        'Usuario.usuario' => $login
                     ]
                 ])->orWhere([
-                    'usuario.email' => $login
+                    'Usuario.email' => $login
                 ]);
 
                 if($query->count() > 0)
