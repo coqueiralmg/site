@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Network\Exception\ForbiddenException;
 
 /**
  * Application Controller
@@ -44,6 +45,9 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Sender');
+        $this->loadComponent('Firewall');
+
+        $this->configurarAcesso();
     }
 
     /**
@@ -58,6 +62,17 @@ class AppController extends Controller
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
             $this->set('_serialize', true);
+        }
+    }
+
+    /**
+    *  Verifica se o usuário possui o acesso ao sistema, caso o seu endereço de IP não esteja na lista negra
+    */
+    protected function configurarAcesso()
+    {
+        if(!$this->Firewall->verificar())
+        {
+            throw new ForbiddenException();
         }
     }
 }
