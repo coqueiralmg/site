@@ -63,7 +63,7 @@ class PagesController extends AppController
             $header = array(
                 'name' => $nome,
                 'from' => $email,
-                'to' => 'frotas@coqueiral.mg.gov.br',
+                'to' => 'comunicacao@coqueiral.mg.gov.br',
                 'subject' => 'Formulário de Contato - ' . $assunto
             );
 
