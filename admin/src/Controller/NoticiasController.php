@@ -206,6 +206,51 @@ class NoticiasController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_noticias = TableRegistry::get('Noticia');
+
+            $marcado = $t_noticias->get($id);
+            $titulo = $marcado->titulo;
+
+            $propriedades = $marcado->getOriginalValues();
+
+            $this->removerArquivo($marcado->imagem);
+
+            $t_noticias->delete($marcado);
+            
+            $this->Flash->greatSuccess('A notícia ' . $titulo . ' foi excluída com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 29,
+                'descricao' => 'O usuário excluiu uma noticia.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir a notícia.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'index']);
+        }  
+    }
+
     protected function insert()
     {
         try
@@ -216,24 +261,7 @@ class NoticiasController extends AppController
             $entity = $t_noticias->newEntity($this->request->data());
             $post = $t_posts->newEntity($this->request->data());
 
-            if($entity->data == "" && $entity->hora == "")
-            {
-                $post->dataPostagem = date("Y-m-d H:i:s");
-            }
-            elseif($entity->data == "" && $entity->hora != "")
-            {
-                $post->dataPostagem = date("Y-m-d") . ' ' . $entity->hora . ':00';
-            }
-            elseif(($entity->data != "" && $entity->hora == ""))
-            {
-                $pivot = $this->Format->formatDateDB($entity->data);
-                $post->dataPostagem = $pivot . ' ' . date('H:i:s');
-            }
-            else
-            {
-                $post->dataPostagem = $this->Format->mergeDateDB($entity->data, $entity->hora);
-            }
-
+            $post->dataPostagem = $this->obterDataPostagem($entity->data, $entity->hora);
             $post->autor = $this->request->session()->read('UsuarioID');
 
             $arquivo = $this->request->getData('arquivo');
@@ -273,6 +301,71 @@ class NoticiasController extends AppController
             ]);
 
             $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    protected function update(int $id)
+    {
+        try
+        {
+            $t_noticias = TableRegistry::get('Noticia');
+            $t_posts = TableRegistry::get('Post');
+
+            $entity = $t_noticias->get($id);
+            $post = $t_posts->get($entity->post);
+
+            $antigo_arquivo = $entity->foto;
+
+            $t_noticias->patchEntity($entity, $this->request->data());
+            $t_posts->patchEntity($post, $this->request->data());
+
+            $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
+
+            if($enviaArquivo)
+            {
+                $this->removerArquivo($antigo_arquivo);
+                $arquivo = $this->request->getData('arquivo');
+                $entity->foto = $this->salvarArquivo($arquivo);
+            }
+
+            $post->dataPostagem = $this->obterDataPostagem($entity->data, $entity->hora);
+            $post->dataAlteracao = date("Y-m-d H:i:s");
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_posts->save($post);
+            
+            $entity->post = $post->id;
+
+            $t_noticias->save($entity);
+            $this->Flash->greatSuccess('Notícia salva com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 28,
+                'descricao' => 'O usuário editou uma notícia.',
+                'dado_adicional' => json_encode(['noticia_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a licitação', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', $id]);
         }
     }
 
@@ -321,6 +414,31 @@ class NoticiasController extends AppController
         $file->copy($diretorio . $novo_nome, true);
 
         return $url_relativa . $novo_nome;
+    }
+
+    private function obterDataPostagem($data, $hora)
+    {
+        $postagem = null;
+
+        if($data == "" && $hora == "")
+        {
+            $postagem = date("Y-m-d H:i:s");
+        }
+        elseif($data == "" && $hora != "")
+        {
+            $postagem = date("Y-m-d") . ' ' . $hora . ':00';
+        }
+        elseif(($data != "" && $hora == ""))
+        {
+            $pivot = $this->Format->formatDateDB($data);
+            $postagem = $pivot . ' ' . date('H:i:s');
+        }
+        else
+        {
+            $postagem = $this->Format->mergeDateDB($data, $hora);
+        }
+
+        return $postagem;
     }
 
 }
