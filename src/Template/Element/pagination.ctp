@@ -1,10 +1,10 @@
 <?php
-$opcao_paginacao_number = ['tag' => 'li', 'separator' => '', 'currentTag' => 'a', 'modulus' => 6];
+$opcao_paginacao_number = ['tag' => 'li', 'separator' => '', 'currentTag' => 'a', 'modulus' => $this->Data->setting('Pagination.modulus')];
 $opcao_paginacao_extra = ['tag' => 'li', 'disabledTag' => 'a'];
 
 if(!isset($limit_pagination))
 {
-    $limit_pagination = Cake\Core\Configure::read('limitPagination');
+    $limit_pagination = $this->Data->setting('Pagination.limit');
 }
 
 if (!isset($name))
@@ -37,13 +37,13 @@ if (!isset($singular))
             <?php if ($qtd_total > $limit_pagination): ?>
                 <div class="paginacao">
                     <ul class="pagination">
-                        <?php if(($qtd_total / $limit_pagination) > 7): ?>
+                        <?php if(($qtd_total / $limit_pagination) > $this->Data->setting('Pagination.visiblePages')): ?>
                             <?= $this->Paginator->first('Início', $opcao_paginacao_extra) ?>
                         <?php endif; ?>
                         <?= $this->Paginator->prev('Anterior', $opcao_paginacao_extra) ?>
                         <?= $this->Paginator->numbers($opcao_paginacao_number) ?>
                         <?= $this->Paginator->next('Próximo', $opcao_paginacao_extra) ?>
-                        <?php if(($qtd_total / $limit_pagination) > 7): ?>
+                        <?php if(($qtd_total / $limit_pagination) > $this->Data->setting('Pagination.visiblePages')): ?>
                             <?= $this->Paginator->last('Final', $opcao_paginacao_extra) ?>
                         <?php endif; ?>
                     </ul>
