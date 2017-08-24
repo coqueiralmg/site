@@ -10,7 +10,7 @@ class PublicacoesController extends AppController
     public function index()
     {
         $conditions = array();
-        $limite_paginacao = Configure::read('limitPagination');
+        $limite_paginacao = Configure::read('Pagination.limit');
 
         if($this->request->is('get') && count($this->request->query) > 0)
         {

@@ -10,7 +10,7 @@ class NoticiasController extends AppController
     public function index()
     {
         $conditions = array();
-        $limite_paginacao = 5;
+        $limite_paginacao = Configure::read('Pagination.short.limit');
 
         if($this->request->is('get') && count($this->request->query) > 0)
         {
