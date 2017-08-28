@@ -73,9 +73,9 @@ class NoticiasController extends AppController
            'article:publisher' => 'https://www.facebook.com/prefeituradecoqueiral',
            'og:title' => $noticia->post->titulo . ' | Prefeitura Municipal de Coqueiral',
            'og:description' => $noticia->resumo,
-           'og:url' => 'http://coqueiral.mg.gov.br/noticias/noticia' . $noticia->post->slug . '-' . $noticia->id,
+           'og:url' => 'https://coqueiral.mg.gov.br/noticias/noticia' . $noticia->post->slug . '-' . $noticia->id,
            'og:site_name' => 'Prefeitura Municipal de Coqueiral',
-           'og:image' => 'http://coqueiral.mg.gov.br/' . $noticia->foto,
+           'og:image' => 'https://coqueiral.mg.gov.br/' . $noticia->foto,
            'og:image:width' => '600',
            'og:image:height' => '400'
        ];
