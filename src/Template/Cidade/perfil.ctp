@@ -125,6 +125,7 @@
                         <li>Poços de Caldas: 195 km</li>
                         <li>Guaxupé: 190 km</li>
                         <li>Passos: 190 km</li>
+                        <li>Itajubá: 240 km</li>
                     </ul>
                 </div>
                 <div class="col-sm-12 col-md-9">
@@ -138,6 +139,7 @@
                         <li>Ouro Preto: 350 km</li>
                         <li>Montes Claros: 670 km</li>
                         <li>Teófilo Otoni: 715 km</li>
+                        <li>Governador Valadares: 580 km</li>
                         <li>Franca: 290 km</li>
                         <li>Ribeirão Preto: 345 km</li>
                         <li>Campinas: 370 km</li>
