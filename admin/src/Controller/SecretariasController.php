@@ -17,8 +17,29 @@ class SecretariasController extends AppController
 
     public function index()
     {
+        $t_secretarias = TableRegistry::get('Secretaria');
+        $limite_paginacao = Configure::read('Pagination.limit');
+        
+        $this->paginate = [
+            'limit' => $limite_paginacao
+        ];
+
+        $opcao_paginacao = [
+            'name' => 'secretarias',
+            'name_singular' => 'secretaria',
+            'predicate' => 'encontradas',
+            'singular' => 'encontrada'
+        ];
+
+        $secretarias = $this->paginate($t_secretarias);
+        $qtd_total = $t_secretarias->find('all')->count();
+        
         $this->set('title', 'Secretarias');
         $this->set('icon', 'business_center');
+        $this->set('secretarias', $secretarias);
+        $this->set('qtd_total', $qtd_total);
+        $this->set('limit_pagination', $limite_paginacao);
+        $this->set('opcao_paginacao', $opcao_paginacao);
     }
 
     public function add()
