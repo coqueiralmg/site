@@ -9,5 +9,6 @@ class SecretariaTable extends BaseTable
     {
         $this->table('secretaria');
         $this->primaryKey('id');
+        $this->entityClass('Secretaria'); 
     }
 }
