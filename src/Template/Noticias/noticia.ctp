@@ -31,7 +31,7 @@
                 <!-- Go to www.addthis.com/dashboard to customize your tools --> <div class="addthis_inline_share_toolbox"></div>
                 <br/><br/><br/>
 
-                <div class="fb-comments" data-href="<?= 'http://coqueiral.mg.gov.br/noticias/noticia' . $noticia->post->slug . '-' . $noticia->id ?>" data-numposts="5"></div>
+                <div class="fb-comments" data-href="<?= 'https://coqueiral.mg.gov.br/noticias/noticia' . $noticia->post->slug . '-' . $noticia->id ?>" data-numposts="5"></div>
             </div>
             <!--/.col-md-8-->
 
@@ -67,9 +67,9 @@
 
                     <div class="widget categories">
                     <h3>Previsão do Tempo</h3>
-                    <div class="row">
-                        <!-- Widget Previs&atilde;o de Tempo CPTEC/INPE --><iframe allowtransparency="true" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no" src="http://www.cptec.inpe.br/widget/widget.php?p=1597&w=v&c=607065&f=ffffff" height="350px" width="192px"></iframe><noscript>Previs&atilde;o de <a href="http://www.cptec.inpe.br/cidades/tempo/1597">Coqueiral/MG</a> oferecido por <a href="http://www.cptec.inpe.br">CPTEC/INPE</a></noscript><!-- Widget Previs&atilde;o de Tempo CPTEC/INPE -->
-                    </div>
+                        <div class="row tempo">
+                            <div id="cont_972a24ab5d627921d59657e47563b214"><script type="text/javascript" async src="https://www.tempo.com/wid_loader/972a24ab5d627921d59657e47563b214"></script></div>
+                        </div>
                 </div>
             </aside>
 

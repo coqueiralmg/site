@@ -2728,3 +2728,8 @@ shortcodes page css
         width: 100px;
     }
 }
+
+.tempo div{
+    float: left;
+    width: 180px !important;
+}

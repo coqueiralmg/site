@@ -68,10 +68,12 @@
                 </div>
                 <!--/.recent comments-->
 
-                <div class="widget categories">
+                <div class="widget archieve">
                     <h3>Previsão do Tempo</h3>
                     <div class="row">
-                        <!-- Widget Previs&atilde;o de Tempo CPTEC/INPE --><iframe allowtransparency="true" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no" src="http://www.cptec.inpe.br/widget/widget.php?p=1597&w=v&c=607065&f=ffffff" height="350px" width="192px"></iframe><noscript>Previs&atilde;o de <a href="http://www.cptec.inpe.br/cidades/tempo/1597">Coqueiral/MG</a> oferecido por <a href="http://www.cptec.inpe.br">CPTEC/INPE</a></noscript><!-- Widget Previs&atilde;o de Tempo CPTEC/INPE -->
+                        <div class="col-sm-12 tempo">
+                            <div id="cont_972a24ab5d627921d59657e47563b214"><script type="text/javascript" async src="https://www.tempo.com/wid_loader/972a24ab5d627921d59657e47563b214"></script></div>
+                        </div>
                     </div>
                 </div>
                 
