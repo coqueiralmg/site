@@ -35,6 +35,7 @@ class PagesController extends AppController
         
         $noticias = $t_noticia->find('all', [
             'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
+            'conditions' => ['Post.destaque' => true],
             'order' => ['Post.datapostagem' => 'DESC'], 
             'limit' => 3
         ]);
