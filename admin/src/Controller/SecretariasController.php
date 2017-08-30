@@ -42,6 +42,34 @@ class SecretariasController extends AppController
         $this->set('opcao_paginacao', $opcao_paginacao);
     }
 
+    public function imprimir()
+    {
+        $t_secretarias = TableRegistry::get('Secretaria');
+        $limite_paginacao = Configure::read('Pagination.limit');
+        
+        $secretarias = $t_secretarias->find('all');
+        $qtd_total = $secretarias->count();
+
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão de listagem de secretarias.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->viewBuilder()->layout('print');
+        
+        $this->set('title', 'Secretarias');
+        $this->set('secretarias', $secretarias);
+        $this->set('qtd_total', $qtd_total);
+    }
+
     public function add()
     {
         $this->redirect(['action' => 'cadastro', 0]);
