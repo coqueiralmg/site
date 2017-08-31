@@ -21,7 +21,10 @@ class SecretariasController extends AppController
         $limite_paginacao = Configure::read('Pagination.limit');
         
         $this->paginate = [
-            'limit' => $limite_paginacao
+            'limit' => $limite_paginacao,
+            'order' => [
+                'nome' => 'ASC'
+            ]
         ];
 
         $opcao_paginacao = [
@@ -46,7 +49,11 @@ class SecretariasController extends AppController
     {
         $t_secretarias = TableRegistry::get('Secretaria');
         
-        $secretarias = $t_secretarias->find('all');
+        $secretarias = $t_secretarias->find('all', [
+            'order' => [
+                'nome' => 'ASC'
+            ]
+        ]);
         $qtd_total = $secretarias->count();
 
         $auditoria = [
