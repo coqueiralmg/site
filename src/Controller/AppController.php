@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Network\Exception\ForbiddenException;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -63,6 +64,8 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+
+        $this->carregarSecretarias();
     }
 
     /**
@@ -74,5 +77,21 @@ class AppController extends Controller
         {
             throw new ForbiddenException();
         }
+    }
+
+    private function carregarSecretarias()
+    {
+        $t_secretarias = TableRegistry::get('Secretaria');
+
+        $secretarias = $t_secretarias->find('all', [
+            'conditions' => [
+                'ativo' => true
+            ],
+            'order' => [
+                'nome' => 'ASC'
+            ]
+        ]);
+
+        $this->set('secretarias', $secretarias);
     }
 }
