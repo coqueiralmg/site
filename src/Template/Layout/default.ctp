@@ -113,7 +113,7 @@
                             <h3>Secretarias</h3>
                             <ul>
                                 <?php foreach ($secretarias as $secretaria): ?>
-                                    <li><a href="<?= 'secretaria/' . $secretaria->slug . '-' . $secretaria->id ?>"><?=$secretaria->nome?></a></li>
+                                    <li><a href="<?= '/secretaria/' . $secretaria->slug . '-' . $secretaria->id ?>"><?=$secretaria->nome?></a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
