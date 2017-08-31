@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <?= $this->Form->label("expediente", "Expediente    ") ?>
+                                        <?= $this->Form->label("expediente", "Expediente") ?>
                                         <?= $this->Form->textarea("expediente", ["id" => "expediente", "rows" => "3", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
