@@ -98,6 +98,7 @@ class AppController extends Controller
     {
         if (!$this->isAuthorized())
         {
+            $this->request->session()->destroy();
             $this->redirectLogin("A sessão foi expirada!");
         }
     }
