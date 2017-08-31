@@ -45,7 +45,6 @@ class SecretariasController extends AppController
     public function imprimir()
     {
         $t_secretarias = TableRegistry::get('Secretaria');
-        $limite_paginacao = Configure::read('Pagination.limit');
         
         $secretarias = $t_secretarias->find('all');
         $qtd_total = $secretarias->count();
@@ -85,8 +84,78 @@ class SecretariasController extends AppController
         $title = ($id > 0) ? 'Edição da Secretaria' : 'Nova Secretaria';
         $icon = ($id > 0) ? 'business_center' : 'business_center';
 
+        $t_secretarias = TableRegistry::get('Secretaria');
+
+        if($id > 0)
+        {
+            $secretaria = $t_secretarias->get($id);
+            $this->set('secretaria', $secretaria);
+        }
+        else
+        {
+            $this->set('secretaria', null);
+        }
+
         $this->set('title', $title);
         $this->set('icon', $icon);
+        $this->set('id', $id);
     }
 
+    public function save(int $id)
+    {
+        if ($this->request->is('post')) 
+        {
+            $this->insert();
+        } 
+        elseif ($this->request->is('put')) 
+        {
+            $this->update($id);
+        }
+    }
+
+    protected function insert()
+    {
+        try
+        {
+            $t_secretarias = TableRegistry::get('Secretaria');
+            $entity = $t_secretarias->newEntity($this->request->data());
+
+            $entity->telefone = $this->Format->clearMask($entity->telefone);
+
+            $t_secretarias->save($entity);
+            $this->Flash->greatSuccess('Secretaria salva com sucesso');
+
+            $propriedades = $entity->getOriginalValues();
+
+            $auditoria = [
+                'ocorrencia' => 30,
+                'descricao' => 'O usuário cadastrou uma nova secretaria.',
+                'dado_adicional' => json_encode(['id_nova_secretaria' => $entity->id, 'campos' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if ($this->request->session()->read('UsuarioSuspeito')) {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a secretaria', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', $id]);
+        }
+    }
+
+    protected function update(int $id)
+    {
+
+    }
 }
