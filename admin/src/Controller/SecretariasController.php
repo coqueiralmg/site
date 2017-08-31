@@ -163,6 +163,45 @@ class SecretariasController extends AppController
 
     protected function update(int $id)
     {
+        try
+        {
+            $t_secretarias = TableRegistry::get('Secretaria');
+            $entity = $t_secretarias->get($id);
 
+            $t_secretarias->patchEntity($entity, $this->request->data());
+
+            $entity->telefone = $this->Format->clearMask($entity->telefone);
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_secretarias->save($entity);
+            $this->Flash->greatSuccess('Secretaria salva com sucesso');
+
+            $auditoria = [
+                'ocorrencia' => 31,
+                'descricao' => 'O usuário alterou as informações sobre uma secretaria.',
+                'dado_adicional' => json_encode(['secretaria_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if ($this->request->session()->read('UsuarioSuspeito')) {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a secretaria', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', $id]);
+        }   
     }
 }

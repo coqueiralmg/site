@@ -96,7 +96,7 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox"> Ativo
+                                                <?= $this->Form->checkbox("ativo") ?> Ativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
