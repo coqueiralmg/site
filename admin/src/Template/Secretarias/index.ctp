@@ -34,7 +34,7 @@
                                         <td><?=$secretaria->ativado?></td>
                                         <td class="td-actions text-right">
                                             <?php if ($this->Membership->handleRole("editar_secretaria")): ?>
-                                                <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'edit', $secretaria->id]) ?>" class="btn btn-primary btn-round">
+                                                <a href="<?= $this->Url->build(['controller' => 'Secretarias', 'action' => 'edit', $secretaria->id]) ?>" class="btn btn-primary btn-round">
                                                     <i class="material-icons">edit</i>
                                                 </a>
                                             <?php endif; ?>
