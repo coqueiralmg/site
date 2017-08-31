@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use Cake\Network\Exception\ForbiddenException;
 use \Exception;
 
 /**
@@ -132,7 +133,7 @@ class AppController extends Controller
 
         if(!$this->Membership->handleRole($url, $userID))
         {
-            //throw new ForbiddenException();
+            throw new ForbiddenException();
         }
     }
 
