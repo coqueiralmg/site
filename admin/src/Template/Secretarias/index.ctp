@@ -5,6 +5,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                        <?= $this->Flash->render() ?>
                         <?php if ($this->Membership->handleRole("adicionar_secretaria")): ?>
                             <a href="<?= $this->Url->build(['controller' => 'Secretarias', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                         <?php endif; ?>

@@ -86,6 +86,48 @@ class SecretariasController extends AppController
         $this->redirect(['action' => 'cadastro', $id]);
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_secretarias = TableRegistry::get('Secretaria');
+            $marcado = $t_secretarias->get($id);
+            $nome = $marcado->nome;
+
+            $propriedades = $marcado->getOriginalValues();
+            
+            $t_secretarias->delete($marcado);
+
+            $this->Flash->greatSuccess($nome . ' foi excluída com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 32,
+                'descricao' => 'O usuário excluiu uma secretaria.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir a secretaria.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'index']);
+        }
+    }
+
     public function cadastro(int $id)
     {
         $title = ($id > 0) ? 'Edição da Secretaria' : 'Nova Secretaria';
