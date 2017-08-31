@@ -33,6 +33,12 @@ endif;
 ?>
 <h4><?= h($message) ?></h4>
 <p class="error">
+    <?php if($message == 'Forbidden'): ?>
+    <strong>Erro: </strong>
+    <?= __d('cake', 'Você não tem permissão para acessar este endereço {0}.', "<strong>'{$url}'</strong>") ?>
+    <?php elseif($message == 'Not Found'):?>
     <strong>Erro: </strong>
     <?= __d('cake', 'O endereço requisitado {0} não foi encontrado em nosso servidor.', "<strong>'{$url}'</strong>") ?>
+    <?php endif;?>
+    
 </p>
