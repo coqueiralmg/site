@@ -108,19 +108,16 @@
                 </div>
 
                 <div class="col-md-7 col-sm-6">
-                    <div class="widget">
-                        <h3>Secretarias</h3>
-                        <ul>
-                            <li><a href="#">Departamento de Meio Ambiente</a></li>
-                            <li><a href="#">Secretaria Municipal de Educação e Cultura</a></li>
-                            <li><a href="#">Secretaria Municipal de Saúde</a></li>
-                            <li><a href="#">Departamento de Cultura</a></li>
-                            <li><a href="#">Departamento de Obras e Serviços</a></li>
-                            <li><a href="#">Secretaria Municipal de Obras</a></li>
-                            <li><a href="#">Secretaria Municipal de Bem Estar e Ação Social</a></li>
-                            <li><a href="#">Procuradoria Geral do Município</a></li>
-                        </ul>
-                    </div>
+                    <?php if(count($secretarias) > 0): ?>
+                        <div class="widget">
+                            <h3>Secretarias</h3>
+                            <ul>
+                                <?php foreach ($secretarias as $secretaria): ?>
+                                    <li><a href="<?= 'secretaria/' . $secretaria->slug . '-' . $secretaria->id ?>"><?=$secretaria->nome?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
