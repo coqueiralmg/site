@@ -45,21 +45,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="widget categories">
-                    <h3>Facebook</h3>
-                    <div class="row">
-                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprefeituradecoqueiral&tabs=timeline%2Cevents&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340"
-                            height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                    </div>
-                </div>
-                <!--/.recent comments-->
-
-                <div class="widget categories">
-                    <h3>Previsão do Tempo</h3>
-                    <div class="row tempo">
-                        <div id="cont_972a24ab5d627921d59657e47563b214"><script type="text/javascript" async src="https://www.tempo.com/wid_loader/972a24ab5d627921d59657e47563b214"></script></div>
-                    </div>
-                </div>
             </aside>
 
         </div>
