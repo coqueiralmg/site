@@ -33,6 +33,7 @@
                         <div class="col-md-12">
                             <?=$secretaria->endereco?><br/>
                             <b>Telefone:</b> <?=$this->Format->phone($secretaria->telefone)?><br/>
+                            <b>E-mail:</b> <?=$secretaria->email?><br/>
                         </div>
                     </div>
                 </div>
