@@ -33,7 +33,9 @@
                         <div class="col-md-12">
                             <?=$secretaria->endereco?><br/>
                             <b>Telefone:</b> <?=$this->Format->phone($secretaria->telefone)?><br/>
-                            <b>E-mail:</b> <?=$secretaria->email?><br/>
+                            <span oncopy="return false" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+                                <b>E-mail:</b> <?=$this->Html->link($secretaria->email, 'mailto:' . $secretaria->email)?>
+                            </span>
                         </div>
                     </div>
                 </div>
