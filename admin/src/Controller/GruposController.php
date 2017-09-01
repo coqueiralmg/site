@@ -39,9 +39,6 @@ class GruposController extends AppController
 
     public function imprimir()
     {
-        $this->validationRole = false;
-        $this->configurarAcesso();
-        
         $t_grupos = TableRegistry::get('GrupoUsuario');
         $grupos = $t_grupos->find('all');
         $qtd_total = $grupos->count();

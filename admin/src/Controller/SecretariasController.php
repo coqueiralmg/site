@@ -47,8 +47,6 @@ class SecretariasController extends AppController
 
     public function imprimir()
     {
-        $this->validationRole = false;
-        $this->configurarAcesso();
         $t_secretarias = TableRegistry::get('Secretaria');
         
         $secretarias = $t_secretarias->find('all', [

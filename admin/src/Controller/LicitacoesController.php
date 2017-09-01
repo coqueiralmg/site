@@ -92,8 +92,6 @@ class LicitacoesController extends AppController
 
     public function imprimir()
     {
-        $this->validationRole = false;
-        $this->configurarAcesso();
         $t_licitacoes = TableRegistry::get('Licitacao');
 
         $condicoes = array();
