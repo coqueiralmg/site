@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
@@ -268,6 +269,7 @@ class SystemController extends AppController
         $this->Auditoria->registrar($auditoria);
         
         $this->request->session()->destroy();
+        Cache::clear(false);
         $this->redirectLogin("As sessões foram zeradas com sucesso.", false);
     }
 
