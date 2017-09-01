@@ -57,6 +57,8 @@ class FirewallController extends AppController
 
     public function imprimir()
     {
+        $this->validationRole = false;
+        $this->configurarAcesso();
         $t_firewall = TableRegistry::get('Firewall');
 
         $condicoes = array();

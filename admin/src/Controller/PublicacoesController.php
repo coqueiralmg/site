@@ -98,6 +98,8 @@ class PublicacoesController extends AppController
 
     public function imprimir()
     {
+        $this->validationRole = false;
+        $this->configurarAcesso();
         $t_publicacao = TableRegistry::get('Publicacao');
 
         $condicoes = array();

@@ -96,6 +96,8 @@ class NoticiasController extends AppController
 
     public function imprimir()
     {
+        $this->validationRole = false;
+        $this->configurarAcesso();
         $t_noticias = TableRegistry::get('Noticia');
 
         $condicoes = array();

@@ -94,6 +94,9 @@ class UsuariosController extends AppController
 
     public function imprimir()
     {
+        $this->validationRole = false;
+        $this->configurarAcesso();
+
         $t_usuarios = TableRegistry::get('Usuario');
         
         $condicoes = array();
