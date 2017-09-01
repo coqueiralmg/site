@@ -5,6 +5,8 @@
             <tr>
                 <th>Nome</th>
                 <th>Responsável</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
                 <th>Ativo</th>
             </tr>
         </thead>
@@ -13,6 +15,8 @@
                 <tr>
                     <td><?=$secretaria->nome?></td>
                     <td><?=$secretaria->responsavel?></td>
+                    <td><?=$this->Format->phone($secretaria->telefone)?></td>
+                    <td><?=$secretaria->email?></td>
                     <td><?=$secretaria->ativado?></td>
                 </tr>
             <?php endforeach; ?>
