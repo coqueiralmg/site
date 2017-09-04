@@ -126,11 +126,13 @@ class AppController extends Controller
         $url = ["controller" => $controller, "action" => $action];
         $userID = (int) $this->request->session()->read('UsuarioID');
 
+        /*
         //Setagem de variáveis para debug
         $this->set('url', $url);
         $this->set('function', $this->Membership->getFunctions($url));
         $this->set('role', $this->Membership->getRoles($url));
         $this->set('roles', $this->Membership->actionRoles());
+        */
 
         if(!$this->Membership->handleRole($url, $userID))
         {
