@@ -25,6 +25,8 @@ class LicitacoesController extends AppController
             $this->request->data = $data;
         }
 
+        $conditions['ativo'] = true;
+
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $conditions,

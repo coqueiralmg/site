@@ -35,12 +35,16 @@ class PagesController extends AppController
         
         $noticias = $t_noticia->find('all', [
             'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
-            'conditions' => ['Post.destaque' => true],
+            'conditions' => [
+                'Post.destaque' => true,
+                'Post.ativo' => true
+            ],
             'order' => ['Post.datapostagem' => 'DESC'], 
             'limit' => 3
         ]);
 
         $licitacoes = $t_licitacoes->find('all', [
+            'conditions' => ['Licitacao.ativo' => true],
             'order' => ['Licitacao.id' => 'DESC'],
             'limit' => 5
         ]);

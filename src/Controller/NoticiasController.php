@@ -25,6 +25,8 @@ class NoticiasController extends AppController
             $this->request->data = $data;
         }
 
+        $conditions['Post.ativo'] = true;
+
         $joins = ['Post' => ['Usuario' => ['Pessoa']]];
         
         $this->paginate = [
