@@ -48,7 +48,7 @@
                             </tbody>
                         </table>
                     <?php else: ?>
-                        <?php if ($this->Membership->handleRole("adicionar_usuario")): ?>
+                        <?php if ($this->Membership->handleRole("adicionar_secretaria")): ?>
                             <h3>Nenhuma secretaria encontrada. Para adicionar nova secretaria, <?=$this->Html->link("clique aqui", ["controller" => "secretarias", "action" => "add"])?>.</h3>
                         <?php else:?>
                             <h3>Nenhuma secretaria encontrada.</h3>
