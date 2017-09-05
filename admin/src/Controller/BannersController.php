@@ -17,8 +17,24 @@ class BannersController extends AppController
 
     public function index()
     {
+        $t_banners = TableRegistry::get('Banner');
+        $limite_paginacao = Configure::read('Pagination.limit');
+        
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+            'order' => [
+                'nome' => 'ASC'
+            ]
+        ];
+
+        $banners = $this->paginate($t_banners);
+        $qtd_total = $t_banners->find('all')->count();
+        
         $this->set('title', 'Banners');
         $this->set('icon', 'slideshow');
+        $this->set('banners', $banners);
+        $this->set('qtd_total', $qtd_total);
+        $this->set('limit_pagination', $limite_paginacao);
     }
 
     public function add()
