@@ -49,7 +49,7 @@ class BannersController extends AppController
 
     public function cadastro(int $id)
     {
-        $title = ($id > 0) ? 'Edição do Banner' : 'Nova Banner';
+        $title = ($id > 0) ? 'Edição do Banner' : 'Novo Banner';
         $icon = ($id > 0) ? 'slideshow' : 'slideshow';
 
         $this->set('title', $title);

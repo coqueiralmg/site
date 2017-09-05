@@ -7,12 +7,6 @@
                         <form>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
-                                <h4>Imagem Atual</h4>
-                                <center>
-                                    <img src="/img/slide/praca.jpg" style="width: 85%" class="img-rounded img-responsive img-raised">
-                                </center>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group label-control">
                                         <label>Título</label>
@@ -25,15 +19,6 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-control">
                                         <label>Descrição do Banner</label>
-                                        <textarea id="descricao" class="form-control"></textarea>
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group label-control">
-                                        <label>Descrição da Imagem</label>
                                         <textarea id="descricao" class="form-control"></textarea>
                                         <span class="material-input"></span>
                                     </div>
