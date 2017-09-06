@@ -160,7 +160,7 @@ class BannersController extends AppController
         $file = new File($file_temp);
         $pivot = new File($nome_arquivo);
 
-        $novo_nome = uniqid() . '.' . $pivot->ext();
+        $novo_nome = $nome_arquivo . '.' . $pivot->ext();
 
         if(!$this->File->validationExtension($pivot, $this->File::TYPE_FILE_IMAGE))
         {
