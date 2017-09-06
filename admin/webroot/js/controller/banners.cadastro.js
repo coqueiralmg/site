@@ -23,11 +23,11 @@ function toggleArquivo() {
 function validar() {
     var mensagem = "";
 
-    if ($("#titulo").val() === "") {
-        mensagem += "<li> O título do banner é obrigatório.</li>";
-        $("label[for='titulo']").css("color", "red");
+    if ($("#nome").val() === "") {
+        mensagem += "<li> O nome de identificação do banner é obrigatório.</li>";
+        $("label[for='nome']").css("color", "red");
     } else {
-        $("label[for='titulo']").css("color", "#aaa");
+        $("label[for='nome']").css("color", "#aaa");
     }
 
     if ($("#ordem").val() === "") {

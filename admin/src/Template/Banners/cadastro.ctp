@@ -28,7 +28,14 @@
                             <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("nome", "Nome (apenas para identificação e controle)") ?>
+                                        <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control", "maxlength" => 50]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("titulo", "Título") ?>
                                         <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 100]) ?>
@@ -40,7 +47,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("descricao", "Descrição do Banner") ?>
-                                        <?= $this->Form->textarea("descricao", ["id" => "descricao", "class" => "form-control", "rows" => 3, "maxlength" => 384]) ?>
+                                        <?= $this->Form->textarea("descricao", ["id" => "descricao", "class" => "form-control", "rows" => 2, "maxlength" => 384]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
