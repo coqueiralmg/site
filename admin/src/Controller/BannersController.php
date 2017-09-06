@@ -39,6 +39,12 @@ class BannersController extends AppController
 
     public function add()
     {
+        $mensagem = '<b>Dica 1</b>: Caso necessite de um banner sem prazo de validade, basta apenas deixar o campo \'Validade\' em branco.<br/> ';
+        $mensagem = $mensagem . '<b>Dica 2</b>: Também não é preciso colocar endereço completo do link de destino, caso o destno esteja no mesmo site. <br/> ';
+        $mensagem = $mensagem . '<b>Dica 3</b>:  Recomenda-se ativar a opção \'Abrir em nova janela\', quando o destino leva para o outro site. <br/>';
+        $mensagem = $mensagem . '<b>Dica 4</b>: A imagem do banner deve ter obrigatoriamente, o tamanho de 1400 x 730.';
+        
+        $this->Flash->info($mensagem);
         $this->redirect(['action' => 'cadastro', 0]);
     }
 
@@ -50,10 +56,22 @@ class BannersController extends AppController
     public function cadastro(int $id)
     {
         $title = ($id > 0) ? 'Edição do Banner' : 'Novo Banner';
-        $icon = ($id > 0) ? 'slideshow' : 'slideshow';
+        $icon = 'slideshow';
+
+        $t_banners = TableRegistry::get('Banner');
+
+        if($id > 0)
+        {
+            $banner = $t_banners->get($id);
+            $this->set('banner', $banner);
+        }
+        else
+        {
+            $this->set('banner', null);
+        }
 
         $this->set('title', $title);
         $this->set('icon', $icon);
+        $this->set('id', $id);
     }
-
 }

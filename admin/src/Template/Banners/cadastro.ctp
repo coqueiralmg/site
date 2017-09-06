@@ -1,16 +1,37 @@
+<script type="text/javascript">
+    var idBanner = <?=$id?>;
+</script>
+<?= $this->Html->script('controller/banners.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <form>
+                        <?php
+                            echo $this->Form->create($banner, [
+                                "url" => [
+                                    "controller" => "banners",
+                                    "action" => "save",
+                                    $id
+                                ],
+                                'enctype' => 'multipart/form-data',
+                                "role" => "form"]);
+                            ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_erro',
+                                'type' => 'error',
+                                'message' => 'Ocorreu um erro ao salvar o banner',
+                                'details' => ''
+                            ]) ?>
+                            <?= $this->Flash->render() ?>
+                            <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group label-control">
-                                        <label>Título</label>
-                                        <input id="titulo" class="form-control" type="text">
+                                        <?= $this->Form->label("titulo", "Título") ?>
+                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 100]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -18,52 +39,84 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group label-control">
-                                        <label>Descrição do Banner</label>
-                                        <textarea id="descricao" class="form-control"></textarea>
+                                        <?= $this->Form->label("descricao", "Descrição do Banner") ?>
+                                        <?= $this->Form->textarea("descricao", ["id" => "descricao", "class" => "form-control", "rows" => 2, "maxlength" => 384]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-1">
                                     <div class="form-group label-control">
-                                        <label>Destino</label>
-                                        <input id="titulo" class="form-control" type="url">
+                                        <?= $this->Form->label("ordem", "Ordem") ?>
+                                        <?= $this->Form->number("ordem", ["id" => "ordem", "min" => 0, "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("validade", "Data de Validade") ?>
+                                        <?= $this->Form->text("validade", ["id" => "validade", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group label-control">
-                                        <label>Nome da Ação</label>
-                                        <input id="titulo" placeholder="Veja mais" class="form-control" type="text">
+                                        <?= $this->Form->label("acao", "Nome da Ação") ?>
+                                        <?= $this->Form->text("acao", ["id" => "acao", "placeholder" => "Ex: Veja mais", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group label-control">
-                                        <label>Validade</label>
-                                        <input id="data" class="form-control" type="text">
+                                        <?= $this->Form->label("destino", "Destino") ?>
+                                        <?= $this->Form->text("destino", ["id" => "destino", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Atualizar Imagem (A imagem deve ter obrigatoriamente o tamanho 1400 x 730)</label>
-                                        <input type="file" class="form-control">
-                                        <span class="material-input"></span>
+                                <?php if($id > 0): ?>
+                                    <div id="panel_arquivo" style="background-color: ">
+                                        <div class="col-md-3">
+                                            <div class="form-group form-file-upload is-fileinput">
+                                                <img src="<?=$this->Url->build('/../' . $noticia->foto)?>" style="height: 150px; width: auto" class="img-rounded img-responsive img-raised">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9" style="vertical-align: middle">
+                                            <a class="btn btn-default btn-simple btn-wd btn-lg" href="<?=$this->Url->build('/../' . $noticia->foto)?>" data-lightbox="destaque">Ver Imagem Completa</a><br/>
+                                            <button type="button" onclick="toggleArquivo()" style="vertical-align: middle" class="btn btn-default btn-simple btn-wd btn-lg">Substituir a Imagem</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
+                                    <div id="panel_envio" style="display: none">
+                                        <div class="col-md-12">
+                                            <div class="form-group form-file-upload is-fileinput">
+                                                <?= $this->Form->label("arquivo", "Imagem do Banner (A imagem deve ter obrigatoriamente o tamanho 1400 x 730)") ?>
+                                                <?= $this->Form->file("arquivo", ["id" => "arquivo", "class" => "form-control"]) ?>
+                                                <span class="material-input"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="col-md-12">
+                                        <div class="form-group form-file-upload is-fileinput">
+                                            <?= $this->Form->label("arquivo", "Imagem do Banner (A imagem deve ter obrigatoriamente o tamanho 1400 x 730)") ?>
+                                            <?= $this->Form->file("arquivo", ["id" => "arquivo", "class" => "form-control"]) ?>
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <input type="checkbox"> Ativo
+                                                <?= $this->Form->checkbox("blank") ?> Abrir o destino em nova janela
+                                            </label>
+                                        </div>
+                                        <div class="togglebutton">
+                                            <label>
+                                                <?= $this->Form->checkbox("ativo") ?> Ativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
@@ -72,9 +125,9 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success pull-right">Salvar</button>
-                            <button type="reset" class="btn btn-primary pull-right">Limpar</button>
-                            <button type="button" class="btn btn-primary pull-right">Voltar</button>
+                            <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Salvar</button>
+                            <button type="reset" class="btn btn-default pull-right">Limpar</button>
+                            <button type="button" onclick="window.location='<?= $this->Url->build('/banners') ?>'" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -83,14 +136,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function () {
-        $('#data').datepicker({
-            language: 'pt-BR'
-        });
-
-        $('#data').mask('00/00/0000');
-
-    });
-
-</script>
