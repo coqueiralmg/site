@@ -30,7 +30,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("nome", "Nome (apenas para identificação e controle)") ?>
+                                        <?= $this->Form->label("nome", "Nome") ?>
                                         <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control", "maxlength" => 50]) ?>
                                         <span class="material-input"></span>
                                     </div>
