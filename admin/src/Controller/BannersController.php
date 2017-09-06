@@ -136,6 +136,63 @@ class BannersController extends AppController
         }
     }
 
+    protected function update(int $id)
+    {
+        try
+        {
+            $t_banners = TableRegistry::get('Banner');
+            
+            $entity = $t_banners->get($id);
+
+            $antigo_arquivo = $entity->imagem;
+
+            $t_banners->patchEntity($entity, $this->request->data());
+
+            $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
+            
+            if($enviaArquivo)
+            {
+                $this->removerArquivo($antigo_arquivo);
+                $arquivo = $this->request->getData('arquivo');
+                $entity->imagem = $this->salvarArquivo($arquivo);
+            }
+
+            $entity->validade = $this->Format->formatDateDB($entity->validade);
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_banners->save($entity);
+            $this->Flash->greatSuccess('Banner salvo com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 34,
+                'descricao' => 'O usuário editou um banner.',
+                'dado_adicional' => json_encode(['banner_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o banner', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', $id]);
+        }  
+    }
+
     private function removerArquivo($arquivo)
     {
         $diretorio = Configure::read('Files.paths.public');

@@ -85,13 +85,13 @@
                             <div class="row">
                                 <?php if($id > 0): ?>
                                     <div id="panel_arquivo" style="background-color: ">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group form-file-upload is-fileinput">
-                                                <img src="<?=$this->Url->build('/../' . $noticia->foto)?>" style="height: 150px; width: auto" class="img-rounded img-responsive img-raised">
+                                                <img src="<?=$this->Url->build('/../' . $banner->imagem)?>" style="height: 150px; width: auto" class="img-rounded img-responsive img-raised">
                                             </div>
                                         </div>
-                                        <div class="col-md-9" style="vertical-align: middle">
-                                            <a class="btn btn-default btn-simple btn-wd btn-lg" href="<?=$this->Url->build('/../' . $noticia->foto)?>" data-lightbox="destaque">Ver Imagem Completa</a><br/>
+                                        <div class="col-md-8" style="vertical-align: middle">
+                                            <a class="btn btn-default btn-simple btn-wd btn-lg" href="<?=$this->Url->build('/../' . $banner->imagem)?>" data-lightbox="destaque">Ver Imagem Completa</a><br/>
                                             <button type="button" onclick="toggleArquivo()" style="vertical-align: middle" class="btn btn-default btn-simple btn-wd btn-lg">Substituir a Imagem</button>
                                         </div>
                                     </div>
@@ -103,6 +103,38 @@
                                                 <span class="material-input"></span>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Opções de Imagem</label> <br/>
+                                                <div class="togglebutton">
+                                                    <label>
+                                                        <?= $this->Form->checkbox("mantem_nome", ["id" => "mantem_nome", "checked" => true]) ?> Manter o nome original do arquivo
+                                                    </label>
+                                                </div>
+                                                <div id="novo_nome_arquivo" style="display:none">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group form-file-upload is-fileinput">
+                                                                <?= $this->Form->label("nome_arquivo", "Nome do Arquivo") ?>
+                                                                <?= $this->Form->text("nome_arquivo", ["id" => "nome_arquivo", "class" => "form-control"]) ?>
+                                                                <span class="material-input"></span>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="togglebutton">
+                                                                <label>
+                                                                    <?= $this->Form->checkbox("ativo") ?> Gerar código único (Unique ID), como nome do arquivo.
+                                                                </label>
+                                                            </div>
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 <?php else: ?>
                                     <div class="col-md-12">
@@ -112,7 +144,42 @@
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Opções de Imagem</label> <br/>
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <?= $this->Form->checkbox("mantem_nome", ["id" => "mantem_nome", "checked" => true]) ?> Manter o nome original do arquivo
+                                                </label>
+                                            </div>
+                                            <div id="novo_nome_arquivo" style="display:none">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-file-upload is-fileinput">
+                                                            <?= $this->Form->label("nome_arquivo", "Nome do Arquivo") ?>
+                                                            <?= $this->Form->text("nome_arquivo", ["id" => "nome_arquivo", "class" => "form-control"]) ?>
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="togglebutton">
+                                                            <label>
+                                                                <?= $this->Form->checkbox("ativo") ?> Gerar código único (Unique ID), como nome do arquivo.
+                                                            </label>
+                                                        </div>
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php endif; ?>
+                            </div>
+                            
+                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Outras Opções</label> <br/>
