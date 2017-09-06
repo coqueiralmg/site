@@ -10,6 +10,18 @@ $(function () {
     if(idBanner == 0){
         $('#ordem').val(0);
     }
+
+    $("#mantem_nome").click(function(){
+        $("#novo_nome_arquivo").toggle();
+    });
+
+    $("#unique_id").click(function(){
+        if ($(this).prop("checked")) {
+           $("#nome_arquivo").prop("disabled", true);
+        } else {
+            $("#nome_arquivo").prop("disabled", false);
+        }
+    });
 });
 
 function toggleArquivo() {

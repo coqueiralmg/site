@@ -126,7 +126,7 @@
                                                         <div class="col-md-6">
                                                             <div class="togglebutton">
                                                                 <label>
-                                                                    <?= $this->Form->checkbox("ativo") ?> Gerar código único (Unique ID), como nome do arquivo.
+                                                                    <?= $this->Form->checkbox("unique_id", ["id" => "unique_id"]) ?> Gerar código único (Unique ID), como nome do arquivo.
                                                                 </label>
                                                             </div>
                                                             <span class="material-input"></span>
@@ -167,7 +167,7 @@
                                                     <div class="col-md-6">
                                                         <div class="togglebutton">
                                                             <label>
-                                                                <?= $this->Form->checkbox("ativo") ?> Gerar código único (Unique ID), como nome do arquivo.
+                                                                <?= $this->Form->checkbox("unique_id", ["id" => "unique_id"]) ?> Gerar código único (Unique ID), como nome do arquivo.
                                                             </label>
                                                         </div>
                                                         <span class="material-input"></span>

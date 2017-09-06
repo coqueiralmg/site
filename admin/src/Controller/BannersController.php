@@ -5,6 +5,7 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
+use Cake\Log\Log;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 use \Exception;
@@ -98,10 +99,15 @@ class BannersController extends AppController
             $t_banners = TableRegistry::get('Banner');
             $entity = $t_banners->newEntity($this->request->data());
 
-            $entity->validade = $this->Format->formatDateDB($entity->validade);
+            $entity->validade = $this->Format->formatDateDB($this->request->getData('validade'));
 
             $arquivo = $this->request->getData('arquivo');
-            $entity->imagem = $this->salvarArquivo($arquivo);
+
+            $opcoes_arquivo['mantemNome'] = ($this->request->getData('mantem_nome') == "true");
+            $opcoes_arquivo['nomeArquivo'] = $this->request->getData('nome_arquivo');
+            $opcoes_arquivo['gerarUniqueID'] = ($this->request->getData('unique_id') == "true");
+
+            $entity->imagem = $this->salvarArquivo($arquivo, $opcoes_arquivo);
 
             $t_banners->save($entity);
             $this->Flash->greatSuccess('Banner salvo com sucesso.');
@@ -154,10 +160,15 @@ class BannersController extends AppController
             {
                 $this->removerArquivo($antigo_arquivo);
                 $arquivo = $this->request->getData('arquivo');
-                $entity->imagem = $this->salvarArquivo($arquivo);
+
+                $opcoes_arquivo['mantemNome'] = ($this->request->getData('mantem_nome') == "1");
+                $opcoes_arquivo['nomeArquivo'] = $this->request->getData('nome_arquivo');
+                $opcoes_arquivo['gerarUniqueID'] = ($this->request->getData('unique_id') == "1");
+
+                $entity->imagem = $this->salvarArquivo($arquivo, $opcoes_arquivo);
             }
 
-            $entity->validade = $this->Format->formatDateDB($entity->validade);
+            $entity->validade = $this->Format->formatDateDB($this->request->getData('validade'));
 
             $propriedades = $this->Auditoria->changedOriginalFields($entity);
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
@@ -206,7 +217,7 @@ class BannersController extends AppController
         }
     }
 
-    private function salvarArquivo($arquivo)
+    private function salvarArquivo($arquivo, $opcoes_arquivo)
     {
         $diretorio = Configure::read('Files.paths.bannerHome');
         $url_relativa = Configure::read('Files.urls.bannerHome');
@@ -217,7 +228,25 @@ class BannersController extends AppController
         $file = new File($file_temp);
         $pivot = new File($nome_arquivo);
 
-        $novo_nome = $nome_arquivo . '.' . $pivot->ext();
+        if($opcoes_arquivo['mantemNome'])
+        {
+            $novo_nome = $pivot->name;
+        }
+        else
+        {
+            if($opcoes_arquivo['gerarUniqueID'])
+            {
+                $novo_nome = uniqid() . '.' . $pivot->ext();
+            }
+            else
+            {
+                $n = $opcoes_arquivo['nomeArquivo'];
+                $novo_nome = $n . '.' . $pivot->ext();
+            }
+        }
+        Log::write('debug', $arquivo['name']);
+        Log::write('debug', $opcoes_arquivo['mantemNome']);
+        Log::write('debug', $pivot->name);
 
         if(!$this->File->validationExtension($pivot, $this->File::TYPE_FILE_IMAGE))
         {
