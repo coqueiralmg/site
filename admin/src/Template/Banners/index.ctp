@@ -59,12 +59,12 @@
                                                 <?=$banner->ativado?>
                                             </td>
                                             <td class="td-actions text-right" style="width: 8%">
-                                                <?php if ($this->Membership->handleRole("editar_noticia")): ?>
+                                                <?php if ($this->Membership->handleRole("editar_banner")): ?>
                                                     <a href="<?= $this->Url->build(['controller' => 'Banners', 'action' => 'edit', $banner->id]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
-                                                <?php if ($this->Membership->handleRole("excluir_noticia")): ?>
+                                                <?php if ($this->Membership->handleRole("excluir_banner")): ?>
                                                     <button type="button" onclick="excluirBanner(<?= $banner->id ?>, '<?= $banner->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>

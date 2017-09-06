@@ -106,6 +106,51 @@ class BannersController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_banners = TableRegistry::get('Banner');
+
+            $marcado = $t_banners->get($id);
+            $nome = $marcado->nome;
+
+            $propriedades = $marcado->getOriginalValues();
+
+            $this->removerArquivo($marcado->imagem);
+
+            $t_banners->delete($marcado);
+
+            $this->Flash->greatSuccess('O banner ' . $nome . ' foi excluído com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 35,
+                'descricao' => 'O usuário excluiu um banner.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir o banner.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'index']);
+        }  
+    }
+
     protected function insert()
     {
         try
