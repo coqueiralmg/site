@@ -134,4 +134,27 @@ class FileComponent extends Component
 
         return $maximo;
     }
+
+    /**
+    * Verifica que o arquivo existe em um determinado diretório
+    * @param string $directory Diretório de arquivos a ser verificado e validado.
+    * @param string $nameFile Nome do arquivo a ser validado.
+    * @return Se o arquivo existe no diretório.
+    */
+    public function fileNameExists(string $directory, string $nameFile)
+    {
+        $dir = new Folder($directory);
+        $files = $dir->find();
+        $exist = false;
+
+        foreach ($files as $file) {
+            if($file == $nameFile)
+            {
+                $exist = true;
+                break;
+            }
+        }
+
+        return $exist;
+    }
 }

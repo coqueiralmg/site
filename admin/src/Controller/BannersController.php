@@ -290,6 +290,11 @@ class BannersController extends AppController
         if($opcoes_arquivo['mantemNome'])
         {
             $novo_nome = $pivot->name;
+
+            if($this->File->fileNameExists($diretorio, $novo_nome))
+            {
+                $novo_nome = dechex(rand()) . '_' . $novo_nome;
+            }
         }
         else
         {
@@ -301,6 +306,11 @@ class BannersController extends AppController
             {
                 $n = $opcoes_arquivo['nomeArquivo'];
                 $novo_nome = $n . '.' . $pivot->ext();
+
+                if($this->File->fileNameExists($diretorio, $novo_nome))
+                {
+                    $novo_nome = dechex(rand()) . '_' . $novo_nome;
+                }
             }
         }
 
