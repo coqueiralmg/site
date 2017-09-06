@@ -35,7 +35,9 @@
                                     <?php foreach ($banners as $banner): ?>
                                         <tr>
                                             <td>
-                                                <img src="<?=$this->Url->build('/../' . $banner->imagem)?>" style="height: 75px; width: auto" class="img-rounded img-responsive img-raised">
+                                                <a href="<?= $this->Url->build(['controller' => 'Banners', 'action' => 'edit', $banner->id]) ?>">
+                                                    <img src="<?=$this->Url->build('/../' . $banner->imagem)?>" style="height: 75px; width: auto" class="img-rounded img-responsive img-raised">
+                                                </a>
                                             </td>
                                             <td class="td-name">
                                                 <?=$banner->nome?>
@@ -56,13 +58,15 @@
                                             <td>
                                                 <?=$banner->ativado?>
                                             </td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" class="btn btn-primary btn-round" title="">
-                                                    <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" class="btn btn-danger btn-round" title="">
-                                                    <i class="material-icons">close</i>
-                                                </button>
+                                            <td class="td-actions text-right" style="width: 8%">
+                                                <?php if ($this->Membership->handleRole("editar_noticia")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'Banners', 'action' => 'edit', $banner->id]) ?>" class="btn btn-primary btn-round">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($this->Membership->handleRole("excluir_noticia")): ?>
+                                                    <button type="button" onclick="excluirBanner(<?= $banner->id ?>, '<?= $banner->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
