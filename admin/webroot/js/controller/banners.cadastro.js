@@ -67,6 +67,17 @@ function validar() {
         } else {
             $("label[for='arquivo']").css("color", "#aaa");
         }
+
+        if(!$("#mantem_nome").prop("checked") && !$("#unique_id").prop("checked")){
+            if($("#nome_arquivo").val() === ""){
+                mensagem += "<li> É obrigatório informar o nome do arquivo. Você pode manter o nome original do arquivo, como pode pedir ao sistema para gerar o código Unique ID como nome do arquivo.</li>";
+                $("label[for='nome-arquivo']").css("color", "red");
+            } else {
+                $("label[for='nome-arquivo']").css("color", "#aaa");
+            }
+        } else {
+            $("label[for='nome-arquivo']").css("color", "#aaa");
+        }
     }
 
     if (mensagem == "") {
