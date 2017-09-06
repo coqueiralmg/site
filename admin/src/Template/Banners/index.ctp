@@ -21,8 +21,9 @@
                             <table class="table table-shopping">
                                 <thead>
                                     <tr>
-                                        <th style="width: 30%"></th>
-                                        <th>Título</th>
+                                        <th style="width: 15%"></th>
+                                        <th>Nome</th>
+                                        <th>Título/Descrição</th>
                                         <th>Destino</th>
                                         <th>Ordem</th>
                                         <th>Validade</th>
@@ -34,7 +35,10 @@
                                     <?php foreach ($banners as $banner): ?>
                                         <tr>
                                             <td>
-                                            <img src="<?=$this->Url->build('/../' . $banner->imagem)?>" style="height: 150px; width: auto" class="img-rounded img-responsive img-raised">
+                                                <img src="<?=$this->Url->build('/../' . $banner->imagem)?>" style="height: 75px; width: auto" class="img-rounded img-responsive img-raised">
+                                            </td>
+                                            <td class="td-name">
+                                                <?=$banner->nome?>
                                             </td>
                                             <td class="td-name">
                                                 <?=$banner->titulo?><br/>

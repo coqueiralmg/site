@@ -26,7 +26,7 @@ class BannersController extends AppController
         $this->paginate = [
             'limit' => $limite_paginacao,
             'order' => [
-                'nome' => 'ASC'
+                'ordem' => 'ASC'
             ]
         ];
 
