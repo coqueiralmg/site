@@ -31,7 +31,7 @@ return [
             'publicacoes' => 'public/storage/legislacao-arquivo/',
             'licitacoes' => 'public/storage/licitacao-edital/',
             'noticias' => 'public/storage/noticia-foto/large/',
-            'bannerHome' => 'public/slides/home'
+            'bannerHome' => 'public/slides/home/'
         ]
     ]
 ];
