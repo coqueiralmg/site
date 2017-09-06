@@ -34,7 +34,7 @@
                                     <?php foreach ($banners as $banner): ?>
                                         <tr>
                                             <td>
-                                                <img src="/img/slide/praca.jpg" alt="...">
+                                            <img src="<?=$this->Url->build('/../' . $banner->imagem)?>" style="height: 150px; width: auto" class="img-rounded img-responsive img-raised">
                                             </td>
                                             <td class="td-name">
                                                 <?=$banner->titulo?><br/>
