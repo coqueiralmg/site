@@ -41,6 +41,20 @@ class BannersController extends AppController
         $this->set('limit_pagination', $limite_paginacao);
     }
 
+    public function imprimir()
+    {
+        $t_banners = TableRegistry::get('Banner');
+        $banners = $t_banners->find('all');
+        $qtd_total = $banners->count();
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Banners');
+        $this->set('icon', 'slideshow');
+        $this->set('banners', $banners);
+        $this->set('qtd_total', $qtd_total);
+    }
+
     public function add()
     {
         $mensagem = '<b>Dica 1:</b> Caso necessite de um banner sem prazo de validade, basta apenas deixar o campo \'Validade\' em branco.<br/> ';
@@ -244,9 +258,6 @@ class BannersController extends AppController
                 $novo_nome = $n . '.' . $pivot->ext();
             }
         }
-        Log::write('debug', $arquivo['name']);
-        Log::write('debug', $opcoes_arquivo['mantemNome']);
-        Log::write('debug', $pivot->name);
 
         if(!$this->File->validationExtension($pivot, $this->File::TYPE_FILE_IMAGE))
         {
