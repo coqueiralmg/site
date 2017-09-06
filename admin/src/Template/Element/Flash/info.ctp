@@ -4,6 +4,6 @@
         <i class="material-icons">close</i>
     </button>
     <span data-notify="message">
-        <?= h($message) ?>
+        <?= $message ?>
     </span>
 </div>
