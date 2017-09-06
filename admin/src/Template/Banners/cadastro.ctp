@@ -40,7 +40,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("descricao", "Descrição do Banner") ?>
-                                        <?= $this->Form->textarea("descricao", ["id" => "descricao", "class" => "form-control", "rows" => 2, "maxlength" => 384]) ?>
+                                        <?= $this->Form->textarea("descricao", ["id" => "descricao", "class" => "form-control", "rows" => 3, "maxlength" => 384]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
