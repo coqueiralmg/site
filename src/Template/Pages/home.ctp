@@ -1,101 +1,50 @@
-<section id="main-slider" class="no-margin">
-    <div class="carousel slide">
-        <ol class="carousel-indicators">
-            <li data-target="#main-slider" data-slide-to="0" class="active"></li>
-            <li data-target="#main-slider" data-slide-to="1"></li>
-            <li data-target="#main-slider" data-slide-to="2"></li>
-            <li data-target="#main-slider" data-slide-to="3"></li>
-            <li data-target="#main-slider" data-slide-to="4"></li>
-        </ol>
-        <div class="carousel-inner">
-
-            <div class="item active" style="background-image: url(img/slide/praca.jpg)">
-                <div class="container">
-                    <div class="row slide-margin">
-                        <div class="col-sm-6">
-                            <div class="carousel-content">
-                                <h1 class="animation animated-item-1">Praça Dom Pedro II</h1>
-                                <h2 class="animation animated-item-2">No coração de Coqueiral</h2>
-                                <!--<a class="btn-slide animation animated-item-3" href="turismo.html">Saiba mais</a>-->
+<?php if(count($banners) > 0): ?>
+    <section id="main-slider" class="no-margin">
+        <div class="carousel slide">
+            <ol class="carousel-indicators">
+                <?php for($i = 0; $i < count($banners); $i++):?>
+                    <?php if($i == 0):?>
+                        <li data-target="#main-slider" data-slide-to="<?=$i?>" class="active"></li>
+                    <?php else: ?>
+                        <li data-target="#main-slider" data-slide-to="<?=$i?>"></li>
+                    <?php endif;?>
+                <?php endfor;?>
+            </ol>
+            <div class="carousel-inner">
+                <?php for($i = 0; $i < count($banners); $i++):?>
+                    <div class="<?=($i == 0) ? 'item active' : 'item'?>" style="background-image: url(<?=$banners[$i]->imagem?>)">
+                        <div class="container">
+                            <div class="row slide-margin">
+                                <div class="col-sm-6">
+                                    <div class="carousel-content">
+                                        <h1 class="animation animated-item-1"><?=$banners[$i]->titulo?></h1>
+                                        <h2 class="animation animated-item-2"><?=$banners[$i]->descricao?></h2>
+                                        <?php if($banners[$i]->acao != ''): ?>
+                                            <?php if($banners[$i]->blank):?>
+                                                <a class="btn-slide animation animated-item-3" href="<?=$banners[$i]->destino?>" target="_blank"><?=$banners[$i]->acao?></a>
+                                            <?php else: ?>
+                                                <a class="btn-slide animation animated-item-3" href="<?=$banners[$i]->destino?>"><?=$banners[$i]->acao?></a>
+                                            <?php endif;?>
+                                        <?php endif;?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div>    
+                <?php endfor;?>
             </div>
-            <!--/.item-->
-
-            <div class="item" style="background-image: url(img/slide/capituvas.jpg)">
-                <div class="container">
-                    <div class="row slide-margin">
-                        <div class="col-sm-6">
-                            <div class="carousel-content">
-                                <h1 class="animation animated-item-1">Capituvas</h1>
-                                <h2 class="animation animated-item-2">Comunidade acolhedora</h2>
-                                <!--<a class="btn-slide animation animated-item-3" href="turismo.html">Saiba Mais</a>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/.item-->
-
-            <div class="item" style="background-image: url(img/slide/pedra.jpg)">
-                <div class="container">
-                    <div class="row slide-margin">
-                        <div class="col-sm-6">
-                            <div class="carousel-content">
-                                <h1 class="animation animated-item-1">Pedra do Ermo</h1>
-                                <h2 class="animation animated-item-2">Aventura e lindas paisagens</h2>
-                                <!--<a class="btn-slide animation animated-item-3" href="turismo.html">Saiba Mais</a>-->
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="item" style="background-image: url(img/slide/serra.jpg)">
-                <div class="container">
-                    <div class="row slide-margin">
-                        <div class="col-sm-6">
-                            <div class="carousel-content">
-                                <h1 class="animation animated-item-1">Serra dos Pedros</h1>
-                                <h2 class="animation animated-item-2">Um pedacinho do paraíso</h2>
-                                <!--<a class="btn-slide animation animated-item-3" href="turismo.html">Saiba Mais</a>-->
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="item" style="background-image: url(img/slide/pevitor.jpg)">
-                <div class="container">
-                    <div class="row slide-margin">
-                        <div class="col-sm-6">
-                            <div class="carousel-content">
-                                <h1 class="animation animated-item-1">Árvore do Padre Vitor</h1>
-                                <h2 class="animation animated-item-2">Caminho de religião e fé</h2>
-                                <!--<a class="btn-slide animation animated-item-3" href="turismo.html">Saiba Mais</a>-->
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!--/.item-->
+            <!--/.carousel-inner-->
         </div>
-        <!--/.carousel-inner-->
-    </div>
-    <!--/.carousel-->
-    <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
-        <i class="fa fa-chevron-left"></i>
-    </a>
-    <a class="next hidden-xs" href="#main-slider" data-slide="next">
-        <i class="fa fa-chevron-right"></i>
-    </a>
-</section>
-<!--/#main-slider-->
+        <!--/.carousel-->
+        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        <a class="next hidden-xs" href="#main-slider" data-slide="next">
+            <i class="fa fa-chevron-right"></i>
+        </a>
+    </section>
+    <!--/#main-slider-->
+<?php endif; ?>
 
 <section id="feature">
     <div class="container">

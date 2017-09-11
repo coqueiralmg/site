@@ -32,6 +32,7 @@ class PagesController extends AppController
     {
         $t_noticia = TableRegistry::get('Noticia');
         $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_banners = TableRegistry::get('Banner');
         
         $noticias = $t_noticia->find('all', [
             'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
@@ -49,8 +50,23 @@ class PagesController extends AppController
             'limit' => 5
         ]);
 
+        $banners = $t_banners->find('all', [
+            'conditions' => [
+                'Banner.ativo' => true,
+                'OR' =>[
+                    'Banner.validade >=' => date('Y-m-d'),
+                    'Banner.validade IS' => null,
+                ]
+            ],
+            'order' => [
+                'Banner.ordem' => 'ASC',
+                'Banner.validade' => 'DESC',
+            ]
+        ]);
+
          $this->set('noticias', $noticias);
          $this->set('licitacoes', $licitacoes);
+         $this->set('banners', $banners->toArray());
     }
 
     public function contato()
