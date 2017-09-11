@@ -135,14 +135,6 @@
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if ($this->Membership->handleMenu("controles")): ?>
-                <li class="<?= $this->Menu->activeMenu(['controller' => 'controles']) ?>">
-                    <a href="<?= $this->Url->build('/controles') ?>">
-                        <i class="material-icons">gamepad</i>
-                        <p>Controles</p>
-                    </a>
-                </li>
-            <?php endif; ?>
             <?php if ($this->Membership->handleMenu("auditoria")): ?>
                 <li class="<?= $this->Menu->activeMenu(['controller' => 'auditoria']) ?>">
                     <a href="<?= $this->Url->build('/auditoria') ?>">
