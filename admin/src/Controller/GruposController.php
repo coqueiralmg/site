@@ -83,7 +83,10 @@ class GruposController extends AppController
         $t_grupo_funcao = TableRegistry::get('GrupoFuncao');
 
         $funcoes = $t_funcao->find('all', ['order' => ['ordem' => 'asc']]);
-        $grupos_funcoes = $t_grupo_funcao->find('all', ['order' => ['ordem' => 'asc']]);
+        $grupos_funcoes = $t_grupo_funcao->find('all', [
+            'conditions' => ['ativo' => true],
+            'order' => ['ordem' => 'asc']
+        ]);
 
         if($id > 0)
         {
@@ -92,7 +95,7 @@ class GruposController extends AppController
             $query = $t_grupo_usuario->find('all', [
                 'contain' => ['Funcao'],
                 'conditions' => [
-                    'id' => $id
+                    'GrupoUsuario.id' => $id,
                 ]
             ]);
 
