@@ -48,34 +48,24 @@
 
 <section id="feature">
     <div class="container">
+        <div class="center wow fadeInDown">
+            <h2>Serviços</h2>
+            <p class="lead">Conheça os serviços que a prefeitura oferece ao cidadão coqueirense.</p>
+        </div>
         <div class="row">
             <div class="features">
-                <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="#" target="_blank">
-                        <a href="/fale-conosco">
-                            <div class="feature-wrap">
-                                <i class="fa fa-bullhorn"></i>
-                                <h2>Ouvidoria</h2>
-                                <h3>Um espaço aberto para a população</h3>
-                            </div>
-                        </a>
-                    </a>
-                </div>
-                <!--/.col-md-4-->
-
-                <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a  href="https://e-gov.betha.com.br/transparencia/01030-015/recursos.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O" onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência'); LE.info('Acesso ao site da transparência. Página de referência: ' + window.location.href);" target="_blank">
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="https://e-gov.betha.com.br/cdweb/03109-000/contribuinte/main.faces" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Cidadão');" target="_blank">
                         <div class="feature-wrap">
-                            <i class="fa fa-files-o"></i>
-                            <h2>Transparência</h2>
-                            <h3>Confira todas as informações sobre o município</h3>
+                            <i class="fa fa-users"></i>
+                            <h2>Serviços ao Cidadão</h2>
+                            <h3>2ª Via de IPTU e Consulta de Informações Cadastrais.</h3>
                         </div>
                     </a>
                 </div>
-                <!--/.col-md-4-->
 
-                <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="https://e-gov.betha.com.br/e-nota/login.faces" target="_blank">
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="https://e-gov.betha.com.br/e-nota/login.faces" onclick="ga('send', 'event', 'Externo', 'Site', 'Nota Fiscal Eletrônica');" target="_blank">
                         <div class="feature-wrap">
                             <i class="fa fa-file-text"></i>
                             <h2>Nota Fiscal Eletrônica</h2>
@@ -84,7 +74,46 @@
                     </a>
                 </div>
 
-                <!--/.col-md-4-->
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a  href="https://e-gov.betha.com.br/transparencia/01030-015/recursos.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O" onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência'); LE.info('Acesso ao site da transparência. Página de referência: ' + window.location.href);" target="_blank">
+                        <div class="feature-wrap">
+                            <i class="fa fa-files-o"></i>
+                            <h2>Transparência</h2>
+                            <h3>informações sobre o município</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="/fale-conosco"  target="_blank">
+                        <div class="feature-wrap">
+                            <i class="fa fa-bullhorn"></i>
+                            <h2>Ouvidoria</h2>
+                            <h3>Um espaço aberto para a população</h3>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="/licitacoes">
+                        <div class="feature-wrap">
+                            <i class="fa fa-briefcase"></i>
+                            <h2>Licitações</h2>
+                            <h3>Licitações em andamento</h3>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="/busca">
+                        <div class="feature-wrap">
+                            <i class="fa fa-search"></i>
+                            <h2>Busca</h2>
+                            <h3>O que você procura em nosso site?</h3>
+                        </div>
+                    </a>
+                </div>
+                
             </div>
             <!--/.services-->
         </div>
