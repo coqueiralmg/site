@@ -39,13 +39,14 @@
             <aside class="col-md-4">
                 <div class="widget search">
                     <h3>Busca</h3>
-                     <?php
+                    <?php
                         echo $this->Form->create("Noticia", [
                             "url" => [
                                 "controller" => "noticias",
                                 "action" => "index"
                             ],
                             'idPrefix' => 'pesquisar-noticias',
+                            'id' => 'pesquisar-noticias',
                             'type' => 'get',
                             'role' => 'form']);
                             
@@ -54,8 +55,9 @@
                     <?= $this->Form->search('chave', ['class' => 'form-control search_box', 'placeholder' => 'Digite aqui para buscar e pressione ENTER']) ?>
 
                     <?php echo $this->Form->end(); ?>
+                    
                 </div>
-                <!--/.search-->
+             <!--/.search-->
 
                 <div class="widget categories">
                     <h3>Facebook</h3>
