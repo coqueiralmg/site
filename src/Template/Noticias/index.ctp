@@ -1,3 +1,4 @@
+<?= $this->Html->script('controller/noticias.general.js', ['block' => 'scriptBottom']) ?>
 <section id="blog" class="container">
     <div class="center">
         <h2>Notícias</h2>
@@ -6,7 +7,6 @@
 
     <div class="blog">
         <div class="row">
-        
             <div class="col-md-8">
                  <?php if(count($noticias) > 0): ?>
                      <?php foreach($noticias as $noticia): ?>
@@ -47,12 +47,13 @@
                                 "action" => "index"
                             ],
                             'idPrefix' => 'pesquisar-noticias',
+                            'id' => 'pesquisar-noticias',
                             'type' => 'get',
                             'role' => 'form']);
                             
                     ?>
 
-                    <?= $this->Form->search('chave', ['class' => 'form-control search_box', 'placeholder' => 'Digite aqui para buscar e pressione ENTER', 'onkeypress' => 'this.submit()']) ?>
+                    <?= $this->Form->search('chave', ['class' => 'form-control search_box', 'placeholder' => 'Digite aqui para buscar e pressione ENTER']) ?>
 
                     <?php echo $this->Form->end(); ?>
                     

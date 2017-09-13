@@ -1,3 +1,4 @@
+<?= $this->Html->script('controller/noticias.general.js', ['block' => 'scriptBottom']) ?>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -50,7 +51,7 @@
                             
                     ?>
 
-                    <?= $this->Form->search('chave', ['class' => 'form-control search_box', 'placeholder' => 'Digite aqui para buscar e pressione ENTER', 'onkeypress' => 'this.submit()']) ?>
+                    <?= $this->Form->search('chave', ['class' => 'form-control search_box', 'placeholder' => 'Digite aqui para buscar e pressione ENTER']) ?>
 
                     <?php echo $this->Form->end(); ?>
                 </div>
