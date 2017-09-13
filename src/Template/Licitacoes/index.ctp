@@ -3,7 +3,7 @@
         <div class="center wow fadeInDown">
             <h2>Licitações</h2>
             <p class="lead">Editais e outras informações sobre processos licitatórios do município.</p>
-            <p>Você pode ver mais informações sobre licitações em vigor ou processos antigos, <a href="https://e-gov.betha.com.br/transparencia/01031-002/con_licitacoes.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O" target="_blank"> clicando aqui</a>.</p>
+            <p>Você pode ver mais informações sobre licitações em vigor ou processos antigos, <a href="https://e-gov.betha.com.br/transparencia/01031-002/con_licitacoes.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O"  onclick="ga('send', 'event', 'Externo', 'Site', 'Licitações Betha');" target="_blank"> clicando aqui</a>.</p>
         </div>
 
         <div class="row">
