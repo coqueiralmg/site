@@ -150,6 +150,7 @@
     <?= $this->Html->script('jquery.isotope.min.js') ?>
     <?= $this->Html->script('main.js') ?>
     <?= $this->Html->script('wow.min.js') ?>
+    <?= $this->fetch('scriptBottom') ?>
 
     <!-- Go to www.addthis.com/dashboard to customize your tools --> 
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5692cd67b91382fb"></script>
