@@ -78,8 +78,8 @@
                             </ul>
                             <div class="search">
                                 <form id="formBusca" action="/busca" method="get" role="form">
-                                    <input type="text" id="chave" name="chave" class="search-form" autocomplete="off" placeholder="Pesquisar" minlength="3"  onkeypress="efetuarBusca(e)" required>
-                                    <a href="#" onclick="efetuarBusca()"><i class="fa fa-search"></i></a>
+                                    <input type="text" id="chave-topo" name="chave" class="search-form" autocomplete="off" placeholder="Pesquisar" onkeypress="return efetuarBusca(event)">
+                                    <a href="#" onclick="return efetuarBusca()"><i class="fa fa-search"></i></a>
                                 </form>
                             </div>
                         </div>
@@ -158,14 +158,6 @@
 
     <!-- Go to www.addthis.com/dashboard to customize your tools --> 
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5692cd67b91382fb"></script>
-
-    <script>
-        function efetuarBusca(e) {
-            LE.info("O usuário buscou " + $("#busca").val() + " no site.");
-            $("#formBusca").submit();
-        }
-
-    </script>
 
     <script>
         var data = {

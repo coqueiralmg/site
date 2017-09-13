@@ -52,3 +52,34 @@ jQuery(function($) {'use strict',
 		social_tools: false
 	});	
 });
+
+function efetuarBusca(e) {
+	
+	if(e != null && e.keyCode != 13) 
+		return true;
+	
+	if($("#chave-topo").val() === ""){
+		swal(
+			'Atenção',
+			'Por favor, digite a chave de busca.',
+			'warning'
+		);
+
+	} else {
+		if($("#chave-topo").val().length > 3){
+			LE.info("O usuário buscou " + $("#busca").val() + " no site.");
+			$("#formBusca").submit();
+
+			return true;
+		} else {
+			swal(
+				'Atenção',
+				'Recomendamos que a busca tenha mais de 3 caracteres.',
+				'warning'
+			);	
+		}
+		
+	}
+
+	return false;
+}
