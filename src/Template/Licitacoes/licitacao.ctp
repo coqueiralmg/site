@@ -1,3 +1,4 @@
+<?= $this->Html->script('controller/licitacoes.licitacao.js', ['block' => 'scriptBottom']) ?>
 <section id="about-us">
     <div class="container">
         
@@ -18,10 +19,7 @@
             <div class="col-md-2">
                 <a onclick="lerEdital()" href="<?= '../../' . $licitacao->edital ?>" target="_blank" class="btn btn-success"><i class="fa fa-download"></i>&nbsp;Download</a>
             </div>
-        </div>
-
-        
-
+        </div>        
     </div>
     <!--/.container-->
 </section>
