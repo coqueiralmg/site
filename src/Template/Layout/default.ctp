@@ -37,6 +37,10 @@
 
     <link rel="shortcut icon" href="img/favicon.png">
 
+    <script src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.js"></script>
+
     <div id="fb-root"></div>
     <script>
         (function(d, s, id) {
