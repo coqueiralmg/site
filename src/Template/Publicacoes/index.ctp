@@ -1,3 +1,4 @@
+<?= $this->Html->script('controller/licitacoes.lista.js', ['block' => 'scriptBottom']) ?>
 <section id="legislacao">
     <div class="container">
         <div class="center wow fadeInDown">
@@ -16,10 +17,9 @@
                     'idPrefix' => 'pesquisar-publicacao',
                     'type' => 'get',
                     'role' => 'form']);
-                    
                 ?>
 
-                <?= $this->Form->search('chave', ['class' => 'form-control busca', 'placeholder' => 'Digite aqui para buscar']) ?>
+                <?= $this->Form->search('chave', ['id' => 'pesquisa', 'class' => 'form-control busca', 'placeholder' => 'Digite aqui para buscar']) ?>
                  <button type="submit" id="btn-pesquisar" class="btn btn-success"><i class="fa fa-search"></i>&nbsp;Buscar</button>
 
                 <?php echo $this->Form->end(); ?>
