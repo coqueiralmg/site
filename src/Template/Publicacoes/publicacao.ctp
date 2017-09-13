@@ -1,3 +1,4 @@
+<?= $this->Html->script('controller/publicacoes.publicacao.js', ['block' => 'scriptBottom']) ?>
 <section id="about-us">
     <div class="container">
         
@@ -19,9 +20,6 @@
                 <a onclick="lerEdital()" href="<?= '../../' . $publicacao->arquivo ?>" target="_blank" class="btn btn-success"><i class="fa fa-download"></i>&nbsp;Download</a>
             </div>
         </div>
-
-        
-
     </div>
     <!--/.container-->
 </section>
