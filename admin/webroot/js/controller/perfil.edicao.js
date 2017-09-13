@@ -1,3 +1,11 @@
+$(function () {
+    $('#data_nascimento').datepicker({
+        language: 'pt-BR'
+    });
+
+    $('#data_nascimento').mask('00/00/0000');
+});
+
 function validar() {
     var mensagem = "";
 

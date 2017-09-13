@@ -103,9 +103,11 @@ class PerfilController extends AppController
             try 
             {
                 $usuarios = TableRegistry::get('Usuario');
-                $entity = $usuarios->get($id);
+                $entity = $usuarios->get($id, ['contain' => ['Pessoa']]);
 
                 $usuarios->patchEntity($entity, $this->request->data());
+
+                $entity->pessoa->dataNascimento = $this->Format->formatDateDB($entity->pessoa->dataNascimento);
 
                 $propriedades = $this->Auditoria->changedOriginalFields($entity);
                 $modificadas = $this->Auditoria->changedFields($entity, $propriedades);

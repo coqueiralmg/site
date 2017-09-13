@@ -23,10 +23,17 @@
                             <?= $this->Flash->render() ?>
                             <legend>Seus Dados Cadastrais</legend>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("nome", "Nome") ?><br/>
-                                        <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control", "maxlength" => 60]) ?>
+                                        <?= $this->Form->label("pessoa.nome", "Nome") ?><br/>
+                                        <?= $this->Form->text("pessoa.nome", ["id" => "nome", "class" => "form-control", "maxlength" => 60]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("pessoa.apelido", "Apelido") ?><br/>
+                                        <?= $this->Form->text("pessoa.apelido", ["id" => "apelido", "class" => "form-control", "maxlength" => 60]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -47,8 +54,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">                            
-                                <div class="col-md-12">
+                            <div class="row"> 
+                                <div class="col-md-6">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("pessoa.dataNascimento", "Data de Nascimento") ?>
+                                        <?= $this->Form->text("pessoa.dataNascimento", ["id" => "data_nascimento", "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>                           
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->Form->label("grupo", "Grupo") ?> <br/>
                                         <?=$this->Form->select('grupo', $grupos, ['id' => 'grupo', 'empty' => true, "disabled" => true,  'class' => 'form-control'])?>
