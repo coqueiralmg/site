@@ -22,7 +22,7 @@ class PerfilController extends AppController
     public function index()
     {
         $t_usuarios = TableRegistry::get('Usuario');
-        $usuario = $t_usuarios->get($this->request->session()->read('UsuarioID'), ['contain' => ['GrupoUsuario']]);
+        $usuario = $t_usuarios->get($this->request->session()->read('UsuarioID'), ['contain' => ['Pessoa', 'GrupoUsuario']]);
         
         $this->set('title', 'Perfil de Usuário');
         $this->set('icon', 'account_box');
@@ -35,7 +35,7 @@ class PerfilController extends AppController
         $t_grupos = TableRegistry::get('GrupoUsuario');
         $id = $this->request->session()->read('UsuarioID');
 
-        $usuario = $t_usuarios->get($id);
+        $usuario = $t_usuarios->get($id, ['contain' => ['Pessoa']]);
 
         $grupos = $t_grupos->find('list', [
             'keyField' => 'id',

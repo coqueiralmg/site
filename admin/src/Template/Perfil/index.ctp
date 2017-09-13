@@ -7,10 +7,17 @@
                             <?= $this->Flash->render() ?>
                             <legend>Seus Dados Cadastrais</legend>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("nome", "Nome") ?><br/>
-                                        <?=$usuario->nome?>
+                                        <?=$usuario->pessoa->nome?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("apelido", "Apelido") ?><br/>
+                                        <?=$usuario->pessoa->apelido?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -32,7 +39,14 @@
                                 </div>
                             </div>
                             <div class="row">                            
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group label-control">
+                                        <?=$this->Form->label("usuario", "Data de Nascimento") ?><br/>
+                                        <?=$this->Format->date($usuario->pessoa->dataNascimento)?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->Form->label("grupo", "Grupo") ?> <br/>
                                         <?=$usuario->grupoUsuario->nome?>
