@@ -39,6 +39,9 @@ class AppView extends View
         $this->loadHelper('Format');
         $this->loadHelper('Menu');
         $this->loadHelper('Membership');
-		$this->loadHelper('Data');
+        $this->loadHelper('Data');
+        $this->loadHelper('Auditoria');
+        $this->loadHelper('Agent');
+        $this->loadHelper('Inflector');
     }
 }

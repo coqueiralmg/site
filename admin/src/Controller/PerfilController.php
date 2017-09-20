@@ -72,7 +72,7 @@ class PerfilController extends AppController
             $this->Flash->greatSuccess('A senha foi modificada com sucesso.');
 
             $auditoria = [
-                'ocorrencia' => 31,
+                'ocorrencia' => 37,
                 'descricao' => 'O usuário modificou sua própria senha.',
                 'dado_adicional' => json_encode(['usuario_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
@@ -116,7 +116,7 @@ class PerfilController extends AppController
                 $this->Flash->greatSuccess('Dados salvos com sucesso');
 
                 $auditoria = [
-                    'ocorrencia' => 30,
+                    'ocorrencia' => 36,
                     'descricao' => 'O usuário modificou seus próprios dados.',
                     'dado_adicional' => json_encode(['usuario_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                     'usuario' => $this->request->session()->read('UsuarioID')

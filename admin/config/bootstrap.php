@@ -84,6 +84,8 @@ try {
     Configure::load('log');
     Configure::load('pagination');
     Configure::load('files');
+    Configure::load('auditoria');
+
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
