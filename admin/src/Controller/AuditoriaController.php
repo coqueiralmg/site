@@ -157,7 +157,7 @@ class AuditoriaController extends AppController
         $total = $trilha->count();
 
         $auditoria = [
-            'ocorrencia' => 33,
+            'ocorrencia' => 39,
             'descricao' => 'O usuário solicitou a impressão da trilha de auditoria.',
             'usuario' => $this->request->session()->read('UsuarioID')
         ];
@@ -189,7 +189,7 @@ class AuditoriaController extends AppController
         }
 
         $auditoria = [
-            'ocorrencia' => 32,
+            'ocorrencia' => 38,
             'descricao' => 'O usuário visualizou um registro da trilha de auditoria.',
             'dado_adicional' => json_encode(['registro_analisado' => $id, 'ocorrencia' => $this->Auditoria->buscarNomeOcorrencia($registro->ocorrencia)]),
             'usuario' => $this->request->session()->read('UsuarioID')
@@ -222,7 +222,7 @@ class AuditoriaController extends AppController
         $propriedades = $registro->getOriginalValues();
 
         $auditoria = [
-            'ocorrencia' => 33,
+            'ocorrencia' => 39,
             'descricao' => 'O usuário solicitou a impressão da registro de auditoria.',
             'dado_adicional' => json_encode(['registro_impresso' => $id, 'dados_registro' => $propriedades]),
             'usuario' => $this->request->session()->read('UsuarioID')
@@ -255,7 +255,7 @@ class AuditoriaController extends AppController
             $this->Flash->greatSuccess('O registro de auditoria foi excluído com sucesso!');
 
             $auditoria = [
-                'ocorrencia' => 34,
+                'ocorrencia' => 40,
                 'descricao' => 'O usuário excluiu um registro da trilha de auditoria.',
                 'dado_adicional' => json_encode(['registro_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
