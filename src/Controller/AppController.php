@@ -66,6 +66,7 @@ class AppController extends Controller
         }
 
         $this->carregarSecretarias();
+        $this->mobileConfig();
     }
 
     /**
@@ -79,6 +80,17 @@ class AppController extends Controller
         }
     }
 
+    /**
+    *  Verifica se o acesso ao site é móvel
+    */
+    protected function isMobile()
+    {
+        return $this->request->is('mobile') || $this->request->is('wap');
+    }
+
+    /**
+    *  Carrega lista de secretarias a serem carregadas nas páginas do site
+    */
     private function carregarSecretarias()
     {
         $t_secretarias = TableRegistry::get('Secretaria');
@@ -93,5 +105,11 @@ class AppController extends Controller
         ]);
 
         $this->set('secretarias', $secretarias);
+    }
+
+    private function mobileConfig()
+    {
+        $movel = $this->isMobile();
+        $this->set('movel', $movel);
     }
 }
