@@ -43,7 +43,11 @@
             <?php endif; ?>
         </div>
 
-        <?=$this->element('pagination', $opcao_paginacao) ?>
+        <?php if($movel):?>
+            <?=$this->element('pagination_mobile', $opcao_paginacao) ?>
+        <?php else:?>
+            <?=$this->element('pagination', $opcao_paginacao) ?>
+        <?php endif;?>
     </div>
     <!--/.container-->
 </section>

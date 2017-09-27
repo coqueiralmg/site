@@ -29,7 +29,11 @@
                         </div>
                      <?php endforeach; ?>
 
-                     <?=$this->element('pagination') ?>
+                     <?php if($movel):?>
+                        <?=$this->element('pagination_mobile') ?>
+                    <?php else:?>
+                        <?=$this->element('pagination') ?>
+                    <?php endif;?>
                 <?php else: ?>
                     <p>Nenhuma notícia publicada até o momento! Volte mais tarde</p>
                  <?php endif; ?>
