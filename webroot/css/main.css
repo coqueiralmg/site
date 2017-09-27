@@ -751,8 +751,15 @@ input.search-form:hover {
 }
 
 .busca {
-    display: inline;
+    display: inline-block;
     width: 80%;
+}
+
+@media screen and (max-width: 460px) {
+    .busca {
+        display: inline-block;
+        width: 70%;
+    }   
 }
 
 .services-wrap {
