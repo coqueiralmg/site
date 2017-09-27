@@ -61,6 +61,12 @@ video{
     }
 }
 
+@media screen and (max-width: 400px){
+    video{
+        width: 100hv;
+    }
+}
+
 a:hover,
 a:focus {
     color: #202213;
@@ -2723,11 +2729,7 @@ shortcodes page css
     width: 250px;
 }
 
-@media screen and (max-width: 400px){
-    video{
-        width: 100px;
-    }
-}
+
 
 .tempo div{
     float: left;
