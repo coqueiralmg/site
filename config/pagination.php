@@ -7,8 +7,8 @@ return [
         'visiblePages' => 7,
         'short' => [
             'limit' => 5,
-            'modulus' => 4,
-            'visiblePages' => 5
+            'modulus' => 2,
+            'visiblePages' => 3
         ]
     ],
 ];
