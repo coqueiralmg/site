@@ -2619,12 +2619,18 @@ shortcodes page css
 }
 
 #bottom .widget {
-    margin-bottom: 0;
+    margin-bottom: 40px;
 }
 
 #bottom .widget img{
     max-height: 450px;
-    
+}
+
+@media screen and (max-width: 1024px){
+    #bottom .widget img{
+        max-height: 225px;
+
+    }
 }
 
 .logo_footer{
