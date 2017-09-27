@@ -79,12 +79,12 @@
         <div class="top-bar">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6 col-xs-5">
+                    <div class="col-sm-6 col-xs-6">
                         <div class="top-number">
                             <p><a href="tel:+553538551162"><i class="fa fa-phone-square"></i><span class="sr-only">Telefone para contato:</span> (35) 3855-1162</a></p>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xs-7">
+                    <div class="col-sm-6 col-xs-6">
                         <div class="social">
                             <ul class="social-share">
                                 <li><a href="https://www.facebook.com/prefeituradecoqueiral" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
