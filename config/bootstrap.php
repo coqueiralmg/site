@@ -83,6 +83,8 @@ try {
     Configure::load('debug');
     Configure::load('log');
     Configure::load('pagination');
+    Configure::load('logentries');
+    
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }

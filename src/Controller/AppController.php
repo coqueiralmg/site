@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -14,6 +15,7 @@
  */
 namespace App\Controller;
 
+use Cake\Core\Configure;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Log\Log;
@@ -44,13 +46,13 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $this->registerAccessLog();        
-
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Sender');
         $this->loadComponent('Firewall');
+        $this->loadComponent('Entries');
 
+        $this->registerAccessLog();  
         $this->configurarAcesso();
     }
 
@@ -118,6 +120,12 @@ class AppController extends Controller
 
     private function registerAccessLog()
     {
+        $this->registerLocalLog();
+        $this->registerHostLog();
+    }
+
+    private function registerLocalLog()
+    {
         $ip = $_SERVER['REMOTE_ADDR'];
         $method = $this->request->method();
         $scheme = $this->request->scheme();
@@ -128,5 +136,19 @@ class AppController extends Controller
         $registro = "$ip    $method   $scheme://$host$here    $agent";
         
         Log::write('info', $registro, ['scope' => 'register']);
+    }
+
+    private function registerHostLog()
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $method = $this->request->method();
+        $scheme = $this->request->scheme();
+        $host = $this->request->host();
+        $here = $this->request->here();
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+
+        $registro = "$ip    $method   $scheme://$host$here    $agent";
+
+        $this->Entries->register($registro);
     }
 }

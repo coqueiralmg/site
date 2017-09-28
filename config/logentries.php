@@ -12,7 +12,7 @@ return [
         'dataHub' => [
             'IPAddress' => '',
             'port' => 10000,
-            'enabled' => true
+            'enabled' => false
         ],
         'host' => [
             'name' => '',
