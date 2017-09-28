@@ -9,17 +9,24 @@ use Cake\Controller\Component;
 use Cake\Core\Configure;
 
 /**
- * Componente de envio de e-mail e outras ferramentas de envio.
+ * Compomente de registro de dados junto a LogEntries
  * @package App\Controller\Component
  */
 class EntriesComponent extends Component
 {
+    /**
+    * Faz o registro de log, salvando os dados no LogEntries
+    */
     public function register(string $registro)
     {
         $log = $this->configureHostLog();
         $log->Info($registro);
     }
 
+    /**
+    * Faz a configuração de comunicação do sistema com o servidor
+    * @return App\Libs\LeLogger Motor de registro de log.
+    */
     private function configureHostLog()
     {
         $LOGENTRIES_TOKEN = Configure::read('LogEntries.client.token');
@@ -46,6 +53,4 @@ class EntriesComponent extends Component
 
         return $log;
     }
-
-   
 }
