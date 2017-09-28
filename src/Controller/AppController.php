@@ -44,6 +44,8 @@ class AppController extends Controller
     {
         parent::initialize();
 
+        $this->registerAccessLog();        
+
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Sender');
@@ -60,7 +62,6 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
-        $this->registerAccessLog();
         
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
