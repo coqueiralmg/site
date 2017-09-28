@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Log\Log;
 use Cake\Network\Exception\ForbiddenException;
 use Cake\ORM\TableRegistry;
 
@@ -59,6 +60,8 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
+        $this->registerAccessLog();
+        
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
@@ -67,6 +70,8 @@ class AppController extends Controller
 
         $this->carregarSecretarias();
         $this->mobileConfig();
+
+        
     }
 
     /**
@@ -111,5 +116,19 @@ class AppController extends Controller
     {
         $movel = $this->isMobile();
         $this->set('movel', $movel);
+    }
+
+    private function registerAccessLog()
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $method = $this->request->method();
+        $scheme = $this->request->scheme();
+        $host = $this->request->host();
+        $here = $this->request->here();
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+
+        $registro = "$ip    $method   $scheme://$host$here    $agent";
+        
+        Log::write('info', $registro, ['scope' => 'register']);
     }
 }
