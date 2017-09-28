@@ -147,7 +147,14 @@ class AppController extends Controller
         $here = $this->request->here();
         $agent = $_SERVER['HTTP_USER_AGENT'];
 
-        $registro = "$ip    $method   $scheme://$host$here    $agent";
+        $data = [
+            'ip' => $ip,
+            'method' => $method,
+            'url' => "$scheme://$host$here",
+            'agent' => $agent
+        ];
+
+        $registro = json_encode($data);
 
         $this->Entries->register($registro);
     }
