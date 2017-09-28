@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
 use Cake\Network\Exception\ForbiddenException;
 use \Exception;
@@ -50,6 +51,8 @@ class AppController extends Controller
     {
         parent::initialize();
 
+        $this->registerAccessLog();
+
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Cookie');
@@ -72,6 +75,8 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
+        
+        
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
@@ -198,5 +203,19 @@ class AppController extends Controller
         {
             $this->set('ultimo_acesso', null);
         }    
+    }
+
+    private function registerAccessLog()
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $method = $this->request->method();
+        $scheme = $this->request->scheme();
+        $host = $this->request->host();
+        $here = $this->request->here();
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+
+        $registro = "$ip    $method   $scheme://$host$here    $agent";
+        
+        Log::write('info', $registro, ['scope' => 'register']);
     }
 }

@@ -26,6 +26,13 @@ return [
             'file' => 'mail',
             'levels' => ['info'],
             'url' => env('LOG_ERROR_URL', null),
+        ],
+        'register' => [
+            'className' => 'Cake\Log\Engine\FileLog',
+            'path' => LOGS,
+            'file' => 'access',
+            'levels' => ['info'],
+            'url' => env('LOG_ERROR_URL', null),
         ]
     ]
 ];
