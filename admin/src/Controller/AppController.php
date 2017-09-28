@@ -51,8 +51,6 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $this->registerAccessLog();
-
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Cookie');
@@ -63,6 +61,9 @@ class AppController extends Controller
         $this->loadComponent('Format');
         $this->loadComponent('Membership');
         $this->loadComponent('File');
+        $this->loadComponent('Entries');
+
+        $this->registerAccessLog();
 
         $this->validationRole = true;
     }
@@ -207,6 +208,12 @@ class AppController extends Controller
 
     private function registerAccessLog()
     {
+        $this->registerLocalLog();
+        $this->registerHostLog();
+    }
+
+    private function registerLocalLog()
+    {
         $ip = $_SERVER['REMOTE_ADDR'];
         $method = $this->request->method();
         $scheme = $this->request->scheme();
@@ -217,5 +224,26 @@ class AppController extends Controller
         $registro = "$ip    $method   $scheme://$host$here    $agent";
         
         Log::write('info', $registro, ['scope' => 'register']);
+    }
+
+    private function registerHostLog()
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $method = $this->request->method();
+        $scheme = $this->request->scheme();
+        $host = $this->request->host();
+        $here = $this->request->here();
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+
+        $data = [
+            'ip' => $ip,
+            'method' => $method,
+            'url' => "$scheme://$host$here",
+            'agent' => $agent
+        ];
+
+        $registro = json_encode($data);
+
+        $this->Entries->register($registro);
     }
 }
