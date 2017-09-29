@@ -135,7 +135,7 @@ class AppController extends Controller
 
         $registro = "$ip    $method   $scheme://$host$here    $agent";
         
-        Log::write('info', $registro, ['scope' => 'register']);
+        Log::info($registro, ['register']);
     }
 
     private function registerHostLog()
