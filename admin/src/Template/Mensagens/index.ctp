@@ -4,8 +4,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <a href="<?= $this->Url->build(['controller' => 'Log', 'action' => 'imprimir']) ?>" target="_blank" class="btn btn-warning btn-default pull-right">Escrever<div class="ripple-container"></div></a>
-                        <a href="<?= $this->Url->build(['controller' => 'Log', 'action' => 'imprimir']) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Ver Enviados<div class="ripple-container"></div></a>
+                        <a href="<?= $this->Url->build(['controller' => 'Mensagens', 'action' => 'escrever']) ?>" class="btn btn-warning btn-default pull-right">Escrever<div class="ripple-container"></div></a>
+                        <a href="<?= $this->Url->build(['controller' => 'Mensagens', 'action' => 'enviados']) ?>" class="btn btn-fill btn-default pull-right">Ver Enviados<div class="ripple-container"></div></a>
                     </div>
                 </div>
             </div>
