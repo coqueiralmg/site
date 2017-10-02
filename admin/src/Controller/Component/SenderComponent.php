@@ -85,23 +85,36 @@ class SenderComponent extends Component
     /**
      * Envia um e-mail interno do sistema
      * @param string $from Rementente do sistema ou nulo, caso seja do sistema
-     * @param string $to Destinatário do sistema ou nulo, caso seja para todos
+     * @param string $to Destinatário(s) do sistema ou nulo, caso seja para todos
      * @param string $subject Assunto da mensagem
      * @param string $message Mensagem
      */
     public function sendMessage($from, $to, $subject, $message)
     {
+        $destinatarios = null;
         $table = TableRegistry::get('Mensagem');
 
-        $mensagem = $table->newEntity();
-        $mensagem->rementente = $from;
-        $mensagem->destinatario = $to;
-        $mensagem->data = date("Y-m-d H:i:s");
-        $mensagem->titulo = $subject;
-        $mensagem->mensagem = $message;
-        $mensagem->lido = false;
+        if(is_array($to))
+        {
+            $destinatarios = $to;
+        }
+        else
+        {
+            $destinatarios = [$to];
+        }
 
-        $table->save($mensagem);
+        foreach ($destinatarios as $destinatario) 
+        {
+            $mensagem = $table->newEntity();
+            $mensagem->rementente = $from;
+            $mensagem->destinatario = $destinatario;
+            $mensagem->data = date("Y-m-d H:i:s");
+            $mensagem->titulo = $subject;
+            $mensagem->mensagem = $message;
+            $mensagem->lido = false;
+    
+            $table->save($mensagem);
+        }
     }   
 
     /**
