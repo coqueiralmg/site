@@ -88,8 +88,9 @@ class SenderComponent extends Component
      * @param string $to Destinatário(s) do sistema ou nulo, caso seja para todos
      * @param string $subject Assunto da mensagem
      * @param string $message Mensagem
+     * @param int $relacionado Mensagem relacionada, usada para respostas ou encaminhamentos.
      */
-    public function sendMessage($from, $to, $subject, $message)
+    public function sendMessage($from, $to, $subject, $message, $relacionado = null)
     {
         $destinatarios = null;
         $table = TableRegistry::get('Mensagem');
@@ -112,6 +113,7 @@ class SenderComponent extends Component
             $mensagem->titulo = $subject;
             $mensagem->mensagem = $message;
             $mensagem->lido = false;
+            $mensagem->relacionado = $relacionado;
     
             $table->save($mensagem);
         }
