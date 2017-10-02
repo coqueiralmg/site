@@ -25,8 +25,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("destinatario", "Para") ?>
-                                        <?=$this->Form->select('destinatario', $combo_destinatario, ['id' => 'destinatario', 'class' => 'form-control'])?>
+                                        <?= $this->Form->label("para", "Para") ?>
+                                        <?=$this->Form->select('para', $combo_destinatario, ['id' => 'para', 'class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
