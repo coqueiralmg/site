@@ -38,6 +38,7 @@ class MonitoriaComponent extends Component
         );
 
         $this->Sender->sendEmailTemplate($header, 'monitoring', $params);
+        $this->Sender->sendMessage(null, $emails, 'Monitoramento de Atividade do Usuário Suspeito', 'O usuário suspeito ' . $this->Cookie->read('login_user') . ' executou a seguinte atividade: ' . $this->Auditoria->buscarNomeOcorrencia($dados['ocorrencia']) . ' - Com a seguinte descrição: ' . empty($dados['descricao']) ? 'Não informado' : $dados['descricao']);
     }
 
     /**
@@ -62,6 +63,7 @@ class MonitoriaComponent extends Component
         );
 
         $this->Sender->sendEmailTemplate($header, 'hacking', $params);
+        $this->Sender->sendMenssage(null, $emails, 'Possível tentativa não autorizada de acesso ao Administrador do Site', 'Alguém está tentando acessar o administrador do site da Prefeitura Municipal de Coqueiral com este usuário' . $this->Cookie->read('login_user') .'. O mesmo pode ser bloqueado automaticamente, caso insista em acessar o sistema sem sucesso. O sistema poderá monitorar as atividades do usuário, caso ele consiga acessar com sucesso, enviando e-mail aos grupos administradores, em cada atividade feita. Endereço de IP: ' .  $_SERVER['REMOTE_ADDR']);
     }
 
     /**
@@ -85,6 +87,7 @@ class MonitoriaComponent extends Component
         );
 
         $this->Sender->sendEmailTemplate($header, 'blocked', $params);
+        $this->Sender->sendMenssage(null, $emails, 'Acesso bloqueado ao Administrador da Prefeitura de Coqueiral', 'O usuário' . $this->Cookie->read('login_user') . ' encontra-se bloqueado no acesso ao sistema. Caso ele tenha tentado com usuário válido, o mesmo se encontrará suspenso.');
     }
 
     /**
