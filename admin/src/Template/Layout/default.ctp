@@ -83,13 +83,11 @@
 	 							   <i class="material-icons">schedule</i><span id="hora_atual"> Carregando a Hora Corrente</span>
 		 						</a>
 							</li>
-							<!--
 							<li>
-								<a href="#" class="dropdown-toggle center" data-toggle="dropdown">
+								<a href="<?= $this->Url->build(['controller' => 'mensagens', 'action' => 'index']) ?>">
 	 							   <i class="material-icons">mail_outline</i> Mensagens
 		 						</a>
 							</li>
-							-->
 							<li>
 								<a href="<?= $this->Url->build(['controller' => 'system', 'action' => 'logoff']) ?>" >
 	 							   <i class="material-icons">power_settings_new</i> Sair
