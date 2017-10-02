@@ -5,6 +5,7 @@ namespace App\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Mailer\Email;
 use Cake\Log\Log;
+use Cake\ORM\TableRegistry;
 
 /**
  * Componente de envio de e-mail e outras ferramentas de envio.
@@ -80,6 +81,28 @@ class SenderComponent extends Component
 
         return $email->send();
     }
+
+    /**
+     * Envia um e-mail interno do sistema
+     * @param string $from Rementente do sistema ou nulo, caso seja do sistema
+     * @param string $to Destinatário do sistema ou nulo, caso seja para todos
+     * @param string $subject Assunto da mensagem
+     * @param string $message Mensagem
+     */
+    public function sendMessage($from, $to, $subject, $message)
+    {
+        $table = TableRegistry::get('Mensagem');
+
+        $mensagem = $table->newEntity();
+        $mensagem->rementente = $from;
+        $mensagem->destinatario = $to;
+        $mensagem->data = date("Y-m-d H:i:s");
+        $mensagem->titulo = $subject;
+        $mensagem->mensagem = $message;
+        $mensagem->lido = false;
+
+        $table->save($mensagem);
+    }   
 
     /**
      * Faz o registro de log de envio de e-mails
