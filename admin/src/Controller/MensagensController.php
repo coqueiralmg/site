@@ -71,4 +71,48 @@ class MensagensController extends AppController
         $this->set('qtd_total', $quantidade);
         $this->set('limit_pagination', $limite_paginacao);
     }
+
+    public function escrever()
+    {
+        $t_usuarios = TableRegistry::get('Usuario');
+        $t_grupos = TableRegistry::get('GrupoUsuario');
+
+        $usuarios = $t_usuarios->find('all', [
+            'contain' => ['Pessoa'],
+            'conditions' => [
+                'ativo' => true
+            ]
+        ]);
+
+        $grupos = $t_grupos->find('all', [
+            'conditions' => [
+                'ativo' => true
+            ]
+        ]);
+
+        $combo_usuarios = array();
+        $combo_grupos = array();
+
+        foreach($usuarios as $usuario)
+        {
+            $combo_usuarios['U' . $usuario->id] = $usuario->pessoa->nome;
+        }
+
+        foreach($grupos as $grupo)
+        {
+            $combo_grupos['G' . $grupo->id] = $grupo->nome;
+        }
+
+        $combo_destinatario = [
+            'T' => 'Todos',
+            'Usuários' => $combo_usuarios,
+            'Grupos' => $combo_grupos
+        ];
+        
+        $this->set('title', 'Mensagens');
+        $this->set('icon', 'mail_outline');
+        $this->set('mensagem', null);
+        $this->set('combo_destinatario', $combo_destinatario);
+        $this->set('id', 0);
+    }
 }
