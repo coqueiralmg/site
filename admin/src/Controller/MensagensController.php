@@ -115,4 +115,92 @@ class MensagensController extends AppController
         $this->set('combo_destinatario', $combo_destinatario);
         $this->set('id', 0);
     }
+
+    public function send()
+    {
+        if ($this->request->is('post'))
+        {
+            $t_mensagens = TableRegistry::get('Mensagem');
+
+            $emails = null;
+            $destinatario = $this->request->getData('para');;
+
+            if($destinatario = 'T')
+            {
+                $emails = $this->obterTodosEmails();
+            }
+            elseif($destinatario[0] == 'U')
+            {
+                $idUsuario = substr($destinatario, 1);
+                $emails = $this->obterEmailUsuario($idUsuario);
+            }
+            elseif($destinatario[0] == 'G')
+            {
+                $idGrupo = substr($destinatario, 1);
+                $emails = $this->obterEmailsGrupo($idGrupo);
+            }
+
+            if(is_array($emails))
+            {
+                foreach($emails as $email)
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    private function obterEmailUsuario(int $idUsuario)
+    {
+        $t_usuarios = TableRegistry::get('Usuario');
+
+        $usuario = $t_usuarios->get($idUsuario);
+
+        return $usuario->email;
+    }
+
+    private function obterEmailsGrupo(int $idGrupo)
+    {
+        $t_usuarios = TableRegistry::get('Usuario');
+
+        $usuarios = $t_usuarios->find('all', [
+            'conditions' => [
+                'grupo' => $idGrupo,
+                'ativo' => true
+            ]
+        ]);
+
+        $emails = array();
+
+        foreach($usuarios as $usuario)
+        {
+            array_push($emails, $usuario->email);
+        }
+
+        return $emails;
+    }
+
+    private function obterTodosEmails()
+    {
+        $t_usuarios = TableRegistry::get('Usuario');
+
+        $usuarios = $t_usuarios->find('all', [
+            'conditions' => [
+                'ativo' => true
+            ]
+        ]);
+
+        $emails = array();
+
+        foreach($usuarios as $usuario)
+        {
+            array_push($emails, $usuario->email);
+        }
+
+        return $emails;
+    }
 }
