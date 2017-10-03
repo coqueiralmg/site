@@ -17,12 +17,5 @@ class MensagemTable extends BaseTable
             'propertyName' => 'rementente',
             'joinType' => 'LEFT OUTER'
         ]);
-
-        $this->belongsTo('Usuario', [
-            'className' => 'Usuario',
-            'foreignKey' => 'destinatario',
-            'propertyName' => 'destinatario',
-            'joinType' => 'LEFT OUTER'
-        ]);
     }
 }
