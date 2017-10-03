@@ -69,7 +69,7 @@
                         <div class="feature-wrap">
                             <i class="fa fa-building-o"></i>
                             <h2>Serviços ao Servidor</h2>
-                            <h3>Folha de Pagamento e Outras Informações</h3>
+                            <h3>Consultas de Holerites e Informações do Servidor</h3>
                         </div>
                     </a>
                 </div>
