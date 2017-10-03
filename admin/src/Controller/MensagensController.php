@@ -125,10 +125,10 @@ class MensagensController extends AppController
             $t_mensagens = TableRegistry::get('Mensagem');
 
             $usuarios = null;
-            $destinatario = $this->request->getData('para');
+            $destinatario = $this->request->getData('destino');
             $envia_copia = $this->request->getData('enviar');
 
-            if($destinatario = 'T')
+            if($destinatario == 'T')
             {
                 $usuarios = $this->obterTodosEmails();
             }
