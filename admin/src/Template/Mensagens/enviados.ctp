@@ -4,6 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                        <?= $this->Flash->render() ?>
                         <a href="<?= $this->Url->build(['controller' => 'Mensagens', 'action' => 'escrever']) ?>" class="btn btn-warning btn-default pull-right">Escrever<div class="ripple-container"></div></a>
                         <a href="<?= $this->Url->build(['controller' => 'Mensagens', 'action' => 'index']) ?>" class="btn btn-fill btn-default pull-right">Caixa de Entrada<div class="ripple-container"></div></a>
                     </div>
@@ -13,11 +14,11 @@
                 <div class="card">
                     <div class="card-content table-responsive">
                         <?php if(count($mensagens) > 0):?>
-                            <h4 class="card-title">Caixa de Entrada de Mensagens</h4>
+                            <h4 class="card-title">Mensagens Enviadas</h4>
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
-                                        <th>Rementente</th>
+                                        <th>Destinatário</th>
                                         <th>Assunto</th>
                                         <th>Data</th>
                                         <th></th>
@@ -25,10 +26,12 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach ($mensagens as $mensagem): ?>
-                                        <td><?= ($mensagem->rementente == null) ? '<i>Mensagem do Sistema</i>' : $mensagem->rementente->pessoa->nome ?></td>
-                                        <td><?= $mensagem->titulo ?> </td>
-                                        <td><?= $this->Format->date($mensagem->data, true) ?></td>
-                                        <td></td>
+                                        <tr>
+                                            <td><?= $mensagem->destinatario->pessoa->nome ?></td>
+                                            <td><?= $mensagem->assunto ?> </td>
+                                            <td><?= $this->Format->date($mensagem->data, true) ?></td>
+                                            <td></td>
+                                        </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
