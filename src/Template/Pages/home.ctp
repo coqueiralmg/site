@@ -65,21 +65,21 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="https://e-gov.betha.com.br/e-nota/login.faces" onclick="ga('send', 'event', 'Externo', 'Site', 'Nota Fiscal Eletrônica');" target="_blank">
+                    <a href="http://cloud.betha.com.br/" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Servidor');" target="_blank">
                         <div class="feature-wrap">
-                            <i class="fa fa-file-text"></i>
-                            <h2>Nota Fiscal Eletrônica</h2>
-                            <h3>Emissão e consulta de notas fiscais eletrônicas</h3>
+                            <i class="fa fa-building-o"></i>
+                            <h2>Serviços ao Servidor</h2>
+                            <h3>Folha de Pagamento e Outras Informações</h3>
                         </div>
                     </a>
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a  href="https://e-gov.betha.com.br/transparencia/01030-015/recursos.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O" onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência'); LE.info('Acesso ao site da transparência. Página de referência: ' + window.location.href);" target="_blank">
+                    <a href="https://e-gov.betha.com.br/e-nota/login.faces" onclick="ga('send', 'event', 'Externo', 'Site', 'Nota Fiscal Eletrônica');" target="_blank">
                         <div class="feature-wrap">
-                            <i class="fa fa-files-o"></i>
-                            <h2>Transparência</h2>
-                            <h3>informações sobre o município</h3>
+                            <i class="fa fa-file-text"></i>
+                            <h2>Nota Fiscal Eletrônica</h2>
+                            <h3>Emissão e consulta de notas fiscais eletrônicas</h3>
                         </div>
                     </a>
                 </div>
@@ -105,11 +105,11 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="/busca">
+                    <a  href="https://e-gov.betha.com.br/transparencia/01030-015/recursos.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O" onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência');" target="_blank">
                         <div class="feature-wrap">
-                            <i class="fa fa-search"></i>
-                            <h2>Busca</h2>
-                            <h3>O que você procura em nosso site?</h3>
+                            <i class="fa fa-files-o"></i>
+                            <h2>Transparência</h2>
+                            <h3>informações sobre o município</h3>
                         </div>
                     </a>
                 </div>
