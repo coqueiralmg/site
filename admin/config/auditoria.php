@@ -42,7 +42,8 @@ return [
             37 => 'Mudança de senha',
             38 => 'Visualização do registro de auditoria',
             39 => 'Impressão da trilha de auditoria',
-            40 => 'Exclusão do registro de auditoria'
+            40 => 'Exclusão do registro de auditoria',
+            41 => 'Envio de mensagem interna do sistema'
         ]
     ]
 ];
