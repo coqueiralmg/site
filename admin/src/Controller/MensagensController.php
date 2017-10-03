@@ -28,6 +28,7 @@ class MensagensController extends AppController
         ];
 
         $this->paginate = [
+            'contain' => ['Usuario' => ['Pessoa']],
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
             'order' => [
@@ -47,7 +48,7 @@ class MensagensController extends AppController
 
     public function enviados()
     {
-        $t_mensagens = TableRegistry::get('Mensagem');
+        $t_mensagens = TableRegistry::get('MensagemEnviada');
         $limite_paginacao = Configure::read('Pagination.limit');
 
         $conditions = [
@@ -55,6 +56,7 @@ class MensagensController extends AppController
         ];
 
         $this->paginate = [
+            'contain' => ['Usuario' => ['Pessoa']],
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
             'order' => [
@@ -122,35 +124,121 @@ class MensagensController extends AppController
         {
             $t_mensagens = TableRegistry::get('Mensagem');
 
-            $emails = null;
-            $destinatario = $this->request->getData('para');;
+            $usuarios = null;
+            $destinatario = $this->request->getData('para');
+            $envia_copia = $this->request->getData('enviar');
 
             if($destinatario = 'T')
             {
-                $emails = $this->obterTodosEmails();
+                $usuarios = $this->obterTodosEmails();
             }
             elseif($destinatario[0] == 'U')
             {
                 $idUsuario = substr($destinatario, 1);
-                $emails = $this->obterEmailUsuario($idUsuario);
+                $usuarios = $this->obterEmailUsuario($idUsuario);
             }
             elseif($destinatario[0] == 'G')
             {
                 $idGrupo = substr($destinatario, 1);
-                $emails = $this->obterEmailsGrupo($idGrupo);
+                $usuarios = $this->obterEmailsGrupo($idGrupo);
             }
 
-            if(is_array($emails))
+            if(is_array($usuarios))
             {
-                foreach($emails as $email)
+                foreach($usuarios as $usuario)
                 {
+                    $entity = $t_mensagens->newEntity($this->request->data());
+                    $entity->rementente = $this->request->session()->read('UsuarioID');
+                    $entity->destinatario = $usuario->id;
+                    $entity->data = date("Y-m-d H:i:s");
+                    $entity->lido = false;
 
+                    $t_mensagens->save($entity);
+
+                    if($envia_copia)
+                    {
+                        $rementente = $this->request->session()->read('Usuario');
+                        
+                        $header = array(
+                            'name' => 'Mensagem Coqueiral',
+                            'from' => $rementente->email,
+                            'to' => $usuario->email,
+                            'subject' => '[Mensagem do Sistema]' .  $entity->assunto
+                        );
+
+                        $params = array(
+                            'content' => $entity->mensagem
+                        );
+
+                        $this->Sender->sendEmailTemplate($header, 'default', $params);
+                    }
+
+                    $propriedades = $entity->getOriginalValues();
+                    
+                    $auditoria = [
+                        'ocorrencia' => 41,
+                        'descricao' => 'O usuário enviou uma mensagem interna para outro usuário. O usuário destinatário, é parte de um grupo de usuários destinatários.',
+                        'dado_adicional' => json_encode(['id_nova_mensagem' => $entity->id, 'dados_mensagem' => $propriedades]),
+                        'usuario' => $this->request->session()->read('UsuarioID')
+                    ];
+        
+                    $this->Auditoria->registrar($auditoria);
+        
+                    if($this->request->session()->read('UsuarioSuspeito'))
+                    {
+                        $this->Monitoria->monitorar($auditoria);
+                    }
                 }
             }
             else
             {
+                $usuario = $usuarios;
+                
+                $entity = $t_mensagens->newEntity($this->request->data());
+                $entity->rementente = $this->request->session()->read('UsuarioID');
+                $entity->destinatario = $usuario->id;
+                $entity->data = date("Y-m-d H:i:s");
+                $entity->lido = false;
 
+                $t_mensagens->save($entity);
+
+                if($envia_copia)
+                {
+                    $rementente = $this->request->session()->read('Usuario');
+                    
+                    $header = array(
+                        'name' => 'Mensagem Coqueiral',
+                        'from' => $rementente->email,
+                        'to' => $usuario->email,
+                        'subject' => '[Mensagem do Sistema]' .  $entity->assunto
+                    );
+
+                    $params = array(
+                        'content' => $entity->mensagem
+                    );
+
+                    $this->Sender->sendEmailTemplate($header, 'default', $params);
+                }
+
+                $propriedades = $entity->getOriginalValues();
+                
+                $auditoria = [
+                    'ocorrencia' => 41,
+                    'descricao' => 'O usuário enviou uma mensagem interna para outro usuário.',
+                    'dado_adicional' => json_encode(['id_nova_mensagem' => $entity->id, 'dados_mensagem' => $propriedades]),
+                    'usuario' => $this->request->session()->read('UsuarioID')
+                ];
+    
+                $this->Auditoria->registrar($auditoria);
+    
+                if($this->request->session()->read('UsuarioSuspeito'))
+                {
+                    $this->Monitoria->monitorar($auditoria);
+                }
             }
+
+            $this->Flash->greatSuccess('A mensagem foi enviada com sucesso!');
+            $this->redirect(['action' => 'enviados']);
         }
     }
 
@@ -160,7 +248,7 @@ class MensagensController extends AppController
 
         $usuario = $t_usuarios->get($idUsuario);
 
-        return $usuario->email;
+        return $usuario;
     }
 
     private function obterEmailsGrupo(int $idGrupo)
@@ -174,14 +262,7 @@ class MensagensController extends AppController
             ]
         ]);
 
-        $emails = array();
-
-        foreach($usuarios as $usuario)
-        {
-            array_push($emails, $usuario->email);
-        }
-
-        return $emails;
+        return $usuarios->toArray();
     }
 
     private function obterTodosEmails()
@@ -194,13 +275,6 @@ class MensagensController extends AppController
             ]
         ]);
 
-        $emails = array();
-
-        foreach($usuarios as $usuario)
-        {
-            array_push($emails, $usuario->email);
-        }
-
-        return $emails;
+        return $usuarios->toArray();
     }
 }
