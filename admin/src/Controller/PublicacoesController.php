@@ -318,6 +318,10 @@ class PublicacoesController extends AppController
                 $arquivo = $this->request->getData('arquivo');
                 $entity->arquivo = $this->salvarArquivoPublicacao($arquivo);
             }
+            else
+            {
+                $entity->arquivo = $antigo_arquivo;
+            }
 
             $propriedades = $this->Auditoria->changedOriginalFields($entity);
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
