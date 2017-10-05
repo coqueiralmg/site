@@ -38,7 +38,7 @@
                     <div class="item col-md-12 col-lg-6">
                         <h3 class="media-heading" style="text-transform: uppercase;"><?= $publicacao->titulo ?></h3>
                         <p><?= $publicacao->resumo ?></p>
-                        <?= $this->Html->link('Veja mais', ['controller' => 'publicacoes', 'action' =>  'publicacao', $publicacao->id], ['class' => 'btn btn-success']) ?>
+                        <?= $this->Html->link('Detalhes', ['controller' => 'publicacoes', 'action' =>  'publicacao', $publicacao->id], ['class' => 'btn btn-success']) ?>
                     </div>
                     <?php if($i % 2 != 0): ?>
                         </div>

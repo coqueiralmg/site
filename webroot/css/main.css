@@ -732,12 +732,17 @@ input.search-form:hover {
 }
 
 #legislacao .row div {
-    padding: 20px 0px;
+    padding: 20px 10px;
 }
 
 #legislacao .row div h3 {
     font-weight: bold;
     text-transform: uppercase;
+}
+
+#legislacao .row div a {
+    float: right;
+    margin-right: 20px;
 }
 
 #legislacao .item{

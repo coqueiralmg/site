@@ -41,7 +41,7 @@
                         <h3 class="media-heading" style="text-transform: uppercase;"><?= $licitacao->titulo ?></h3>
                         <p>Início: <?= $this->Format->date($licitacao->dataInicio, true) ?></p>
                         <p>Término: <?= $this->Format->date($licitacao->dataTermino, true) ?></p>
-                        <?= $this->Html->link('Veja mais', ['controller' => 'licitacoes', 'action' =>  'licitacao', $licitacao->slug . '-' . $licitacao->id], ['class' => 'btn btn-success']) ?>
+                        <?= $this->Html->link('Detalhes', ['controller' => 'licitacoes', 'action' =>  'licitacao', $licitacao->slug . '-' . $licitacao->id], ['class' => 'btn btn-success']) ?>
                     </div>
                     <?php if($i % 2 != 0): ?>
                         </div>
