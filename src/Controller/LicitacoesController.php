@@ -47,7 +47,7 @@ class LicitacoesController extends AppController
         $qtd_total = $t_licitacoes->find('all', ['conditions' => $conditions])->count();
 
         $this->set('title', "Licitações");
-        $this->set('licitacoes', $licitacoes);
+        $this->set('licitacoes', $licitacoes->toArray());
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);

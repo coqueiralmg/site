@@ -28,16 +28,25 @@
             </div>
         </div>
 
-        <div class="row">
+        <div>
             <?php if(count($licitacoes) > 0): ?>
-                <?php foreach($licitacoes as $licitacao): ?>
+                <?php for($i = 0; $i < count($licitacoes); $i++): ?>
+                    <?php
+                        $licitacao = $licitacoes[$i];
+                    ?>
+                    <?php if($i % 2 == 0): ?>
+                        <div class="row">
+                    <?php endif; ?>
                     <div class="item col-md-12 col-lg-6">
                         <h3 class="media-heading" style="text-transform: uppercase;"><?= $licitacao->titulo ?></h3>
                         <p>Início: <?= $this->Format->date($licitacao->dataInicio, true) ?></p>
                         <p>Término: <?= $this->Format->date($licitacao->dataTermino, true) ?></p>
                         <?= $this->Html->link('Veja mais', ['controller' => 'licitacoes', 'action' =>  'licitacao', $licitacao->slug . '-' . $licitacao->id], ['class' => 'btn btn-success']) ?>
                     </div>
-                <?php endforeach; ?>
+                    <?php if($i % 2 != 0): ?>
+                        </div>
+                    <?php endif; ?>
+                <?php endfor; ?>
             <?php else: ?>
                 <p>Nenhuma licitação disponível!</p>
             <?php endif; ?>
