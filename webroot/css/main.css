@@ -740,7 +740,7 @@ input.search-form:hover {
     text-transform: uppercase;
 }
 
-#legislacao .row div a {
+#legislacao .row div.item a {
     float: right;
     margin-right: 20px;
 }
