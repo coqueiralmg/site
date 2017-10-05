@@ -35,6 +35,14 @@ return [
             'scopes' => 'register',
             'levels' => ['info'],
             'url' => env('LOG_ERROR_URL', null),
+        ],
+        'dump' => [
+            'className' => 'Cake\Log\Engine\FileLog',
+            'path' => LOGS,
+            'file' => 'dump',
+            'scopes' => 'dump',
+            'levels' => ['debug'],
+            'url' => env('LOG_ERROR_URL', null),
         ]
     ]
 ];
