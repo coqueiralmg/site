@@ -47,7 +47,7 @@ class PublicacoesController extends AppController
         $qtd_total = $t_publicacoes->find('all', ['conditions' => $conditions])->count();
 
         $this->set('title', "Publicações");
-        $this->set('publicacoes', $publicacoes);
+        $this->set('publicacoes', $publicacoes->toArray());
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
