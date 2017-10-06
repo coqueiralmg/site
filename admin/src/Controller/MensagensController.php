@@ -141,6 +141,25 @@ class MensagensController extends AppController
         $this->set('id', $id);
     }
 
+    public function imprimir(int $id)
+    {
+        $t_mensagens = TableRegistry::get('Mensagem');
+        $t_usuarios = TableRegistry::get('Usuario');
+
+        $mensagem = $t_mensagens->get($id);
+
+        $rementente = $t_usuarios->get($mensagem->rementente, ['contain' => ['Pessoa']]);
+        $destinatario = $t_usuarios->get($mensagem->destinatario, ['contain' => ['Pessoa']]);
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Mensagens');
+        $this->set('mensagem', $mensagem);
+        $this->set('rementente', $rementente);
+        $this->set('destinatario', $destinatario);
+        $this->set('id', $id);
+    }
+
     public function send()
     {
         if ($this->request->is('post'))

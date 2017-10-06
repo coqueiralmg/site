@@ -50,7 +50,7 @@
                             <div class="clearfix"></div>
                     </div>
                     <div class="card-content">
-                        <a href="<?= $this->Url->build(['controller' => 'Auditoria', 'action' => 'documento', $id]) ?>" class="btn btn-default btn-default pull-right" target="_blank">Imprimir<div class="ripple-container"></div></a>
+                        <a href="<?= $this->Url->build(['controller' => 'mensagens', 'action' => 'imprimir', $id]) ?>" class="btn btn-default btn-default pull-right" target="_blank">Imprimir<div class="ripple-container"></div></a>
                         <button type="button" onclick="excluirRegistro('<?= $id ?>')" class="btn btn-danger pull-right">Excluir</button>
                         <button type="button" onclick="window.location='<?= $this->Url->build('/mensagens') ?>'" class="btn btn-info pull-right">Voltar</button>
                         <div class="clearfix"></div>
