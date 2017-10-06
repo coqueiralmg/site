@@ -30,7 +30,12 @@
                                             <td><?= ($mensagem->rementente == null) ? '<i>Mensagem do Sistema</i>' : $mensagem->rementente->pessoa->nome ?></td>
                                             <td><?= $mensagem->assunto ?> </td>
                                             <td><?= $this->Format->date($mensagem->data, true) ?></td>
-                                            <td></td>
+                                            <td  class="td-actions text-right" style="width: 10%">
+                                                <a href="<?= $this->Url->build(['controller' => 'mensagens', 'action' => 'mensagem', $mensagem->id]) ?>" class="btn btn-info btn-round">
+                                                    <i class="material-icons">pageview</i>
+                                                </a>
+                                                <button type="button" onclick="excluirRegistro('<?= $mensagem->id ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
