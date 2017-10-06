@@ -26,7 +26,7 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach ($mensagens as $mensagem): ?>
-                                        <tr>
+                                        <tr style="font-weight: <?= ($mensagem->lido) ? 'lighter' : 'bold' ?>">
                                             <td><?= ($mensagem->rementente == null) ? '<i>Mensagem do Sistema</i>' : $mensagem->rementente->pessoa->nome ?></td>
                                             <td><?= $mensagem->assunto ?> </td>
                                             <td><?= $this->Format->date($mensagem->data, true) ?></td>
