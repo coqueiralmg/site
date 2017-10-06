@@ -158,6 +158,7 @@ class SystemController extends AppController
     {
         $this->controlAuth();
         $this->carregarDadosSistema();
+        $this->countMessages();
 
         $limite = Configure::read('Pagination.short.limit');
 
