@@ -14,9 +14,7 @@ class PerfilController extends AppController
         parent::initialize();
 
         $this->validationRole = false;
-        $this->configurarAcesso();
-        $this->controlAuth();
-        $this->carregarDadosSistema();
+        $this->configureSession();
     }
 
     public function index()

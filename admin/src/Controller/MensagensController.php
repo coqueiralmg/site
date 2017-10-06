@@ -14,8 +14,7 @@ class MensagensController extends AppController
         parent::initialize();
 
         $this->validationRole = false;
-        $this->controlAuth();
-        $this->carregarDadosSistema();
+        $this->configureSession();
     }
 
     public function index()
@@ -82,7 +81,7 @@ class MensagensController extends AppController
         $usuarios = $t_usuarios->find('all', [
             'contain' => ['Pessoa'],
             'conditions' => [
-                'ativo' => true
+                'ativo' => true,
             ]
         ]);
 
@@ -282,7 +281,8 @@ class MensagensController extends AppController
         $usuarios = $t_usuarios->find('all', [
             'conditions' => [
                 'grupo' => $idGrupo,
-                'ativo' => true
+                'ativo' => true,
+                'suspenso' => false
             ]
         ]);
 
@@ -295,7 +295,8 @@ class MensagensController extends AppController
 
         $usuarios = $t_usuarios->find('all', [
             'conditions' => [
-                'ativo' => true
+                'ativo' => true,
+                'suspenso' => false
             ]
         ]);
 

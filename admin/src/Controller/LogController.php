@@ -14,8 +14,7 @@ class LogController extends AppController
         parent::initialize();
 
         $this->validationRole = false;
-        $this->controlAuth();
-        $this->carregarDadosSistema();
+        $this->configureSession();
     }
 
     public function index()
