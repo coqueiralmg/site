@@ -38,7 +38,7 @@ class MensagensController extends AppController
 
         $mensagens = $this->paginate($t_mensagens);
         $quantidade = $t_mensagens->find('all', ['conditions' => $conditions])->count();
-        
+
         $this->set('title', 'Mensagens');
         $this->set('icon', 'mail_outline');
         $this->set('mensagens', $mensagens);
@@ -66,7 +66,7 @@ class MensagensController extends AppController
 
         $mensagens = $this->paginate($t_mensagens);
         $quantidade = $t_mensagens->find('all', ['conditions' => $conditions])->count();
-        
+
         $this->set('title', 'Mensagens');
         $this->set('icon', 'mail_outline');
         $this->set('mensagens', $mensagens);
@@ -110,12 +110,36 @@ class MensagensController extends AppController
             'Usuários' => $combo_usuarios,
             'Grupos' => $combo_grupos
         ];
-        
+
         $this->set('title', 'Mensagens');
         $this->set('icon', 'mail_outline');
         $this->set('mensagem', null);
         $this->set('combo_destinatario', $combo_destinatario);
         $this->set('id', 0);
+    }
+
+    public function mensagem(int $id)
+    {
+        $t_mensagens = TableRegistry::get('Mensagem');
+        $t_usuarios = TableRegistry::get('Usuario');
+
+        $mensagem = $t_mensagens->get($id);
+
+        $rementente = $t_usuarios->get($mensagem->rementente, ['contain' => ['Pessoa']]);
+        $destinatario = $t_usuarios->get($mensagem->destinatario, ['contain' => ['Pessoa']]);
+
+        if($mensagem->destinatario == $this->request->session()->read('UsuarioID'))
+        {
+            $mensagem->lido = true;
+            $t_mensagens->save($mensagem);
+        }
+
+        $this->set('title', 'Mensagens');
+        $this->set('icon', 'mail_outline');
+        $this->set('mensagem', $mensagem);
+        $this->set('rementente', $rementente);
+        $this->set('destinatario', $destinatario);
+        $this->set('id', $id);
     }
 
     public function send()
@@ -158,7 +182,7 @@ class MensagensController extends AppController
                     if($envia_copia)
                     {
                         $rementente = $this->request->session()->read('Usuario');
-                        
+
                         $header = array(
                             'name' => 'Mensagem Coqueiral',
                             'from' => $rementente->email,
@@ -174,16 +198,16 @@ class MensagensController extends AppController
                     }
 
                     $propriedades = $entity->getOriginalValues();
-                    
+
                     $auditoria = [
                         'ocorrencia' => 41,
                         'descricao' => 'O usuário enviou uma mensagem interna para outro usuário. O usuário destinatário, é parte de um grupo de usuários destinatários.',
                         'dado_adicional' => json_encode(['id_nova_mensagem' => $entity->id, 'dados_mensagem' => $propriedades]),
                         'usuario' => $this->request->session()->read('UsuarioID')
                     ];
-        
+
                     $this->Auditoria->registrar($auditoria);
-        
+
                     if($this->request->session()->read('UsuarioSuspeito'))
                     {
                         $this->Monitoria->monitorar($auditoria);
@@ -193,7 +217,7 @@ class MensagensController extends AppController
             else
             {
                 $usuario = $usuarios;
-                
+
                 $entity = $t_mensagens->newEntity($this->request->data());
                 $entity->rementente = $this->request->session()->read('UsuarioID');
                 $entity->destinatario = $usuario->id;
@@ -205,7 +229,7 @@ class MensagensController extends AppController
                 if($envia_copia)
                 {
                     $rementente = $this->request->session()->read('Usuario');
-                    
+
                     $header = array(
                         'name' => 'Mensagem Coqueiral',
                         'from' => $rementente->email,
@@ -221,16 +245,16 @@ class MensagensController extends AppController
                 }
 
                 $propriedades = $entity->getOriginalValues();
-                
+
                 $auditoria = [
                     'ocorrencia' => 41,
                     'descricao' => 'O usuário enviou uma mensagem interna para outro usuário.',
                     'dado_adicional' => json_encode(['id_nova_mensagem' => $entity->id, 'dados_mensagem' => $propriedades]),
                     'usuario' => $this->request->session()->read('UsuarioID')
                 ];
-    
+
                 $this->Auditoria->registrar($auditoria);
-    
+
                 if($this->request->session()->read('UsuarioSuspeito'))
                 {
                     $this->Monitoria->monitorar($auditoria);
