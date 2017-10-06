@@ -92,7 +92,9 @@ class AppController extends Controller
             if ($this->isAuthorized())
             {
                 $this->carregarDadosSistema();
+                $this->countMessages();
                 $this->accessRole();
+                
             }
         }
     }
@@ -204,6 +206,36 @@ class AppController extends Controller
         {
             $this->set('ultimo_acesso', null);
         }    
+    }
+
+    /**
+    * Busca a quantidade de mensagens não lidas na sua caixa de entrada
+    */
+    protected function countMessages()
+    {
+        $t_mensagens = TableRegistry::get('Mensagem');
+
+        $mensagens = $t_mensagens->find('all', [
+            'conditions' => [
+                'destinatario' =>  $this->request->session()->read('UsuarioID'),
+                'lido' => false
+            ]
+        ]);
+
+        $quantidade = $mensagens->count();
+
+        $this->set('qtd_mensagens_nlcx', $quantidade);
+    }
+
+    /**
+    * Conjunto padrão de funções para configuração de acesso a sessão do sistema e controle de acesso, em telas que não fazem parte do Membership
+    */
+    protected function configureSession()
+    {
+        $this->configurarAcesso();
+        $this->controlAuth();
+        $this->carregarDadosSistema();
+        $this->countMessages();
     }
 
     /**
