@@ -83,18 +83,32 @@
 	 							   <i class="material-icons">schedule</i><span id="hora_atual"> Carregando a Hora Corrente</span>
 		 						</a>
 							</li>
-							<li>
-								<a href="<?= $this->Url->build(['controller' => 'mensagens', 'action' => 'index']) ?>">
-	 							   <i class="material-icons">mail_outline</i> Mensagens
-		 						</a>
-							</li>
+							<?php if($qtd_mensagens_nlcx > 0): ?>
+								<li>
+									<a href="<?= $this->Url->build(['controller' => 'mensagens', 'action' => 'index']) ?>">
+										<i class="material-icons">mail_outline</i>
+										<span class="notification"><?=$qtd_mensagens_nlcx?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?= $this->Url->build(['controller' => 'mensagens', 'action' => 'index']) ?>" style="margin-left: -28px">
+										<p><b>Mensagens</b></p>
+									</a>
+								</li>
+							<?php else: ?>
+								<li>
+									<a href="<?= $this->Url->build(['controller' => 'mensagens', 'action' => 'index']) ?>">
+										<i class="material-icons">mail_outline</i>
+										Mensagens
+									</a>
+								</li>
+							<?php endif; ?>
 							<li>
 								<a href="<?= $this->Url->build(['controller' => 'system', 'action' => 'logoff']) ?>" >
 	 							   <i class="material-icons">power_settings_new</i> Sair
 		 						</a>
 							</li>
 						</ul>
-
 					</div>
 				</div>
 			</nav>
