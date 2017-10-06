@@ -206,12 +206,18 @@ class AppController extends Controller
         }    
     }
 
+    /**
+    * Registra o acesso ao sistema em logs
+    */
     private function registerAccessLog()
     {
         $this->registerLocalLog();
         $this->registerHostLog();
     }
-
+    
+    /**
+    * Registra o acesso ao sistema em log de arquivo local
+    */
     private function registerLocalLog()
     {
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -226,6 +232,9 @@ class AppController extends Controller
         Log::info($registro, ['register']);
     }
 
+    /**
+    * Registra o acesso ao sistema em log no provedor externo
+    */
     private function registerHostLog()
     {
         $ip = $_SERVER['REMOTE_ADDR'];
