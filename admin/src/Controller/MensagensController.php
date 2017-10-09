@@ -23,7 +23,8 @@ class MensagensController extends AppController
         $limite_paginacao = Configure::read('Pagination.limit');
 
         $conditions = [
-            'destinatario' =>  $this->request->session()->read('UsuarioID')
+            'destinatario' =>  $this->request->session()->read('UsuarioID'),
+            'excluido_destinatario' => false
         ];
 
         $this->paginate = [
@@ -51,7 +52,8 @@ class MensagensController extends AppController
         $limite_paginacao = Configure::read('Pagination.limit');
 
         $conditions = [
-            'rementente' =>  $this->request->session()->read('UsuarioID')
+            'rementente' =>  $this->request->session()->read('UsuarioID'),
+            'excluido_rementente' => false
         ];
 
         $this->paginate = [
