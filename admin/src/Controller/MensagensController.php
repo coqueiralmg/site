@@ -284,6 +284,86 @@ class MensagensController extends AppController
         }
     }
 
+    public function excluir(int $id)
+    {
+        $t_mensagens = TableRegistry::get('Mensagem');
+        
+        $mensagem = $t_mensagens->get($id);
+        $usuario_corrente = $this->request->session()->read('UsuarioID');
+        $caixa_entrada = ($mensagem->destinatario == $usuario_corrente);
+        $propriedades = $mensagem->getOriginalValues();
+
+        if($mensagem->rementente == $usuario_corrente)
+        {
+            $mensagem->excluido_rementente = true;
+
+            $auditoria = [
+                'ocorrencia' => 42,
+                'descricao' => 'Mensagem excluída da caixa de entrada.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+        }
+
+        if($mensagem->destinatario = $usuario_corrente)
+        {
+            $mensagem->excluido_destinatario = true;
+
+            $auditoria = [
+                'ocorrencia' => 43,
+                'descricao' => 'Mensagem excluída dos itens enviados.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+        }
+
+        $t_mensagens->save($mensagem);
+
+        if($mensagem->excluido_rementente == true && $mensagem->excluido_destinatario == true)
+        {
+            $t_mensagens->delete($mensagem);
+
+            $auditoria = [
+                'ocorrencia' => 44,
+                'descricao' => 'Mensagem excluída fisicamente do sistema.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+        }
+
+        $this->Flash->greatSuccess('A mensagem foi excluida com sucesso');
+
+        if($caixa_entrada)
+        {
+            $this->redirect(['action' => 'index']);
+        }
+        else
+        {
+            $this->redirect(['action' => 'enviados']);
+        }
+    }
+
     private function obterEmailUsuario(int $idUsuario)
     {
         $t_usuarios = TableRegistry::get('Usuario');

@@ -1,3 +1,4 @@
+<?= $this->Html->script('controller/mensagens.general.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -51,7 +52,7 @@
                     </div>
                     <div class="card-content">
                         <a href="<?= $this->Url->build(['controller' => 'mensagens', 'action' => 'imprimir', $id]) ?>" class="btn btn-default btn-default pull-right" target="_blank">Imprimir<div class="ripple-container"></div></a>
-                        <button type="button" onclick="excluirRegistro('<?= $id ?>')" class="btn btn-danger pull-right">Excluir</button>
+                        <button type="button" onclick="excluirMensagem('<?= $mensagem->id ?>', '<?= $mensagem->titulo ?>')" class="btn btn-danger pull-right">Excluir</button>
                         <button type="button" onclick="window.location='<?= $this->Url->build('/mensagens') ?>'" class="btn btn-info pull-right">Voltar</button>
                         <div class="clearfix"></div>
                     </div>

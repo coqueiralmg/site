@@ -1,3 +1,4 @@
+<?= $this->Html->script('controller/mensagens.general.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -34,7 +35,7 @@
                                                 <a href="<?= $this->Url->build(['controller' => 'mensagens', 'action' => 'mensagem', $mensagem->id]) ?>" class="btn btn-info btn-round">
                                                     <i class="material-icons">pageview</i>
                                                 </a>
-                                                <button type="button" onclick="excluirRegistro('<?= $mensagem->id ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <button type="button" onclick="excluirMensagem('<?= $mensagem->id ?>', '<?= $mensagem->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
