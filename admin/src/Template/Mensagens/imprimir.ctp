@@ -5,7 +5,7 @@
         <div class="col-md-2">
             <div class="form-group label-control">
                 <?= $this->Form->label("data", "Data") ?><br/>
-                <?=$this->Format->date($mensagem->data)?>
+                <?=$this->Format->date($mensagem->data, true)?>
                 <span class="material-input"></span>
             </div>
         </div>
