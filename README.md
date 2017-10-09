@@ -63,6 +63,7 @@ No sistema administrativo que foi totalmente remodelado, com interface intuitiva
 - **Secretarias**: Cadastro funcional de secretaria e suas informações que serão exibidas no website.  Possui interface amigável com edição de texto rico.
 - **Banners**: Gerenciamento de banners da página inicial do site, onde o usuário poderá também determinar a ordem e a data de validade do banner. Além disso, o usuário pode colocar texto, legenda e configurar botões de ação do website.
 - **Auditoria**: Sistema de auditoria do sistema, onde os administradores podem consultar e monitorar todas as atividades dentro do sistema.
+- **Mensagem Interna**: Mensagem interna do sistema, de onde os usuários possam trocar mensagem entre si.
 - **Outros**: O usuário pode editar suas própria informações do usuário, bem como modificar a senha.
 
 ## Requisitos do Sistema
