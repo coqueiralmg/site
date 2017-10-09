@@ -43,7 +43,10 @@ return [
             38 => 'Visualização do registro de auditoria',
             39 => 'Impressão da trilha de auditoria',
             40 => 'Exclusão do registro de auditoria',
-            41 => 'Envio de mensagem interna do sistema'
+            41 => 'Envio de mensagem interna do sistema',
+            42 => 'Mensagem excluída da caixa de entrada',
+            43 => 'Mensagem enviada excluída',
+            44 => 'Exclusão física da mensagem'
         ]
     ]
 ];
