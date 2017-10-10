@@ -102,8 +102,6 @@ class PagesController extends AppController
         }
     }
 
-    public function contatosucesso()
-    {
-
-    }
+    public function privacidade() { }
+    public function contatosucesso() { }
 }
