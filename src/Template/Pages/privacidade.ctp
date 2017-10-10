@@ -36,7 +36,7 @@
                     <h2>Conteúdo do Portal</h2>
                     <p>A Prefeitura Municipal de Coqueiral garante que as informações contidas neste portal são oficiais e atualizadas.</p>
                     <p>A Prefeitura Municipal de Coqueiral não se responsabiliza por eventuais erros, imprecisões ou omissões nos materiais disponibilizados através de links de outros sítios, sites ou portais, e por quaisquer prejuízos resultantes das informações por eles apresentadas.</p>
-                    <p>A qualquer momento, a Prefeitura Municipal de Coqueiral se reserva o direito de alterar as informações, modificar ou extinguir qualquer serviço contido neste sítio sem aviso prévio aos usuários.</p>
+                    <p>A qualquer momento, a Prefeitura Municipal de Coqueiral se reserva o direito de alterar as informações, modificar ou extinguir qualquer serviço contido neste portal, sem aviso prévio aos usuários.</p>
 
                     <h2>Utilização de Cookies</h2>
                     <p>A utilização dos cookies é necessária para o processamento de consultas em determinadas bases de dados, evitando a ação de mecanismos de pesquisa automáticos. Para que a consulta seja realizada e também para o melhor funcionamento e atendimento, o navegador do usuário deve estar habilitado para gravação dos cookies.</p>
@@ -44,19 +44,19 @@
                     <h2>Acesso a Informações nos Sistemas Informatizados da Prefeitura Municipal de Coqueiral</h2>
                     <p>As informações contidas nos sistemas informatizados da Administração Pública Muncipal estão protegidas por sigilo fiscal/pessoal.</p>
                     <p>O acesso não autorizado ou não motivado por necessidade de serviço, a disponibilização voluntária ou acidental da senha de acesso ou de informações e a quebra do sigilo constituem infrações ou ilícitos que sujeitam o usuário a responsabilidade administrativa, penal e civil.</p>
-                    <p>O usuário declara-se ciente das responsabilidades acima referidas ao acessar qualquer sistema informatizado no sítio da Prefeitura de Belo Horizonte. Base Legal: Constituição Federal, Código Penal, Código Tributário Nacional e Legislação do Estado de Minas Gerais e Legislação do Município de Coqueiral, relativas ao assunto.</p>
+                    <p>O usuário declara-se ciente das responsabilidades acima referidas ao acessar qualquer sistema informatizado no portal da Prefeitura Municipal de Coqueiral. Base Legal: Constituição Federal, Código Penal, Código Tributário Nacional e Legislação do Estado de Minas Gerais e Legislação do Município de Coqueiral, relativas ao assunto.</p>
 
                     <h2>Serviços que Utilizam o Protocolo Seguro</h2>
-                    <p>Determinados serviços no sítio da Prefeitura Municipal de Coqueiral estão utilizando certificado digital de equipamento/servidor emitido dentro dos critérios estabelecidos pela Infra-estrutura de Chaves Públicas Brasileira.</p>
+                    <p>Determinados serviços no portal da Prefeitura Municipal de Coqueiral estão utilizando certificado digital de equipamento/servidor emitido dentro dos critérios estabelecidos pela Infra-estrutura de Chaves Públicas Brasileira.</p>
                     <p>O certificado de equipamento/servidor possibilita o estabelecimento de conexão segura com os equipamentos da Prefeitura Municipal de Coqueiral, garantindo que o serviço está sendo prestado por esta instituição. O usuário estará seguro de que as informações enviadas serão dirigidas ao portal da Prefeitura Municipal de Coqueiral, e somente por ela serão utilizadas.</p>
                     <p>Pode haver necessidade de instalação de certificados necessários, em determinados serviços, para estabelecer essa relação de confiança entre o portal da Prefeitura Municipal de Coqueiral e o usuário.</p>
 
                     <h2>Atualização da Política de Privacidade</h2>
-                    <p>Este documento poderá ser alterado pela Prefeitura de Belo Horizonte qualquer momento em que julgue conveniente ou também para se adequar às mudanças na legislação vigente ou por outras questões jurídicas.</p>
+                    <p>Este documento poderá ser alterado pela Prefeitura Municipal de Coqueiral qualquer momento em que julgue conveniente ou também para se adequar às mudanças na legislação vigente ou por outras questões jurídicas.</p>
                     <p>Ressalta-se que em nenhuma hipótese as condições de sigilo dos dados cadastrais dos usuários serão afetadas por quaisquer modificações nesta política, sendo garantido e mantido indefinidamente o sigilo de todas as informações armazenadas nos bancos de dados da Prefeitura Municipal de Coqueiral.</p>
 
                     <h2>Disposições Gerais</h2>
-                    <p>Fica a disposição do Foro da Cidade de Boa Esperança, na unidade federativa de Minas Gerais, sito na República Federativa do Brasil, para dirimir quaisquer dúvidas ou controvérsias que possam se apresentar nestes presentes termos de políticas apresentadas.</p>
+                    <p>Fica a disposição do Foro da Cidade de Boa Esperança, na unidade federativa de Minas Gerais, sito na República Federativa do Brasil, para dirimir quaisquer dúvidas ou controvérsias que possam se apresentar nestes presentes termos e/ou políticas apresentados.</p>
                 </div>
             </div>
 
