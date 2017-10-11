@@ -83,6 +83,7 @@ try {
     Configure::load('debug');
     Configure::load('log');
     Configure::load('pagination');
+    Configure::load('ouvidoria');
     Configure::load('logentries');
     
 } catch (\Exception $e) {
