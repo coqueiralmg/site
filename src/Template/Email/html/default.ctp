@@ -265,33 +265,25 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 									<table align="left">
 										<tr>
 											<td>				
-												
 												<h5 class="">Informações de Contato:</h5>
 												<p class="">
 												<p>
 													<b>Nome:</b> <?=$nome?><br/>
 													<b>Email: </b><?=$email?> <br/>
+													<b>Endereço: </b><?=$endereco?> <br/>
 													<b>Telefone de Contato: </b><?=$telefone?>
 												</p>
-						
-												
 											</td>
 										</tr>
 									</table><!-- /column 1 -->	
-									
-									
-									
 									<span class="clear"></span>	
-									
 								</td>
 							</tr>
 						</table><!-- /social & contact -->
-						
 					</td>
 				</tr>
 			</table>
 			</div><!-- /content -->
-									
 		</td>
 		<td></td>
 	</tr>
@@ -309,7 +301,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 				<tr>
 					<td align="center">
 						<p>
-							<a href="http://coqueiral.mg.gov.br"> &copy; Prefeitura Municipal de Coqueiral </a>
+							<a href="https://coqueiral.mg.gov.br"> &copy; Prefeitura Municipal de Coqueiral </a>
 						</p>
 					</td>
 				</tr>
