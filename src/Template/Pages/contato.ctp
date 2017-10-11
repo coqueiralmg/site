@@ -1,7 +1,7 @@
 <section id="contact-info">
         <div class="center">
             <h2>Entre em contato com a prefeitura</h2>
-            <p class="lead">Preencha corretamente todos os campos para facilitar o retorno e validar seu contato.</p>
+            <p class="lead">Preencha corretamente todos os campos para facilitar o retorno e validar seu contato. A prefeitura garante total sigilo de seus dados.</p>
         </div>
         <div class="gmap-area">
             <div class="container">
@@ -46,6 +46,10 @@
                     <div class="form-group">
                         <label>E-mail *</label>
                         <input type="email" id="email" name="email" class="form-control" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label>Endereço</label>
+                        <input type="text" id="endereco" name="endereco" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Telefone de Contato</label>
