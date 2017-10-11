@@ -24,5 +24,8 @@ return[
     'Host' => [
         'developer' => 'localhost:81',
         'release' => 'coqueiral.mg.gov.br'
+    ],
+    'Contact' => [
+        'ouvidoria' => 'frotas@coqueiral.mg.gov.br'
     ]
 ];
