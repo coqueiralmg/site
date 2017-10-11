@@ -56,7 +56,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     //$routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $routes->connect('/fale-conosco', ['controller' => 'Pages', 'action' => 'contato']);
-    $routes->connect('/contato', ['controller' => 'Pages', 'action' => 'contato']);
+    $routes->connect('/ouvidoria', ['controller' => 'Pages', 'action' => 'contato']);
     $routes->connect('/fale-sucesso', ['controller' => 'Pages', 'action' => 'contatosucesso']);
     $routes->connect('/privacidade', ['controller' => 'Pages', 'action' => 'privacidade']);
     $routes->connect('/secretaria/*', ['controller' => 'Secretaria', 'action' => 'index']);
