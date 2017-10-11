@@ -157,7 +157,7 @@
                     <ul class="pull-right">
                         <li><a href="https://e-gov.betha.com.br/transparencia/01030-015/recursos.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O" target="_blank">Transparência</a></li>
                         <li><a href="/privacidade">Política de Privacidade</a></li>
-                        <li><a href="/contato">Contato</a></li>
+                        <li><a href="/contato">Ouvidoria</a></li>
                     </ul>
                 </div>
             </div>
