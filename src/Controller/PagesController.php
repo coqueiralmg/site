@@ -75,22 +75,22 @@ class PagesController extends AppController
         {
             $nome = $this->request->getData('nome');
             $email = $this->request->getData('email');
+            $endereco = $this->request->getData('endereco');
             $telefone = $this->request->getData('telefone');
             $assunto = $this->request->getData('assunto');
             $mensagem = $this->request->getData('mensagem');
 
-            $nameSystem = Configure::read("system.shortName");
-
             $header = array(
                 'name' => $nome,
                 'from' => $email,
-                'to' => 'frotas@coqueiral.mg.gov.br',
+                'to' => Configure::read("Contact.ouvidoria"),
                 'subject' => 'Formulário de Contato - ' . $assunto
             );
 
             $params = array(
                 'nome' => $nome,
                 'email' => $email,
+                'endereco' => $endereco,
                 'telefone' => $telefone,
                 'mensagem' => nl2br($mensagem)
             );
