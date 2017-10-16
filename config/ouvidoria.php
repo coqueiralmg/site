@@ -2,7 +2,7 @@
 
 return[
     'Ouvidoria' => [
-        'grupoOuvidor'=> 1,
+        'grupoOuvidor'=> 7,
         'statusInicial' => 1,
         'prioridadeInicial' => 1,
         'sendMail' => false
