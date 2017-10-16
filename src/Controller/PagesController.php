@@ -80,28 +80,22 @@ class PagesController extends AppController
             $assunto = $this->request->getData('assunto');
             $mensagem = $this->request->getData('mensagem');
 
-            $header = array(
-                'name' => $nome,
-                'from' => $email,
-                'to' => Configure::read("Contact.ouvidoria"),
-                'subject' => 'Formulário de Contato - ' . $assunto
-            );
-
-            $params = array(
-                'nome' => $nome,
-                'email' => $email,
-                'endereco' => $endereco,
-                'telefone' => $telefone,
-                'mensagem' => nl2br($mensagem)
-            );
-
-            if($this->Sender->sendEmailTemplate($header, 'default', $params))
-            {
-                $this->redirect(['controller' => 'pages', 'action' => 'contatosucesso']);
-            }
+            $this->registrarOuvidoria($nome, $email, $endereco, $telefone, $assunto, $mensagem);
         }
     }
 
     public function privacidade() { }
     public function contatosucesso() { }
+    
+    private function registrarOuvidoria($nome, $email, $endereco, $telefone, $assunto, $mensagem)
+    {
+        $idManifestante = $this->Ouvidoria->cadastrarManifestante($nome, $email, $endereco, $telefone);
+        $idManifestacao = $this->Ouvidoria->inserirManifestacao($idManifestante, $assunto, $mensagem);
+
+        $this->Ouvidoria->registrarHistorico($idManifestacao, 'Nova manifestação de ouvidoria', true);
+
+        
+    }
+
+    
 }
