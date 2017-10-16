@@ -51,6 +51,7 @@ class AppController extends Controller
         $this->loadComponent('Sender');
         $this->loadComponent('Firewall');
         $this->loadComponent('Entries');
+        $this->loadComponent('Ouvidoria');
 
         $this->registerAccessLog();  
         $this->configurarAcesso();
