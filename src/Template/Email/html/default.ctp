@@ -301,7 +301,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 				<tr>
 					<td align="center">
 						<p>
-							<a href="https://coqueiral.mg.gov.br"> &copy; Prefeitura Municipal de Coqueiral </a>
+							<a href="https://www.coqueiral.mg.gov.br"> &copy; Prefeitura Municipal de Coqueiral </a>
 						</p>
 					</td>
 				</tr>
