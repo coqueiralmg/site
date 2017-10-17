@@ -55,9 +55,6 @@ Router::scope('/', function (RouteBuilder $routes) {
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     //$routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
-    $routes->connect('/fale-conosco', ['controller' => 'Pages', 'action' => 'contato']);
-    $routes->connect('/ouvidoria', ['controller' => 'Pages', 'action' => 'contato']);
-    $routes->connect('/fale-sucesso', ['controller' => 'Pages', 'action' => 'contatosucesso']);
     $routes->connect('/privacidade', ['controller' => 'Pages', 'action' => 'privacidade']);
     $routes->connect('/secretaria/*', ['controller' => 'Secretaria', 'action' => 'index']);
     /**
