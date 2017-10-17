@@ -82,6 +82,43 @@ class SenderComponent extends Component
     }
 
     /**
+     * Envia um e-mail interno do sistema
+     * @param string $from Rementente do sistema ou nulo, caso seja do sistema
+     * @param string $to Destinatário(s) do sistema ou nulo, caso seja para todos
+     * @param string $subject Assunto da mensagem
+     * @param string $message Mensagem
+     * @param int $relacionado Mensagem relacionada, usada para respostas ou encaminhamentos.
+     */
+    public function sendMessage($from, $to, $subject, $message, $relacionado = null)
+    {
+        $destinatarios = null;
+        $table = TableRegistry::get('Mensagem');
+
+        if(is_array($to))
+        {
+            $destinatarios = $to;
+        }
+        else
+        {
+            $destinatarios = [$to];
+        }
+
+        foreach ($destinatarios as $destinatario) 
+        {
+            $mensagem = $table->newEntity();
+            $mensagem->rementente = $from;
+            $mensagem->destinatario = $destinatario;
+            $mensagem->data = date("Y-m-d H:i:s");
+            $mensagem->titulo = $subject;
+            $mensagem->mensagem = $message;
+            $mensagem->lido = false;
+            $mensagem->relacionado = $relacionado;
+    
+            $table->save($mensagem);
+        }
+    }   
+
+    /**
      * Faz o registro de log de envio de e-mails
      * @param array $headMail Informações do cabeçalho do e-mail
      */
