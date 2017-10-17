@@ -69,33 +69,6 @@ class PagesController extends AppController
          $this->set('banners', $banners->toArray());
     }
 
-    public function contato()
-    {
-        if($this->request->is('post'))
-        {
-            $nome = $this->request->getData('nome');
-            $email = $this->request->getData('email');
-            $endereco = $this->request->getData('endereco');
-            $telefone = $this->request->getData('telefone');
-            $assunto = $this->request->getData('assunto');
-            $mensagem = $this->request->getData('mensagem');
-
-            $this->registrarOuvidoria($nome, $email, $endereco, $telefone, $assunto, $mensagem);
-        }
-    }
-
     public function privacidade() { }
     public function contatosucesso() { }
-    
-    private function registrarOuvidoria($nome, $email, $endereco, $telefone, $assunto, $mensagem)
-    {
-        $idManifestante = $this->Ouvidoria->cadastrarManifestante($nome, $email, $endereco, $telefone);
-        $idManifestacao = $this->Ouvidoria->inserirManifestacao($idManifestante, $assunto, $mensagem);
-
-        $this->Ouvidoria->registrarHistorico($idManifestacao, 'Nova manifestação de ouvidoria', true);
-
-        
-    }
-
-    
 }
