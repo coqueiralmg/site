@@ -13,6 +13,8 @@ use Cake\ORM\TableRegistry;
 class OuvidoriaComponent extends Component
 {
     
+    public $components = ['Sender', 'Format'];
+    
     /**
      * Cadastra o manifestante da ouvidoria
      * @param string $nome Nome do manifestante
@@ -100,7 +102,7 @@ class OuvidoriaComponent extends Component
     }
     
     /**
-     * Faz o registro histórico no histórico de ouvidoria
+     * Faz o registro no histórico de ouvidoria
      * @param int $manifestacao Manifestação de onde o histórico deve ser registrado
      * @param string $mensagem Mensagem a ser gravada no histórico
      * @param bool $notificar Se deve notificar o manifestante. Por padrão é falso.
@@ -119,5 +121,127 @@ class OuvidoriaComponent extends Component
         $t_historico->save($entity);
 
         return $entity->id;
+    }
+
+    /**
+     * Envia mensagem aos ouvidores, enviando a cópia para os respectivos e-mails, se configurado.
+     * @param int $idManifestante Código do manifestante da ouvidoria
+     * @param int $idManifestacao Código da manifestação da ouvidoria
+     */
+    public function enviarMensagemOuvidores(int $idManifestante, int $idManifestacao)
+    {
+        $t_mensagens = TableRegistry::get('Mensagem');
+        $t_manifestante = TableRegistry::get('Manifestante');
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+
+        $envia_copia = Configure::read('Ouvidoria.sendMail');
+        $prazo = Configure::read('Ouvidoria.prazo');
+
+        $manifestante = $t_manifestante->get($idManifestante);
+        $manifestacao = $t_manifestacao->get($idManifestacao);
+        
+        $codigo = $this->Format->zeroPad($manifestacao->id);
+        $assunto = $manifestacao->assunto;
+        $ouvidores = $this->obterOuvidores();
+
+        $assunto = $manifestacao->assunto;
+        $titulo = "Nova Manifestação da Ouvidoria: $codigo";
+
+        $mensagem = "<h4>Você recebeu a nova manifestação do usuário no sistema de ouvidoria<h4>";
+        $mensagem = $mensagem . "<p>O cidadão $manifestante deseja saber sobre o $assunto. Ele aguarda no prazo de $prazo dias úteis pela resposta.</p>"; 
+        $mensagem = $mensagem . "<p><b>Código da Manifestação: </b> $codigo.</p>";
+        
+        foreach($ouvidores as $ouvidor)
+        {
+            $entity = $t_mensagens->newEntity();
+            
+            $entity->destinatario = $ouvidor->id;
+            $entity->data = date("Y-m-d H:i:s");
+            $entity->assunto = $titulo;
+            $entity->mensagem = $mensagem;
+            $entity->lido = false;
+
+            $t_mensagens->save($entity);
+
+            if($envia_copia)
+            {
+                $header = array(
+                    'name' => 'Sistema Coqueiral',
+                    'from' => 'system@coqueiral.mg.gov.br',
+                    'to' => $ouvidor->email,
+                    'subject' => $titulo
+                );
+
+                $params = array(
+                    'prazo' => $prazo,
+                    'assunto' => $titulo,
+                    'mensagem' => $manifestacao->texto,
+                    'nome' => $manifestante->nome,
+                    'email' => $manifestante->email,
+                    'endereco' => $manifestante->endereco,
+                    'telefone' => $manifestante->telefone,
+                    'codigo' => $codigo
+                );
+
+                $this->Sender->sendEmailTemplate($header, 'ouvidoria', $params);
+            }
+        }
+    }
+
+    /**
+     * Notifica ao manifestante da ouvidoria, sobre o cadastro e alterações decorrentes da manifestação na Ouvidoria.
+     * @param int $idManifestante Código do manifestante da ouvidoria
+     * @param int $idManifestacao Código da manifestação da ouvidoria
+     * @param string $mensagem Mensagem a ser enviada para o manifestante, na notificação
+     */
+    public function notificarManifestate(int $idManifestante, int $idManifestacao)
+    {
+        $t_manifestante = TableRegistry::get('Manifestante');
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+
+        $manifestante = $t_manifestante->get($idManifestante);
+        $manifestacao = $t_manifestacao->get($idManifestacao);
+
+        $codigo = $this->Format->zeroPad($manifestacao->id);
+        $assunto = $manifestacao->assunto;
+        $prazo = Configure::read('Ouvidoria.prazo');
+
+        $titulo = "Nova Manifestação da Ouvidoria: $codigo";
+
+        $header = array(
+            'name' => 'Sistema Coqueiral',
+            'from' => 'system@coqueiral.mg.gov.br',
+            'to' => $manifestante->email,
+            'subject' => $titulo
+        );
+
+        $params = array(
+            'prazo' => $prazo,
+            'assunto' => $titulo,
+            'mensagem' => $manifestacao->texto,
+            'codigo' => $codigo
+        );
+
+        $this->Sender->sendEmailTemplate($header, 'manifestante', $params);
+    }
+
+    /**
+     * Obtém uma lista de usuários que fazem parte de um grupo definidos para serem ouvidores.
+     * @return Lista de usuários ouvidores.
+     */
+    private function obterOuvidores()
+    {
+        $t_usuarios = TableRegistry::get('Usuario');
+        $grupoOuvidor = Configure::read('Ouvidoria.grupoOuvidor');
+
+        $usuarios = $t_usuarios->find('all', [
+            'conditions' => [
+                'grupo' => $grupoOuvidor,
+                'ativo' => true,
+                'suspenso' => false
+            ]
+        ]);
+
+        return $usuarios->toArray();
     }
 }
