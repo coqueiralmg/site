@@ -252,10 +252,10 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 			<table>
 				<tr>
 					<td>
-						<p>Você recebeu a nova manifestação da ouvidoria pelo site da Prefeitura Municipal de Coqueiral. Você tem o prazo de <?=$prazo?> dias úteis para dar resposta.</p>
+						<p class="lead">Você recebeu a nova manifestação da ouvidoria pelo site da Prefeitura Municipal de Coqueiral. Você tem o prazo de <?=$prazo?> dias úteis para dar resposta.</p>
 						<!-- Callout Panel -->
-                        <p><b>Assunto: </b> <?=assunto?></p>
-						<p><b>Mensagem: </b></p>
+                        <p class="lead"><b>Assunto: </b> <?=$assunto?></p>
+						<h5>Mensagem</h5>
                         <p class="lead"><?=$mensagem?></p>
 												
 						<!-- social & contact -->
@@ -276,7 +276,11 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 													<b>Telefone de Contato: </b><?=$telefone?>
 												</p>
 											</td>
-                                            <td>				
+										</tr>
+									</table><!-- /column 1 -->	
+									<table align="left">
+										<tr>
+											<td>				
 												<h5 class="">Dados da Manifestação:</h5>
 												<p class="">
 												<p>
@@ -285,7 +289,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 												</p>
 											</td>
 										</tr>
-									</table><!-- /column 1 -->	
+									</table>
 									<span class="clear"></span>	
 								</td>
 							</tr>
