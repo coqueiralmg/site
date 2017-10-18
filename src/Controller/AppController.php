@@ -49,6 +49,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Sender');
+        $this->loadComponent('Cookie');
         $this->loadComponent('Firewall');
         $this->loadComponent('Entries');
         $this->loadComponent('Ouvidoria');
