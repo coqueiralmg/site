@@ -2754,7 +2754,7 @@ shortcodes page css
     width: 180px !important;
 }
 
-.ticket {
+#ticket {
     background: #ddd;
     width: 25%;
     height: 150px;
@@ -2763,7 +2763,7 @@ shortcodes page css
     display: table;
 }
 
-.ticket span {
+#ticket span {
     display: table-cell;
     vertical-align: middle;
     font-size: 350%;

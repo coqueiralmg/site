@@ -2,7 +2,7 @@
     <h1>Mensagem enviada com sucesso</h1>
     <p>Obrigado por enviar a sua manifestação para nós. Responderemos em breve.</p>
     <p> Anote o número da manifestação abaixo para acompanhamento. Você também pode imprimir o número da manifestação com seus detalhes.</p>
-    <div class="ticket">
+    <div id="ticket">
         <span>
             <?=$this->Format->zeroPad($manifestacao)?>
         <span>
