@@ -2756,7 +2756,7 @@ shortcodes page css
 
 .ticket {
     background: #ddd;
-    width: 30%;
+    width: 25%;
     height: 150px;
     margin: 30px auto;
     border: #254C49 dashed 2px;
@@ -2766,6 +2766,6 @@ shortcodes page css
 .ticket span {
     display: table-cell;
     vertical-align: middle;
-    font-size: xx-large;
+    font-size: 350%;
     font-weight: bolder;
 }
