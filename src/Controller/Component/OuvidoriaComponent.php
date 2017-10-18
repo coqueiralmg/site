@@ -143,12 +143,13 @@ class OuvidoriaComponent extends Component
         $codigo = $this->Format->zeroPad($manifestacao->id);
         $assunto = $manifestacao->assunto;
         $ouvidores = $this->obterOuvidores();
+        $nome_manifestante = $manifestante->nome;
 
         $assunto = $manifestacao->assunto;
         $titulo = "Nova Manifestação da Ouvidoria: $codigo";
 
         $mensagem = "<h4>Você recebeu a nova manifestação do usuário no sistema de ouvidoria<h4>";
-        $mensagem = $mensagem . "<p>O cidadão $manifestante deseja saber sobre o $assunto. Ele aguarda no prazo de $prazo dias úteis pela resposta.</p>"; 
+        $mensagem = $mensagem . "<p>O cidadão $nome_manifestante deseja saber sobre o $assunto. Ele aguarda no prazo de $prazo dias úteis pela resposta.</p>"; 
         $mensagem = $mensagem . "<p><b>Código da Manifestação: </b> $codigo.</p>";
         
         foreach($ouvidores as $ouvidor)
@@ -174,7 +175,7 @@ class OuvidoriaComponent extends Component
 
                 $params = array(
                     'prazo' => $prazo,
-                    'assunto' => $titulo,
+                    'assunto' => $manifestacao->assunto,
                     'mensagem' => $manifestacao->texto,
                     'nome' => $manifestante->nome,
                     'email' => $manifestante->email,
@@ -217,8 +218,9 @@ class OuvidoriaComponent extends Component
 
         $params = array(
             'prazo' => $prazo,
-            'assunto' => $titulo,
+            'assunto' => $manifestacao->assunto,
             'mensagem' => $manifestacao->texto,
+            'id' => $manifestacao->id,
             'codigo' => $codigo
         );
 
