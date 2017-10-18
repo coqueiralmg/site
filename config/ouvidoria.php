@@ -6,6 +6,6 @@ return[
         'statusInicial' => 1,
         'prioridadeInicial' => 1,
         'prazo' => 10,
-        'sendMail' => false
+        'sendMail' => true
     ]    
 ];
