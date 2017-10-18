@@ -52,7 +52,7 @@ a { color: #2BA6CB;}
 
 p.callout {
 	padding:15px;
-	background-color:#ECF8FF;
+	background-color: #ECF8FF;
 	margin-bottom: 15px;
 }
 .callout a {
@@ -252,13 +252,24 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 			<table>
 				<tr>
 					<td>
-						<p class="lead">Muito obrigado por entrar em contato conosco. A Prefeitura Municipal de Coqueiral irá tomar devidas providências necessárias e re responderá dentro do prazo de <?=prazo?> dias úteis. Você pode utilizar o código fornecido abaixo, para verificar o andamento de sua manifestação.</p>
+						<p class="lead">Muito obrigado por entrar em contato conosco! </p>
+						<p class="lead">A <b>Prefeitura Municipal de Coqueiral</b> irá tomar devidas providências necessárias e te responderá dentro do prazo de <?=$prazo?> dias úteis.</p>
+						<p class="lead">Você pode utilizar o código fornecido abaixo, para verificar o andamento de sua manifestação, no próprio site.</p>
+						<p class="lead">Para verificar o andamento, <?=$this->Html->link('Clique aqui', ['controller' => 'Ouvidoria', 'action' => 'manifestacao', $id, '_full' => true])?></p>
+
 						<!-- Callout Panel -->
+						<p class="callout">
+							<b>ATENÇÃO!!!</b><br/><br/>
+							Toda e qualquer comunicação deve ser feita somente pelo sistema de ouvidoria da prefeitura. Por favor, não responda este e-mail. Para acessar e responder, <?=$this->Html->link('Clique aqui', ['controller' => 'Ouvidoria', 'action' => 'index', '_full' => true])?>.
+						</p>
+						
 						<h4>Dados da Manifestação</h4>
-                        <p><b>Código: </b> <?=$codigo?></p>
-                        <p><b>Assunto: </b> <?=$assunto?></p>
-                        <p>Mensagem</p>
-                        <p><?=$mensagem?></p>												
+                        <p class="lead"><b>Código: </b> <?=$codigo?></p>
+                        <p class="lead"><b>Assunto: </b> <?=$assunto?></p>
+                        <h5>Mensagem</h5>
+						<p class="lead"><?=$mensagem?></p>												
+
+						
 					</td>
 				</tr>
 			</table>
