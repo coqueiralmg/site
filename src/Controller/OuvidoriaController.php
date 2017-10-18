@@ -9,6 +9,11 @@ class OuvidoriaController extends AppController
 {
     public function index()
     {
+        $this->set('title', "Ouvidoria");
+    }
+
+    public function send()
+    {
         if($this->request->is('post'))
         {
             $nome = $this->request->getData('nome');
@@ -19,6 +24,8 @@ class OuvidoriaController extends AppController
             $mensagem = $this->request->getData('mensagem');
             $privativo = ($this->request->getData('privativo') == "1");
 
+            $mensagem = nl2br($mensagem);
+
             $idManifestante = $this->Ouvidoria->cadastrarManifestante($nome, $email, $endereco, $telefone);
             $idManifestacao = $this->Ouvidoria->inserirManifestacao($idManifestante, $assunto, $mensagem);
     
@@ -27,16 +34,12 @@ class OuvidoriaController extends AppController
             $this->Ouvidoria->enviarMensagemOuvidores($idManifestante, $idManifestacao);
             $this->Ouvidoria->notificarManifestate($idManifestante, $idManifestacao);
 
-            if($privativo)
+            if(!$privativo)
             {
-                $this->salvarDadosManifestanteCookie($mome, $email, $endereco, $telefone);
+                $this->salvarDadosManifestanteCookie($nome, $email, $endereco, $telefone);
             }
 
             $this->redirect(['controller' => 'ouvidoria', 'action' => 'sucesso', $idManifestacao]);
-        }
-        else
-        {
-            $this->set('title', "Ouvidoria");
         }
     }
 
