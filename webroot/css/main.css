@@ -2753,3 +2753,19 @@ shortcodes page css
     float: left;
     width: 180px !important;
 }
+
+.ticket {
+    background: #ddd;
+    width: 30%;
+    height: 150px;
+    margin: 30px auto;
+    border: #254C49 dashed 2px;
+    display: table;
+}
+
+.ticket span {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: xx-large;
+    font-weight: bolder;
+}
