@@ -2769,3 +2769,18 @@ shortcodes page css
     font-size: 350%;
     font-weight: bolder;
 }
+
+#merror {
+    background: rgb(216, 7, 7);
+    width: 50%;
+    height: 100px;
+    margin: 30px auto;
+    border: #eee solid 2px;
+    display: none;
+}
+
+#merror span {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+}
