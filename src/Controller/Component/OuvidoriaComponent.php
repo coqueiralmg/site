@@ -263,7 +263,7 @@ class OuvidoriaComponent extends Component
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $fechado = Configure::read('Ouvidoria.status.fechado');;
 
-        $result = $t_manifestacao->find('all'. [
+        $result = $t_manifestacao->find('all', [
             'conditions' => [
                 'manifestante' => $idManifestante,
                 'status <>' => $fechado
