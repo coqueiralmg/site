@@ -94,7 +94,7 @@ class OuvidoriaComponent extends Component
         $entity->texto = $mensagem;
         $entity->data = date("Y-m-d H:i:s");
         $entity->prioridade = Configure::read('Ouvidoria.prioridadeInicial');
-        $entity->status = Configure::read('Ouvidoria.statusInicial');
+        $entity->status = Configure::read('Ouvidoria.status.inicial');
 
         $t_manifestacao->save($entity);
 
@@ -225,6 +225,52 @@ class OuvidoriaComponent extends Component
         );
 
         $this->Sender->sendEmailTemplate($header, 'manifestante', $params);
+    }
+
+    /**
+     * Obtém o manifestante cadastrado no sistema
+     * @param int $id Código do manifestante cadastrado no sistema
+     * @return Manifestante cadastrado no sistema
+     */
+    public function obterManifestante(int $id)
+    {
+        $t_manifestante = TableRegistry::get('Manifestante');
+        $manifestante = $t_manifestante->get($id);
+
+        return $manifestante;
+    }
+
+    /**
+     * Obtém a manifestação cadastrada no sistema
+     * @param int $id Código da manifestação cadastrada no sistema
+     * @return Manifestação cadastrada no sistema, juntamente com os dados do respectivo manifestante.
+     */
+    public function obterManifestacao(int $id)
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante']]);
+
+        return $manifestacao;
+    }
+
+    /**
+     * Obtém uma lista de manifestações do manifestante, que ainda estão em aberto
+     * @param int $idManifestante Código do manifestante cadastrado no sistema
+     * @return Lista de manifestações em aberto no sistema.
+     */
+    public function obterManifestacoesAbertas(int $idManifestante)
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $fechado = Configure::read('Ouvidoria.status.fechado');;
+
+        $result = $t_manifestacao->find('all'. [
+            'conditions' => [
+                'manifestante' => $idManifestante,
+                'status <>' => $fechado
+            ]
+        ]);
+
+        return $result->toArray();
     }
 
     /**
