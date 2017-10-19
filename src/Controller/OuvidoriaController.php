@@ -31,7 +31,7 @@ class OuvidoriaController extends AppController
             $telefone = $this->request->getData('telefone');
             $assunto = $this->request->getData('assunto');
             $mensagem = $this->request->getData('mensagem');
-            $privativo = ($this->request->getData('privativo') == "1");
+            $privativo = ($this->request->getData('privativo') == "on");
 
             $mensagem = nl2br($mensagem);
 
@@ -47,13 +47,21 @@ class OuvidoriaController extends AppController
             {
                 $this->salvarDadosManifestanteCookie($idManifestante);
             }
+            else
+            {
+                if($this->Cookie->check('ouvidoria_manifestante'))
+                {
+                    $this->Cookie->delete('ouvidoria_manifestante');
+                }
+            }
 
-            $this->redirect(['controller' => 'ouvidoria', 'action' => 'sucesso', $idManifestacao]);
+            $this->redirect(['controller' => 'ouvidoria', 'action' => 'sucesso', base64_encode($idManifestacao)]);
         }
     }
 
-    public function sucesso(int $idManifestacao)
+    public function sucesso(string $idManifestacao)
     {
+        $idManifestacao = base64_decode($idManifestacao);
         $manifestacao = $this->obterManifestacao($idManifestacao);
         $manifestacoes = $this->obterManifestacoesAbertas($manifestacao->manifestante->id);
         
