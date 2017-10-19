@@ -2,6 +2,7 @@
         <div class="center">
             <h2>Entre em contato com a prefeitura</h2>
             <p class="lead">Preencha corretamente todos os campos para facilitar o retorno e validar seu contato. A prefeitura garante total sigilo de seus dados.</p>
+            <p class="lead">Para verificar o andamento de sua manifestação, <a href="/ouvidoria/andamento">clique aqui.</a></p>
         </div>
         <div class="gmap-area">
             <div class="container">
@@ -37,23 +38,33 @@
         </div>
         <div class="row contact-wrap">
             <div class="status alert alert-success" style="display: none"></div>
-            <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="/ouvidoria/send">
+            <?php
+                echo $this->Form->create($manifestante, [
+                    "url" => [
+                        "controller" => "ouvidoria",
+                        "action" => "send"
+                    ],
+                    "id" => "main-contact-form",
+                    "class" => "contact-form",
+                    "name" => "contact-form"]);
+                ?>
+            
                 <div class="col-sm-5 col-sm-offset-1">
                     <div class="form-group">
                         <label>Nome *</label>
-                        <input type="text" id="nome" name="nome" class="form-control" required="required">
+                        <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control", "required" => true, "maxlength" => 80]) ?>
                     </div>
                     <div class="form-group">
                         <label>E-mail *</label>
-                        <input type="email" id="email" name="email" class="form-control" required="required">
+                        <?= $this->Form->email("email", ["id" => "email", "class" => "form-control", "required" => true, "maxlength" => 50]) ?>
                     </div>
                     <div class="form-group">
                         <label>Endereço</label>
-                        <input type="text" id="endereco" name="endereco" class="form-control">
+                        <?= $this->Form->text("endereco", ["id" => "endereco", "class" => "form-control", "maxlength" => 50]) ?>
                     </div>
                     <div class="form-group">
                         <label>Telefone de Contato</label>
-                        <input type="tel" id="telefone" name="telefone" class="form-control">
+                        <?= $this->Form->tel("telefone", ["id" => "telefone", "class" => "form-control", "maxlength" => 50]) ?>
                     </div>
                 </div>
                 <div class="col-sm-5">

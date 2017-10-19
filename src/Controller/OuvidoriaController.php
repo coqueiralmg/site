@@ -23,7 +23,7 @@ class OuvidoriaController extends AppController
 
     public function send()
     {
-        if($this->request->is('post'))
+        if($this->request->is('post') || $this->request->is('put'))
         {
             $nome = $this->request->getData('nome');
             $email = $this->request->getData('email');
