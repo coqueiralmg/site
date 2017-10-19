@@ -30,6 +30,7 @@
 
 	<?= $this->Html->script('jquery.js') ?>
     <?= $this->Html->script('bootstrap.min.js') ?>
+    <?= $this->Html->script('material.min.js') ?>
     <?= $this->Html->script('material-dashboard.js') ?>
 
     <script type="text/javascript">
