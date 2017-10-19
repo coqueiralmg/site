@@ -5,14 +5,14 @@
         <div class="col-md-4">
             <div class="form-group label-control">
                 <?= $this->Form->label("numero", "Número") ?><br/>
-                <b><?=$this->Format->zeroPad($manifestacao)?></b>
+                <b><?=$this->Format->zeroPad($manifestacao->id)?></b>
                 <span class="material-input"></span>
             </div>
         </div>
         <div class="col-md-5">
             <div class="form-group label-control">
                 <?= $this->Form->label("data", "Data") ?><br/>
-                23/08/2017 15:13:27
+                <?=$this->Format->date($manifestacao->data, true)?>
                 <span class="material-input"></span>
             </div>
         </div>
@@ -21,14 +21,14 @@
         <div class="col-md-4">
             <div class="form-group label-control">
                 <?= $this->Form->label("autor", "Autor") ?><br/>
-                Mislene de Oliveira
+                <?=$manifestacao->manifestante->nome?>
                 <span class="material-input"></span>
             </div>
         </div>
         <div class="col-md-5">
             <div class="form-group label-control">
                 <?= $this->Form->label("email", "E-mail") ?><br/>
-                missoliveira@gmail.com
+                <?=$manifestacao->manifestante->email?>
                 <span class="material-input"></span>
             </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="col-md-12">
                 <div class="form-group">
                     <?= $this->Form->label("assunto", "Assunto") ?><br/>
-                    Lâmpada Queimada
+                    <?=$manifestacao->assunto?>
                     <span class="material-input"></span>
                 </div>
            </div>
@@ -46,7 +46,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <?= $this->Form->label("mensagem", "Mensagem") ?><br/>
-                Favor consertar iluminação na Rua Duque de Caxias que está um breu!
+                <?=$manifestacao->texto?>
                 <span class="material-input"></span>
             </div>
         </div>
