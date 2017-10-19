@@ -2784,3 +2784,29 @@ shortcodes page css
     vertical-align: middle;
     color: white;
 }
+
+#malert {
+    background: gold;
+    width: 50%;
+    height: 150px;
+    margin: 30px auto;
+    border: #eee solid 2px;
+    display: table;
+}
+
+#malert span {
+    display: table-row;
+    vertical-align: middle;
+    color: #4e4e4e;
+}
+
+#malert .buttons {
+    display: table-row;
+    vertical-align: middle;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#malert .buttons .btn {
+    background-color: #009900;
+}
