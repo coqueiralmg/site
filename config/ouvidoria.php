@@ -3,7 +3,10 @@
 return[
     'Ouvidoria' => [
         'grupoOuvidor'=> 7,
-        'statusInicial' => 1,
+        'status' => [
+            'inicial' => 1,
+            'fechado' => 6
+        ],
         'prioridadeInicial' => 1,
         'prazo' => 10,
         'sendMail' => true
