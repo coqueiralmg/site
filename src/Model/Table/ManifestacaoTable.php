@@ -10,5 +10,12 @@ class ManifestacaoTable extends BaseTable
         $this->table('manifestacao');
         $this->primaryKey('id');
         $this->entityClass('Manifestacao');
+
+        $this->belongsTo('Manifestante', [
+            'className' => 'Manifestante',
+            'foreignKey' => 'manifestante',
+            'propertyName' => 'manifestante',
+            'joinType' => 'INNER'
+        ]);
     }
 }
