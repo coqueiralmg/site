@@ -45,16 +45,23 @@ class OuvidoriaController extends AppController
 
     public function sucesso(int $idManifestacao)
     {
+        $manifestacao = $this->Ouvidoria->obterManifestacao($idManifestacao);
+        $manifestacoes = $this->Ouvidoria->obterManifestacoesAbertas($manifestacao->manifestante->id);
+        
         $this->set('title', "Sucesso");
         $this->set('manifestacao', $idManifestacao);
+        $this->set('manifestacoes', $manifestacoes);
+        $this->set('manifestante', $manifestacao->manifestante->id);
     }
 
     public function imprimir(int $idManifestacao)
     {
+        $manifestacao = $this->Ouvidoria->obterManifestacao($idManifestacao);
+        
         $this->viewBuilder()->layout('print');
         
         $this->set('title', "Manifestação da Ouvidoria");
-        $this->set('manifestacao', $idManifestacao);
+        $this->set('manifestacao', $manifestacao);
     }
 
     private function salvarDadosManifestanteCookie($nome, $email, $endereco, $telefone)
