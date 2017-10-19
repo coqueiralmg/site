@@ -52,7 +52,7 @@ class AppController extends Controller
         $this->loadComponent('Cookie');
         $this->loadComponent('Firewall');
         $this->loadComponent('Entries');
-        $this->loadComponent('Ouvidoria');
+        $this->loadComponent('Format');
 
         $this->registerAccessLog();  
         $this->configurarAcesso();
