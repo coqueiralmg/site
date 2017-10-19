@@ -14,7 +14,7 @@
                 Notamos aqui que você tem enviado suas manifestações anteriormente e os mesmos ainda encontram-se em aberto. Deseja verificar o andamento de outras manifestações?
             </span>
             <div class="buttons">
-                <a class="btn btn-primary" href="/ouvidoria/andamento/<?=$manifestacao?>">Sim</a>
+                <a class="btn btn-primary" href="/ouvidoria/andamento">Sim</a>
                 <a class="btn btn-primary" onclick="$('#malert').hide()" >Não</a>        
             </div>
         </div>
