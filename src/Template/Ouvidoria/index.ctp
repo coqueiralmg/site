@@ -94,7 +94,7 @@
                         </div>
                     <?php else: ?>
                         <div class="form-group">
-                            <button type="submit" id="enviar" name="enviar" class="g-recaptcha btn btn-primary btn-lg" data-sitekey="6LfbJjUUAAAAAP7GFrCMqGaz8BaexqXmYha6ozbV" data-callback="onSubmit">Enviar Mensagem</button>
+                            <button type="submit" id="enviar" name="enviar" class="g-recaptcha btn btn-primary btn-lg" data-sitekey="<?=$this->Data->setting('Security.reCaptcha.invisible.siteKey')?>" data-callback="onSubmit">Enviar Mensagem</button>
                         </div>
                     <?php endif; ?>
                 </div>
