@@ -760,6 +760,50 @@ input.search-form:hover {
     width: 80%;
 }
 
+.login_ouvidoria{
+    background: #f1f1f1;
+    text-align: left;
+    padding: 40px;
+    margin: 25px;
+    overflow: auto;
+}
+
+.login_ouvidoria label{
+    display: block;
+}
+
+.login_ouvidoria input{
+    display: inline-block;
+    width: 70%;
+}
+
+.login_ouvidoria button {
+    width: 120px;
+}
+
+@media screen and (max-width: 1200px) and (min-width: 801px) {
+    .login_ouvidoria input{
+        width: 60%;
+    }
+
+    .login_ouvidoria button{
+        float: right;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .login_ouvidoria input{
+        display: block;
+        width: 100%;
+    }
+
+    .login_ouvidoria button{
+        display: block;
+        margin-top: 10px;
+        float: right;
+    }
+}
+
 @media screen and (max-width: 460px) {
     .busca {
         display: inline-block;
