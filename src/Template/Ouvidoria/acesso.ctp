@@ -9,6 +9,7 @@
                 <?php
                 echo $this->Form->create("ouvidoria", [
                     'class' => 'login_ouvidoria',
+                    'id' => 'frm_logon',
                     'url' => [
                         'controller' => 'ouvidoria',
                         'action' => 'logon'
@@ -16,14 +17,14 @@
                 ?>
                  <?= $this->Form->label('email', 'E-mail') ?>
                  <?= $this->Form->email('email', ['id' => 'email', 'class' => 'form-control', 'value' => $email]) ?>
-                 <div class="g-recaptcha" data-sitekey="6LeLIjUUAAAAACJAPVBLYecOJhY1tNA2g1uFQ63m"></div>
-                 <button type="submit" id="btn-pesquisar" class="btn btn-success"><i class="fa fa-chevron-circle-right"></i>&nbsp;Entrar</button>
+                 <button type="submit" id="btn-entrar" class="g-recaptcha btn btn-success" data-sitekey="<?=$this->Data->setting('Security.reCaptcha.invisible.siteKey')?>" data-callback="onSubmitAcesso"><i class="fa fa-chevron-circle-right"></i>&nbsp;Entrar</button>
                 <?php echo $this->Form->end(); ?>
             </div>
             <div class="col-md-6">
             <?php
                 echo $this->Form->create("ouvidoria", [
                     'class' => 'login_ouvidoria',
+                    'id' => 'frm_manifestacao',
                     'url' => [
                         'controller' => 'ouvidoria',
                         'action' => 'manifestacao'
@@ -31,8 +32,7 @@
                 ?>
                 <?= $this->Form->label('numero', 'Número') ?>
                 <?= $this->Form->number('numero', ['id' => 'numero', 'class' => 'form-control']) ?>
-                <div class="g-recaptcha" data-sitekey="6LeLIjUUAAAAACJAPVBLYecOJhY1tNA2g1uFQ63m"></div>
-                <button type="submit" id="btn-pesquisar" class="btn btn-success"><i class="fa fa-eye"></i>&nbsp;Consultar</button>
+                <button type="submit" id="btn-consultar" class="g-recaptcha btn btn-success" data-sitekey="<?=$this->Data->setting('Security.reCaptcha.invisible.siteKey')?>" data-callback="onSubmitManifesto"><i class="fa fa-eye"></i>&nbsp;Consultar</button>
                 <?php echo $this->Form->end(); ?>
             </div>
         </div>
