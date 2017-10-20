@@ -15,7 +15,7 @@
                     ]]);
                 ?>
                  <?= $this->Form->label('email', 'E-mail') ?>
-                 <?= $this->Form->email('email', ['id' => 'email', 'class' => 'form-control']) ?>
+                 <?= $this->Form->email('email', ['id' => 'email', 'class' => 'form-control', 'value' => $email]) ?>
                  <button type="submit" id="btn-pesquisar" class="btn btn-success"><i class="fa fa-chevron-circle-right"></i>&nbsp;Entrar</button>
                 <?php echo $this->Form->end(); ?>
             </div>

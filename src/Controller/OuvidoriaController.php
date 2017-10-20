@@ -81,6 +81,25 @@ class OuvidoriaController extends AppController
         $this->set('manifestacao', $manifestacao);
     }
 
+    public function acesso()
+    {
+        $manifestante = null;
+        
+        if($this->Cookie->check('ouvidoria_manifestante'))
+        {
+            $idManifestante = $this->Cookie->read('ouvidoria_manifestante');
+            $manifestante = $this->obterManifestante($idManifestante);
+        }
+
+        $this->set('title', "Ouvidoria");
+        $this->set('email', ($manifestante == null) ? '' : $manifestante->email);
+    }
+
+    public function andamento()
+    {
+
+    }
+
     private function salvarDadosManifestanteCookie($idManifestante)
     {
         $this->Cookie->write('ouvidoria_manifestante', $idManifestante);
