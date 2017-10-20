@@ -94,7 +94,7 @@ class OuvidoriaController extends AppController
      * @param string $telefone Telefone de contato do manifestante
      * @return int Código do registro de manifestante
      */
-    public function cadastrarManifestante(string $nome, string $email, string $endereco, string $telefone)
+    private function cadastrarManifestante(string $nome, string $email, string $endereco, string $telefone)
     {
         $t_manifestante = TableRegistry::get('Manifestante');
 
@@ -150,11 +150,11 @@ class OuvidoriaController extends AppController
     /**
      * Efetua o cadastro de uma nova manifestação na ouvidoria
      * @param int $idManifestante Código do manifestante responsável pela manifestação
-     * @param string $assunto Assinto da manifestação
+     * @param string $assunto Assinto da manifeuustação
      * @param string $mensagem Mensagem do corpo da mensagem da manifestação
      * @return int Código da manifestação do sistema.
      */
-    public function inserirManifestacao(int $idManifestante, string $assunto, string $mensagem)
+    private function inserirManifestacao(int $idManifestante, string $assunto, string $mensagem)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
 
@@ -178,7 +178,7 @@ class OuvidoriaController extends AppController
      * @param string $mensagem Mensagem a ser gravada no histórico
      * @param bool $notificar Se deve notificar o manifestante. Por padrão é falso.
      */
-    public function registrarHistorico(int $manifestacao, string $mensagem, bool $notificar = false)
+    private function registrarHistorico(int $manifestacao, string $mensagem, bool $notificar = false)
     {
         $t_historico = TableRegistry::get('Historico');
 
@@ -199,7 +199,7 @@ class OuvidoriaController extends AppController
      * @param int $idManifestante Código do manifestante da ouvidoria
      * @param int $idManifestacao Código da manifestação da ouvidoria
      */
-    public function enviarMensagemOuvidores(int $idManifestante, int $idManifestacao)
+    private function enviarMensagemOuvidores(int $idManifestante, int $idManifestacao)
     {
         $t_mensagens = TableRegistry::get('Mensagem');
         $t_manifestante = TableRegistry::get('Manifestante');
@@ -266,7 +266,7 @@ class OuvidoriaController extends AppController
      * @param int $idManifestacao Código da manifestação da ouvidoria
      * @param string $mensagem Mensagem a ser enviada para o manifestante, na notificação
      */
-    public function notificarManifestate(int $idManifestante, int $idManifestacao)
+    private function notificarManifestate(int $idManifestante, int $idManifestacao)
     {
         $t_manifestante = TableRegistry::get('Manifestante');
         $t_manifestacao = TableRegistry::get('Manifestacao');
@@ -303,7 +303,7 @@ class OuvidoriaController extends AppController
      * @param int $id Código do manifestante cadastrado no sistema
      * @return Manifestante cadastrado no sistema
      */
-    public function obterManifestante(int $id)
+    private function obterManifestante(int $id)
     {
         $t_manifestante = TableRegistry::get('Manifestante');
         $manifestante = $t_manifestante->get($id);
@@ -316,7 +316,7 @@ class OuvidoriaController extends AppController
      * @param int $id Código da manifestação cadastrada no sistema
      * @return Manifestação cadastrada no sistema, juntamente com os dados do respectivo manifestante.
      */
-    public function obterManifestacao(int $id)
+    private function obterManifestacao(int $id)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante']]);
@@ -329,7 +329,7 @@ class OuvidoriaController extends AppController
      * @param int $idManifestante Código do manifestante cadastrado no sistema
      * @return Lista de manifestações em aberto no sistema.
      */
-    public function obterManifestacoesAbertas(int $idManifestante)
+    private function obterManifestacoesAbertas(int $idManifestante)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $fechado = Configure::read('Ouvidoria.status.fechado');;
