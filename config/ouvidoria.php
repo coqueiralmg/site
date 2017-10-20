@@ -2,6 +2,7 @@
 
 return[
     'Ouvidoria' => [
+        'ativo' => true,
         'grupoOuvidor'=> 7,
         'status' => [
             'inicial' => 1,
