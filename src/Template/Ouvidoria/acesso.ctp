@@ -16,6 +16,7 @@
                 ?>
                  <?= $this->Form->label('email', 'E-mail') ?>
                  <?= $this->Form->email('email', ['id' => 'email', 'class' => 'form-control', 'value' => $email]) ?>
+                 <div class="g-recaptcha" data-sitekey="6LeLIjUUAAAAACJAPVBLYecOJhY1tNA2g1uFQ63m"></div>
                  <button type="submit" id="btn-pesquisar" class="btn btn-success"><i class="fa fa-chevron-circle-right"></i>&nbsp;Entrar</button>
                 <?php echo $this->Form->end(); ?>
             </div>
@@ -30,6 +31,7 @@
                 ?>
                 <?= $this->Form->label('numero', 'Número') ?>
                 <?= $this->Form->number('numero', ['id' => 'numero', 'class' => 'form-control']) ?>
+                <div class="g-recaptcha" data-sitekey="6LeLIjUUAAAAACJAPVBLYecOJhY1tNA2g1uFQ63m"></div>
                 <button type="submit" id="btn-pesquisar" class="btn btn-success"><i class="fa fa-eye"></i>&nbsp;Consultar</button>
                 <?php echo $this->Form->end(); ?>
             </div>
