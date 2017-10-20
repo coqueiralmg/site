@@ -2,7 +2,7 @@
         <div class="center">
             <h2>Entre em contato com a prefeitura</h2>
             <p class="lead">Preencha corretamente todos os campos para facilitar o retorno e validar seu contato. A prefeitura garante total sigilo de seus dados.</p>
-            <p class="lead">Para verificar o andamento de sua manifestação, <a href="/ouvidoria/andamento">clique aqui.</a></p>
+            <p class="lead">Para verificar o andamento de sua manifestação, <a href="/ouvidoria/acesso">clique aqui.</a></p>
         </div>
         <div class="gmap-area">
             <div class="container">

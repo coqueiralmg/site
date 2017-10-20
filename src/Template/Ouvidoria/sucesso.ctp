@@ -14,13 +14,13 @@
                 Notamos aqui que você tem enviado suas manifestações anteriormente e os mesmos ainda encontram-se em aberto. Deseja verificar o andamento de outras manifestações?
             </span>
             <div class="buttons">
-                <a class="btn btn-primary" href="/ouvidoria/andamento">Sim</a>
+                <a class="btn btn-primary" href="/ouvidoria/acesso">Sim</a>
                 <a class="btn btn-primary" onclick="$('#malert').hide()" >Não</a>        
             </div>
         </div>
     <?php endif;?>
     <a class="btn btn-primary" href="/">Página Inicial</a>
     <a class="btn btn-primary" href="/ouvidoria">Nova Manifestacao</a>
-    <a class="btn btn-primary" href="/ouvidoria/andamento">Verificar Andamentos</a>
+    <a class="btn btn-primary" href="/ouvidoria/acesso">Verificar Andamentos</a>
     <a class="btn btn-primary" href="<?='/ouvidoria/imprimir/' . $manifestacao?>" target="_blank">Imprimir</a>
 </section><!--/#error-->
