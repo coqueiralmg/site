@@ -85,3 +85,20 @@ function efetuarBusca(e) {
 
 	return false;
 }
+
+function enviarMensagem() {
+	 var response = grecaptcha.getResponse(); 
+
+	 if(response == null || response == ""){
+		swal(
+			'Atenção',
+			'Por favor, prove à Prefeitura de Coqueiral de que você não é um robô.',
+			'warning'
+		);	
+
+		return false;
+	 }
+
+	 return true;
+}
+
