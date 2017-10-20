@@ -1,3 +1,9 @@
+<script type="text/javascript">
+    function onSubmit(token)
+    {
+        document.getElementById("main-contact-form").submit();	
+    }
+</script>
 <section id="contact-info">
         <div class="center">
             <h2>Entre em contato com a prefeitura</h2>
@@ -81,9 +87,16 @@
                             <input type="checkbox" id="privativo" name="privativo"> Não salvar os dados neste computador <a data-toggle="popover" data-html="true" data-container="body" data-placement="top" data-content="O portal da Prefeitura Municipal de Coqueiral possui recursos para facilitar comunicação entre você e a prefeitura. Para isso, esta opção precisa ser desmarcada. É recomendável que se marque esta opção, caso esteja acessando este site de computadores públicos como em lanhouses, cybercafés e similares. Os dados enviados serão salvos no nosso banco de dados, para análise e o melhor atendimento, mas é você quem decide, se os mesmos podem ser salvos neste computador.  Para maiores informações, veja a nossa <a href='/privacidade' style='text-decoration: underline'>Política de Privacidade</a>."><i class="fa fa-question-circle"></i></a>
                         </div>
                     <?php endif;?>
-                    <div class="form-group">
-                        <button type="submit" onclick="enviarMensagem()" name="submit" class="btn btn-primary btn-lg" required="required">Enviar Mensagem</button>
-                    </div>
+                    <?php if($manifestante == null):?>
+                        <div id="recapcha" class="g-recaptcha" data-sitekey="<?=$this->Data->setting('Security.reCaptcha.default.siteKey')?>"></div>
+                        <div class="form-group">
+                            <button type="submit" onclick="return enviarMensagem()" name="submit" class="btn btn-primary btn-lg" required="required">Enviar Mensagem</button>
+                        </div>
+                    <?php else: ?>
+                        <div class="form-group">
+                            <button type="submit" id="enviar" name="enviar" class="g-recaptcha btn btn-primary btn-lg" data-sitekey="6LfbJjUUAAAAAP7GFrCMqGaz8BaexqXmYha6ozbV" data-callback="onSubmit">Enviar Mensagem</button>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </form>
         </div>
