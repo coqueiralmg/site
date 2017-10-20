@@ -3,10 +3,24 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\Http\Client;
 use Cake\ORM\TableRegistry;
 
 class OuvidoriaController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+
+        $ativo = Configure::read('Ouvidoria.ativo');
+        $action = strtolower($this->request->param('action'));
+
+        if(!$ativo && $action != "indisponivel")
+        {
+            $this->redirect(['controller' => 'ouvidoria', 'action' => 'indisponivel']);
+        }
+    }   
+    
     public function index()
     {
         $manifestante = null;
@@ -18,7 +32,7 @@ class OuvidoriaController extends AppController
         }
 
         $this->set('title', "Ouvidoria");
-        $this->set('manifestante', $manifestante);
+        $this->set('manifestante', $manifestante);        
     }
 
     public function send()
@@ -31,31 +45,53 @@ class OuvidoriaController extends AppController
             $telefone = $this->request->getData('telefone');
             $assunto = $this->request->getData('assunto');
             $mensagem = $this->request->getData('mensagem');
+
             $privativo = ($this->request->getData('privativo') == "on");
+            $captcha_response = $this->request->getData('g-recaptcha-response');
+            $invisivel = $this->request->is('put');
 
-            $mensagem = nl2br($mensagem);
-
-            $idManifestante = $this->cadastrarManifestante($nome, $email, $endereco, $telefone);
-            $idManifestacao = $this->inserirManifestacao($idManifestante, $assunto, $mensagem);
-    
-            $this->registrarHistorico($idManifestacao, 'Nova manifestação de ouvidoria', true);
-    
-            $this->enviarMensagemOuvidores($idManifestante, $idManifestacao);
-            $this->notificarManifestate($idManifestante, $idManifestacao);
-
-            if(!$privativo)
+            if($this->validateCaptcha($captcha_response, $invisivel))
             {
-                $this->salvarDadosManifestanteCookie($idManifestante);
+                $mensagem = nl2br($mensagem);
+
+                $idManifestante = $this->cadastrarManifestante($nome, $email, $endereco, $telefone);
+
+                $manifestante = $this->obterManifestante($idManifestante);
+
+                if($manifestante->bloqueado)
+                {
+                    $mensagem = 'O e-mail que você informou, está impedido de enviar mensagens para a ouvidoria.';
+                    $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
+                }
+                else
+                {
+                    $idManifestacao = $this->inserirManifestacao($idManifestante, $assunto, $mensagem);
+            
+                    $this->registrarHistorico($idManifestacao, 'Nova manifestação de ouvidoria', true);
+            
+                    $this->enviarMensagemOuvidores($idManifestante, $idManifestacao);
+                    $this->notificarManifestate($idManifestante, $idManifestacao);
+
+                    if(!$privativo)
+                    {
+                        $this->salvarDadosManifestanteCookie($idManifestante);
+                    }
+                    else
+                    {
+                        if($this->Cookie->check('ouvidoria_manifestante'))
+                        {
+                            $this->Cookie->delete('ouvidoria_manifestante');
+                        }
+                    }
+
+                    $this->redirect(['controller' => 'ouvidoria', 'action' => 'sucesso', base64_encode($idManifestacao)]);
+                }
             }
             else
             {
-                if($this->Cookie->check('ouvidoria_manifestante'))
-                {
-                    $this->Cookie->delete('ouvidoria_manifestante');
-                }
+                $mensagem = 'O sistema detectou que você está enviando SPAM ou usando sistemas automatizados (robôs). Por favor, utilize o sistema de ouvidoria de forma correta.';
+                $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
             }
-
-            $this->redirect(['controller' => 'ouvidoria', 'action' => 'sucesso', base64_encode($idManifestacao)]);
         }
     }
 
@@ -93,6 +129,58 @@ class OuvidoriaController extends AppController
 
         $this->set('title', "Ouvidoria");
         $this->set('email', ($manifestante == null) ? '' : $manifestante->email);
+    }
+
+    public function logon()
+    {
+        if($this->request->is('post'))
+        {
+            $t_manifestante = TableRegistry::get('Manifestante');
+
+            $email = $this->request->getData('email');
+
+            $query = $t_manifestante->find('all', [
+                'conditions' => [
+                    'email' => $email
+                ]
+            ]);
+
+            if($query->count() > 0)
+            {
+                $manifestante = $query->first();
+
+                if($manifestante->bloqueado)
+                {
+                    $mensagem = 'O e-mail que você informou, encontra-se impedido de acessar o sistema de ouvidoria.';
+                    $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
+                }
+                else
+                {
+                    $this->request->session()->write('Manifestante', $manifestante);
+                    $this->request->session()->write('ManifestanteID', $manifestante->id);
+
+                    $this->redirect(['controller' => 'ouvidoria', 'action' => 'andamento']);
+                }
+            }
+            else
+            {
+                $mensagem = 'O e-mail que você informou, não existe no nosso banco de dados.';
+                $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
+            }
+        }
+    }
+
+    public function falha(string $mensagem)
+    {
+        $mensagem = base64_decode($mensagem);
+
+        $this->set('title', "Erro");
+        $this->set('mensagem', $mensagem);
+    }
+
+    public function indisponivel()
+    {
+        $this->set('title', "Ouvidoria Indisponível");
     }
 
     public function andamento()
@@ -183,6 +271,7 @@ class OuvidoriaController extends AppController
         $entity->assunto = $assunto;
         $entity->texto = $mensagem;
         $entity->data = date("Y-m-d H:i:s");
+        $entity->ip = $_SERVER['REMOTE_ADDR'];
         $entity->prioridade = Configure::read('Ouvidoria.prioridadeInicial');
         $entity->status = Configure::read('Ouvidoria.status.inicial');
 
@@ -381,6 +470,35 @@ class OuvidoriaController extends AppController
         ]);
 
         return $usuarios->toArray();
+    }
+
+    private function validateCaptcha(string $captcha_response, bool $invisible)
+    {
+        $params = null;
+        
+        if($invisible)
+        {
+            $params = [
+                'secret' => Configure::read('Security.reCaptcha.invisible.secretKey'),
+                'response' => $captcha_response,
+                'remoteip' => $_SERVER['REMOTE_ADDR']
+            ];
+        }
+        else
+        {
+            $params = [
+                'secret' => Configure::read('Security.reCaptcha.default.secretKey'),
+                'response' => $captcha_response,
+                'remoteip' => $_SERVER['REMOTE_ADDR']
+            ];
+        }
+
+        $url = Configure::read('Security.reCaptcha.urlVerify');
+        $http = new Client();
+        $response = $http->post($url, $params);
+        $result = $response->json;
+
+        return $result['success'];
     }
 
 }
