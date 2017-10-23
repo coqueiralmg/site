@@ -247,18 +247,26 @@ class OuvidoriaController extends AppController
         $this->set('opcao_paginacao', $opcao_paginacao);
     }
 
-    public function manifestacao(int $id)
+    public function manifestacao(int $id = 0)
     {
-        if(!isset($id))
+        if($id == 0)
         {
             $id = $this->request->getData('numero');
         }
 
         $t_manifestacao = TableRegistry::get('Manifestacao');
+        $t_historico = TableRegistry::get('Historico');
+
         $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
+        $historico = $t_historico->find('all', [
+            'conditions' => [
+                'manifestacao' => $id
+            ]
+        ]);
 
         $this->set('title', "Dados da Manifestação");
         $this->set('manifestacao', $manifestacao);
+        $this->set('historico', $historico);
     }
 
     private function salvarDadosManifestanteCookie($idManifestante)

@@ -1138,8 +1138,9 @@ a.accordion-toggle i {
 }
 
 #conatcat-info {
-    background: #fff url(../img/contact.png) no-repeat 90% 0;
+    background: #fff;
     padding: 30px 0;
+    border: solid #254C49 1px;
 }
 
 .contact-info i {
@@ -2551,17 +2552,6 @@ ul.sidebar-gallery {
     background: #f5f5f5;
     border-radius: 4px;
     padding: 30px;
-}
-
-.post_reply_comments:before {
-    border-color: transparent #F0F0F0 transparent transparent;
-    border-style: solid;
-    border-width: 15px;
-    content: " ";
-    height: 0;
-    left: 75px;
-    position: absolute;
-    top: 20px;
 }
 
 .post_reply_comments h3,
