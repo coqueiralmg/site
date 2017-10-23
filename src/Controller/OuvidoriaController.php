@@ -25,10 +25,17 @@ class OuvidoriaController extends AppController
     {
         $manifestante = null;
         
-        if($this->Cookie->check('ouvidoria_manifestante'))
+        if($this->request->session()->check('Manifestante'))
         {
-            $idManifestante = $this->Cookie->read('ouvidoria_manifestante');
-            $manifestante = $this->obterManifestante($idManifestante);
+            $manifestante = $this->request->session()->read('Manifestante');
+        }
+        else
+        {
+            if($this->Cookie->check('ouvidoria_manifestante'))
+            {
+                $idManifestante = $this->Cookie->read('ouvidoria_manifestante');
+                $manifestante = $this->obterManifestante($idManifestante);
+            }
         }
 
         $this->set('title', "Ouvidoria");
@@ -119,16 +126,23 @@ class OuvidoriaController extends AppController
 
     public function acesso()
     {
-        $manifestante = null;
-        
-        if($this->Cookie->check('ouvidoria_manifestante'))
+        if($this->request->session()->check('Manifestante'))
         {
-            $idManifestante = $this->Cookie->read('ouvidoria_manifestante');
-            $manifestante = $this->obterManifestante($idManifestante);
+            $this->redirect(['controller' => 'ouvidoria', 'action' => 'andamento']);
         }
+        else
+        {
+            $manifestante = null;
+            
+            if($this->Cookie->check('ouvidoria_manifestante'))
+            {
+                $idManifestante = $this->Cookie->read('ouvidoria_manifestante');
+                $manifestante = $this->obterManifestante($idManifestante);
+            }
 
-        $this->set('title', "Ouvidoria");
-        $this->set('email', ($manifestante == null) ? '' : $manifestante->email);
+            $this->set('title', "Ouvidoria");
+            $this->set('email', ($manifestante == null) ? '' : $manifestante->email);
+        }
     }
 
     public function logon()
@@ -179,6 +193,12 @@ class OuvidoriaController extends AppController
         }
     }
 
+    public function logoff()
+    {
+        $this->request->session()->destroy();
+        $this->redirect(['controller' => 'ouvidoria', 'action' => 'acesso']);
+    }
+
     public function falha(string $mensagem)
     {
         $mensagem = base64_decode($mensagem);
@@ -225,6 +245,20 @@ class OuvidoriaController extends AppController
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
+    }
+
+    public function manifestacao(int $id)
+    {
+        if(!isset($id))
+        {
+            $id = $this->request->getData('numero');
+        }
+
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
+
+        $this->set('title', "Dados da Manifestação");
+        $this->set('manifestacao', $manifestacao);
     }
 
     private function salvarDadosManifestanteCookie($idManifestante)
