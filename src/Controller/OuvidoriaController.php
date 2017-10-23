@@ -135,36 +135,45 @@ class OuvidoriaController extends AppController
     {
         if($this->request->is('post'))
         {
-            $t_manifestante = TableRegistry::get('Manifestante');
-
             $email = $this->request->getData('email');
+            $captcha_response = $this->request->getData('g-recaptcha-response');
 
-            $query = $t_manifestante->find('all', [
-                'conditions' => [
-                    'email' => $email
-                ]
-            ]);
-
-            if($query->count() > 0)
+            if($this->validateCaptcha($captcha_response, true))
             {
-                $manifestante = $query->first();
+                $t_manifestante = TableRegistry::get('Manifestante');
 
-                if($manifestante->bloqueado)
+                $query = $t_manifestante->find('all', [
+                    'conditions' => [
+                        'email' => $email
+                    ]
+                ]);
+
+                if($query->count() > 0)
                 {
-                    $mensagem = 'O e-mail que você informou, encontra-se impedido de acessar o sistema de ouvidoria.';
-                    $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
+                    $manifestante = $query->first();
+
+                    if($manifestante->bloqueado)
+                    {
+                        $mensagem = 'O e-mail que você informou, encontra-se impedido de acessar o sistema de ouvidoria.';
+                        $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
+                    }
+                    else
+                    {
+                        $this->request->session()->write('Manifestante', $manifestante);
+                        $this->request->session()->write('ManifestanteID', $manifestante->id);
+
+                        $this->redirect(['controller' => 'ouvidoria', 'action' => 'andamento']);
+                    }
                 }
                 else
                 {
-                    $this->request->session()->write('Manifestante', $manifestante);
-                    $this->request->session()->write('ManifestanteID', $manifestante->id);
-
-                    $this->redirect(['controller' => 'ouvidoria', 'action' => 'andamento']);
+                    $mensagem = 'O e-mail que você informou, não existe no nosso banco de dados.';
+                    $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
                 }
             }
             else
             {
-                $mensagem = 'O e-mail que você informou, não existe no nosso banco de dados.';
+                $mensagem = 'O sistema detectou que você está tentando acessar o sistema de forma indevida, através de meios não convencionais, como robôs. Por favor, utilize o sistema de ouvidoria de forma correta.';
                 $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
             }
         }
@@ -185,7 +194,37 @@ class OuvidoriaController extends AppController
 
     public function andamento()
     {
+        $this->controlAuth();
+        
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $limite_paginacao = Configure::read('Pagination.limit');
 
+        $conditions = [
+            'manifestante' => $this->request->session()->read('ManifestanteID')
+        ];
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+            'contain' => ['Prioridade', 'Status'],
+            'conditions' => $conditions,
+            'order' => [
+                'data' => 'DESC',
+            ]
+        ];
+
+        $opcao_paginacao = [
+            'name' => 'manifestações',
+            'name_singular' => 'manifestação',
+        ];
+
+        $manifestacoes = $this->paginate($t_manifestacao);
+        $qtd_total = $t_manifestacao->find('all', ['conditions' => $conditions])->count();
+
+        $this->set('title', "Consulta de Manifestos da Ouvidoria");
+        $this->set('manifestacoes', $manifestacoes->toArray());
+        $this->set('qtd_total', $qtd_total);
+        $this->set('limit_pagination', $limite_paginacao);
+        $this->set('opcao_paginacao', $opcao_paginacao);
     }
 
     private function salvarDadosManifestanteCookie($idManifestante)
@@ -472,6 +511,35 @@ class OuvidoriaController extends AppController
         return $usuarios->toArray();
     }
 
+    /**
+     * Controle simplificado de autenticação do usuário
+     */
+    protected function controlAuth()
+    {
+        if (!$this->isAuthorized())
+        {
+            $this->request->session()->destroy();
+            $mensagem = 'A sessão foi expirada. Favor tente o acesso novamente!';
+            $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
+        }
+    }
+
+    /**
+     * Verifica se a sessão do usuário foi criada e ativa, ou seja, se o mesmo efetuou o login.
+     *
+     * @return boolean Se o usuário está logado no sistema e com acesso
+     */
+    protected function isAuthorized()
+    {
+        return $this->request->session()->check('Manifestante');
+    }
+
+    /**
+     * Faz a validação do Captcha utilizando as ferramentas do Google Recaptcha, para prevenir de ataques de Spammers.
+     * @param string $captcha_response Código único de identificação do response do usuário, usado para validar se o mesmo é Spammer.
+     * @param bool $invisible Tipo de Recaptcha (visível ou invisível).
+     * @return bool Se o retorno de Catpcha do usuário é válido, ou seja, o usuário não é Spammer.
+     */
     private function validateCaptcha(string $captcha_response, bool $invisible)
     {
         $params = null;
