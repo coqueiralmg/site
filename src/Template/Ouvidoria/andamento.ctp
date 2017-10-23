@@ -3,6 +3,8 @@
         <div class="center wow fadeInDown">
             <h2>Consulta de Manifestações</h2>
             <p class="lead">Verifique aqui o andamento de todas as manifestações que você fez à Prefeitura Municipal de Coqueiral.</p>
+            <a class="btn btn-primary" href="/ouvidoria">Nova Manifestação</a>
+            <a class="btn btn-primary" href="/ouvidoria/logoff">Sair</a>
         </div>
 
         <div>
