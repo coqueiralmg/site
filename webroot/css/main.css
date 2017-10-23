@@ -777,15 +777,27 @@ input.search-form:hover {
     width: 70%;
 }
 
+.login_ouvidoria div {
+    display: inline;
+}
+
 .login_ouvidoria button {
     width: 120px;
 }
 
-@media screen and (max-width: 1200px) and (min-width: 801px) {
+@media screen and (max-width: 1000px) and (min-width: 801px) {
+    .login_ouvidoria input{
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 1001px) {
     .login_ouvidoria input{
         width: 60%;
     }
+}
 
+@media screen and (max-width: 1200px) and (min-width: 801px) {
     .login_ouvidoria button{
         float: right;
     }
