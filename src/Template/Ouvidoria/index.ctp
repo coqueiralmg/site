@@ -1,9 +1,4 @@
-<script type="text/javascript">
-    function onSubmit(token)
-    {
-        document.getElementById("main-contact-form").submit();	
-    }
-</script>
+<?= $this->Html->script('controller/ouvidoria.principal.js', ['block' => 'scriptBottom']) ?>
 <section id="contact-info">
         <div class="center">
             <h2>Entre em contato com a prefeitura</h2>
@@ -27,7 +22,6 @@
                                     <p>CEP: 37235-000</p>
                                 </address>
                             </li>
-
                         </ul>
                     </div>
                 </div>
