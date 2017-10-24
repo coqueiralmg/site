@@ -228,7 +228,8 @@ class OuvidoriaController extends AppController
             'contain' => ['Prioridade', 'Status'],
             'conditions' => $conditions,
             'order' => [
-                'data' => 'DESC',
+                'Prioridade.nivel' => 'DESC',
+                'Manifestacao.data' => 'DESC'
             ]
         ];
 
@@ -380,7 +381,7 @@ class OuvidoriaController extends AppController
         $entity->texto = $mensagem;
         $entity->data = date("Y-m-d H:i:s");
         $entity->ip = $_SERVER['REMOTE_ADDR'];
-        $entity->prioridade = Configure::read('Ouvidoria.prioridadeInicial');
+        $entity->prioridade = Configure::read('Ouvidoria.prioridade.inicial');
         $entity->status = Configure::read('Ouvidoria.status.inicial');
 
         $t_manifestacao->save($entity);

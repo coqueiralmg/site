@@ -4,6 +4,8 @@ return[
     'Ouvidoria' => [
         'ativo' => true,
         'grupoOuvidor'=> 7,
+        'prazo' => 10,
+        'sendMail' => true,
         'status' => [
             'inicial' => 1,
             'fechado' => 6,
@@ -17,8 +19,26 @@ return[
                 'recusado' => 7
             ]
         ],
-        'prioridadeInicial' => 1,
-        'prazo' => 10,
-        'sendMail' => true
+        'prioridade' => [
+            'inicial' => 1,
+            'definicoes' => [
+                'baixa' => [
+                    'id' => 2,
+                    'nivel' => 0
+                ],
+                'normal' => [
+                    'id' => 1,
+                    'nivel' => 1
+                ],
+                'alta' => [
+                    'id' => 3,
+                    'nivel' => 2
+                ],
+                'urgente' => [
+                    'id' => 4,
+                    'nivel' => 3
+                ]
+            ]
+        ]
     ]    
 ];
