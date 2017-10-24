@@ -1,6 +1,7 @@
 <?= $this->Html->script('controller/ouvidoria.acesso.js', ['block' => 'scriptBottom']) ?>
 <section id="error" class="container text-center">
     <h1>Verifique o resultado de suas manifestações</h1>
+    <p class="lead"><?= $this->Flash->render() ?></p>
     <p>Para verificar todos as suas manifestações e ainda editar seus dados, digite seu e-mail e clique em "Entrar".</p>
     <p>Para verificar apenas um manifesto específico, digite o número e clique "Consultar".</p>
 

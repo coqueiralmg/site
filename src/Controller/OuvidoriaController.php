@@ -214,6 +214,7 @@ class OuvidoriaController extends AppController
     public function logoff()
     {
         $this->request->session()->destroy();
+        $this->Flash->success('Você saiu do sistema com sucesso!');
         $this->redirect(['controller' => 'ouvidoria', 'action' => 'acesso']);
     }
 
@@ -609,7 +610,9 @@ class OuvidoriaController extends AppController
         {
             $this->request->session()->destroy();
             $mensagem = 'A sessão foi expirada. Favor tente o acesso novamente!';
-            $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
+            
+            $this->Flash->success($mensagem);
+            $this->redirect(['controller' => 'ouvidoria', 'action' => 'acesso']);
         }
     }
 
