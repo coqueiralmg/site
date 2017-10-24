@@ -50,10 +50,10 @@
                             <div class="media contact-info wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="600ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
                                 <div class="media-body">
                                     <h2>Estatísticas do Manifestante</h2>
-                                    <b>Manifestos enviados: </b>30<br/>
-                                    <b>Manifestos ativos: </b>30<br/>
-                                    <b>Manifestos atrasados: </b>30<br/>
-                                    <b>Manifestos fechados: </b>30<br/>
+                                    <b>Manifestos enviados: </b><?=$qenviados?><br/>
+                                    <b>Manifestos respondidos: </b><?=$qrespondidos?><br/>
+                                    <b>Manifestos atrasados: </b><?=$qatrasados?><br/>
+                                    <b>Manifestos fechados: </b><?=$qfechados?><br/>
                                 </div>
                             </div>
                         </div>

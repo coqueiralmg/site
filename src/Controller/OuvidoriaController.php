@@ -256,6 +256,7 @@ class OuvidoriaController extends AppController
 
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
+        
 
         $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
         $historico = $t_historico->find('all', [
@@ -264,9 +265,35 @@ class OuvidoriaController extends AppController
             ]
         ]);
 
+        if($this->request->session()->check('ManifestanteID'))
+        {
+            $manifestanteID = $this->request->session()->read('ManifestanteID');
+            
+            $qenviados = $t_manifestacao->find('enviados', [
+                'manifestante' => $manifestanteID
+            ])->count();
+    
+            $qrespondidos = $t_manifestacao->find('respondidos', [
+                'manifestante' => $manifestanteID
+            ])->count();
+    
+            $qatrasados = $t_manifestacao->find('atrasados', [
+                'manifestante' => $manifestanteID
+            ])->count();
+
+            $qfechados = $t_manifestacao->find('fechados', [
+                'manifestante' => $manifestanteID
+            ])->count();
+
+            $this->set('qenviados', $qenviados);
+            $this->set('qrespondidos', $qrespondidos);
+            $this->set('qatrasados', $qatrasados);
+            $this->set('qfechados', $qfechados);
+        }
+
         $this->set('title', "Dados da Manifestação");
         $this->set('manifestacao', $manifestacao);
-        $this->set('historico', $historico);
+        $this->set('historico', $historico);        
     }
 
     private function salvarDadosManifestanteCookie($idManifestante)
