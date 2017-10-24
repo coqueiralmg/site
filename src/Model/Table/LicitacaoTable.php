@@ -2,6 +2,8 @@
 
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
+
 
 class LicitacaoTable extends BaseTable
 {
@@ -10,5 +12,10 @@ class LicitacaoTable extends BaseTable
         $this->table('licitacao');
         $this->primaryKey('id'); 
         $this->entityClass('Licitacao');       
+    }
+
+    public function findAtivo(Query $query, array $options)
+    {
+        return $query->where(['ativo' => true]);
     }
 }

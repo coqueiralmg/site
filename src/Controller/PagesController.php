@@ -44,8 +44,7 @@ class PagesController extends AppController
             'limit' => 3
         ]);
 
-        $licitacoes = $t_licitacoes->find('all', [
-            'conditions' => ['Licitacao.ativo' => true],
+        $licitacoes = $t_licitacoes->find('ativo', [
             'order' => ['Licitacao.id' => 'DESC'],
             'limit' => 5
         ]);
