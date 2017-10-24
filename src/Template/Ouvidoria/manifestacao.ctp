@@ -4,6 +4,16 @@
         <div class="center wow fadeInDown">
             <h2><?= $this->Format->zeroPad($manifestacao->id) . ' : ' . $manifestacao->assunto ?></h2>
             <p class="lead">Data: <?= $this->Format->date($manifestacao->data, true) ?> | Prioridade: <?= $manifestacao->prioridade->nome ?> | Status: <?= $manifestacao->status->nome ?></p>
+            <?php if($this->request->session()->check('ManifestanteID')): ?>
+                <a class="btn btn-primary" href="/ouvidoria/andamento">Ver Andamentos</a>
+                <a class="btn btn-primary" href="/ouvidoria/documento/<?=$manifestacao->id?>" target="_blank">Imprimir</a>
+                <a class="btn btn-primary" href="/ouvidoria">Nova Manifestação</a>
+                <a class="btn btn-primary" href="/ouvidoria/logoff">Sair</a>
+            <?php else: ?>
+                <a class="btn btn-primary" href="/ouvidoria/acesso">Acessar o sistema</a>
+                <a class="btn btn-primary" href="/ouvidoria/documento/<?=$manifestacao->id?>" target="_blank">Imprimir</a>
+                <a class="btn btn-primary" href="/ouvidoria">Nova Manifestação</a>
+            <?php endif;?>
         </div>
 
         <div class="skill-wrap clearfix wow fadeInDown" style="margin: 0 0 60px 0">
@@ -106,8 +116,6 @@
                 <div class="message_heading">
                     <p>Se você é o próprio manifestante e pretende responder a este chamado, <?=$this->Html->Link('clique aqui', ['controller' => 'ouvidoria', 'action' => 'acesso'])?>.</p>
                 </div> 
-
-                
             </div><!--/#contact-page-->
         <?php endif;?>
     </div>
