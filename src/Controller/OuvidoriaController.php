@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
-use Cake\Http\Client;
 use Cake\ORM\TableRegistry;
 
 class OuvidoriaController extends AppController
@@ -57,7 +56,7 @@ class OuvidoriaController extends AppController
             $captcha_response = $this->request->getData('g-recaptcha-response');
             $invisivel = $this->request->is('put');
 
-            if($this->validateCaptcha($captcha_response, $invisivel))
+            if($this->Captcha->validate($captcha_response, $invisivel))
             {
                 $mensagem = nl2br($mensagem);
 
@@ -74,7 +73,7 @@ class OuvidoriaController extends AppController
                 {
                     $idManifestacao = $this->inserirManifestacao($idManifestante, $assunto, $mensagem);
             
-                    $this->registrarHistorico($idManifestacao, 'Nova manifestação de ouvidoria', true);
+                    $this->registrarHistorico($idManifestacao, 'Nova manifestação de ouvidoria', false,  true);
             
                     $this->enviarMensagemOuvidores($idManifestante, $idManifestacao);
                     $this->notificarManifestate($idManifestante, $idManifestacao);
@@ -124,6 +123,25 @@ class OuvidoriaController extends AppController
         $this->set('manifestacao', $manifestacao);
     }
 
+    public function documento(int $id)
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $t_historico = TableRegistry::get('Historico');
+        
+        $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
+        $historico = $t_historico->find('all', [
+            'conditions' => [
+                'manifestacao' => $id
+            ]
+        ]);
+        
+        $this->viewBuilder()->layout('print');
+        
+        $this->set('title', "Manifestação da Ouvidoria");
+        $this->set('manifestacao', $manifestacao);
+        $this->set('historico', $historico);
+    }
+
     public function acesso()
     {
         if($this->request->session()->check('Manifestante'))
@@ -152,7 +170,7 @@ class OuvidoriaController extends AppController
             $email = $this->request->getData('email');
             $captcha_response = $this->request->getData('g-recaptcha-response');
 
-            if($this->validateCaptcha($captcha_response, true))
+            if($this->Captcha->validate($captcha_response, true))
             {
                 $t_manifestante = TableRegistry::get('Manifestante');
 
@@ -395,7 +413,7 @@ class OuvidoriaController extends AppController
      * @param string $mensagem Mensagem a ser gravada no histórico
      * @param bool $notificar Se deve notificar o manifestante. Por padrão é falso.
      */
-    private function registrarHistorico(int $manifestacao, string $mensagem, bool $notificar = false)
+    private function registrarHistorico(int $manifestacao, string $mensagem, bool $resposta = false, bool $notificar = false)
     {
         $t_historico = TableRegistry::get('Historico');
 
@@ -404,6 +422,7 @@ class OuvidoriaController extends AppController
         $entity->manifestacao = $manifestacao;
         $entity->mensagem = $mensagem;
         $entity->notificar = $notificar;
+        $entity->resposta = $resposta;
         $entity->data = date("Y-m-d H:i:s");
 
         $t_historico->save($entity);
@@ -603,40 +622,4 @@ class OuvidoriaController extends AppController
     {
         return $this->request->session()->check('Manifestante');
     }
-
-    /**
-     * Faz a validação do Captcha utilizando as ferramentas do Google Recaptcha, para prevenir de ataques de Spammers.
-     * @param string $captcha_response Código único de identificação do response do usuário, usado para validar se o mesmo é Spammer.
-     * @param bool $invisible Tipo de Recaptcha (visível ou invisível).
-     * @return bool Se o retorno de Catpcha do usuário é válido, ou seja, o usuário não é Spammer.
-     */
-    private function validateCaptcha(string $captcha_response, bool $invisible)
-    {
-        $params = null;
-        
-        if($invisible)
-        {
-            $params = [
-                'secret' => Configure::read('Security.reCaptcha.invisible.secretKey'),
-                'response' => $captcha_response,
-                'remoteip' => $_SERVER['REMOTE_ADDR']
-            ];
-        }
-        else
-        {
-            $params = [
-                'secret' => Configure::read('Security.reCaptcha.default.secretKey'),
-                'response' => $captcha_response,
-                'remoteip' => $_SERVER['REMOTE_ADDR']
-            ];
-        }
-
-        $url = Configure::read('Security.reCaptcha.urlVerify');
-        $http = new Client();
-        $response = $http->post($url, $params);
-        $result = $response->json;
-
-        return $result['success'];
-    }
-
 }
