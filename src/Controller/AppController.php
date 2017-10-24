@@ -102,10 +102,7 @@ class AppController extends Controller
     {
         $t_secretarias = TableRegistry::get('Secretaria');
 
-        $secretarias = $t_secretarias->find('all', [
-            'conditions' => [
-                'ativo' => true
-            ],
+        $secretarias = $t_secretarias->find('ativo', [
             'order' => [
                 'nome' => 'ASC'
             ]
