@@ -36,9 +36,11 @@
                                 <h2>Dados do manifestante</h2>
                                 <p>
                                     <b>Nome: </b><?= $manifestacao->manifestante->nome ?><br/>
-                                    <b>E-mail: </b><?= $manifestacao->manifestante->email ?><br/>
-                                    <b>Endereço: </b><?= $manifestacao->manifestante->endereco ?><br/>
-                                    <b>Telefone de Contato: </b><?= $manifestacao->manifestante->telefone ?><br/>
+                                    <?php if($this->request->session()->check('ManifestanteID')): ?>
+                                        <b>E-mail: </b><?= $manifestacao->manifestante->email ?><br/>
+                                        <b>Endereço: </b><?= $manifestacao->manifestante->endereco ?><br/>
+                                        <b>Telefone de Contato: </b><?= $manifestacao->manifestante->telefone ?><br/>
+                                    <?php endif;?>
                                 </p>
                             </div>
                         </div>
@@ -77,27 +79,36 @@
         <?php endforeach; ?>
 
         <?php if($this->request->session()->check('ManifestanteID')): ?>
-        <div id="contact-page clearfix">
-            <div class="status alert alert-success" style="display: none"></div>
-            <div class="message_heading">
-                <h4>Resposta</h4>
-                <p>Digite abaixo para enviar resposta a ouvidoria da prefeitura.</p>
-            </div> 
+            <div id="contact-page clearfix">
+                <div class="status alert alert-success" style="display: none"></div>
+                <div class="message_heading">
+                    <h4>Resposta</h4>
+                    <p>Digite abaixo para enviar resposta a ouvidoria da prefeitura.</p>
+                </div> 
 
-            <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php" role="form">
-                <div class="row">
-                    <div class="col-sm-12">                        
-                        <div class="form-group">
-                            <label>Mensagem</label>
-                            <textarea name="message" id="message" required="required" class="form-control" rows="5"></textarea>
-                        </div>                        
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-lg" style="float: right" required="required">Enviar</button>
+                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php" role="form">
+                    <div class="row">
+                        <div class="col-sm-12">                        
+                            <div class="form-group">
+                                <label>Mensagem de resposta</label>
+                                <textarea name="message" id="message" required="required" class="form-control" rows="5"></textarea>
+                            </div>                        
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg" style="float: right" required="required">Enviar</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>     
-        </div><!--/#contact-page-->
+                </form>     
+            </div><!--/#contact-page-->
+        <?php else: ?>
+            <div id="contact-page clearfix">
+                <div class="status alert alert-success" style="display: none"></div>
+                <div class="message_heading">
+                    <p>Se você é o próprio manifestante e pretende responder a este chamado, <?=$this->Html->Link('clique aqui', ['controller' => 'ouvidoria', 'action' => 'acesso'])?>.</p>
+                </div> 
+
+                
+            </div><!--/#contact-page-->
         <?php endif;?>
     </div>
     <!--/.container-->
