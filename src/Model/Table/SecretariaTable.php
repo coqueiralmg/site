@@ -4,7 +4,6 @@ namespace App\Model\Table;
 
 use Cake\ORM\Query;
 
-
 class SecretariaTable extends BaseTable
 {
     public function initialize(array $config)
