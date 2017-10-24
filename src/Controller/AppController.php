@@ -53,6 +53,7 @@ class AppController extends Controller
         $this->loadComponent('Firewall');
         $this->loadComponent('Entries');
         $this->loadComponent('Format');
+        $this->loadComponent('Captcha');
 
         $this->registerAccessLog();  
         $this->configurarAcesso();
