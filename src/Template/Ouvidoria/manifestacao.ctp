@@ -11,7 +11,6 @@
                 <a class="btn btn-primary" href="/ouvidoria/logoff">Sair</a>
             <?php else: ?>
                 <a class="btn btn-primary" href="/ouvidoria/acesso">Acessar o sistema</a>
-                <a class="btn btn-primary" href="/ouvidoria/documento/<?=$manifestacao->id?>" target="_blank">Imprimir</a>
                 <a class="btn btn-primary" href="/ouvidoria">Nova Manifestação</a>
             <?php endif;?>
         </div>
