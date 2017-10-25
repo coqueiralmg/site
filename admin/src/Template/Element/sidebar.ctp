@@ -85,12 +85,30 @@
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if ($this->Membership->handleMenu("secretarias")): ?>
-                <li class="<?= $this->Menu->activeMenu(['controller' => 'secretarias']) ?>">
-                    <a href="<?= $this->Url->build('/secretarias') ?>">
-                        <i class="material-icons">content_paste</i>
-                        <p>Concursos</p>
+            <?php if ($this->Membership->handleSubmenus("ouvidoria_manifestacoes", "ouvidoria_manifestantes")): ?>
+                <li>
+                    <a data-toggle="collapse" href="#legislacao">
+                    <i class="material-icons">hearing</i>
+                    <p>Ouvidoria <b class="caret"></b></p>
                     </a>
+                    <div class="collapse" id="legislacao" aria-expanded="true" style="padding: 0 0 0 40px">
+                        <ul class="nav">
+                            <?php if ($this->Membership->handleMenu("ouvidoria_manifestacoes")): ?>
+                                <li class="<?= $this->Menu->activeMenu(['controller' => 'ouvidoria', 'action' => 'index']) ?>">
+                                    <a href="<?= $this->Url->build('/ouvidoria') ?>">
+                                        Manifestações
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($this->Membership->handleMenu("ouvidoria_manifestantes")): ?>
+                                <li class="<?= $this->Menu->activeMenu(['controller' => 'ouvidoria', 'action' => 'manifestantes']) ?>">
+                                    <a href="<?= $this->Url->build(['controller' => 'ouvidoria', 'action' => 'manifestantes']) ?>">
+                                        Manifestantes
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
                 </li>
             <?php endif; ?>
             <?php if ($this->Membership->handleMenu("secretarias")): ?>
