@@ -5,7 +5,6 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 
-
 class OuvidoriaController extends AppController
 {
     public function initialize()
@@ -15,6 +14,7 @@ class OuvidoriaController extends AppController
 
     public function index()
     {
+
     }
 
     public function imprimir()
