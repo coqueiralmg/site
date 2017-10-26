@@ -1,3 +1,5 @@
+var pointer = "http://localhost/admin";
+
 $(function () {
     $('#data_inicial').datepicker({
         language: 'pt-BR'
@@ -54,3 +56,90 @@ function validar() {
         return false;
     }
 }
+
+function verificarManifestacao(id){
+    var url = pointer + "/manifestacao/get/" + id + ".json";
+
+    swal({
+        text: 'Aguarde, carregando!',
+        onOpen: function () {
+            var s = swal;
+            s.showLoading();
+            $.get(url, function(data){
+                s.close();
+                
+                var manifestacao = data.manifestacao;
+                var numeroPad = zeroPad(id, 7);
+                var assunto = manifestacao.assunto;
+                var texto = manifestacao.texto;
+        
+                swal({
+                    html: "Você deseja atender a manifestação <b>" + numeroPad + "</b <b>, com o assunto " + assunto + "</b>? Veja a mensagem da manifestação abaixo, para tirar conclusões. A recusa tornará a operação irreversível.",
+                    type: 'question',
+                    input: "textarea",
+                    inputValue: texto,
+                    inputAttributes: {
+                        readonly: true,
+                        rows: 10
+                    },
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    confirmButtonText: 'Aceitar',
+                    cancelButtonText: 'Recusar'
+                }).then(function () {
+                    alert('Aceito');
+                }, function(dismiss){
+                    if (dismiss === 'cancel') {
+                        alert('Recusado');
+                    }
+                });
+        
+            });
+        }
+    });
+}
+
+function recusarManifestacao(id){
+    var url = pointer + "/manifestacao/get/" + id + ".json";
+    
+        swal({
+            text: 'Aguarde, carregando!',
+            onOpen: function () {
+                var s = swal;
+                s.showLoading();
+                $.get(url, function(data){
+                    s.close();
+                    
+                    var manifestacao = data.manifestacao;
+                    var numeroPad = zeroPad(id, 7);
+                    var assunto = manifestacao.assunto;
+                    var texto = manifestacao.texto;
+            
+                    swal({
+                        html: "Você tem certeza que deseja recusar a manifestação <b>" + numeroPad + "</b <b>, com o assunto " + assunto + "</b>? Veja a mensagem da manifestação abaixo. A recusa tornará a operação irreversível.",
+                        type: 'warning',
+                        input: "textarea",
+                        inputValue: texto,
+                        inputAttributes: {
+                            readonly: true,
+                            rows: 10
+                        },
+                        showCancelButton: true,
+                        confirmButtonClass: 'btn btn-success',
+                        cancelButtonClass: 'btn btn-danger',
+                        confirmButtonText: 'Sim',
+                        cancelButtonText: 'Não'
+                    }).then(function () {
+                        alert('Recusado');
+                    });
+                });
+            }
+        });
+}
+
+function zeroPad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }

@@ -87,10 +87,10 @@
                                             <td><?=$manifestacao->prioridade->nome?></td>
                                             <td class="td-actions text-right" style="width: 8%">
                                                 <?php if ($this->Membership->handleRole("responder_manifestacao")): ?>
-                                                <button type="button" onclick="verificarManifestacao(<?= $manifestacao->id ?>, '<?= $manifestacao->assunto ?>', '<?= $manifestacao->texto ?>')" title="Verificar a manifestação" class="btn btn-primary btn-round"><i class="material-icons">insert_drive_file</i></button>
+                                                <button type="button" onclick="verificarManifestacao(<?= $manifestacao->id ?>)" title="Verificar a manifestação" class="btn btn-primary btn-round"><i class="material-icons">insert_drive_file</i></button>
                                                 <?php endif; ?>
                                                 <?php if ($this->Membership->handleRole("recusar_manifestacao")): ?>
-                                                    <button type="button" onclick="recusarManifestacao(<?= $manifestacao->id ?>, '<?= $manifestacao->assunto ?>')"  title="Recusar manifestação" class="btn btn-danger btn-round"><i class="material-icons">pan_tool</i></button>
+                                                    <button type="button" onclick="recusarManifestacao(<?= $manifestacao->id ?>)"  title="Recusar manifestação" class="btn btn-danger btn-round"><i class="material-icons">pan_tool</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
