@@ -66,8 +66,8 @@ class OuvidoriaController extends AppController
         ];
 
         $opcao_paginacao = [
-            'name' => 'publicações',
-            'name_singular' => 'publicação',
+            'name' => 'manifestações',
+            'name_singular' => 'manifestação',
             'predicate' => 'encontradas',
             'singular' => 'encontrada'
         ];
