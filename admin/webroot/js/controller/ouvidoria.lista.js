@@ -103,39 +103,99 @@ function verificarManifestacao(id){
 function recusarManifestacao(id){
     var url = pointer + "/manifestacao/get/" + id + ".json";
     
-        swal({
-            text: 'Aguarde, carregando!',
-            onOpen: function () {
-                var s = swal;
-                s.showLoading();
-                $.get(url, function(data){
-                    s.close();
-                    
-                    var manifestacao = data.manifestacao;
-                    var numeroPad = zeroPad(id, 7);
-                    var assunto = manifestacao.assunto;
-                    var texto = manifestacao.texto;
-            
-                    swal({
-                        html: "Você tem certeza que deseja recusar a manifestação <b>" + numeroPad + "</b <b>, com o assunto " + assunto + "</b>? Veja a mensagem da manifestação abaixo. A recusa tornará a operação irreversível.",
-                        type: 'warning',
-                        input: "textarea",
-                        inputValue: texto,
-                        inputAttributes: {
-                            readonly: true,
-                            rows: 10
-                        },
-                        showCancelButton: true,
-                        confirmButtonClass: 'btn btn-success',
-                        cancelButtonClass: 'btn btn-danger',
-                        confirmButtonText: 'Sim',
-                        cancelButtonText: 'Não'
-                    }).then(function () {
-                        alert('Recusado');
-                    });
+    swal({
+        text: 'Aguarde, carregando!',
+        onOpen: function () {
+            var s = swal;
+            s.showLoading();
+            $.get(url, function(data){
+                s.close();
+                
+                var manifestacao = data.manifestacao;
+                var numeroPad = zeroPad(id, 7);
+                var assunto = manifestacao.assunto;
+                var texto = manifestacao.texto;
+        
+                swal({
+                    html: "Você tem certeza que deseja recusar a manifestação <b>" + numeroPad + "</b <b>, com o assunto " + assunto + "</b>? Veja a mensagem da manifestação abaixo. A recusa tornará a operação irreversível.",
+                    type: 'warning',
+                    input: "textarea",
+                    inputValue: texto,
+                    inputAttributes: {
+                        readonly: true,
+                        rows: 10
+                    },
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    confirmButtonText: 'Sim',
+                    cancelButtonText: 'Não'
+                }).then(function () {
+                    alert('Recusado');
                 });
-            }
-        });
+            });
+        }
+    });
+}
+
+function fecharManifestacao(id){
+    var url = pointer + "/manifestacao/get/" + id + ".json";
+    
+    swal({
+        text: 'Aguarde, carregando!',
+        onOpen: function () {
+            var s = swal;
+            s.showLoading();
+            $.get(url, function(data){
+                s.close();
+                
+                var manifestacao = data.manifestacao;
+                var numeroPad = zeroPad(id, 7);
+                var assunto = manifestacao.assunto;
+        
+                swal({
+                    html: "Você tem certeza que deseja fechar a manifestação <b>" + numeroPad + "</b <b>, com o assunto " + assunto + "</b>? O fechamento desta manifestação, tornará a operação irreversível.",
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    confirmButtonText: 'Sim',
+                    cancelButtonText: 'Não'
+                }).then(function () {
+                    alert('Fechado');
+                });
+            });
+        }
+    });
+}
+
+function exibirManifestante(id){
+    var url = pointer + "/manifestante/get/" + id + ".json";
+    
+    swal({
+        text: 'Aguarde, carregando!',
+        onOpen: function () {
+            var s = swal;
+            s.showLoading();
+            $.get(url, function(data){
+                s.close();
+
+                var manifestante = data.manifestante;
+                
+                var conteudo = "<b>Nome: </b>" + manifestante.nome + "<br/>";
+                conteudo = conteudo + "<b>E-mail: </b>" + manifestante.email + "<br/>";
+                conteudo = conteudo + "<b>Telefone: </b>" + manifestante.telefone + "<br/>";
+                conteudo = conteudo + "<b>Endereço: </b>" + manifestante.endereco + "<br/>";
+                conteudo = conteudo + "<b>Bloqueado: </b>" + (manifestante.bloqueado ? "Sim" : "Não") + "<br/>";
+        
+                swal({
+                    title: "Dados do manifestante",
+                    html: conteudo,
+                    type: 'info'
+                });
+            });
+        }
+    });
 }
 
 function zeroPad(n, width, z) {
