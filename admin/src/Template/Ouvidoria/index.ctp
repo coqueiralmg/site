@@ -9,61 +9,51 @@
                          <?=$this->element('message', [
                             'name' => 'lista_erro',
                             'type' => 'error',
-                            'message' => 'Ocorreu um erro ao buscar as publicações',
+                            'message' => 'Ocorreu um erro ao buscar as manifestações',
                             'details' => ''
                         ]) ?>
                         <h4 class="card-title">Buscar</h4>
                         
                         <?php
-                        echo $this->Form->create("Usuario", [
+                        echo $this->Form->create("Ouvidoria", [
                             "url" => [
-                                "controller" => "publicacoes",
+                                "controller" => "ouvidoria",
                                 "action" => "index"
                             ],
                             'type' => 'get',
                             "role" => "form"]);
                         ?>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-min">
-                                        <?= $this->Form->label("numero", "Número") ?>
-                                        <?= $this->Form->text("numero", ["class" => "form-control"]) ?>
-                                        <span class="material-input"></span></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-min">
-                                        <?= $this->Form->label("titulo", "Título") ?>
-                                        <?= $this->Form->text("titulo", ["class" => "form-control"]) ?>
-                                        <span class="material-input"></span></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("data_inicial", "Data Inicial") ?>
                                         <?= $this->Form->text("data_inicial", ["id" => "data_inicial", "class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("data_final", "Data Inicial") ?>
                                         <?= $this->Form->text("data_final", ["id" => "data_final", "class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
-                                        <?= $this->Form->label("mostrar", "Mostrar") ?> <br/>
-                                        <?=$this->Form->select('mostrar', $combo_mostra, ['class' => 'form-control'])?>
+                                        <?= $this->Form->label("prioridade", "Prioridade") ?> <br/>
+                                        <?=$this->Form->select('prioridade', $combo_prioridade, ['empty' => 'Todos', 'class' => 'form-control'])?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-group-min">
+                                        <?= $this->Form->label("status", "Status") ?> <br/>
+                                        <?=$this->Form->select('status', $combo_status, ['empty' => 'Todos', 'class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group form-button">
                             <button type="submit" onclick="return validar()" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
-                            <?php if ($this->Membership->handleRole("adicionar_publicacao")): ?>
-                                <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
-                            <?php endif; ?>
-                            <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
+                            <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                             </div>
                          <?php echo $this->Form->end(); ?>
                     </div>
@@ -72,33 +62,35 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content table-responsive">
-                        <?php if(count($publicacoes) > 0):?>
-                            <h4 class="card-title">Lista de Publicações</h4>
+                        <?php if(count($manifestacoes) > 0):?>
+                            <h4 class="card-title">Consulta de Manifestações</h4>
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
                                         <th>Número</th>
-                                        <th>Título</th>
-                                        <th style="width: 15%">Data</th>
-                                        <th>Ativo</th>
+                                        <th>Data</th>
+                                        <th>Manifestante</th>
+                                        <th>Assunto</th>
+                                        <th>Status</th>
+                                        <th>Prioridade</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($publicacoes as $publicacao): ?>
+                                    <?php foreach ($manifestacoes as $manifestacao): ?>
                                         <tr>
-                                            <td><?=$publicacao->numero?></td>
-                                            <td><?=$publicacao->titulo?></td>
-                                            <td><?= $this->Format->date($publicacao->data, true) ?></td>
-                                            <td><?= $publicacao->ativado ?></td>
+                                            <td><?=$this->Format->zeroPad($manifestacao->id)?></td>
+                                            <td><?=$this->Format->date($manifestacao->data, true)?></td>
+                                            <td><?=$manifestacao->manifestante->nome?></td>
+                                            <td><?=$manifestacao->assunto?></td>
+                                            <td><?=$manifestacao->status->nome?></td>
+                                            <td><?=$manifestacao->prioridade->nome?></td>
                                             <td class="td-actions text-right" style="width: 8%">
-                                                <?php if ($this->Membership->handleRole("editar_publicacao")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
+                                                <?php if ($this->Membership->handleRole("responder_manifestacao")): ?>
+                                                <button type="button" onclick="verificarManifestacao(<?= $manifestacao->id ?>, '<?= $manifestacao->assunto ?>', '<?= $manifestacao->texto ?>')" title="Verificar a manifestação" class="btn btn-primary btn-round"><i class="material-icons">insert_drive_file</i></button>
                                                 <?php endif; ?>
-                                                <?php if ($this->Membership->handleRole("excluir_publicacao")): ?>
-                                                    <button type="button" onclick="excluirPublicacao(<?= $publicacao->id ?>, '<?= $publicacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php if ($this->Membership->handleRole("recusar_manifestacao")): ?>
+                                                    <button type="button" onclick="recusarManifestacao(<?= $manifestacao->id ?>, '<?= $manifestacao->assunto ?>')"  title="Recusar manifestação" class="btn btn-danger btn-round"><i class="material-icons">pan_tool</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -106,11 +98,7 @@
                                 </tbody>
                             </table>
                         <?php else: ?>
-                            <?php if ($this->Membership->handleRole("adicionar_usuario")): ?>
-                                <h3>Nenhuma publicação encontrada. Para adicionar nova publicação, <?=$this->Html->link("clique aqui", ["controller" => "publicacoes", "action" => "add"])?>.</h3>
-                            <?php else:?>
-                                <h3>Nenhuma publicação encontrada.</h3>
-                            <?php endif; ?>
+                            <h3>Nenhuma manifestação encontrada.</h3>
                         <?php endif; ?>
                     </div>
                      <div class="card-content">
