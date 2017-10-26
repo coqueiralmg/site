@@ -86,11 +86,31 @@
                                             <td><?=$manifestacao->status->nome?></td>
                                             <td><?=$manifestacao->prioridade->nome?></td>
                                             <td class="td-actions text-right" style="width: 8%">
-                                                <?php if ($this->Membership->handleRole("responder_manifestacao")): ?>
-                                                <button type="button" onclick="verificarManifestacao(<?= $manifestacao->id ?>)" title="Verificar a manifestação" class="btn btn-primary btn-round"><i class="material-icons">insert_drive_file</i></button>
-                                                <?php endif; ?>
-                                                <?php if ($this->Membership->handleRole("recusar_manifestacao")): ?>
-                                                    <button type="button" onclick="recusarManifestacao(<?= $manifestacao->id ?>)"  title="Recusar manifestação" class="btn btn-danger btn-round"><i class="material-icons">pan_tool</i></button>
+                                                <?php if($manifestacao->status->id == $this->Data->setting('Ouvidoria.status.inicial')):?>
+                                                    <?php if ($this->Membership->handleRole("responder_manifestacao")): ?>
+                                                        <button type="button" onclick="verificarManifestacao(<?= $manifestacao->id ?>)" title="Verificar a manifestação" class="btn btn-primary btn-round"><i class="material-icons">insert_drive_file</i></button>
+                                                    <?php endif; ?>
+                                                    <?php if ($this->Membership->handleRole("recusar_manifestacao")): ?>
+                                                        <button type="button" onclick="recusarManifestacao(<?= $manifestacao->id ?>)"  title="Recusar manifestação" class="btn btn-danger btn-round"><i class="material-icons">pan_tool</i></button>
+                                                    <?php endif; ?>
+                                                <?php elseif($manifestacao->status->id == $this->Data->setting('Ouvidoria.status.definicoes.recusado')):?>
+                                                    <?php if ($this->Membership->handleRole("responder_manifestacao")): ?>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'manifestacao', $manifestacao->id]) ?>" title="Verificar a manifestação" class="btn btn-primary btn-round">
+                                                            <i class="material-icons">insert_drive_file</i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if ($this->Membership->handleRole("fechar_manifestacao")): ?>
+                                                        <button type="button" onclick="fecharManifestacao(<?= $manifestacao->id ?>)"  title="Fechar manifestação" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <?php endif; ?>
+                                                <?php else:?>
+                                                    <?php if ($this->Membership->handleRole("responder_manifestacao")): ?>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'manifestacao', $manifestacao->id]) ?>" title="Verificar a manifestação" class="btn btn-primary btn-round">
+                                                            <i class="material-icons">insert_drive_file</i>
+                                                        </a>
+                                                        <?php if ($this->Membership->handleRole("exibir_manifestante_ouvidoria")): ?>
+                                                            <button type="button" onclick="exibirManifestante(<?= $manifestacao->manifestante->id ?>)"  title="Informações sobre o manifestante" class="btn btn-info btn-round"><i class="material-icons">face</i></button>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
