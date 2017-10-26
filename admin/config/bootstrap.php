@@ -86,6 +86,7 @@ try {
     Configure::load('files');
     Configure::load('auditoria');
     Configure::load('logentries');
+    Configure::load('ouvidoria');
 
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
