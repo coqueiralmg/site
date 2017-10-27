@@ -27,4 +27,31 @@ class ManifestacaoController extends AppController
             '_serialize' => ['manifestacao']
         ]);
     }
+
+    public function aceitar()
+    {
+        if ($this->request->is('post'))
+        {
+            $t_manifestacao = TableRegistry::get('Manifestacao');
+
+            $id = $this->request->getData('id');
+
+            $manifestacao = $t_manifestacao->get($id);
+            $manifestacao->status = Configure::read('Ouvidoria.status.definicoes.aceito');
+            
+            $t_manifestacao->save($manifestacao);
+        }
+    }
+
+    public function recusar()
+    {
+        if ($this->request->is('post'))
+        {
+            $t_manifestacao = TableRegistry::get('Manifestacao');
+
+            $id = $this->request->getData('id');
+            $justificativa = $this->request->getData('justificativa');
+        
+        }
+    }
 }
