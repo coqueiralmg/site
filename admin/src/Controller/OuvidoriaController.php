@@ -54,13 +54,17 @@ class OuvidoriaController extends AppController
 
             $this->request->data = $data;
         }
-
+        
         $this->paginate = [
+            'limit' => $limite_paginacao,
+        ];
+
+        $config = [
             'contain' => ['Manifestante', 'Prioridade', 'Status'],
             'limit' => $limite_paginacao,
             'conditions' => $condicoes,
             'order' => [
-                'Prioridade.nivel' => 'DESC',
+                'nivel' => 'DESC',
                 'data' => 'ASC'
             ]
         ];
@@ -72,7 +76,8 @@ class OuvidoriaController extends AppController
             'singular' => 'encontrada'
         ];
 
-        $manifestacoes = $this->paginate($t_manifestacao);
+        $query = $t_manifestacao->find('all', $config);
+        $manifestacoes = $this->paginate($query);
 
         $qtd_total = $t_manifestacao->find('all', [
             'contain' => ['Manifestante', 'Prioridade', 'Status'],

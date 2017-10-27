@@ -81,7 +81,8 @@
                                         <tr style="
                                         <?=($manifestacao->prioridade->id == $this->Data->setting('Ouvidoria.prioridade.definicoes.urgente.id') 
                                              && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.fechado')
-                                             && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.recusado')) ? "font-weight: bold" : ""?>
+                                             && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.recusado')) ? "font-weight: bold;" : ""?>
+                                        <?=($manifestacao->atrasado) ? "color: red;" : ""?>
                                         ">
                                             <td><?=$this->Format->zeroPad($manifestacao->id)?></td>
                                             <td><?=$this->Format->date($manifestacao->data, true)?></td>
