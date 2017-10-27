@@ -66,15 +66,15 @@ class ManifestacaoTable extends BaseTable
         $data_minima = date('Y-m-d H:i:s', strtotime($chave_prazo));
 
         $status = [
-            Configure::read('Ouvidoria.status.definicoes.fechado'),
-            Configure::read('Ouvidoria.status.definicoes.recusado'),
+            Configure::read('Ouvidoria.status.definicoes.novo'),
+            Configure::read('Ouvidoria.status.definicoes.aceito'),
         ];
 
         return $query->where([
             'manifestante' => $manifestanteID,
-            'status NOT IN' => $status,
+            'status' => $status,
             'data <' => $data_minima
-        ]);
+        ], ['status' => 'integer[]']);
     }
 
     public function findFechados(Query $query, array $options)
