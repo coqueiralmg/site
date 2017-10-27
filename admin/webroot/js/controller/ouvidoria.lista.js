@@ -79,7 +79,6 @@ function verificarManifestacao(id){
                     input: "textarea",
                     inputValue: texto,
                     inputAttributes: {
-                        readonly: true,
                         rows: 10
                     },
                     showCancelButton: true,
@@ -91,7 +90,8 @@ function verificarManifestacao(id){
                     alert('Aceito');
                 }, function(dismiss){
                     if (dismiss === 'cancel') {
-                        alert('Recusado');
+                        swal.resetDefaults();
+                        exibirMotivoRecusaManifestacao(id);
                     }
                 });
         
@@ -122,7 +122,6 @@ function recusarManifestacao(id){
                     input: "textarea",
                     inputValue: texto,
                     inputAttributes: {
-                        readonly: true,
                         rows: 10
                     },
                     showCancelButton: true,
@@ -131,10 +130,40 @@ function recusarManifestacao(id){
                     confirmButtonText: 'Sim',
                     cancelButtonText: 'Não'
                 }).then(function () {
-                    alert('Recusado');
+                    swal.resetDefaults();
+                    exibirMotivoRecusaManifestacao(id);
                 });
             });
         }
+    });
+}
+
+function exibirMotivoRecusaManifestacao(id){
+    swal({
+        title: "Por que você quer recusar esta manifestação?",
+        html: "Digite abaixo com todos os detalhes possíveis, o motivo da recusa de atendimento a este manifesto e clique em Finalizar. A justificativa estará disponível para consulta, pelo manifestante.",
+        type: 'warning',
+        input: "textarea",
+        inputAttributes: {
+            rows: 10,
+            name: 'justificativa'
+        },
+        inputValidator: function(result){
+            return new Promise(function(resolve, reject){
+                if(result){
+                    resolve();
+                } else {
+                    reject("Você precisa informar o motivo da recusa do atendimento.");
+                }
+            });
+        },
+        showCancelButton: true,
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        confirmButtonText: 'Finalizar',
+        cancelButtonText: 'Cancelar'
+    }).then(function (justificativa) {
+        alert('Recusado');
     });
 }
 
