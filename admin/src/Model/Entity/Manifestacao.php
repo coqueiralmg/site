@@ -11,10 +11,9 @@ class Manifestacao extends Entity
 {
     protected function _getAtrasado()
     {
-        $agora = Time::now();
         $data = $this->_properties['data'];
         $prazo = Configure::read('Ouvidoria.prazo');
-        
-        
+
+        return !$data->wasWithinLast($prazo);
     }
 }
