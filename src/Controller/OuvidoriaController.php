@@ -425,6 +425,8 @@ class OuvidoriaController extends AppController
         $entity->notificar = $notificar;
         $entity->resposta = $resposta;
         $entity->data = date("Y-m-d H:i:s");
+        $entity->prioridade = Configure::read('Ouvidoria.prioridade.inicial');
+        $entity->status = Configure::read('Ouvidoria.status.inicial');
 
         $t_historico->save($entity);
 
