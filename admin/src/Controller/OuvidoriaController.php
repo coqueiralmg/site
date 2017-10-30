@@ -167,4 +167,10 @@ class OuvidoriaController extends AppController
         $this->set('manifestacoes', $manifestacoes);
         $this->set('qtd_total', $qtd_total);
     }
+
+    public function refresh(string $mensagem)
+    {
+        $this->Flash->greatSuccess($mensagem);
+        $this->redirect(['action' => 'index']);
+    }
 }
