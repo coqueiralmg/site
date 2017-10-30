@@ -46,7 +46,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("status", "Status") ?> <br/>
-                                        <?=$this->Form->select('status', $combo_status, ['empty' => 'Todos', 'class' => 'form-control'])?>
+                                        <?=$this->Form->select('status', $combo_status, ['empty' => 'Todos em aberto', 'class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>

@@ -41,6 +41,11 @@ class OuvidoriaController extends AppController
             {
                 $condicoes["status"] = $status;
             }
+            else
+            {
+                $fechado = Configure::read('Ouvidoria.status.fechado');
+                $condicoes['status <>'] = $fechado;
+            }
 
             if ($prioridade != '') 
             {
@@ -53,6 +58,11 @@ class OuvidoriaController extends AppController
             $data['prioridade'] = $prioridade;
 
             $this->request->data = $data;
+        }
+        else
+        {
+            $fechado = Configure::read('Ouvidoria.status.fechado');
+            $condicoes['status <>'] = $fechado;
         }
         
         $this->paginate = [
