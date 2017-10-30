@@ -1,5 +1,3 @@
-var pointer = "http://localhost/admin";
-
 $(function () {
     $('#data_inicial').datepicker({
         language: 'pt-BR'
@@ -58,7 +56,7 @@ function validar() {
 }
 
 function verificarManifestacao(id){
-    var url = pointer + "/manifestacao/get/" + id + ".json";
+    var url = "/admin/manifestacao/get/" + id + ".json";
 
     swal({
         text: 'Aguarde, carregando!',
@@ -87,7 +85,26 @@ function verificarManifestacao(id){
                     confirmButtonText: 'Aceitar',
                     cancelButtonText: 'Recusar'
                 }).then(function () {
-                    alert('Aceito');
+                    var url ="/admin/manifestacao/aceitar.json";
+
+                    $.post(url, {
+                        id: id
+                    }, function(data){
+
+                        if(data.sucesso){
+                            var mensagem = 'Você aceitou com sucesso, a manifestação ' + numeroPad;
+                            window.location = '/admin/ouvidoria/refresh/' + mensagem;
+                        }
+
+                        
+                    }).fail(function (){
+                        swal({
+                            title: "Erro!",
+                            html: 'Ocorreu um erro ao aceitar a manifestação de ouvidoria',
+                            type: 'error'
+                        });
+                    });
+
                 }, function(dismiss){
                     if (dismiss === 'cancel') {
                         swal.resetDefaults();
@@ -95,13 +112,19 @@ function verificarManifestacao(id){
                     }
                 });
         
+            }).fail(function(){
+                swal({
+                    title: "Erro!",
+                    html: 'Ocorreu um erro ao carregar os dados de manifestação',
+                    type: 'error'
+                });
             });
         }
     });
 }
 
 function recusarManifestacao(id){
-    var url = pointer + "/manifestacao/get/" + id + ".json";
+    var url = "/admin/manifestacao/get/" + id + ".json";
     
     swal({
         text: 'Aguarde, carregando!',
@@ -163,12 +186,30 @@ function exibirMotivoRecusaManifestacao(id){
         confirmButtonText: 'Finalizar',
         cancelButtonText: 'Cancelar'
     }).then(function (justificativa) {
-        alert('Recusado');
+        var url ="/admin/manifestacao/recusar.json";
+        
+        $.post(url, {
+            id: id,
+            justificativa: justificativa
+        }, function(data){
+            if(data.sucesso){
+                var numeroPad = zeroPad(id, 7);
+                var mensagem = 'Você rejeitou a manifestação ' + numeroPad;
+                window.location = '/admin/ouvidoria/refresh/' + mensagem;
+            }
+            
+        }).fail(function (){
+            swal({
+                title: "Erro!",
+                html: 'Ocorreu um erro ao rejeitar a manifestação de ouvidoria',
+                type: 'error'
+            });
+        });
     });
 }
 
 function fecharManifestacao(id){
-    var url = pointer + "/manifestacao/get/" + id + ".json";
+    var url = "/admin/manifestacao/get/" + id + ".json";
     
     swal({
         text: 'Aguarde, carregando!',
@@ -191,7 +232,30 @@ function fecharManifestacao(id){
                     confirmButtonText: 'Sim',
                     cancelButtonText: 'Não'
                 }).then(function () {
-                    alert('Fechado');
+                    var url ="/admin/manifestacao/fechar.json";
+                    
+                    $.post(url, {
+                        id: id
+                    }, function(data){
+                        if(data.sucesso){
+                            var numeroPad = zeroPad(id, 7);
+                            var mensagem = 'A manifestação ' + numeroPad + " foi fechada com sucesso!";
+                            window.location = '/admin/ouvidoria/refresh/' + mensagem;
+                        }
+                        
+                    }).fail(function (){
+                        swal({
+                            title: "Erro!",
+                            html: 'Ocorreu um erro ao fechar a manifestação de ouvidoria',
+                            type: 'error'
+                        });
+                    });
+                });
+            }).fail(function(){
+                swal({
+                    title: "Erro!",
+                    html: 'Ocorreu um erro ao carregar os dados de manifestação',
+                    type: 'error'
                 });
             });
         }
@@ -199,7 +263,7 @@ function fecharManifestacao(id){
 }
 
 function exibirManifestante(id){
-    var url = pointer + "/manifestante/get/" + id + ".json";
+    var url = "/admin/manifestante/get/" + id + ".json";
     
     swal({
         text: 'Aguarde, carregando!',
@@ -221,6 +285,12 @@ function exibirManifestante(id){
                     title: "Dados do manifestante",
                     html: conteudo,
                     type: 'info'
+                });
+            }).fail(function(){
+                swal({
+                    title: "Erro!",
+                    html: 'Ocorreu um erro ao carregar os dados do manifestante.',
+                    type: 'error'
                 });
             });
         }
