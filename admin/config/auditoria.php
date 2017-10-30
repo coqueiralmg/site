@@ -46,7 +46,12 @@ return [
             41 => 'Envio de mensagem interna do sistema',
             42 => 'Mensagem excluída da caixa de entrada',
             43 => 'Mensagem enviada excluída',
-            44 => 'Exclusão física da mensagem'
+            44 => 'Exclusão física da mensagem',
+            45 => 'Aceite de manifestação',
+            46 => 'Recusa de manifestação',
+            47 => 'Resposta de manifestação',
+            48 => 'Conclusão de manifestação',
+            49 => 'Fechamento da manifestação'
         ]
     ]
 ];
