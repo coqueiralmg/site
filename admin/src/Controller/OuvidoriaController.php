@@ -183,4 +183,15 @@ class OuvidoriaController extends AppController
         $this->Flash->greatSuccess($mensagem);
         $this->redirect(['action' => 'index']);
     }
+
+    public function manifestacao(int $id)
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+
+        $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
+
+        $this->set('title', 'Manifestação da Ouvidoria');
+        $this->set('icon', 'hearing');
+        $this->set('manifestacao', $manifestacao);
+    }
 }
