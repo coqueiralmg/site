@@ -51,7 +51,8 @@ return [
             46 => 'Recusa de manifestação',
             47 => 'Resposta de manifestação',
             48 => 'Conclusão de manifestação',
-            49 => 'Fechamento da manifestação'
+            49 => 'Fechamento da manifestação',
+            50 => 'Alteração de status de manifestação'
         ]
     ]
 ];
