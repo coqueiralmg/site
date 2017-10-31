@@ -5655,3 +5655,12 @@ table.dataTable > tbody > tr.child span.dtr-title {
   width: 95%;
   color: black;
 }
+
+.timeline-panel{
+  padding: 10px;
+  margin: 5px;
+}
+
+.resposta {
+  border: 1px solid #EEEEEE;
+}
