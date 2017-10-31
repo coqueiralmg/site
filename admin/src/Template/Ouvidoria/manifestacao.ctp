@@ -38,14 +38,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("ip", "Endereço de IP") ?><br/>
                                         <?= $manifestacao->ip?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <div class="form-group">
                                         <?= $this->Form->label("assunto", "Assunto") ?><br/>
                                         <?=$manifestacao->assunto?>
@@ -143,11 +143,72 @@
                                 </div>
                             <?php endif;?>
                         <?php endforeach; ?>
+                        <?php if ($this->Membership->handleRole("responder_manifestacao")) : ?>
+                            <div class="card-content">
+                                <?=$this->element('message', [
+                                    'name' => 'lista_erro',
+                                    'type' => 'error',
+                                    'message' => 'Ocorreu um erro ao enviar a resposta ao manifestante',
+                                    'details' => ''
+                                ]) ?>
+                                <legend>Resposta</legend>
+                                <?php
+                                    echo $this->Form->create("Ouvidoria", [
+                                        "url" => [
+                                            "controller" => "ouvidoria",
+                                            "action" => "resposta",
+                                            $id
+                                        ],
+                                        'type' => 'get',
+                                        "role" => "form"]);
+                                    ?>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <?= $this->Form->label("resposta", "Resposta ao manifestante") ?>
+                                                    <?= $this->Form->textarea("resposta", ["id" => "resposta", "rows" => "3", "class" => "form-control"]) ?>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <?= $this->Form->label("acao", "Depois de respondido") ?>
+                                                    <?=$this->Form->select('acao', $acoes, ['id' => 'acao', 'class' => 'form-control'])?>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <?= $this->Form->label("prioridade", "Definir prioridade depois de respondido") ?>
+                                                    <?=$this->Form->select('prioridade', $prioridades, ['id' => 'prioridade', 'class' => 'form-control'])?>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Outras Opções</label> <br/>
+                                                    <div class="togglebutton">
+                                                        <label>
+                                                            <?= $this->Form->checkbox("enviar", ['checked' => true]) ?> Notificar o manifestante
+                                                        </label>
+                                                    </div>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Enviar</button>
+                                        <div class="clearfix"></div>
+                                    <?php echo $this->Form->end(); ?>
+                                </div>
+                        <?php endif; ?>
                         <div class="clearfix"></div>
                     </div>
-
-                   
                     <div class="card-content">
+                        <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'documento', $id]) ?>" class="btn btn-default btn-default pull-right" target="_blank">Imprimir<div class="ripple-container"></div></a>
                         <button type="button" onclick="window.location='<?= $this->Url->build('/ouvidoria') ?>'" class="btn btn-info pull-right">Voltar</button>
                         <div class="clearfix"></div>
                     </div>
