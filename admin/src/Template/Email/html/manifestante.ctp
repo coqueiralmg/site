@@ -253,13 +253,13 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 				<tr>
 					<td>
 						<p class="lead">Caro cidadão! </p>
-						<p class="lead">A <b>Prefeitura Municipal de Coqueiral</b> irá tomar devidas providências necessárias e te responderá dentro do prazo de <?=$prazo?> dias úteis.</p>
-						<p class="lead">Para verificar o andamento, <?=$this->Html->link('Clique aqui', ['controller' => 'Ouvidoria', 'action' => 'manifestacao', $id, '_full' => true])?></p>
+						<p class="lead">A <b>Prefeitura Municipal de Coqueiral</b> tem uma nova resposta para você, através do sistema de ouvidoria.</p>
+						<p class="lead">Para verificar o andamento, <a href="https://coqueiral.mg.gov.br/ouvidoria/manifestacao/<?=$id?>">clique aqui</a>.</p>
 
 						<!-- Callout Panel -->
 						<p class="callout">
 							<b>ATENÇÃO!!!</b><br/><br/>
-							Toda e qualquer comunicação deve ser feita somente pelo sistema de ouvidoria da prefeitura. Por favor, não responda este e-mail. Para acessar e responder, <?=$this->Html->link('Clique aqui', ['controller' => 'Ouvidoria', 'action' => 'index', '_full' => true])?>.
+							Toda e qualquer comunicação deve ser feita somente pelo sistema de ouvidoria da prefeitura. Por favor, não responda este e-mail. Para acessar e responder, <a href="https://coqueiral.mg.gov.br/ouvidoria/">clique aqui</a>.
 						</p>
 						
                         <h5>Mensagem da ouvidoria</h5>
