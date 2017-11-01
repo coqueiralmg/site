@@ -143,7 +143,7 @@
                                 </div>
                             <?php endif;?>
                         <?php endforeach; ?>
-                        <?php if ($this->Membership->handleRole("responder_manifestacao")) : ?>
+                        <?php if ($this->Membership->handleRole("responder_manifestacao") && ($manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.fechado') && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.recusado'))) : ?>
                             <div class="card-content">
                                 <?=$this->element('message', [
                                     'name' => 'lista_erro',
@@ -159,7 +159,7 @@
                                             "action" => "resposta",
                                             $id
                                         ],
-                                        'type' => 'get',
+                                        'type' => 'post',
                                         "role" => "form"]);
                                     ?>
                                         <div class="row">
@@ -208,6 +208,9 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="card-content">
+                        <?php if($manifestacao->status->id == $this->Data->setting('Ouvidoria.status.definicoes.recusado')): ?>
+                            <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'fechar', $id]) ?>" class="btn btn-danger pull-right" target="_blank">Fechar<div class="ripple-container"></div></a>
+                        <?php endif;?>
                         <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'documento', $id]) ?>" class="btn btn-default btn-default pull-right" target="_blank">Imprimir<div class="ripple-container"></div></a>
                         <button type="button" onclick="window.location='<?= $this->Url->build('/ouvidoria') ?>'" class="btn btn-info pull-right">Voltar</button>
                         <div class="clearfix"></div>
