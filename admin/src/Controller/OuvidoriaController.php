@@ -260,7 +260,6 @@ class OuvidoriaController extends AppController
         if ($this->request->is('post'))
         {
             $t_manifestacao = TableRegistry::get('Manifestacao');
-            $t_historico = TableRegistry::get('Historico');
 
             $resposta = $this->request->getData('resposta');
             $acao = $this->request->getData('acao');
@@ -268,16 +267,6 @@ class OuvidoriaController extends AppController
             $enviar = $this->request->getData('enviar');
 
             $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante']]);
-
-            $ultimo = $t_historico->find('all', [
-                'conditions' => [
-                    'manifestacao' => $id
-                ],
-                'order' => [
-                    'data' => 'DESC'
-                ]
-            ])->first();
-
             $manifestacao->prioridade = $prioridade;
             
             switch($acao)
@@ -317,6 +306,16 @@ class OuvidoriaController extends AppController
             $this->Flash->greatSuccess('A resposta foi enviada com sucesso.');
             $this->redirect(['action' => 'manifestacao', $id]);
         }        
+    }
+
+    public function fechar(int $id)
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante']]);
+        $this->definirStatusFechado($manifestacao);
+
+        $this->Flash->greatSuccess('A manifestação foi fechada com sucesso!');
+        $this->redirect(['action' => 'manifestacao', $id]);
     }
 
     private function definirStatusAtendido(Manifestacao $manifestacao, string $resposta, bool $enviar)

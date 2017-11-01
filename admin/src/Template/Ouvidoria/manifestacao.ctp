@@ -209,7 +209,7 @@
                     </div>
                     <div class="card-content">
                         <?php if($manifestacao->status->id == $this->Data->setting('Ouvidoria.status.definicoes.recusado')): ?>
-                            <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'fechar', $id]) ?>" class="btn btn-danger pull-right" target="_blank">Fechar<div class="ripple-container"></div></a>
+                            <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'fechar', $id]) ?>" class="btn btn-danger pull-right">Fechar<div class="ripple-container"></div></a>
                         <?php endif;?>
                         <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'documento', $id]) ?>" class="btn btn-default btn-default pull-right" target="_blank">Imprimir<div class="ripple-container"></div></a>
                         <button type="button" onclick="window.location='<?= $this->Url->build('/ouvidoria') ?>'" class="btn btn-info pull-right">Voltar</button>
