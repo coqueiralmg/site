@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Entity\Manifestacao;
+use App\Model\Entity\Historico;
 use Cake\Core\Configure;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
@@ -226,16 +227,16 @@ class OuvidoriaController extends AppController
 
             case Configure::read('Ouvidoria.status.definicoes.emAtividade'):
                 $acoes = [
-                    'CF' => 'Concluir e fechar',
-                    'CL' => 'Apenas deixar concluído',
-                    'AN' => 'Deixar com status em andamento',
+                    'CR' => 'Concluir e fechar',
+                    'CN' => 'Apenas deixar concluído',
+                    'AD' => 'Deixar com status em andamento',
                 ];
             break;
 
             case Configure::read('Ouvidoria.status.definicoes.concluido'):
                 $acoes = [
                     'FC' => 'Fechar a manifestação',
-                    'CL' => 'Apenas deixar concluído',
+                    'CO' => 'Apenas deixar concluído',
                 ];
             break;
         }
@@ -266,7 +267,7 @@ class OuvidoriaController extends AppController
             $prioridade = $this->request->getData('prioridade');
             $enviar = $this->request->getData('enviar');
 
-            $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
+            $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante']]);
 
             $ultimo = $t_historico->find('all', [
                 'conditions' => [
@@ -276,20 +277,45 @@ class OuvidoriaController extends AppController
                     'data' => 'DESC'
                 ]
             ])->first();
+
+            $manifestacao->prioridade = $prioridade;
             
             switch($acao)
             {
-                case 'AT':
+                case 'CF':
+                    $this->definirStatusAtendido($manifestacao, $resposta, $enviar);
+                    $this->definirStatusConcluido($manifestacao);
+                    $this->definirStatusFechado($manifestacao);
+                    break;
+                case 'CL':
+                    $this->definirStatusAtendido($manifestacao, $resposta, $enviar);
+                    $this->definirStatusConcluido($manifestacao);
+                    break;
+                case 'AN':
+                    $this->definirStatusAtendido($manifestacao, $resposta, $enviar);
+                    $this->definirStatusAndamento($manifestacao);
                     break;
                 case 'AT':
+                    $this->definirStatusAtendido($manifestacao, $resposta, $enviar);
                     break;
-                case 'AT':
+                case 'CR':
+                    $this->definirStatusConcluido($manifestacao, true, $resposta, $enviar);
+                    $this->definirStatusFechado($manifestacao);
                     break;
-                case 'AT':
+                case 'CN':
+                case 'CO':
+                    $this->definirStatusConcluido($manifestacao, true, $resposta, $enviar);
                     break;
-                
+                case 'AD':
+                    $this->definirStatusAndamento($manifestacao, true, $resposta, $enviar);
+                    break;
+                case 'FC':
+                    $this->definirStatusFechado($manifestacao, true, $resposta, $enviar);
+                    break;
             }
 
+            $this->Flash->greatSuccess('A resposta foi enviada com sucesso.');
+            $this->redirect(['action' => 'manifestacao', $id]);
         }        
     }
 
@@ -303,13 +329,7 @@ class OuvidoriaController extends AppController
         $manifestacao->status = $atendido;
 
         $historico = $t_historico->newEntity();
-        $historico->data = date("Y-m-d H:i:s");
-        $historico->mensagem = $resposta;
-        $historico->manifestacao = $id;
-        $historico->notificar = $enviar;
-        $historico->resposta = true;
-        $historico->status = $atendido;
-        $historico->prioridade = $manifestacao->prioridade->id;
+        $this->montarHistorico($historico, $manifestacao, $atendido, true, $resposta, $enviar);
 
         if($enviar)
         {
@@ -325,7 +345,7 @@ class OuvidoriaController extends AppController
         $auditoria = [
             'ocorrencia' => 47,
             'descricao' => 'O ouvidor respondeu a mensagem de ouvidoria',
-            'dado_adicional' => json_encode(['manifestacao_respondida' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+            'dado_adicional' => json_encode(['manifestacao_respondida' => $manifestacao->id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
             'usuario' => $this->request->session()->read('UsuarioID')
         ];
 
@@ -337,7 +357,7 @@ class OuvidoriaController extends AppController
         }
     }
 
-    private function definirStatusAndamento(Manifestacao $manifestacao, bool $resposta = false, string $mensagem = '', bool $enviar = false)
+    private function definirStatusAndamento(Manifestacao $manifestacao, bool $resposta = false, string $mensagem = 'O manifesto teve status para em andamento, onde a atividade solicitada está sendo realizada', bool $enviar = false)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
@@ -347,17 +367,11 @@ class OuvidoriaController extends AppController
         $manifestacao->status = $emAtividade;
 
         $historico = $t_historico->newEntity();
-        $historico->data = date("Y-m-d H:i:s");
-        $historico->mensagem = $resposta;
-        $historico->manifestacao = $id;
-        $historico->notificar = $enviar;
-        $historico->resposta = $resposta;
-        $historico->status = $emAtividade;
-        $historico->prioridade = $manifestacao->prioridade->id;
+        $this->montarHistorico($historico, $manifestacao, $emAtividade, $resposta, $mensagem, $enviar);
 
         if($enviar)
         {
-            $this->enviarEmailManifestante($manifestacao->id, $manifestacao->manifestante->email, $resposta);
+            $this->enviarEmailManifestante($manifestacao->id, $manifestacao->manifestante->email, $mensagem);
         }
 
         $propriedades = $this->Auditoria->changedOriginalFields($manifestacao);
@@ -372,7 +386,7 @@ class OuvidoriaController extends AppController
             $auditoria = [
                 'ocorrencia' => 47,
                 'descricao' => 'O ouvidor respondeu a mensagem de ouvidoria',
-                'dado_adicional' => json_encode(['manifestacao_respondida' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'dado_adicional' => json_encode(['manifestacao_respondida' => $manifestacao->id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
         }
@@ -381,7 +395,7 @@ class OuvidoriaController extends AppController
             $auditoria = [
                 'ocorrencia' => 50,
                 'descricao' => 'A manifestação teve seu status atualizado',
-                'dado_adicional' => json_encode(['manifestacao_atualizada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'dado_adicional' => json_encode(['manifestacao_atualizada' => $manifestacao->id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
         }
@@ -394,7 +408,7 @@ class OuvidoriaController extends AppController
         }
     }
 
-    private function definirStatusConcluido(Manifestacao $manifestacao, bool $resposta = false, string $mensagem = '', bool $enviar = false)
+    private function definirStatusConcluido(Manifestacao $manifestacao, bool $resposta = false, string $mensagem = 'O manifesto está concluído.', bool $enviar = false)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
@@ -404,17 +418,11 @@ class OuvidoriaController extends AppController
         $manifestacao->status = $concluido;
 
         $historico = $t_historico->newEntity();
-        $historico->data = date("Y-m-d H:i:s");
-        $historico->mensagem = $resposta;
-        $historico->manifestacao = $id;
-        $historico->notificar = $enviar;
-        $historico->resposta = $resposta;
-        $historico->status = $concluido;
-        $historico->prioridade = $manifestacao->prioridade->id;
+        $this->montarHistorico($historico, $manifestacao, $concluido, $resposta, $mensagem, $enviar);
 
         if($enviar)
         {
-            $this->enviarEmailManifestante($manifestacao->id, $manifestacao->manifestante->email, $resposta);
+            $this->enviarEmailManifestante($manifestacao->id, $manifestacao->manifestante->email, $mensagem);
         }
 
         $propriedades = $this->Auditoria->changedOriginalFields($manifestacao);
@@ -429,7 +437,7 @@ class OuvidoriaController extends AppController
             $auditoria = [
                 'ocorrencia' => 47,
                 'descricao' => 'O ouvidor respondeu a mensagem de ouvidoria',
-                'dado_adicional' => json_encode(['manifestacao_respondida' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'dado_adicional' => json_encode(['manifestacao_respondida' => $manifestacao->id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
         }
@@ -438,7 +446,7 @@ class OuvidoriaController extends AppController
             $auditoria = [
                 'ocorrencia' => 50,
                 'descricao' => 'A manifestação teve seu status atualizado',
-                'dado_adicional' => json_encode(['manifestacao_atualizada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'dado_adicional' => json_encode(['manifestacao_atualizada' => $manifestacao->id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
         }
@@ -451,13 +459,79 @@ class OuvidoriaController extends AppController
         }
     }
 
+    private function definirStatusFechado(Manifestacao $manifestacao, bool $resposta = false, string $mensagem = 'O manifesto encontra-se fechado', bool $enviar = false)
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $t_historico = TableRegistry::get('Historico');
+        
+        $fechado = Configure::read('Ouvidoria.status.definicoes.fechado');
+        
+        $manifestacao->status = $fechado;
+
+        $historico = $t_historico->newEntity();
+        $this->montarHistorico($historico, $manifestacao, $fechado, $resposta, $mensagem, $enviar);
+
+        if($enviar)
+        {
+            $this->enviarEmailManifestante($manifestacao->id, $manifestacao->manifestante->email, $mensagem);
+        }
+
+        $propriedades = $this->Auditoria->changedOriginalFields($manifestacao);
+        $modificadas = $this->Auditoria->changedFields($manifestacao, $propriedades);
+
+        $t_manifestacao->save($manifestacao);
+        $t_historico->save($historico);
+        $auditoria = array();
+
+        if($resposta)
+        {
+            $auditoria = [
+                'ocorrencia' => 47,
+                'descricao' => 'O ouvidor respondeu a mensagem de ouvidoria',
+                'dado_adicional' => json_encode(['manifestacao_respondida' => $manifestacao->id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+        }
+        else
+        {
+            $auditoria = [
+                'ocorrencia' => 50,
+                'descricao' => 'A manifestação teve seu status atualizado',
+                'dado_adicional' => json_encode(['manifestacao_atualizada' => $manifestacao->id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+        }
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+    }
+
+    private function montarHistorico(Historico &$historico, Manifestacao $manifestacao, int $status, bool $resposta = false, string $mensagem = '', bool $enviar = false)
+    {
+        $historico->data = date("Y-m-d H:i:s");
+        $historico->mensagem = $mensagem;
+        $historico->manifestacao = $manifestacao->id;
+        $historico->notificar = $enviar;
+        $historico->resposta = $resposta;
+        $historico->status = $status;
+        $historico->prioridade = $manifestacao->prioridade;
+
+        return $historico;
+    }
+
     private function enviarEmailManifestante(int $idManifestacao, string $email, string $resposta)
     {
+        $numPad = $this->Format->zeroPad($idManifestacao);
+        
         $header = array(
             'name' => 'Sistema Coqueiral',
             'from' => 'system@coqueiral.mg.gov.br',
             'to' => $email,
-            'subject' => 'Resposta da Ouvidoria da Manifestação ' + $this->Format->zeroPad($idManifestacao)
+            'subject' => 'Resposta da Ouvidoria da Manifestação ' . $numPad
         );
 
         $params = array(
