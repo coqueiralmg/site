@@ -63,4 +63,15 @@ class FormatComponent extends Component
         $merge = new DateTime($this->formatDateDB($data) . ' ' . $hora);
         return $merge->format('Y-m-d H:i:s');
     }
+
+    /**
+     * Formata um número colocando zeros a esquerda
+     * @param string $value O valor a ser formatado
+     * @param int $lenght A quantidade de zeros a ser adicionada. Por padrão, será 7.
+     * @return string O valor formatado.
+     */
+    public function zeroPad(string $value, int $lenght = 7)
+    {
+        return str_pad($value, $lenght, '0', STR_PAD_LEFT);
+    }
 }
