@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Entity\Manifestacao;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 
@@ -280,6 +281,7 @@ class OuvidoriaController extends AppController
 
         $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
         $historico = $t_historico->find('all', [
+            'contain' => ['Prioridade', 'Status'],
             'conditions' => [
                 'manifestacao' => $id
             ]
@@ -314,6 +316,35 @@ class OuvidoriaController extends AppController
         $this->set('title', "Dados da Manifestação");
         $this->set('manifestacao', $manifestacao);
         $this->set('historico', $historico);        
+        $this->set('id', $id);
+    }
+
+    public function resposta(int $id)
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');        
+        $t_historico = TableRegistry::get('Historico');
+
+        $resposta = $this->request->getData('resposta');
+
+        $resposta = nl2br($resposta);
+
+        $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante']]);
+
+        $historico = $t_historico->newEntity();
+
+        $historico->data = date("Y-m-d H:i:s");
+        $historico->mensagem = $resposta;
+        $historico->manifestacao = $manifestacao->id;
+        $historico->notificar = true;
+        $historico->resposta = true;
+        $historico->status = $manifestacao->status;
+        $historico->prioridade = $manifestacao->prioridade;
+
+        $this->notificarOuvidoria($manifestacao, $resposta);
+
+        $t_historico->save($historico);
+
+        $this->redirect(['action' => 'manifestacao', $id]);
     }
 
     private function salvarDadosManifestanteCookie($idManifestante)
@@ -535,6 +566,63 @@ class OuvidoriaController extends AppController
         );
 
         $this->Sender->sendEmailTemplate($header, 'manifestante', $params);
+    }
+
+    /**
+     * Notifica a ouvidoria das alterações de manifestações do sistema
+     * @param Manifestacao $idManifestacao Número da manifestação do sistema
+     * @param string $resposta Mensagem do manifesto do sistema.
+     */
+    private function notificarOuvidoria(Manifestacao $manifestacao, string $resposta)
+    {
+        $t_mensagens = TableRegistry::get('Mensagem');
+        
+        $ouvidores = $this->obterOuvidores();
+        $codigo = $this->Format->zeroPad($manifestacao->id);
+        $nome_manifestante = $manifestacao->manifestante->nome;
+        
+        $envia_copia = Configure::read('Ouvidoria.sendMail');
+
+        $titulo = "Resposta da Manifestação da Ouvidoria: $codigo";
+
+        $mensagem = "<h4>Você recebeu a resposta da ouvidoria, referente ao manifesto $codigo<h4>";
+        $mensagem = $mensagem . "<p>O cidadão $nome_manifestante enviou uma mensagem referente à manifestação com código $codigo.</p>"; 
+        $mensagem = $mensagem . "<p><b>Código da Manifestação: </b> $codigo.</p>";
+
+        foreach($ouvidores as $ouvidor)
+        {
+            $entity = $t_mensagens->newEntity();
+            
+            $entity->destinatario = $ouvidor->id;
+            $entity->data = date("Y-m-d H:i:s");
+            $entity->assunto = $titulo;
+            $entity->mensagem = $mensagem;
+            $entity->lido = false;
+
+            $t_mensagens->save($entity);
+
+            if($envia_copia)
+            {
+                $header = array(
+                    'name' => 'Sistema Coqueiral',
+                    'from' => 'system@coqueiral.mg.gov.br',
+                    'to' => $ouvidor->email,
+                    'subject' => $titulo
+                );
+
+                $params = array(
+                    'assunto' => $titulo,
+                    'mensagem' => $resposta,
+                    'nome' => $manifestacao->manifestante->nome,
+                    'email' => $manifestacao->manifestante->email,
+                    'endereco' => $manifestacao->manifestante->endereco,
+                    'telefone' => $manifestacao->manifestante->telefone,
+                    'codigo' => $codigo
+                );
+
+                $this->Sender->sendEmailTemplate($header, 'resposta', $params);
+            }
+        }
     }
 
     /**
