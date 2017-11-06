@@ -268,6 +268,8 @@ class OuvidoriaController extends AppController
 
             $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante']]);
             $manifestacao->prioridade = $prioridade;
+
+            $resposta = nl2br($resposta);
             
             switch($acao)
             {
