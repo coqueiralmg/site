@@ -81,41 +81,77 @@
                     <?php endif;?>
                 </div>
                 <div class="media-body post_reply_comments">
-                    <h4><?= $this->Format->date($item->data, true) ?></h4>
+                    <h4><?= $this->Format->date($item->data, true) ?> | Status: <?=$item->status->nome?></h4>
                     <p><?= $item->mensagem ?></p>
                 </div>
             </div>
         <?php endforeach; ?>
 
-        <?php if($this->request->session()->check('ManifestanteID')): ?>
-            <div id="contact-page clearfix">
-                <div class="status alert alert-success" style="display: none"></div>
-                <div class="message_heading">
-                    <h4>Resposta</h4>
-                    <p>Digite abaixo para enviar resposta a ouvidoria da prefeitura.</p>
-                </div> 
+        <?php if($manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.recusado') && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.fechado')): ?>
+            <?php if($this->request->session()->check('ManifestanteID')): ?>
+                <div id="contact-page clearfix">
+                    <div class="status alert alert-success" style="display: none"></div>
+                    <div class="message_heading">
+                        <h4>Resposta</h4>
+                        <p>Digite abaixo para enviar resposta a ouvidoria da prefeitura.</p>
+                    </div> 
 
-                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php" role="form">
-                    <div class="row">
-                        <div class="col-sm-12">                        
-                            <div class="form-group">
-                                <label>Mensagem de resposta</label>
-                                <textarea name="message" id="message" required="required" class="form-control" rows="5"></textarea>
-                            </div>                        
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg" style="float: right" required="required">Enviar</button>
+                    <?php
+                    echo $this->Form->create("Ouvidoria", [
+                        "url" => [
+                            "controller" => "ouvidoria",
+                            "action" => "resposta",
+                            $id
+                        ],
+                        'id' => 'main-contact-form',
+                        'class' => 'contact-form',
+                        'name' => 'contact-form',
+                        'role' => 'form',
+                        'type' => 'post']);
+                    ?>
+                        <div class="row">
+                            <div class="col-sm-12">                        
+                                <div class="form-group">
+                                    <?= $this->Form->label("resposta", "Mensagem de Resposta") ?>
+                                    <?= $this->Form->textarea("resposta", ["id" => "resposta", "required" => true, "class" => "form-control", "rows" => "5", "class" => "form-control"]) ?>
+                                </div>                        
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-lg" style="float: right" required="required">Enviar</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>     
-            </div><!--/#contact-page-->
+                    <?php echo $this->Form->end(); ?>
+                </div><!--/#contact-page-->
+            <?php else: ?>
+                <div id="contact-page clearfix">
+                    <div class="status alert alert-success" style="display: none"></div>
+                    <div class="message_heading">
+                        <p>Se você é o próprio manifestante e pretende responder a este chamado, <?=$this->Html->Link('clique aqui', ['controller' => 'ouvidoria', 'action' => 'acesso'])?>.</p>
+                    </div> 
+                </div><!--/#contact-page-->
+            <?php endif;?>
         <?php else: ?>
-            <div id="contact-page clearfix">
-                <div class="status alert alert-success" style="display: none"></div>
-                <div class="message_heading">
-                    <p>Se você é o próprio manifestante e pretende responder a este chamado, <?=$this->Html->Link('clique aqui', ['controller' => 'ouvidoria', 'action' => 'acesso'])?>.</p>
-                </div> 
-            </div><!--/#contact-page-->
+                <?php
+                    $mensagem = '';
+
+                    switch($manifestacao->status->id)
+                    {
+                        case $this->Data->setting('Ouvidoria.status.definicoes.recusado'):
+                            $mensagem = 'A manifestação foi recusada e você não pode responder. Caso tenha objeções e deseja criar novo chamado relacionado a este, ';
+                            break;
+                        
+                        case $this->Data->setting('Ouvidoria.status.definicoes.fechado'):
+                            $mensagem = 'A manifestação foi fechada e você não pode mais responder. Caso deseja criar novo chamado relacionado a este, ';
+                            break;
+                    }   
+
+                ?>
+                <div id="contact-page clearfix">
+                    <div class="status alert alert-success" style="display: none"></div>
+                    <div class="message_heading">
+                        <p><?=$mensagem?> <?=$this->Html->Link('clique aqui', ['controller' => 'ouvidoria', 'action' => 'index'])?>.</p>
+                    </div> 
+                </div><!--/#contact-page-->
         <?php endif;?>
     </div>
     <!--/.container-->
