@@ -400,7 +400,7 @@ class OuvidoriaController extends AppController
         ];
 
         $this->set('title', 'Lista de Manifestantes');
-        $this->set('icon', 'person');
+        $this->set('icon', 'face');
         $this->set('combo_mostra', $combo_mostra);
         $this->set('manifestantes', $manifestantes);
         $this->set('qtd_total', $qtd_total);
