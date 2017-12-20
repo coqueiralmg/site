@@ -320,6 +320,31 @@ class OuvidoriaController extends AppController
         $this->redirect(['action' => 'manifestacao', $id]);
     }
 
+    public function documento(int $id)
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $t_historico = TableRegistry::get('Historico');
+
+        $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
+
+        $historico =  $t_historico->find('all', [
+            'contain' => ['Prioridade', 'Status'],
+            'conditions' => [
+                'manifestacao' => $id
+            ],
+            'order' => [
+                'data' => 'ASC'
+            ]
+        ]);
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Manifestação da Ouvidoria');
+        $this->set('manifestacao', $manifestacao);
+        $this->set('historico', $historico);
+        $this->set('id', $id);    
+    }
+
     private function definirStatusAtendido(Manifestacao $manifestacao, string $resposta, bool $enviar)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
