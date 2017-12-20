@@ -345,6 +345,70 @@ class OuvidoriaController extends AppController
         $this->set('id', $id);    
     }
 
+    public function manifestantes()
+    {
+        $t_manifestante = TableRegistry::get('Manifestante');
+
+        $limite_paginacao = Configure::read('Pagination.limit');
+
+        $condicoes = array();
+        $data = array();
+
+        if (count($this->request->getQueryParams()) > 1)
+        {
+            $nome = $this->request->query('nome');
+            $exibir = $this->request->query('exibir');
+
+            $condicoes['nome LIKE'] = '%' . $nome . '%';
+
+            if($exibir == 'B')
+            {
+                $condicoes['bloqueado'] = 1;
+            }
+            elseif($exibir == 'L')
+            {
+                $condicoes['bloqueado'] = 0;
+            }
+
+            $data['nome'] = $nome;
+            $data['exibir'] = $exibir;
+
+            $this->request->data = $data;
+        }
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+        ];
+
+        $config = [
+            'conditions' => $condicoes,
+            'order' => [
+                'nome' => 'ASC'
+            ]
+        ];
+
+        $query = $t_manifestante->find('all', $config);
+        $manifestantes = $this->paginate($query);
+
+        $qtd_total = $query->count();
+
+        $combo_mostra = ['L' => 'Autorizados', 'B' => 'Bloqueados',];
+
+        $opcao_paginacao = [
+            'name' => 'manifestantes',
+            'name_singular' => 'manifestante'
+        ];
+
+        $this->set('title', 'Lista de Manifestantes');
+        $this->set('icon', 'person');
+        $this->set('combo_mostra', $combo_mostra);
+        $this->set('manifestantes', $manifestantes);
+        $this->set('qtd_total', $qtd_total);
+        $this->set('limit_pagination', $limite_paginacao);
+        $this->set('opcao_paginacao', $opcao_paginacao);
+        $this->set('data', $data);
+    }
+
     private function definirStatusAtendido(Manifestacao $manifestacao, string $resposta, bool $enviar)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
