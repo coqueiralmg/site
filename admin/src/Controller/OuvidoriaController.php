@@ -409,6 +409,59 @@ class OuvidoriaController extends AppController
         $this->set('data', $data);
     }
 
+    public function impressao()
+    {
+        $t_manifestante = TableRegistry::get('Manifestante');
+
+        $condicoes = array();
+
+        if (count($this->request->getQueryParams()) > 1)
+        {
+            $nome = $this->request->query('nome');
+            $exibir = $this->request->query('exibir');
+
+            $condicoes['nome LIKE'] = '%' . $nome . '%';
+
+            if($exibir == 'B')
+            {
+                $condicoes['bloqueado'] = 1;
+            }
+            elseif($exibir == 'L')
+            {
+                $condicoes['bloqueado'] = 0;
+            }
+
+        }
+
+        $manifestantes = $t_manifestante->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'nome' => 'ASC'
+            ]
+        ]);
+
+        $qtd_total = $manifestantes->count();
+
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão da lista de usuários.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Manifestantes da Ouvidoria');
+        $this->set('manifestantes', $manifestantes);
+        $this->set('qtd_total', $qtd_total);
+    }
+
     private function definirStatusAtendido(Manifestacao $manifestacao, string $resposta, bool $enviar)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
