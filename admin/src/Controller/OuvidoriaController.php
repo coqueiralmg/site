@@ -462,6 +462,49 @@ class OuvidoriaController extends AppController
         $this->set('qtd_total', $qtd_total);
     }
 
+    public function manifestante(int $id)
+    {
+        $t_manifestante = TableRegistry::get('Manifestante');
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $manifestante = $t_manifestante->get($id);
+
+        $limite_paginacao = Configure::read('Pagination.short.limit');
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+        ];
+
+        $config = [
+            'contain' => ['Manifestante', 'Prioridade', 'Status'],
+            'conditions' => [
+                'manifestante' => $id
+            ],
+            'order' => [
+                'nivel' => 'DESC',
+                'data' => 'DESC'
+            ]
+        ];
+
+        $opcao_paginacao = [
+            'name' => 'manifestações',
+            'name_singular' => 'manifestação',
+            'predicate' => 'encontradas',
+            'singular' => 'encontrada'
+        ];
+
+        $query = $t_manifestacao->find('all', $config);
+        $manifestacoes = $this->paginate($query);
+        $qtd_manifestacoes = $query->count();
+
+        $this->set('title', 'Dados do Manifestante da Ouvidoria');
+        $this->set('icon', 'face');
+        $this->set('manifestante', $manifestante);
+        $this->set('manifestacoes', $manifestacoes);
+        $this->set('opcao_paginacao', $opcao_paginacao);
+        $this->set('qtd_total', $qtd_manifestacoes);
+        $this->set('id', $id);
+    }
+
     private function definirStatusAtendido(Manifestacao $manifestacao, string $resposta, bool $enviar)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
