@@ -1,4 +1,4 @@
-<?= $this->Html->script('controller/ouvidoria.lista.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('controller/ouvidoria.manifestante.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -66,9 +66,12 @@
                                                 <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'manifestante', $manifestante->id]) ?>" title="Detalhes do Manifestante" class="btn btn-primary btn-round">
                                                     <i class="material-icons">insert_drive_file</i>
                                                 </a>
-                                                 <?php if ($this->Membership->handleRole("recusar_manifestacao")): ?>
-                                                        <button type="button" onclick="recusarManifestacao(<?= $manifestante->id ?>)"  title="Bloquear Manifestante" class="btn btn-danger btn-round"><i class="material-icons">pan_tool</i></button>
-                                                 <?php endif; ?>
+                                                <?php if(!$manifestante->bloqueado): ?>
+                                                    <button type="button" onclick="banirManifestante(<?= $manifestante->id ?>, 'manifestantes')"  title="Bloquear Manifestante" class="btn btn-danger btn-round"><i class="material-icons">pan_tool</i></button>
+                                                <?php else: ?>
+                                                    <button type="button" onclick="desbloquearManifestante(<?= $manifestante->id ?>, 'manifestantes')"  title="Bloquear Manifestante" class="btn btn-warning btn-round"><i class="material-icons">thumb_up</i></button>
+                                                <?php endif; ?>
+                                                
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
