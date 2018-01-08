@@ -180,10 +180,27 @@ class OuvidoriaController extends AppController
         $this->set('qtd_total', $qtd_total);
     }
 
-    public function refresh(string $mensagem)
+    public function refresh(string $params)
     {
+        $p = explode('::', $params);
+
+        $destino = $p[0];
+        $mensagem = $p[1];
+        
         $this->Flash->greatSuccess($mensagem);
-        $this->redirect(['action' => 'index']);
+        $this->redirect(['action' => $destino]);
+    }
+
+    public function update(string $params)
+    {
+        $p = explode('::', $params);
+
+        $destino = $p[0];
+        $valor = $p[1];
+        $mensagem = $p[2];
+
+        $this->Flash->greatSuccess($mensagem);
+        $this->redirect(['action' => $destino, $valor]);
     }
 
     public function manifestacao(int $id)
