@@ -1,10 +1,11 @@
-<?= $this->Html->script('controller/ouvidoria.lista.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('controller/ouvidoria.manifestante.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                        <?= $this->Flash->render() ?>
                         <legend>Dados do Manifestante</legend>
                         <div class="row">
                             <div class="col-md-4">
@@ -133,11 +134,17 @@
                 </div>
             </div>
 
-                    <div class="card-content">
-                        <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'document', $id]) ?>" class="btn btn-default btn-default pull-right" target="_blank">Imprimir<div class="ripple-container"></div></a>
-                        <button type="button" onclick="window.location='<?= $this->Url->build('/ouvidoria/manifestantes') ?>'" class="btn btn-info pull-right">Voltar</button>
-                        <div class="clearfix"></div>
-                    </div>
+                <div class="card-content">
+                    <?php if($manifestante->bloqueado) : ?>
+                        <button type="button" onclick="desbloquearManifestante(<?=$id?>, 'manifestante')" class="btn btn-warning pull-right">Desbloquear</button>
+                    <?php else: ?>
+                        <button type="button" onclick="banirManifestante(<?=$id?>, 'manifestante')" class="btn btn-danger pull-right">Bloquear</button>
+                    <?php endif; ?>
+                    
+                    <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'document', $id]) ?>" class="btn btn-default btn-default pull-right" target="_blank">Imprimir<div class="ripple-container"></div></a>
+                    <button type="button" onclick="window.location='<?= $this->Url->build('/ouvidoria/manifestantes') ?>'" class="btn btn-info pull-right">Voltar</button>
+                    <div class="clearfix"></div>
+                </div>
                 </div>
             </div>
         </div>
