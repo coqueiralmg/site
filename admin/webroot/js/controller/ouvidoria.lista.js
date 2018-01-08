@@ -92,8 +92,9 @@ function verificarManifestacao(id){
                     }, function(data){
 
                         if(data.sucesso){
+                            var destino = 'index';
                             var mensagem = 'Você aceitou com sucesso, a manifestação ' + numeroPad;
-                            window.location = '/admin/ouvidoria/refresh/' + mensagem;
+                            window.location = '/admin/ouvidoria/refresh/' + destino + "::" + mensagem;
                         }
 
                         
@@ -194,8 +195,9 @@ function exibirMotivoRecusaManifestacao(id){
         }, function(data){
             if(data.sucesso){
                 var numeroPad = zeroPad(id, 7);
+                var destino = 'index';
                 var mensagem = 'Você rejeitou a manifestação ' + numeroPad;
-                window.location = '/admin/ouvidoria/refresh/' + mensagem;
+                window.location = '/admin/ouvidoria/refresh/' + destino + '::' + mensagem;
             }
             
         }).fail(function (){
@@ -239,8 +241,9 @@ function fecharManifestacao(id){
                     }, function(data){
                         if(data.sucesso){
                             var numeroPad = zeroPad(id, 7);
+                            var destino = 'index';
                             var mensagem = 'A manifestação ' + numeroPad + " foi fechada com sucesso!";
-                            window.location = '/admin/ouvidoria/refresh/' + mensagem;
+                            window.location = '/admin/ouvidoria/refresh/' + destino + "::" +  mensagem;
                         }
                         
                     }).fail(function (){
