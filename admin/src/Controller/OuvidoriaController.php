@@ -505,6 +505,30 @@ class OuvidoriaController extends AppController
         $this->set('id', $id);
     }
 
+    public function document(int $id)
+    {
+        $t_manifestante = TableRegistry::get('Manifestante');        
+        $manifestante = $t_manifestante->get($id);
+
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão da lista de usuários.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Dados do Manifestante da Ouvidoria');
+        $this->set('manifestante', $manifestante);
+    }
+
     private function definirStatusAtendido(Manifestacao $manifestacao, string $resposta, bool $enviar)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
