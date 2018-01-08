@@ -165,6 +165,9 @@ class SystemController extends AppController
         $t_licitacoes = TableRegistry::get('Licitacao');
         $t_publicacoes = TableRegistry::get('Publicacao');
         $t_noticias = TableRegistry::get('Noticia');
+        $t_manifestacoes = TableRegistry::get('Manifestacao');
+
+        $fechado = Configure::read('Ouvidoria.status.fechado');
 
         $noticias = $t_noticias->find('all', [
             'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
@@ -182,11 +185,24 @@ class SystemController extends AppController
             'limit' => $limite
         ]);
 
+        $manifestacoes = $t_manifestacoes->find('all', [
+            'contain' => ['Manifestante', 'Prioridade', 'Status'],
+            'conditions' => [
+                'status <>' => $fechado
+            ],
+            'order' => [
+                'nivel' => 'DESC',
+                'data' => 'ASC'
+            ],
+            'limit' => $limite
+        ]);
+
         $this->set('title', 'Painel Principal');
         $this->set('icon', 'dashboard');
         $this->set('noticias', $noticias);
         $this->set('licitacoes', $licitacoes);
         $this->set('publicacoes', $publicacoes);
+        $this->set('manifestacoes', $manifestacoes);
     }
 
     public function fail(string $mensagem)

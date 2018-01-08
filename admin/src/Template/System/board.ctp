@@ -1,3 +1,4 @@
+<?= $this->Html->script('controller/ouvidoria.lista.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
 
@@ -90,6 +91,85 @@
                 </div>
             </div>
         </div>
+        <?php if ($this->Membership->handleSubmenus("ouvidoria_manifestacoes", "ouvidoria_manifestantes")): ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" data-background-color="green">
+                            <h4 class="title">Ouvidoria da Prefeitura</h4>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <table class="table table-hover">
+                                <thead class="text-warning">
+                                    <th>Número</th>
+                                    <th>Data</th>
+                                    <th>Manifestante</th>
+                                    <th>Assunto</th>
+                                    <th>Status</th>
+                                    <th>Prioridade</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($manifestacoes as $manifestacao): ?>
+                                        <tr style="
+                                            <?=($manifestacao->prioridade->id == $this->Data->setting('Ouvidoria.prioridade.definicoes.urgente.id') 
+                                                && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.fechado')
+                                                && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.recusado')) ? "font-weight: bold;" : ""?>
+                                            <?=($manifestacao->atrasado) ? "color: red;" : ""?>
+                                            ">
+                                            <td><?=$this->Format->zeroPad($manifestacao->id)?></td>
+                                            <td><?=$this->Format->date($manifestacao->data, true)?></td>
+                                            <td><?=$manifestacao->manifestante->nome?></td>
+                                            <td><?=$manifestacao->assunto?></td>
+                                            <td><?=$manifestacao->status->nome?></td>
+                                            <td><?=$manifestacao->prioridade->nome?></td>
+                                            <td class="td-actions text-right" style="width: 8%">
+                                                <?php if($manifestacao->status->id == $this->Data->setting('Ouvidoria.status.inicial')):?>
+                                                    <?php if ($this->Membership->handleRole("responder_manifestacao")): ?>
+                                                        <button type="button" onclick="verificarManifestacao(<?= $manifestacao->id ?>)" title="Verificar a manifestação" class="btn btn-primary btn-round"><i class="material-icons">insert_drive_file</i></button>
+                                                    <?php endif; ?>
+                                                    <?php if ($this->Membership->handleRole("recusar_manifestacao")): ?>
+                                                        <button type="button" onclick="recusarManifestacao(<?= $manifestacao->id ?>)"  title="Recusar manifestação" class="btn btn-danger btn-round"><i class="material-icons">pan_tool</i></button>
+                                                    <?php endif; ?>
+                                                <?php elseif($manifestacao->status->id == $this->Data->setting('Ouvidoria.status.definicoes.recusado')):?>
+                                                    <?php if ($this->Membership->handleRole("responder_manifestacao")): ?>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'manifestacao', $manifestacao->id]) ?>" title="Verificar a manifestação" class="btn btn-primary btn-round">
+                                                            <i class="material-icons">insert_drive_file</i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if ($this->Membership->handleRole("fechar_manifestacao")): ?>
+                                                        <button type="button" onclick="fecharManifestacao(<?= $manifestacao->id ?>)"  title="Fechar manifestação" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <?php endif; ?>
+                                                <?php else:?>
+                                                    <?php if ($this->Membership->handleRole("responder_manifestacao")): ?>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'manifestacao', $manifestacao->id]) ?>" title="Verificar a manifestação" class="btn btn-primary btn-round">
+                                                            <i class="material-icons">insert_drive_file</i>
+                                                        </a>
+                                                        <?php if ($this->Membership->handleRole("exibir_manifestante_ouvidoria")): ?>
+                                                            <button type="button" onclick="exibirManifestante(<?= $manifestacao->manifestante->id ?>)"  title="Informações sobre o manifestante" class="btn btn-info btn-round"><i class="material-icons">face</i></button>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </td>
+                                            
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="7" class="text-right">
+                                            <?php if ($this->Membership->handleRole("consultar_manifestacoes")): ?>
+                                                <a href="<?= $this->Url->build(['controller' => 'ouvidoria', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todas as Manifestações</a>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="row">
             <div class="pull-left">
                 <h3>Notícias Recentes </h3>
