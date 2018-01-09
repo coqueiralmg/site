@@ -147,7 +147,7 @@ class AuditoriaController extends AppController
         }
 
         $trilha = $t_auditoria->find('all', [
-            'contain' => ['Usuario'], 
+            'contain' => ['Usuario' => ['Pessoa']], 
             'conditions' => $condicoes,
             'order' => [
                 'data' => 'DESC'
