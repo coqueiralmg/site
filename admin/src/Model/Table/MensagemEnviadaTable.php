@@ -10,7 +10,6 @@ class MensagemEnviadaTable extends BaseTable
         $this->table('mensagem');
         $this->primaryKey('id');
         $this->entityClass('Mensagem');
-
         
         $this->belongsTo('Usuario', [
             'className' => 'Usuario',
