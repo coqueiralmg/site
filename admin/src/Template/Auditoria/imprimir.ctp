@@ -1,5 +1,5 @@
 <?php if ($qtd_total > 0) :?>
-    <h4 class="card-title">Lista de Funcionários</h4>
+    <h4 class="card-title">Auditoria do Sistema</h4>
     <table class="table  table-striped">
         <thead class="text-primary">
             <tr>
