@@ -12,7 +12,11 @@
         <div class="col-md-5">
             <div class="form-group label-control">
                 <?= $this->Form->label("rementente", "Rementente") ?><br/>
-                <?=$rementente->pessoa->nome?> [@<?=$rementente->usuario?>](<?=$rementente->email?>)
+                <?php if ($mensagem->rementente == null): ?>
+                    <i>Mensagem do Sistema</i>
+                <?php else: ?>
+                    <?=$rementente->pessoa->nome?> [@<?=$rementente->usuario?>](<?=$rementente->email?>)
+                <?php endif;?>
                 <span class="material-input"></span>
             </div>
         </div>
