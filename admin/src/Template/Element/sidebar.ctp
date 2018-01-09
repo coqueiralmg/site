@@ -61,6 +61,14 @@
                     </a>
                 </li>
             <?php endif; ?>
+            <?php if ($this->Membership->handleMenu("feriado")): ?>
+                <li class="<?= $this->Menu->activeMenu(['controller' => 'feriado']) ?>">
+                    <a href="<?= $this->Url->build(['controller' => 'feriado', 'action' => 'index']) ?>">
+                        <i class="material-icons">event</i>
+                        <p>Feriados</p>
+                    </a>
+                </li>
+            <?php endif; ?>
             <?php if ($this->Membership->handleMenu("publicacoes")): ?>
                 <li class="<?= $this->Menu->activeMenu(['controller' => 'publicacoes']) ?>">
                     <a href="<?= $this->Url->build('/publicacoes') ?>">
