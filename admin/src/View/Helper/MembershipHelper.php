@@ -213,6 +213,7 @@ class MembershipHelper extends Helper
             ['chave' => 'usuarios', 'active' => $this->handleRole('listar_usuarios')],
             ['chave' => 'grupo_usuarios', 'active' => $this->handleRole('listar_grupos_usuario')],
             ['chave' => 'firewall', 'active' => $this->handleRole('listar_ips_firewall')],
+            ['chave' => 'feriado', 'active' => $this->handleRole('listar_feriados')],
             ['chave' => 'publicacoes', 'active' => $this->handleRole('listar_publicacoes')],
             ['chave' => 'licitacoes', 'active' => $this->handleRole('listar_licitacoes')],
             ['chave' => 'noticias', 'active' => $this->handleRole('listar_noticias')],
