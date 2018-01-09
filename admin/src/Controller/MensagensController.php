@@ -28,7 +28,7 @@ class MensagensController extends AppController
         ];
 
         $this->paginate = [
-            'contain' => ['Usuario' => ['Pessoa']],
+            'contain' => ['Rementente' => ['Pessoa']],
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
             'order' => [
@@ -123,10 +123,15 @@ class MensagensController extends AppController
     {
         $t_mensagens = TableRegistry::get('Mensagem');
         $t_usuarios = TableRegistry::get('Usuario');
+        $rementente = null;
 
         $mensagem = $t_mensagens->get($id);
 
-        $rementente = $t_usuarios->get($mensagem->rementente, ['contain' => ['Pessoa']]);
+        if($mensagem->rementente != null)
+        {
+            $rementente = $t_usuarios->get($mensagem->rementente, ['contain' => ['Pessoa']]);
+        }
+
         $destinatario = $t_usuarios->get($mensagem->destinatario, ['contain' => ['Pessoa']]);
 
         if($mensagem->destinatario == $this->request->session()->read('UsuarioID'))
@@ -147,10 +152,15 @@ class MensagensController extends AppController
     {
         $t_mensagens = TableRegistry::get('Mensagem');
         $t_usuarios = TableRegistry::get('Usuario');
+        $rementente = null;
 
         $mensagem = $t_mensagens->get($id);
 
-        $rementente = $t_usuarios->get($mensagem->rementente, ['contain' => ['Pessoa']]);
+        if($mensagem->rementente != null)
+        {
+            $rementente = $t_usuarios->get($mensagem->rementente, ['contain' => ['Pessoa']]);
+        }
+
         $destinatario = $t_usuarios->get($mensagem->destinatario, ['contain' => ['Pessoa']]);
 
         $this->viewBuilder()->layout('print');
