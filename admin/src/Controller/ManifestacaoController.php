@@ -204,5 +204,10 @@ class ManifestacaoController extends AppController
             ]);
         }
     }
+
+    public function verificar()
+    {
+        
+    }
    
 }
