@@ -48,8 +48,6 @@ class FormatComponent extends Component
         $pivot = new Date($data);
         
         return $pivot->format('d/m/Y');
-
-
     }
 
     /**
