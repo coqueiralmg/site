@@ -38,41 +38,44 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content table-responsive">
-                        <h4 class="card-title">Feriados do Ano <?=$ano?></h4>
-                        <table class="table">
-                            <thead class="text-primary">
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Dia de Semana</th>
-                                    <th>Descrição</th>
-                                    <th>Tipo</th>
-                                    <th>Facultativo</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($feriados as $feriado): ?>
+                        <?php if($qtd_total > 0):?>
+                            <h4 class="card-title">Feriados do Ano <?=$ano?></h4>
+                            <table class="table">
+                                <thead class="text-primary">
                                     <tr>
-                                        <td><?=$this->Format->date($feriado->data)?></td>
-                                        <td><?=$this->Format->dayWeek($feriado->data)?></td>
-                                        <td><?=$feriado->descricao?></td>
-                                        <td><?=$feriado->tipo?></td>
-                                        <td><?=$feriado->opcional?></td>
-                                        <td class="td-actions text-right">
-                                            <?php if ($this->Membership->handleRole("editar_grupo_usuario")): ?>
-                                                <a href="<?= $this->Url->build(['controller' => 'Grupos', 'action' => 'edit', $feriado->id]) ?>" class="btn btn-primary btn-round">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                            <?php endif; ?>
-                                            <?php if ($this->Membership->handleRole("excluir_grupo_usuario")): ?>
-                                                <button type="button" onclick="excluirGrupoUsuario(<?= $feriado->id ?>, '<?= $feriado->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>   
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        
+                                        <th>Data</th>
+                                        <th>Dia de Semana</th>
+                                        <th>Descrição</th>
+                                        <th>Tipo</th>
+                                        <th>Facultativo</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($feriados as $feriado): ?>
+                                        <tr>
+                                            <td><?=$this->Format->date($feriado->data)?></td>
+                                            <td><?=$this->Format->dayWeek($feriado->data)?></td>
+                                            <td><?=$feriado->descricao?></td>
+                                            <td><?=$feriado->tipo?></td>
+                                            <td><?=$feriado->opcional?></td>
+                                            <td class="td-actions text-right">
+                                                <?php if ($this->Membership->handleRole("editar_feriados")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'Grupos', 'action' => 'edit', $feriado->id]) ?>" class="btn btn-primary btn-round">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($this->Membership->handleRole("excluir_feriados")): ?>
+                                                    <button type="button" onclick="excluirGrupoUsuario(<?= $feriado->id ?>, '<?= $feriado->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>   
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <h3>Nenhum item encontrado.</h3>
+                        <?php endif; ?>
                     </div>
                      <div class="card-content">
                         <div class="material-datatables">
