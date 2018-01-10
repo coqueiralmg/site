@@ -116,4 +116,19 @@ class FeriadoController extends AppController
         $this->set('ano', $ano);
         $this->set('qtd_total', $qtd_total);
     }
+
+    public function add()
+    {
+        $this->redirect(['action' => 'cadastro', 0]);
+    }
+
+    public function edit(int $id)
+    {
+        $this->redirect(['action' => 'cadastro', $id]);
+    }
+
+    public function cadastro(int $id)
+    {
+        
+    }
 }
