@@ -27,9 +27,9 @@
                             <div class="form-group form-button">
                                 <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
                                 <?php if ($this->Membership->handleRole("adicionar_ips_firewall")): ?>
-                                    <a href="<?= $this->Url->build(['controller' => 'Firewall', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                                    <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                                 <?php endif; ?>
-                                <a href="<?= $this->Url->build(['controller' => 'Firewall', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
+                                <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                             </div>
                         <?php echo $this->Form->end(); ?>
                     </div>
@@ -47,7 +47,7 @@
                                         <th>Dia de Semana</th>
                                         <th>Descrição</th>
                                         <th>Tipo</th>
-                                        <th>Facultativo</th>
+                                        <th>Ponto Facultativo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
