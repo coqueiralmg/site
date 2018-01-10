@@ -1,5 +1,5 @@
 <?php if($qtd_total > 0):?>
-    <h4 class="card-title">Lista de Usuários</h4>
+    <h4 class="card-title">Lista de IPs</h4>
     <table class="table table-striped">
         <thead class="text-primary">
             <tr>
