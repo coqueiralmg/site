@@ -89,6 +89,11 @@ class FormatHelper extends Helper
         return $data;
     }
 
+    /**
+     * Retorna o nome do dia de semana, com a data informada.
+     * @param $data Data informada
+     * @return string Nome do dia de semana nominal.
+     */
     public function dayWeek($data)
     {
         return $this->dias_semana[date_format($data, 'l')];
