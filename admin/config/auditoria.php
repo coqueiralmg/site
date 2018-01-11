@@ -52,7 +52,10 @@ return [
             47 => 'Resposta de manifestação',
             48 => 'Conclusão de manifestação',
             49 => 'Fechamento da manifestação',
-            50 => 'Alteração de status de manifestação'
+            50 => 'Alteração de status de manifestação',
+            51 => 'Inclusão de Feriado',
+            52 => 'Alteração de Feriado',
+            53 => 'Exclusão de Feriado'
         ]
     ]
 ];
