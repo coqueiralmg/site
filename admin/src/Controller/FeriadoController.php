@@ -129,6 +129,130 @@ class FeriadoController extends AppController
 
     public function cadastro(int $id)
     {
+        $title = ($id > 0) ? 'Edição do Feriado' : 'Novo Feriado';
+        $t_feriado = TableRegistry::get('Feriado');
+
+        if ($id > 0) 
+        {
+            $feriado = $t_feriado->get($id);
+            $feriado->data = $feriado->data->i18nFormat('dd/MM/yyyy');
+            
+            $this->set('feriado', $feriado);
+        } 
+        else 
+        {
+            $this->set('feriado', null);
+        }
+
+        $niveis = [
+            'I' => 'Internacional',
+            'N' => 'Nacional',
+            'E' => 'Estadual',
+            'M' => 'Municipal'
+        ];
         
+        $this->set('title', $title);
+        $this->set('icon', 'event');
+        $this->set('id', $id);
+        $this->set('niveis', $niveis);
+    }
+
+    public function save(int $id)
+    {
+        if ($this->request->is('post'))
+        {
+            $this->insert();
+        }
+        else if($this->request->is('put'))
+        {
+            $this->update($id);
+        }
+    }
+
+    protected function insert()
+    {
+        try
+        {
+            $t_feriado = TableRegistry::get('Feriado');
+            $entity = $t_feriado->newEntity($this->request->data());
+
+            $entity->data = $this->Format->formatDateDB($entity->data);
+
+            $t_feriado->save($entity);
+            $this->Flash->greatSuccess('Feriado salvo com sucesso.');
+
+            $propriedades = $entity->getOriginalValues();
+            
+            $auditoria = [
+                'ocorrencia' => 51,
+                'descricao' => 'O usuário cadastrou o novo feriado no sistema.',
+                'dado_adicional' => json_encode(['id_novo_feriado' => $entity->id, 'dados_feriado' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o feriado', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    protected function update(int $id)
+    {
+        try
+        {
+            $t_feriado = TableRegistry::get('Feriado');
+            $entity = $t_feriado->get($id);
+
+            $t_feriado->patchEntity($entity, $this->request->data());
+
+            $entity->data = $this->Format->formatDateDB($entity->data);
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_feriado->save($entity);
+            $this->Flash->greatSuccess('Feriado salvo com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 52,
+                'descricao' => 'O usuário alterou um feriado no sistema.',
+                'dado_adicional' => json_encode(['feriado_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o feriado', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', $id]);
+        }
     }
 }
