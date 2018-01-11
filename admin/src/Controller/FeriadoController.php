@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
+use \Exception;
 
 class FeriadoController extends AppController
 {
