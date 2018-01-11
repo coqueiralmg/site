@@ -169,6 +169,49 @@ class FeriadoController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_feriado = TableRegistry::get('Feriado');
+            $marcado = $t_feriado->get($id);
+            $descricao = $marcado->descricao;
+
+            $propriedades = $marcado->getOriginalValues();
+
+            $t_feriado->delete($marcado);
+
+            $this->Flash->greatSuccess('O feriado ' . $descricao . ' foi excluído com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 53,
+                'descricao' => 'O usuário excluiu um feriado.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir o feriado.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'index']);
+        }  
+
+    }
+
     protected function insert()
     {
         try
