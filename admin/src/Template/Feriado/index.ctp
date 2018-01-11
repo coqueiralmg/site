@@ -61,7 +61,7 @@
                                             <td><?=$feriado->opcional?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_feriados")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Grupos', 'action' => 'edit', $feriado->id]) ?>" class="btn btn-primary btn-round">
+                                                    <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'edit', $feriado->id]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
