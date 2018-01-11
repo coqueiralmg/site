@@ -27,7 +27,7 @@
                             </div>
                             <div class="form-group form-button">
                                 <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
-                                <?php if ($this->Membership->handleRole("adicionar_ips_firewall")): ?>
+                                <?php if ($this->Membership->handleRole("adicionar_feriados")): ?>
                                     <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                                 <?php endif; ?>
                                 <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
