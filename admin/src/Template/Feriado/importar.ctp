@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-content">
                         <?= $this->Flash->render() ?>
-                        <h4 class="card-title">Buscar</h4>
+                        <h4 class="card-title">Importar </h4>
                         <?php
                         echo $this->Form->create("Feriado", [
                             "url" => [
@@ -19,23 +19,14 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group form-group-min">
-                                        <?= $this->Form->label("mostrar", "Ano") ?> <br/>
+                                        <?= $this->Form->label("mostrar", "Ano Origem") ?> <br/>
                                         <?=$this->Form->year('ano', ['minYear' => 1949, 'maxYear' => date('Y') + 10, 'orderYear' => 'asc', 'empty' => false, 'value' => $ano])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group form-button">
-                                <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
-                                <?php if ($this->Membership->handleRole("adicionar_feriados")): ?>
-                                    <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
-                                <?php endif; ?>
-                                <!--
-                                <?php if ($this->Membership->handleRole("adicionar_feriados")): ?>
-                                    <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'importar']) ?>" class="btn btn-info btn-default pull-right">Importar<div class="ripple-container"></div></a>
-                                <?php endif; ?>
-                                -->
-                                <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
+                                <button type="submit" class="btn btn-fill btn-info pull-right">Buscar<div class="ripple-container"></div></button>
                             </div>
                         <?php echo $this->Form->end(); ?>
                     </div>
@@ -49,32 +40,24 @@
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
+                                        <th></th>
                                         <th>Data</th>
                                         <th>Dia de Semana</th>
                                         <th>Descrição</th>
                                         <th>Tipo</th>
                                         <th>Ponto Facultativo</th>
-                                        <th></th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($feriados as $feriado): ?>
                                         <tr>
+                                            <td></td>
                                             <td><?=$this->Format->date($feriado->data)?></td>
                                             <td><?=$this->Format->dayWeek($feriado->data)?></td>
                                             <td><?=$feriado->descricao?></td>
                                             <td><?=$feriado->tipo?></td>
                                             <td><?=$feriado->opcional?></td>
-                                            <td class="td-actions text-right">
-                                                <?php if ($this->Membership->handleRole("editar_feriados")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'edit', $feriado->id]) ?>" class="btn btn-primary btn-round">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
-                                                <?php endif; ?>
-                                                <?php if ($this->Membership->handleRole("excluir_feriados")): ?>
-                                                    <button type="button" onclick="excluirFeriado(<?= $feriado->id ?>, '<?= $feriado->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
-                                                <?php endif; ?>
-                                            </td>
                                         </tr>   
                                     <?php endforeach; ?>
                                 </tbody>
