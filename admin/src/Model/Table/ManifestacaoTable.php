@@ -70,11 +70,21 @@ class ManifestacaoTable extends BaseTable
             Configure::read('Ouvidoria.status.definicoes.aceito'),
         ];
 
-        return $query->where([
-            'manifestante' => $manifestanteID,
-            'status' => $status,
-            'data <' => $data_minima
-        ], ['status' => 'integer[]']);
+        if(isset($manifestanteID))
+        {
+            return $query->where([
+                'manifestante' => $manifestanteID,
+                'status' => $status,
+                'data <' => $data_minima
+            ], ['status' => 'integer[]']);
+        }
+        else
+        {
+            return $query->where([
+                'status' => $status,
+                'data <' => $data_minima
+            ], ['status' => 'integer[]']);
+        }
     }
 
     public function findFechados(Query $query, array $options)
@@ -86,5 +96,26 @@ class ManifestacaoTable extends BaseTable
             'manifestante' => $manifestanteID,
             'status' => $status
         ]);
+    }
+
+    public function findAbertos(Query $query, array $options)
+    {
+        $manifestanteID = $options['manifestante'];
+
+        $status = Configure::read('Ouvidoria.status.fechado');
+
+        if(isset($manifestanteID))
+        {
+            return $query->where([
+                'manifestante' => $manifestanteID,
+                'status' => $status
+            ]);
+        }
+        else
+        {
+            return $query->where([
+                'status <>' => $status
+            ]);
+        }
     }
 }
