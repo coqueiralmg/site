@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\I18n\Time;
 use Cake\ORM\TableRegistry;
+use \Exception;
 
 class ManifestacaoController extends AppController
 {
@@ -207,7 +209,96 @@ class ManifestacaoController extends AppController
 
     public function verificar()
     {
-        
+        try
+        {
+            $t_manifestacao = TableRegistry::get('Manifestacao');
+
+            $hoje = Time::now();
+
+            if($this->Date->isWeekend($hoje))
+            {
+                $dia_semana = $this->Date->dayWeek($data);
+                
+                $this->set([
+                    'sucesso' => false,
+                    'mensagem' => 'Nenhuma mensagem foi enviada, porque hoje é $dia_semana.',
+                    '_serialize' => ['sucesso', 'mensagem']
+                ]);    
+            }
+            elseif($this->Date->isHoliday($hoje))
+            {
+                $this->set([
+                    'sucesso' => false,
+                    'mensagem' => 'Nenhuma mensagem foi enviada, porque hoje é feriado.',
+                    '_serialize' => ['sucesso', 'mensagem']
+                ]);  
+            }
+            else
+            {
+                $this->enviar();
+            }
+        }
+        catch(Exception $ex)
+        {
+            $this->set([
+                'sucesso' => false,
+                'mensagem' => $ex->getMessage(),
+                '_serialize' => ['sucesso', 'mensagem']
+            ]);
+        }
+    }
+
+    private function enviar()
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $t_mensagens = TableRegistry::get('Mensagem');
+
+        $envia_copia = Configure::read('Ouvidoria.sendMail');
+
+        $ouvidores = $this->obterOuvidores();
+
+        $manifestacoes = $t_manifestacao->find('abertos', [
+            'contain' => ['Manifestante', 'Prioridade', 'Status'],
+            'order' => [
+                'nivel' => 'DESC',
+                'data' => 'ASC'
+            ] 
+        ]);
+
+        $atrasados = $t_manifestacao->find('atrasados', [
+            'contain' => ['Manifestante', 'Prioridade', 'Status'],
+            'order' => [
+                'nivel' => 'DESC',
+                'data' => 'ASC'
+            ] 
+        ]);
+
+        $dados = [
+            'ouvidores' => count($ouvidores),
+            'abertas' => $manifestacoes->count(),
+            'atrasadas' => $atrasados->count()
+        ];
+
+
+        $titulo = "Relatório Diário de Manifestações da Ouvidoria";
+
+
+    }
+
+    private function obterOuvidores()
+    {
+        $t_usuarios = TableRegistry::get('Usuario');
+        $grupoOuvidor = Configure::read('Ouvidoria.grupoOuvidor');
+
+        $usuarios = $t_usuarios->find('all', [
+            'conditions' => [
+                'grupo' => $grupoOuvidor,
+                'ativo' => true,
+                'suspenso' => false
+            ]
+        ]);
+
+        return $usuarios->toArray();
     }
    
 }
