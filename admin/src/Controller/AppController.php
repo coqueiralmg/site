@@ -62,6 +62,7 @@ class AppController extends Controller
         $this->loadComponent('Membership');
         $this->loadComponent('File');
         $this->loadComponent('Entries');
+        $this->loadComponent('Date');
 
         $this->registerAccessLog();
 
