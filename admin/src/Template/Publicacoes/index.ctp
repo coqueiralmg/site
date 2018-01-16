@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-group-min">
-                                        <?= $this->Form->label("data_final", "Data Inicial") ?>
+                                        <?= $this->Form->label("data_final", "Data Final") ?>
                                         <?= $this->Form->text("data_final", ["id" => "data_final", "class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
