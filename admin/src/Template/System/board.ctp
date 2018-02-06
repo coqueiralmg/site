@@ -1,7 +1,7 @@
+<?= $this->Html->script('controller/system.board.js', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('controller/ouvidoria.lista.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="card">
@@ -165,6 +165,76 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="green">
+                            <i class="material-icons">mic</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Em Aberto</p>
+                            <h3 class="title">50</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="orange">
+                            <i class="material-icons">weekend</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Não Atendidos</p>
+                            <h3 class="title">15</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="red">
+                            <i class="material-icons">watch_later</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Atrasados</p>
+                            <h3 class="title">24</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="purple">
+                            <i class="material-icons">archive</i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">Fechados</p>
+                            <h3 class="title">318</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-chart" data-background-color="purple">
+                            <canvas class="ct-chart" id="graficoEvolucao"></canvas>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="title">Evolução dos Manifestos</h4>
+                            <p class="category">Nos últimos 7 dias.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-chart" data-background-color="orange">
+                            <canvas class="ct-chart" id="graficoTipo"></canvas>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="title">Manifestos Por Status</h4>
+                            <p class="category">De todos os manifestos em aberto no sistema.</p>
                         </div>
                     </div>
                 </div>
