@@ -87,9 +87,12 @@ function obterDadosTiposManifestos()
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-             var dados = xhr.response.data;
-             carregarGraficoTipoManifestos(dados);
-            
+            if(xhr.response.sucesso){
+                var dados = xhr.response.data;
+                carregarGraficoTipoManifestos(dados);
+            } else {
+                escreverMensagemGrafico("graficoTipo", xhr.response.mensagem);
+            }
           } else {
             escreverMensagemGrafico("graficoTipo", xhr.statusText);
           }
@@ -103,6 +106,6 @@ function obterDadosTiposManifestos()
 function escreverMensagemGrafico(htmlId, message) {
     var canvas = document.getElementById(htmlId);
     var ctx = canvas.getContext("2d");
-    ctx.font = "30px Roboto";
-    ctx.fillText(message,10,50);
+    ctx.font = "12px Roboto";
+    ctx.fillText(message,10,20);
 }
