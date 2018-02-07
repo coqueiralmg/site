@@ -222,7 +222,7 @@
                             <canvas class="ct-chart" id="graficoEvolucao"></canvas>
                         </div>
                         <div class="card-content">
-                            <h4 class="title">Evolução dos Manifestos</h4>
+                            <h4 class="title">Evolução das Manifestações</h4>
                             <p class="category">Nos últimos 7 dias.</p>
                         </div>
                     </div>
@@ -233,7 +233,7 @@
                             <canvas class="ct-chart" id="graficoTipo"></canvas>
                         </div>
                         <div class="card-content">
-                            <h4 class="title">Manifestos Por Status</h4>
+                            <h4 class="title">Manifestações Por Status</h4>
                             <p class="category">De todos os manifestos em aberto no sistema.</p>
                         </div>
                     </div>
