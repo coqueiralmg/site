@@ -156,6 +156,8 @@ class SystemController extends AppController
 
     public function board()
     {
+        $stat_ouvidoria = array();
+        
         $this->controlAuth();
         $this->carregarDadosSistema();
         $this->countMessages();
@@ -197,12 +199,18 @@ class SystemController extends AppController
             'limit' => $limite
         ]);
 
+        $stat_ouvidoria['abertos'] = $t_manifestacoes->find('abertos')->count();
+        $stat_ouvidoria['novos'] = $t_manifestacoes->find('novo')->count();
+        $stat_ouvidoria['atrasados'] = $t_manifestacoes->find('atrasados')->count();
+        $stat_ouvidoria['fechados'] = $t_manifestacoes->find('fechados')->count();
+
         $this->set('title', 'Painel Principal');
         $this->set('icon', 'dashboard');
         $this->set('noticias', $noticias);
         $this->set('licitacoes', $licitacoes);
         $this->set('publicacoes', $publicacoes);
         $this->set('manifestacoes', $manifestacoes);
+        $this->set('stat_ouvidoria', $stat_ouvidoria);
     }
 
     public function fail(string $mensagem)

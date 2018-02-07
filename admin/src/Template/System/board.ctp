@@ -177,7 +177,7 @@
                         </div>
                         <div class="card-content">
                             <p class="category">Em Aberto</p>
-                            <h3 class="title">50</h3>
+                            <h3 class="title"><?=$stat_ouvidoria['abertos']?></h3>
                         </div>
                     </div>
                 </div>
@@ -188,7 +188,7 @@
                         </div>
                         <div class="card-content">
                             <p class="category">Não Atendidos</p>
-                            <h3 class="title">15</h3>
+                            <h3 class="title"><?=$stat_ouvidoria['novos']?></h3>
                         </div>
                     </div>
                 </div>
@@ -199,7 +199,7 @@
                         </div>
                         <div class="card-content">
                             <p class="category">Atrasados</p>
-                            <h3 class="title">24</h3>
+                            <h3 class="title"><?=$stat_ouvidoria['atrasados']?></h3>
                         </div>
                     </div>
                 </div>
@@ -210,7 +210,7 @@
                         </div>
                         <div class="card-content">
                             <p class="category">Fechados</p>
-                            <h3 class="title">318</h3>
+                            <h3 class="title"><?=$stat_ouvidoria['fechados']?></h3>
                         </div>
                     </div>
                 </div>
