@@ -207,6 +207,35 @@ class ManifestacaoController extends AppController
         }
     }
 
+    public function pietipo()
+    {
+        try
+        {
+            $t_manifestacao = TableRegistry::get('Manifestacao');
+
+            $novos = $t_manifestacao->find('novo')->count();
+            $aceitos = $t_manifestacao->find('aceito')->count();
+            $recusados = $t_manifestacao->find('recusado')->count();
+            $atendidos = $t_manifestacao->find('atendido')->count();
+            $atividades = $t_manifestacao->find('atividade')->count();
+            $concluidos = $t_manifestacao->find('concluido')->count();
+
+            $this->set([
+                'sucesso' => true,
+                'data' => [$novos, $aceitos, $recusados, $atendidos, $atividades, $concluidos],
+                '_serialize' => ['sucesso', 'data']
+            ]);
+        }
+        catch(Exception $ex)
+        {
+            $this->set([
+                'sucesso' => false,
+                'mensagem' => $ex->getMessage(),
+                '_serialize' => ['sucesso', 'mensagem']
+            ]);
+        }
+    }
+
     public function verificar()
     {
         try
