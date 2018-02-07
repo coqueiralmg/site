@@ -108,13 +108,72 @@ class ManifestacaoTable extends BaseTable
         {
             return $query->where([
                 'manifestante' => $manifestanteID,
-                'status' => $status
+                'status <>' => $status
             ]);
         }
         else
         {
             return $query->where([
                 'status <>' => $status
+            ]);
+        }
+    }
+
+    public function findNovo(Query $query, array $options)
+    {
+        $manifestanteID = isset($options['manifestante']) ? $options['manifestante'] : 0;
+        $status = Configure::read('Ouvidoria.status.definicoes.novo');
+        return $this->buscaStatusManifestacao($query, $manifestanteID, $status);
+    }
+
+    public function findAceito(Query $query, array $options)
+    {
+        $manifestanteID = isset($options['manifestante']) ? $options['manifestante'] : 0;
+        $status = Configure::read('Ouvidoria.status.definicoes.aceito');
+        return $this->buscaStatusManifestacao($query, $manifestanteID, $status);
+    }
+
+    public function findRecusado(Query $query, array $options)
+    {
+        $manifestanteID = isset($options['manifestante']) ? $options['manifestante'] : 0;
+        $status = Configure::read('Ouvidoria.status.definicoes.recusado');
+        return $this->buscaStatusManifestacao($query, $manifestanteID, $status);
+    }
+
+    public function findAtendido(Query $query, array $options)
+    {
+        $manifestanteID = isset($options['manifestante']) ? $options['manifestante'] : 0;
+        $status = Configure::read('Ouvidoria.status.definicoes.atendido');
+        return $this->buscaStatusManifestacao($query, $manifestanteID, $status);
+    }
+
+    public function findAtividade(Query $query, array $options)
+    {
+        $manifestanteID = isset($options['manifestante']) ? $options['manifestante'] : 0;
+        $status = Configure::read('Ouvidoria.status.definicoes.emAtividade');
+        return $this->buscaStatusManifestacao($query, $manifestanteID, $status);
+    }
+
+    public function findConcluido(Query $query, array $options)
+    {
+        $manifestanteID = isset($options['manifestante']) ? $options['manifestante'] : 0;
+        $status = Configure::read('Ouvidoria.status.definicoes.concluido');
+        return $this->buscaStatusManifestacao($query, $manifestanteID, $status);
+    }
+
+    private function buscaStatusManifestacao(Query $query, int $manifestanteID, int $status)
+    {
+        if(isset($manifestanteID) && $manifestanteID > 0)
+        {
+            return $query->where([
+                'manifestante' => $manifestanteID,
+                'status' => $status
+            ]);
+        }
+        else
+        {
+            return $query->where([
+                'status' => $status
             ]);
         }
     }
