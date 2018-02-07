@@ -1,17 +1,17 @@
 $(function () {
-    inicializarGraficoManifestos();
+    obterDadosEvolucaoManifestos()
     obterDadosTiposManifestos();
 });
 
-function inicializarGraficoManifestos(){
+function carregarGraficoManifestos(dados, datas){
     var ctx = document.getElementById("graficoEvolucao").getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["30/01", "31/01", "01/02", "02/02", "03/02", "04/02", "05/02"],
+            labels: datas,
             datasets: [{
-                label: 'Manifestos gerados',
-                data: [21, 12, 19, 3, 5, 2, 15],
+                label: 'Manifestações geradas',
+                data: dados,
                 borderColor: "white",
                 borderWidth: 3
             }]
@@ -78,8 +78,7 @@ function carregarGraficoTipoManifestos(dados){
     });
 }
 
-function obterDadosTiposManifestos()
-{
+function obterDadosTiposManifestos() {
     var data = null;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/admin/manifestacao/pietipo.json', true);
@@ -101,6 +100,54 @@ function obterDadosTiposManifestos()
 
     xhr.responseType = "json";
     xhr.send(null);
+}
+
+function obterDadosEvolucaoManifestos() {
+    var data = null;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/admin/manifestacao/evolution.json', true);
+
+    xhr.onload = function (e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            if(xhr.response.sucesso){
+                var dados = xhr.response.data;
+                carregarGraficoManifestos(dados, obterDatasAmostragemEvolucao())
+            } else {
+                escreverMensagemGrafico("graficoEvolucao", xhr.response.mensagem);
+            }
+          } else {
+            escreverMensagemGrafico("graficoEvolucao", xhr.statusText);
+          }
+        }
+    };
+
+    xhr.responseType = "json";
+    xhr.send(null);
+}
+
+function obterDatasAmostragemEvolucao() {
+    
+    var a = Array();
+    var b = Array();
+    var i = 1;
+    
+    while (i <= 7 ) {
+        var d = new Date();
+        var j = d.getDate();
+        
+        d.setDate(j - i);
+        a.push(d);
+
+        i++;
+    }
+
+    a.forEach(function(k, n, c){
+        var s = (k.getDate() < 10 ? "0" + k.getDate() : k.getDate()) + "/" + (k.getMonth() < 9 ? "0" + eval(k.getMonth() + 1) : eval(k.getMonth() + 1));
+        b.push(s);
+    });
+
+    return b.reverse();
 }
 
 function escreverMensagemGrafico(htmlId, message) {

@@ -207,6 +207,47 @@ class ManifestacaoController extends AppController
         }
     }
 
+    public function evolution()
+    {
+        try
+        {
+            $t_manifestacao = TableRegistry::get('Manifestacao');
+            $dados = array();
+            
+            $i = 1;
+
+            while($i <= 7)
+            {
+                $data = Time::now();
+
+                $qtd = $t_manifestacao->find('all', [
+                    'conditions' => [
+                        'data >=' => $data->subDays($i)->i18nFormat('yyyy-MM-dd 00:00:00'),
+                        'data <=' => $data->addDays(1)->i18nFormat('yyyy-MM-dd 00:00:00')
+                    ],
+                ])->count();
+
+                $dados[] = $qtd;
+
+                $i++;
+            }
+
+            $this->set([
+                'sucesso' => true,
+                'data' => array_reverse($dados),
+                '_serialize' => ['sucesso', 'data']
+            ]);
+        }
+        catch(Exception $ex)
+        {
+            $this->set([
+                'sucesso' => false,
+                'mensagem' => $ex->getMessage(),
+                '_serialize' => ['sucesso', 'mensagem']
+            ]);
+        }
+    }
+
     public function pietipo()
     {
         try
