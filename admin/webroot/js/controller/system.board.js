@@ -1,6 +1,6 @@
 $(function () {
     inicializarGraficoManifestos();
-    inicializarGraficoTipoManifestos();
+    obterDadosTiposManifestos();
 });
 
 function inicializarGraficoManifestos(){
@@ -39,7 +39,7 @@ function inicializarGraficoManifestos(){
     });
 }
 
-function inicializarGraficoTipoManifestos(){
+function carregarGraficoTipoManifestos(dados){
     var ctx = document.getElementById("graficoTipo").getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'pie',
@@ -47,7 +47,7 @@ function inicializarGraficoTipoManifestos(){
             labels: ["Novo", "Aceito", "Recusado", "Atendido", "Em Atividade", "Concluído"],
             datasets: [{
                 label: 'Chamados criados',
-                data: [21, 12, 19, 3, 0, 15],
+                data: dados,
                 backgroundColor: [
                     "khaki",
                     "navy",
@@ -76,4 +76,33 @@ function inicializarGraficoTipoManifestos(){
             }
         }
     });
+}
+
+function obterDadosTiposManifestos()
+{
+    var data = null;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/admin/manifestacao/pietipo.json', true);
+
+    xhr.onload = function (e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+             var dados = xhr.response.data;
+             carregarGraficoTipoManifestos(dados);
+            
+          } else {
+            escreverMensagemGrafico("graficoTipo", xhr.statusText);
+          }
+        }
+    };
+
+    xhr.responseType = "json";
+    xhr.send(null);
+}
+
+function escreverMensagemGrafico(htmlId, message) {
+    var canvas = document.getElementById(htmlId);
+    var ctx = canvas.getContext("2d");
+    ctx.font = "30px Roboto";
+    ctx.fillText(message,10,50);
 }
