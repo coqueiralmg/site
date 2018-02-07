@@ -59,7 +59,7 @@ class ManifestacaoTable extends BaseTable
 
     public function findAtrasados(Query $query, array $options)
     {
-        $manifestanteID = $options['manifestante'];
+        $manifestanteID = isset($options['manifestante']) ? $options['manifestante'] : 0;
 
         $prazo = Configure::read('Ouvidoria.prazo');
         $chave_prazo = "-$prazo days";
@@ -70,7 +70,7 @@ class ManifestacaoTable extends BaseTable
             Configure::read('Ouvidoria.status.definicoes.aceito'),
         ];
 
-        if(isset($manifestanteID))
+        if(isset($manifestanteID) && $manifestanteID > 0)
         {
             return $query->where([
                 'manifestante' => $manifestanteID,
@@ -89,22 +89,18 @@ class ManifestacaoTable extends BaseTable
 
     public function findFechados(Query $query, array $options)
     {
-        $manifestanteID = $options['manifestante'];
+        $manifestanteID = isset($options['manifestante']) ? $options['manifestante'] : 0;
         $status = Configure::read('Ouvidoria.status.fechado');
-
-        return $query->where([
-            'manifestante' => $manifestanteID,
-            'status' => $status
-        ]);
+        return $this->buscaStatusManifestacao($query, $manifestanteID, $status);
     }
 
     public function findAbertos(Query $query, array $options)
     {
-        $manifestanteID = $options['manifestante'];
+        $manifestanteID = isset($options['manifestante']) ? $options['manifestante'] : 0;
 
         $status = Configure::read('Ouvidoria.status.fechado');
 
-        if(isset($manifestanteID))
+        if(isset($manifestanteID) && $manifestanteID > 0)
         {
             return $query->where([
                 'manifestante' => $manifestanteID,
