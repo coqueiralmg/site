@@ -7,7 +7,7 @@ return[
         'version' => '1.1',
         'fullVersion' => '1.1.0',
         'yearCreation' => '2017',
-        'yearRelease' => '2017'
+        'yearRelease' => '2018'
     ],
     'Author' => [
         'name' => 'Prefeitura Municipal de Coqueiral',
