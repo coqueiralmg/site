@@ -261,14 +261,14 @@
                 <div class="col-md-4">
                     <div class="card card-product" data-count="9">
                         <div class="card-image" data-header-animation="true">
-                            <a href="#pablo">
+                            <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'edit', $noticia->id]) ?>">
                                 <img class="img" src="<?=$this->Url->build('/../' . $noticia->foto)?>">
                             </a>
                         </div>
                         <div class="card-content">
                         
                             <h4 class="card-title">
-                                <a href="#pablo"><?= $noticia->post->titulo ?></a>
+                                <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'edit', $noticia->id]) ?>"><?= $noticia->post->titulo ?></a>
                             </h4>
                             <div class="card-description">
                                 <?= $noticia->resumo ?> 
@@ -284,8 +284,6 @@
                     </div>
                 </div>
             <?php endforeach; ?>
-            
         </div>
-
     </div>
 </div>
