@@ -18,7 +18,7 @@ return [
             //'port' => 'non_standard_port_number',
             'username' => 'root',
             'password' => '123456',
-            'database' => 'coqueiralmg',
+            'database' => 'coqueiral',
             'encoding' => 'latin1',
             //'timezone' => 'UTC',
             'flags' => [],
