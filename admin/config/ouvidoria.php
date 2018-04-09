@@ -18,7 +18,7 @@ return[
             ]
         ],
         'prioridade' => [
-            'inicial' => 1,
+            'inicial' => 2,
             'definicoes' => [
                 'baixa' => [
                     'id' => 1,
