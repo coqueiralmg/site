@@ -21,11 +21,11 @@ return[
             'inicial' => 1,
             'definicoes' => [
                 'baixa' => [
-                    'id' => 2,
+                    'id' => 1,
                     'nivel' => 0
                 ],
                 'normal' => [
-                    'id' => 1,
+                    'id' => 2,
                     'nivel' => 1
                 ],
                 'alta' => [
