@@ -87,7 +87,7 @@
             </div>
         <?php endforeach; ?>
 
-        <?php if($manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.recusado') && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.fechado')): ?>
+        <?php if($manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.recusado') && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.novo') && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.fechado')): ?>
             <?php if($this->request->session()->check('ManifestanteID')): ?>
                 <div id="contact-page clearfix">
                     <div class="status alert alert-success" style="display: none"></div>
@@ -142,6 +142,10 @@
                         
                         case $this->Data->setting('Ouvidoria.status.definicoes.fechado'):
                             $mensagem = 'A manifestação foi fechada e você não pode mais responder. Caso deseja criar novo chamado relacionado a este, ';
+                            break;
+
+                        case $this->Data->setting('Ouvidoria.status.definicoes.novo'):
+                            $mensagem = 'A manifestação ainda não foi atendida. Aguarde a nossa resposta. Caso deseja criar uma outra manifestação, ';
                             break;
                     }   
 
