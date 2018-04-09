@@ -261,7 +261,7 @@ class GruposController extends AppController
             $t_grupo_usuario->save($entity);
 
             $auditoria_funcoes = $this->atualizarFuncoesGrupos($entity, $id, $campos, true);
-
+            $this->request->session()->delete('USER_FUNCTIONS');
             $this->Flash->greatSuccess('Grupo de usuário atualizado com sucesso!');
 
             $auditoria = [

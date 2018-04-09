@@ -391,6 +391,7 @@ class UsuariosController extends AppController
             $propriedades = $this->Auditoria->changedOriginalFields($entity);
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
 
+            $this->request->session()->delete('USER_FUNCTIONS');
             $usuarios->save($entity);
             $this->Flash->greatSuccess('Usuário salvo com sucesso');
 
