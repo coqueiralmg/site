@@ -218,7 +218,6 @@ class MembershipHelper extends Helper
             ['chave' => 'licitacoes', 'active' => $this->handleRole('listar_licitacoes')],
             ['chave' => 'noticias', 'active' => $this->handleRole('listar_noticias')],
             ['chave' => 'secretarias', 'active' => $this->handleRole('listar_secretarias')],
-            ['chave' => 'paginas', 'active' => $this->handleRole('listar_paginas')],
             ['chave' => 'banners', 'active' => $this->handleRole('listar_banners')],
             ['chave' => 'controles', 'active' => $this->handleRole('listar_controles_home')],
             ['chave' => 'auditoria', 'active' => $this->handleRole('listar_auditoria')],
