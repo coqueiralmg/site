@@ -31,7 +31,7 @@ if (!isset($singular))
     <center>
         <?php if ($qtd_total > 0): ?>
             <p class="registros">
-                <span class="pagination-info"><?= $qtd_total . " " . (($qtd_total == 1) ? $name_singular : $name) . " " . (($qtd_total == 1) ? $singular : $predicate) ?></span>
+                <span class="pagination-info"><?= number_format($qtd_total, 0, ',', '.') . " " . (($qtd_total == 1) ? $name_singular : $name) . " " . (($qtd_total == 1) ? $singular : $predicate) ?></span>
             </p>
             
             <?php if ($qtd_total > $limit_pagination): ?>
