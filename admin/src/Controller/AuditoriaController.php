@@ -185,7 +185,7 @@ class AuditoriaController extends AppController
 
         if($registro->usuario != null && $registro->usuario > 0)
         {
-            $registro = $t_auditoria->loadInto($registro, ['Usuario' => ['GrupoUsuario']]);
+            $registro = $t_auditoria->loadInto($registro, ['Usuario' => ['GrupoUsuario', 'Pessoa']]);
         }
 
         $auditoria = [

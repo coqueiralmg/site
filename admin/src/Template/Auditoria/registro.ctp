@@ -32,23 +32,30 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("responsavel", "Responsável") ?><br/>
-                                        <?=($registro->usuario == null) ? 'Sem usuário associado' : $registro->usuario->nome?>
+                                        <?=($registro->usuario == null) ? 'Sem usuário associado' : $registro->usuario->pessoa->nome?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("ip", "Endereço de IP") ?><br/>
-                                        <?= $registro->ip?>
+                                        <?= $this->Form->label("navegador", "Navegador") ?><br/>
+                                        <?= $this->Agent->getBrowser($registro->agent)?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <div class="form-group">
-                                        <?= $this->Form->label("descricao", "Descrição") ?><br/>
-                                        <?=$registro->descricao?>
+                                <div class="col-md-4">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("so", "Sistema Operacional") ?><br/>
+                                        <?= $this->Agent->getOperationSystem($registro->agent)?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("ip", "Endereço de IP") ?><br/>
+                                        <?= $registro->ip?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -140,7 +147,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("nome", "Nome") ?><br/>
-                                        <?= $registro->usuario->nome?>
+                                        <?= $registro->usuario->pessoa->nome?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
