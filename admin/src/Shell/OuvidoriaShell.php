@@ -27,7 +27,7 @@ class OuvidoriaShell extends Shell
      */
     public function main()
     {
-        $this->status();
+        $t_manifestacao = TableRegistry::get('Manifestacao');
     }
 
     /**
@@ -42,32 +42,47 @@ class OuvidoriaShell extends Shell
             "Para saber como manipular os comandos necessários, consulte a lista abaixo."
         );
 
-        $parser->addOption('email', [
-            'short' => 'e',
-            'boolean' => true,
-            'help' => 'Envia as informações para e-mail'
-        ]);
-
-        $parser->addOption('file', [
-            'short' => 'f',
-            'boolean' => true,
-            'help' => 'Salva as informações num arquivo.'
-        ]);
-
-        $parser->addOption('file-save', [
-            'short' => 's',
-            'help' => 'Salva as informações no arquivo pré-determinado.'
-        ]);
-
-        $parser->addOption('file-type', [
-            'short' => 't',
-            'help' => 'Determina o formato do arquivo a ser salvo.'
-        ]);
-
-        $parser->addOption('file-type-auto', [
-            'short' => 'a',
-            'boolean' => true,
-            'help' => 'Faz com que o sistema escolha automaticamente o formato do arquivo a ser salvo.'
+        $parser->addSubcommand('status', [
+            'help' => 'Mostra todo o andamento estatístico da ouvidoria da Prefeitura de Coqueiral, mostranto dados quantitativos e os chamados (manifestos).',
+            'parser' => [
+                'description' => [
+                    'Mostra todo o andamento estatístico da ouvidoria da Prefeitura de Coqueiral, mostranto dados quantitativos e os chamados (manifestos).',
+                    'Esta funcionalidade mostra as informaçõe necessárias para execução de dados estatísticos do sistema'
+                ],
+                'arguments' => [
+                    'mode' => [
+                        'help' => 'Modo de exibição do status do andamento da ouvidoria',
+                        'default' => 'simple',
+                        'choices' => ['simples', 'completo', 'chamados']
+                    ]
+                ],
+                'options' => [
+                    'email' => [
+                        'short' => 'e',
+                        'boolean' => true,
+                        'help' => 'Envia as informações estatísticas para e-mail'
+                    ],
+                    'file' => [
+                        'short' => 'f',
+                        'boolean' => true,
+                        'help' => 'Salva as informações num arquivo.'
+                    ],
+                    'file-save' => [
+                        'short' => 's',
+                        'help' => 'Salva as informações no arquivo pré-determinado.'
+                    ],
+                    'file-type' => [
+                        'short' => 't',
+                        'help' => 'Determina o formato do arquivo a ser salvo.',
+                        'choices' => ['txt', 'csv', 'xml', 'json']
+                    ],
+                    'file-type-auto' => [
+                        'short' => 'a',
+                        'boolean' => true,
+                        'help' => 'Faz com que o sistema escolha automaticamente o formato do arquivo a ser salvo.'
+                    ]
+                ]
+            ]
         ]);
 
         return $parser;
