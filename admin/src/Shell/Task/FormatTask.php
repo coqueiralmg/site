@@ -9,7 +9,6 @@ use Cake\Console\Shell;
  */
 class FormatTask extends Shell
 {
-    
     /**
      * Formata um número colocando zeros a esquerda
      * @param string $value O valor a ser formatado
@@ -46,7 +45,7 @@ class FormatTask extends Shell
     /**
      * Converte o HTML Special Char em caractere propriamente dito.
      */
-    public function chardecode($valor)
+    public function charDecode($valor)
     {
         $procurar = array('&aacute;', '&atilde;', '&agrave;', '&acirc;', '&ccedil;', '&eacute;', '&ecirc;', '&iacute;', '&oacute;', '&otilde;', '&uacute;');
         $substituir = array('á', 'ã', 'à', 'â', 'ç', 'é', 'ê', 'í', 'ó', 'õ', 'ú');

@@ -4,6 +4,7 @@ namespace App\Shell;
 
 use Cake\Console\ConsoleOptionParser;
 use Cake\Console\Shell;
+use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
 
@@ -12,14 +13,12 @@ use Cake\ORM\TableRegistry;
  */
 class OuvidoriaShell extends Shell
 {
-    
+    public $tasks = ['Format'];
+
     public function startup()
     {
-        $this->out(' ');
-        $this->out(' ');
-        $this->out(' ');
         $this->out('Ouvidoria da Prefeitura Municipal de Coqueiral');
-        $this->out('..............................................');
+        $this->hr();
     }
     
     /**
@@ -27,39 +26,99 @@ class OuvidoriaShell extends Shell
      */
     public function main()
     {
-        $t_manifestacao = TableRegistry::get('Manifestacao');
-        
-        $total = $t_manifestacao->find('all')->count();  
-        $abertos = $t_manifestacao->find('abertos')->count();
-        $novos = $t_manifestacao->find('novo')->count();
-        $atrasados = $t_manifestacao->find('atrasados')->count();
-        $fechados = $t_manifestacao->find('fechados')->count();
-       
-        $this->out('Estatísticas Gerais');
-        $this->out(' ');
-        $this->out('Total de manifestacoes: ' . $total);
-        $this->out('Manifestações em aberto: ' . $abertos);
-        $this->out('Manifestações novas: ' . $novos);
-        $this->out('Manifestações atrasadas: ' . $atrasados);
-        $this->out('Manifestações fechadas: ' . $fechados);
+        $this->status();
     }
 
     /**
-     * Mostra ajuda do Shell de Ouvidoria
+     * Exibe a ajuda da ouvidoria.
+     * @return \Cake\Console\ConsoleOptionParser
      */
-    public function ajuda()
+    public function getOptionParser()
     {
-        $this->out('Ajuda do recurso');
-        $this->out(' ');
-
-        
-        $this->out(
-            'Este recurso tem a função de executar as tarefas relativas a administração e gerenciamento de ouvidoria ' .
-            'with your application in an interactive fashion. You can use ' .
-            'it to run adhoc queries with your models, or experiment ' .
-            'and explore the features of CakePHP and your application.' .
-            "\n\n" .
-            'You will need to have psysh installed for this Shell to work.'
+        $parser = new ConsoleOptionParser('ouvidoria');
+        $parser->setDescription(
+            "Este sistema foi feito para gerenciamento de ouvidoria do sistema, via Shell Console. \n" .
+            "Para saber como manipular os comandos necessários, consulte a lista abaixo."
         );
+
+
+        return $parser;
     }
+
+    public function status($mode = 'simples')
+    {
+        $t_manifestacao = TableRegistry::get('Manifestacao');
+        $t_manifestante = TableRegistry::get('Manifestante');
+
+        $limite = Configure::read('Pagination.short.limit');
+        $fechado = Configure::read('Ouvidoria.status.fechado');
+        $total = $t_manifestacao->find('all')->count(); 
+
+        if($mode == 'simples' || $mode == 'completo')
+        {
+            $abertos = $t_manifestacao->find('abertos')->count();
+            $novos = $t_manifestacao->find('novo')->count();
+            $atrasados = $t_manifestacao->find('atrasados')->count();
+            $fechados = $t_manifestacao->find('fechados')->count();
+
+            $estatisticas = "Total de manifestacoes:  $total \n" . 
+                            "Manifestações em aberto: $abertos \n". 
+                            "Manifestações novas:     $novos \n" .
+                            "Manifestações atrasadas: $atrasados \n" .
+                            "Manifestações fechadas:  $fechados \n" . '     ';     
+        
+            $this->out('Estatísticas Gerais');
+            $this->out($estatisticas);
+        }
+
+        if($mode == 'completo' || $mode == 'chamados')
+        {
+            if($total > 0)
+            {
+                $data = [];
+                $htable = $this->helper('Table');
+                
+                $manifestacoes = $t_manifestacao->find('all', [
+                    'contain' => ['Manifestante', 'Prioridade', 'Status'],
+                    'conditions' => [
+                        'status <>' => $fechado
+                    ],
+                    'order' => [
+                        'nivel' => 'DESC',
+                        'data' => 'ASC'
+                    ],
+                    'limit' => $limite
+                ])->all();
+                
+                $this->out('Últimos Manifestos');
+
+                $data[] = ['Número', 'Data', 'Manifestante', 'Assunto', 'Status', 'Prioridade'];
+
+                foreach ($manifestacoes as $manifestacao)
+                {
+                    $registro = [
+                        $this->Format->zeroPad($manifestacao->id),
+                        $this->Format->date($manifestacao->data, true),
+                        $manifestacao->manifestante->nome,
+                        $manifestacao->assunto,
+                        $this->Format->charDecode($manifestacao->status->nome),
+                        $manifestacao->prioridade->nome
+                    ];
+
+                    $data[] = $registro;
+                }
+
+                $htable->output($data);
+            }
+            else
+            {
+                $this->out('Não há manifestos em aberto');
+            }
+        }
+    }
+    public function verificar()
+    {
+
+    }
+    
 }
