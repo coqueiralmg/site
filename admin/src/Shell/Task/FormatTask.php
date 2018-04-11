@@ -6,6 +6,7 @@ use Cake\Console\Shell;
 
 /**
  * Classe de formatação em geral para exibição ao usuário
+ * @package App\Shell\Task
  */
 class FormatTask extends Shell
 {
