@@ -5,6 +5,9 @@ namespace App\View\Helper;
 use Cake\View\Helper;
 use Cake\I18n\Date;
 
+/**
+ * Classe de formatação em geral para exibição ao usuário
+ */
 class FormatHelper extends Helper
 {
     /**
