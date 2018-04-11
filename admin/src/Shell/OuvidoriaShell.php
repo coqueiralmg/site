@@ -28,6 +28,21 @@ class OuvidoriaShell extends Shell
     public function main()
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
+
+        $total = $t_manifestacao->find('all')->count();
+        $abertos = $t_manifestacao->find('abertos')->count();
+        $novos = $t_manifestacao->find('novo')->count();
+        $atrasados = $t_manifestacao->find('atrasados')->count();
+        $fechados = $t_manifestacao->find('fechados')->count();
+
+        $estatisticas = "Total de manifestacoes:  $total \n" . 
+                        "Manifestações em aberto: $abertos \n". 
+                        "Manifestações novas:     $novos \n" .
+                        "Manifestações atrasadas: $atrasados \n" .
+                        "Manifestações fechadas:  $fechados \n" . '     ';     
+    
+        $this->out('Resumo Estatístico');
+        $this->out($estatisticas);
     }
 
     /**
