@@ -7,6 +7,7 @@ use Cake\Console\Shell;
 use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Xml;
 
 /**
  * Classe para comando em console para ouvidoria.
@@ -41,21 +42,41 @@ class OuvidoriaShell extends Shell
             "Para saber como manipular os comandos necessários, consulte a lista abaixo."
         );
 
-        $parser->addOption('file', [
-            'short' => 'f',
-            'boolean' => true,
-            'help' => 'Salva todas as informações da tela num arquivo.'
-        ]);
-
         $parser->addOption('email', [
             'short' => 'e',
             'boolean' => true,
-            'help' => 'Envia os dados informados para e-mail'
+            'help' => 'Envia as informações para e-mail'
+        ]);
+
+        $parser->addOption('file', [
+            'short' => 'f',
+            'boolean' => true,
+            'help' => 'Salva as informações num arquivo.'
+        ]);
+
+        $parser->addOption('file-save', [
+            'short' => 's',
+            'help' => 'Salva as informações no arquivo pré-determinado.'
+        ]);
+
+        $parser->addOption('file-type', [
+            'short' => 't',
+            'help' => 'Determina o formato do arquivo a ser salvo.'
+        ]);
+
+        $parser->addOption('file-type-auto', [
+            'short' => 'a',
+            'boolean' => true,
+            'help' => 'Faz com que o sistema escolha automaticamente o formato do arquivo a ser salvo.'
         ]);
 
         return $parser;
     }
 
+    /**
+     * Mostra as estatísticas e o andamento da ouvidoria
+     * @param $mode Modo de exibição de estatística do sistema.
+     */
     public function status($mode = 'simples')
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
@@ -82,16 +103,13 @@ class OuvidoriaShell extends Shell
             $this->out('Estatísticas Gerais');
             $this->out($estatisticas);
 
-            if($this->params['file'] || $this->params['email'])
-            {
-                $dados['estatisticas'] = [
-                    'total' => $total,
-                    'abertos' => $abertos,
-                    'novos' => $novos,
-                    'atrasados' => $atrasados,
-                    'fechados' => $fechados
-                ];
-            }
+            $dados['estatisticas'] = [
+                'total' => $total,
+                'abertos' => $abertos,
+                'novos' => $novos,
+                'atrasados' => $atrasados,
+                'fechados' => $fechados
+            ];
         }
 
         if($mode == 'completo' || $mode == 'chamados')
@@ -152,20 +170,12 @@ class OuvidoriaShell extends Shell
                 }
 
                 $htable->output($data);
-
-                if($this->params['file'] || $this->params['email'])
-                {
-                    $dados['chamados'] = $data;
-                }
+                $dados['chamados'] = $data;
             }
             else
             {
                 $this->out('Não há manifestos em aberto');
-
-                if($this->params['file'] || $this->params['email'])
-                {
-                    $dados['chamados'] = [];
-                }
+                $dados['chamados'] = [];
             }
         }
 
@@ -175,28 +185,289 @@ class OuvidoriaShell extends Shell
             $arquivo = $this->in("Digite o nome do arquivo.");
 
             $formato = strtolower($formato);
-            $retorno = "";
 
-            switch($formato)
+            $this->salvarArquivo($mode, $dados, $arquivo, $formato);
+        }
+        
+        if(array_key_exists('file-save', $this->params))
+        {
+            $arquivo = $this->params['file-save'];
+            $formato = null;
+
+            if($this->params['file-type-auto'])
             {
-                case "txt":
-                    $retorno = $this->arquivoTexto($dados);
-                    break;
+                $formato = $this->selecionarFormatoArquivo($arquivo);
             }
-        }   
+            else
+            {
+                if(array_key_exists('file-type', $this->params))
+                {
+                    $formato = $this->params['file-type'];
+                }
+                else
+                {
+                    $formato = $this->in("Em que formato quer salvar o arquivo?", ['TXT', 'CSV', 'XML', 'JSON'], 'TXT');
+                    $formato = strtolower($formato);
+                }
+            }
+
+            $this->salvarArquivo($mode, $dados, $arquivo, $formato);
+        }
     }
+
     public function verificar()
     {
 
     }
 
+    /**
+     * Efetua a operação de salvar o arquivo no sistema, com todas as informações do andamento da ouvidoria.
+     * @param string $mode Modo de exibição de estatísticas
+     * @param array $dados Dados com todas as informações estatísticas da ouvidoria
+     * @param string $arquivo Nome do arquivo a ser salvo no sistema
+     * @param string $formato Formato do arquivo a ser salvo
+     */
+    private function salvarArquivo($mode, $dados, $arquivo, $formato)
+    {
+        switch($formato)
+        {
+            case "txt":
+                $retorno = $this->arquivoTexto($dados);
+                $this->createFile($arquivo, $retorno);
+                break;
+            case "csv":
+                if($mode == 'chamados')
+                {
+                    $retorno = $this->arquivoCSV($dados);
+                    $this->createFile($arquivo, $retorno);
+                }
+                else
+                {
+                    $this->abort('Não é permitido salvar arquivo CSV neste modo.');
+                }
+                break;
+            case "xml":
+                $retorno = $this->arquivoXML($dados);
+                $retorno->asXML($arquivo);
+                $this->out('Arquivo salvo com sucesso!');
+                break;
+            case "json":
+                $retorno = $this->arquivoJSON($dados);
+                $this->createFile($arquivo, $retorno);
+                break;
+        }
+    }
+
+    /**
+     * Monta o arquivo de texto simples com o andamento de ouvidoria.
+     * @param $dados Dados com as informações de todo o andamento da ouvidoria.
+     * @return string Conteúdo a ser salvo no arquivo.
+     */
     private function arquivoTexto($dados)
     {
         $retorno = "";
 
         if(array_key_exists('estatisticas', $dados))
         {
-            
+            $retorno = "Total de manifestacoes:  " . $dados['estatisticas']['total'] . "\r\n" . 
+                       "Manifestações em aberto: " . $dados['estatisticas']['abertos'] . " \r\n". 
+                       "Manifestações novas:     " . $dados['estatisticas']['novos'] . " \r\n" .
+                       "Manifestações atrasadas: " . $dados['estatisticas']['atrasados'] . " \r\n" .
+                       "Manifestações fechadas:  " . $dados['estatisticas']['fechados'];
         }
+
+        if(array_key_exists('chamados', $dados))
+        {
+            $retorno = $retorno . "\r\n\r\n\r\n";
+            
+            if(count($dados['chamados']) > 0)
+            {
+                $retorno = $retorno . "Chamados em aberto\r\n";
+                
+                $chamados = $dados['chamados'];
+
+                foreach($chamados as $chamado)
+                {
+                    $linha = "";
+
+                    foreach($chamado as $dado)
+                    {
+                        $linha = $linha . $dado . "\t";
+                    }
+
+                    $retorno = $retorno . $linha . "\r\n";
+                }
+            }
+            else
+            {
+                $retorno = $retorno . "Não há chamados em aberto";
+            }
+        }
+
+        return $retorno;
+    }
+
+    /**
+     * Monta o arquivo de texto, no formato CSV com o andamento de ouvidoria.
+     * @param $dados Dados com as informações de todo o andamento da ouvidoria.
+     * @return string Conteúdo a ser salvo no arquivo.
+     */
+    private function arquivoCSV($dados)
+    {
+        $retorno = "";
+
+        if(array_key_exists('chamados', $dados))
+        {
+            if(count($dados['chamados']) > 0)
+            {
+                $chamados = $dados['chamados'];
+
+                foreach($chamados as $chamado)
+                {
+                    $linha = "";
+
+                    foreach($chamado as $dado)
+                    {
+                        $linha = $linha . $dado . ",";
+                    }
+
+                    $retorno = $retorno . $linha . "\r\n";
+                }
+            }
+            else
+            {
+                $retorno = $retorno . "Não há chamados em aberto";
+            }
+        }
+
+        return $retorno;
+    }
+
+    /**
+     * Monta o arquivo XML com o andamento de ouvidoria.
+     * @param $dados Dados com as informações de todo o andamento da ouvidoria.
+     * @return string Objeto XML.
+     */
+    private function arquivoXML($dados)
+    {
+        $xml = [];
+        $document = [];
+        
+        if(array_key_exists('estatisticas', $dados))
+        {
+            $document['dados'] = $dados['estatisticas'];            
+        }
+
+        if(array_key_exists('chamados', $dados))
+        {
+            $cdata = $dados['chamados'];
+            $cabecalho = [];
+            
+            for($i = 0; $i < count($cdata); $i++)
+            {
+                $chamados = [];
+
+                if($i == 0)
+                {
+                    $cabecalho = $cdata[$i];
+                }
+                else
+                {
+                    $linha = $cdata[$i];
+                    $chamado = [];
+
+                    for($j = 0; $j < count($linha); $j++)
+                    {
+                        $chamado[$cabecalho[$j]] = $linha[$j];
+                    }
+
+                    $chamados['chamado'] = $chamado;
+                }
+            }
+
+            $document['chamados'] = $chamados;
+        }
+
+        $xml['ouvidoria'] = $document;
+
+        return Xml::build($xml);
+    }
+
+    /**
+     * Monta o arquivo JSON com o andamento de ouvidoria.
+     * @param $dados Dados com as informações de todo o andamento da ouvidoria.
+     * @return string Conteúdo a ser salvo no arquivo.
+     */
+    private function arquivoJSON($dados)
+    {
+        $document = [];
+
+        if(array_key_exists('estatisticas', $dados))
+        {
+            $document['dados'] = $dados['estatisticas'];            
+        }
+
+        if(array_key_exists('chamados', $dados))
+        {
+            $cdata = $dados['chamados'];
+            $cabecalho = [];
+            
+            for($i = 0; $i < count($cdata); $i++)
+            {
+                $chamados = [];
+
+                if($i == 0)
+                {
+                    $cabecalho = $cdata[$i];
+                }
+                else
+                {
+                    $linha = $cdata[$i];
+                    $chamado = [];
+
+                    for($j = 0; $j < count($linha); $j++)
+                    {
+                        $chamado[$cabecalho[$j]] = $linha[$j];
+                    }
+
+                    $chamados['chamado'] = $chamado;
+                }
+            }
+
+            $document['chamados'] = $chamados;
+        }
+
+        return json_encode($document);
+    }
+
+    /**
+     * Seleciona automaticamente o formato do arquivo a ser salvo.
+     * @param string $arquivo Nome do arquivo a ser salvo.
+     */
+    private function selecionarFormatoArquivo($arquivo)
+    {
+        $gate = explode('.', $arquivo);
+        $extensao = end($gate);
+        $formato = '';
+
+        switch($extensao)
+        {
+            case 'csv':
+                $formato = 'csv';
+                break;
+
+            case 'xml':
+                $formato = 'xml';
+                break;
+            
+            case 'json':
+                $formato = 'json';
+                break;
+
+            default:
+                $formato = 'txt';
+        }
+
+        return $formato;
     }
 }
