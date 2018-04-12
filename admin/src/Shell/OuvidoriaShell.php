@@ -14,7 +14,7 @@ use Cake\Utility\Xml;
  */
 class OuvidoriaShell extends Shell
 {
-    public $tasks = ['Format', 'Date'];
+    public $tasks = ['Format', 'Date', 'Sender'];
 
     public function startup()
     {
@@ -76,6 +76,20 @@ class OuvidoriaShell extends Shell
                         'short' => 'e',
                         'boolean' => true,
                         'help' => 'Envia as informações estatísticas para e-mail'
+                    ],
+                    'email-address' => [
+                        'short' => 'd',
+                        'help' => 'Envia as informações estatísticas para e-mail pré-determinado'
+                    ],
+                    'ocultar' => [
+                        'short' => 'o',
+                        'boolean' => true,
+                        'help' => 'Não envia as informações no corpo do e-mail. As informações são enviadas em arquivo texto anexo.'
+                    ],
+                    'mesclar' => [
+                        'short' => 'm',
+                        'boolean' => true,
+                        'help' => 'Mescla o arquivo criado, enviado e-mail como arquivo anexo. Requer que seja salvo arquivo.'
                     ],
                     'file' => [
                         'short' => 'f',
@@ -242,6 +256,38 @@ class OuvidoriaShell extends Shell
             }
 
             $this->salvarArquivo($mode, $dados, $arquivo, $formato);
+        }
+
+        if($this->params['email'])
+        {
+            $email = $this->in("Para qual e-mail pretende enviar estas informações?");
+
+            $header = [
+                'name' => 'Ouvidoria da Prefeitura Municipal de Coqueiral',
+                'from' => 'ouvidoria@coqueiral.mg.gov.br',
+                'to' => $email,
+                'subject' => 'Status da Ouvidoria da Prefeitura Municipal de Coqueiral'
+            ];
+
+            if($this->params['ocultar'])
+            {
+                
+                
+                //$this->salvarArquivo($mode, $dados, )
+            }
+            else
+            {
+                $params = [
+                    'mode' => $mode,
+                    'estatisticas' => (array_key_exists('estatisticas', $dados)) ? $dados['estatisticas'] : [],
+                    'chamados' => (array_key_exists('chamados', $dados)) ? $dados['chamados'] : [],
+                ];
+    
+                $this->Sender->sendEmailTemplate($header, 'stats', $params);
+            }
+
+            
+            $this->out('As informações foram enviadas com sucesso');
         }
     }
 
