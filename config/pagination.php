@@ -2,7 +2,7 @@
 
 return [
     'Pagination' => [
-        'limit' => 10,
+        'limit' => 20,
         'modulus' => 6,
         'visiblePages' => 7,
         'short' => [
