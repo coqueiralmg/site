@@ -5,7 +5,7 @@ tmp/*
 admin/tmp/*
 logs/*
 admin/logs/*
-webroot/public/editor/*
+webroot/public/*
 
 # Windows image file caches
 Thumbs.db
