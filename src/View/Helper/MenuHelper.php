@@ -31,4 +31,25 @@ class MenuHelper extends Helper
 
         return $style;
     }
+
+    /**
+     * Valida um conjunto de menus ativos do sistema. Usado para validar em submenus
+     * @param array $argumentos Uma coletânea de controles e ações a serem validados pela função
+     * @return bool Se o menu deve ficar ativo.
+     */
+    public function activeMenus()
+    {
+        $qtd_args = func_num_args();
+        $args = func_get_args();
+        $ativo = false;
+
+        for($i = 0; $i < $qtd_args && !$ativo; $i++)
+        {
+            $chave = $args[$i];
+            $estilo = $this->activeMenu($chave);
+            $ativo = ($estilo == 'active');
+        }
+
+        return $ativo;
+    }
 }
