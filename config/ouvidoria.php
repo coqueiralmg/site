@@ -2,7 +2,7 @@
 
 return[
     'Ouvidoria' => [
-        'ativo' => true,
+        'ativo' => false,
         'grupoOuvidor'=> 7,
         'prazo' => 10,
         'sendMail' => true,
