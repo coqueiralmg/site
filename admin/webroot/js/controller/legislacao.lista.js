@@ -55,10 +55,10 @@ function validar() {
     }
 }
 
-function excluirPublicacao(id, titulo) {
+function excluir(id, titulo) {
     swal({
-        title: "Deseja excluir esta publicação?",
-        html: "A exclusão da publicação com o título <b> " + titulo + "</b> irá tornar a operação irreversível.",
+        title: "Deseja excluir este documento da legislação?",
+        html: "A exclusão do documento da legislação com o título <b> " + titulo + "</b> irá tornar a operação irreversível.",
         type: 'warning',
         showCancelButton: true,
         confirmButtonClass: 'btn btn-success',
@@ -66,6 +66,6 @@ function excluirPublicacao(id, titulo) {
         confirmButtonText: 'Sim',
         cancelButtonText: 'Não'
     }).then(function () {
-        window.location = '/admin/publicacoes/delete/' + id;
+        window.location = '/admin/legislacao/delete/' + id;
     });
 }

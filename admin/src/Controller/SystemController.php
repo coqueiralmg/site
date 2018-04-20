@@ -101,7 +101,7 @@ class SystemController extends AppController
     public function logoff()
     {
         $usuario =  $this->request->session()->read('Usuario');
-        
+
         $auditoria = [
             'ocorrencia' => 8,
             'descricao' => 'O usuário efetuou o logoff no sistema.',
@@ -147,7 +147,7 @@ class SystemController extends AppController
         else
         {
             $usuario = $this->request->session()->read('Usuario');
-            
+
             $this->viewBuilder()->layout('guest');
             $this->set('title', 'Troca de Senha');
             $this->set('idUsuario', $usuario->id);
@@ -157,7 +157,7 @@ class SystemController extends AppController
     public function board()
     {
         $stat_ouvidoria = array();
-        
+
         $this->controlAuth();
         $this->carregarDadosSistema();
         $this->countMessages();
@@ -165,7 +165,7 @@ class SystemController extends AppController
         $limite = Configure::read('Pagination.short.limit');
 
         $t_licitacoes = TableRegistry::get('Licitacao');
-        $t_publicacoes = TableRegistry::get('Publicacao');
+        $t_legislacao = TableRegistry::get('Legislacao');
         $t_noticias = TableRegistry::get('Noticia');
         $t_manifestacoes = TableRegistry::get('Manifestacao');
 
@@ -173,7 +173,7 @@ class SystemController extends AppController
 
         $noticias = $t_noticias->find('all', [
             'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
-            'order' => ['Post.datapostagem' => 'DESC'], 
+            'order' => ['Post.datapostagem' => 'DESC'],
             'limit' => 3
         ]);
 
@@ -182,8 +182,8 @@ class SystemController extends AppController
             'limit' => $limite
         ]);
 
-        $publicacoes = $t_publicacoes->find('all', [
-            'order' => ['Publicacao.id' => 'DESC'],
+        $publicacoes = $t_legislacao->find('all', [
+            'order' => ['Legislacao.id' => 'DESC'],
             'limit' => $limite
         ]);
 
@@ -223,10 +223,10 @@ class SystemController extends AppController
     public function block(string $chave)
     {
         $this->viewBuilder()->layout('guest');
-        
+
         $chave = base64_decode($chave);
         $valores = json_decode($chave);
-        
+
         $login = $valores->login;
         $ip = $valores->ip;
         $usuario = null;
@@ -234,7 +234,7 @@ class SystemController extends AppController
         $this->Firewall->bloquear('Bloqueado pelo administrador, por motivo de atividades suspeitas', $ip);
 
         $t_usuario = TableRegistry::get('Usuario');
-        
+
         $query = $t_usuario->find('all', [
             'conditions' => [
                 'usuario.usuario' => $login
@@ -243,7 +243,7 @@ class SystemController extends AppController
             'usuario.email' => $login
         ]);
 
-        if($query->count() > 0) $usuario = $query->first(); 
+        if($query->count() > 0) $usuario = $query->first();
 
         $auditoria = [
             'ocorrencia' => 3,
@@ -263,7 +263,7 @@ class SystemController extends AppController
     {
         $t_usuario = TableRegistry::get('Usuario');
         $t_pessoa = TableRegistry::get('Pessoa');
-        
+
         $usuario = $t_usuario->get($idUsuario);
         $pessoa = $t_pessoa->get($usuario->pessoa);
 
@@ -292,7 +292,7 @@ class SystemController extends AppController
         ];
 
         $this->Auditoria->registrar($auditoria);
-        
+
         $this->request->session()->destroy();
         Cache::clear(false);
         $this->redirectLogin("As sessões foram zeradas com sucesso.", false);
@@ -322,7 +322,7 @@ class SystemController extends AppController
             ];
 
             $this->Auditoria->registrar($auditoria);
-            
+
             $this->Monitoria->alertarTentativasIntermitentes();
             $this->redirectLogin('Você tentou o acesso ' . $tentativa . ' vezes. Caso você tente ' . $limite . ' vezes sem sucesso, você será bloqueado.');
         }
@@ -335,7 +335,7 @@ class SystemController extends AppController
             ];
 
             $this->Auditoria->registrar($auditoria);
-            
+
             $this->Monitoria->alertarUsuarioBloqueado();
             $this->bloquearAcesso();
             $this->redirectLogin('O acesso ao sistema encontra-se bloqueado.');
@@ -383,7 +383,7 @@ class SystemController extends AppController
         {
             $login = $this->Cookie->read('login_user');
         }
-        
+
         return $login;
     }
 
@@ -414,7 +414,7 @@ class SystemController extends AppController
                 $this->atualizarTentativas('A senha informada é inválida.');
                 return;
             }
-        } 
+        }
 
         if($usuario->verificar)
         {

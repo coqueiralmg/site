@@ -1,5 +1,5 @@
 <?php if($qtd_total > 0):?>
-    <h4 class="card-title">Lista de publicações</h4>
+    <h4 class="card-title">Legislação Municipal</h4>
     <table class="table table-striped">
         <thead class="text-primary">
             <tr>
@@ -10,12 +10,12 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($publicacoes as $publicacao): ?>
+            <?php foreach ($legislacao as $item): ?>
                 <tr>
-                    <td><?=$publicacao->numero?></td>
-                    <td><?=$publicacao->titulo?></td>
-                    <td><?= $this->Format->date($publicacao->data) ?></td>
-                    <td><?= $publicacao->ativado ?></td>
+                    <td><?=$item->numero?></td>
+                    <td><?=$item->titulo?></td>
+                    <td><?= $this->Format->date($item->data) ?></td>
+                    <td><?= $item->ativado ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -23,12 +23,11 @@
     <div class="material-datatables">
         <div class="row">
             <div class="col-sm-5">
-                <div class="dataTables_paginate paging_full_numbers text-left" id="datatables_info"><?= $qtd_total ?> publicações</div>
+                <div class="dataTables_paginate paging_full_numbers text-left" id="datatables_info"><?= $qtd_total ?> itens</div>
             </div>
         </div>
     </div>
 <?php else: ?>
-    <h3>Nenhuma publicação encontrada.</h3>
+    <h3>Nenhuma item encontrado.</h3>
 <?php endif; ?>
 
-    

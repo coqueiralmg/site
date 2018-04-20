@@ -50,7 +50,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-header" data-background-color="green">
-                        <h4 class="title">Publicações Recentes</h4>
+                        <h4 class="title">Legislação</h4>
                     </div>
                     <div class="card-content table-responsive">
                         <table class="table table-hover">
@@ -65,8 +65,8 @@
                                         <td><?=$publicacao->titulo?></td>
                                         <td><?=date_format($publicacao->data, 'd/m/Y') ?></td>
                                         <td class="td-actions text-right">
-                                            <?php if ($this->Membership->handleRole("editar_publicacao")): ?>
-                                                <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round" title="Editar">
+                                            <?php if ($this->Membership->handleRole("editar_legislacao")): ?>
+                                                <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round" title="Editar">
                                                     <i class="material-icons">edit</i>
                                                 </a>
                                             <?php endif; ?>
@@ -77,11 +77,11 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="3" class="text-right">
-                                        <?php if ($this->Membership->handleRole("listar_publicacoes")): ?>
-                                            <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todos</a>
+                                        <?php if ($this->Membership->handleRole("listar_legislacao")): ?>
+                                            <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todos</a>
                                         <?php endif; ?>
-                                        <?php if ($this->Membership->handleRole("adicionar_publicacao")): ?>
-                                            <a href="<?= $this->Url->build(['controller' => 'publicacoes', 'action' => 'add']) ?>" class="btn btn-default btn-warning">Nova Publicação</a>
+                                        <?php if ($this->Membership->handleRole("adicionar_legislacao")): ?>
+                                            <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'add']) ?>" class="btn btn-default btn-warning">Nova Legislação</a>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
@@ -112,7 +112,7 @@
                                 <tbody>
                                     <?php foreach ($manifestacoes as $manifestacao): ?>
                                         <tr style="
-                                            <?=($manifestacao->prioridade->id == $this->Data->setting('Ouvidoria.prioridade.definicoes.urgente.id') 
+                                            <?=($manifestacao->prioridade->id == $this->Data->setting('Ouvidoria.prioridade.definicoes.urgente.id')
                                                 && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.fechado')
                                                 && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.recusado')) ? "font-weight: bold;" : ""?>
                                             <?=($manifestacao->atrasado) ? "color: red;" : ""?>
@@ -151,7 +151,7 @@
                                                     <?php endif; ?>
                                                 <?php endif; ?>
                                             </td>
-                                            
+
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -254,7 +254,7 @@
             </div>
         </div>
 
-        <br/>        
+        <br/>
 
         <div class="row">
             <?php foreach ($noticias as $noticia): ?>
@@ -266,12 +266,12 @@
                             </a>
                         </div>
                         <div class="card-content">
-                        
+
                             <h4 class="card-title">
                                 <a href="<?= $this->Url->build(['controller' => 'noticias', 'action' => 'edit', $noticia->id]) ?>"><?= $noticia->post->titulo ?></a>
                             </h4>
                             <div class="card-description">
-                                <?= $noticia->resumo ?> 
+                                <?= $noticia->resumo ?>
                             </div>
                         </div>
                         <div class="card-footer">
