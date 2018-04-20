@@ -5,13 +5,13 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 
 
-class PublicacaoTable extends BaseTable
+class LegislacaoTable extends BaseTable
 {
     public function initialize(array $config)
     {
-        $this->table('publicacao');
-        $this->primaryKey('id'); 
-        $this->entityClass('Publicacao');       
+        $this->table('legislacao');
+        $this->primaryKey('id');
+        $this->entityClass('Legislacao');
     }
 
     public function findAtivo(Query $query, array $options)

@@ -5,7 +5,7 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 
-class PublicacoesController extends AppController
+class LegislacaoController extends AppController
 {
     public function index()
     {
@@ -35,30 +35,22 @@ class PublicacoesController extends AppController
             ]
         ];
 
-        $opcao_paginacao = [
-            'name' => 'publicações',
-            'name_singular' => 'publicação',
-            'predicate' => 'encontradas',
-            'singular' => 'econtrada'
-        ];
+        $t_legislacao = TableRegistry::get('Legislacao');
+        $legislacao = $this->paginate($t_legislacao);
+        $qtd_total = $t_legislacao->find('all', ['conditions' => $conditions])->count();
 
-        $t_publicacoes = TableRegistry::get('Publicacao');
-        $publicacoes = $this->paginate($t_publicacoes);
-        $qtd_total = $t_publicacoes->find('all', ['conditions' => $conditions])->count();
-
-        $this->set('title', "Publicações");
-        $this->set('publicacoes', $publicacoes->toArray());
+        $this->set('title', "Legislação");
+        $this->set('legislacao', $legislacao->toArray());
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
-        $this->set('opcao_paginacao', $opcao_paginacao);
     }
 
-    public function publicacao(int $id)
+    public function documento(int $id)
     {
-        $t_publicacoes = TableRegistry::get('Publicacao');
-        $publicacao = $t_publicacoes->get($id);
+        $t_legislacao = TableRegistry::get('Legislacao');
+        $legislacao = $t_legislacao->get($id);
 
-        $this->set('title', $publicacao->titulo);
-        $this->set('publicacao', $publicacao);
+        $this->set('title', $legislacao->titulo);
+        $this->set('legislacao', $legislacao);
     }
 }
