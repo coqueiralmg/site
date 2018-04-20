@@ -17,14 +17,14 @@
                     'idPrefix' => 'pesquisar-licitacao',
                     'type' => 'get',
                     'role' => 'form']);
-                    
+
                 ?>
 
                 <?= $this->Form->search('chave', ['id' => 'pesquisa', 'class' => 'form-control busca', 'placeholder' => 'Digite aqui para buscar']) ?>
                  <button type="submit" id="btn-pesquisar" class="btn btn-success"><i class="fa fa-search"></i>&nbsp;Buscar</button>
 
                 <?php echo $this->Form->end(); ?>
-                
+
                 <?php if($total_geral > 0) : ?>
                     <div class="center">
                         <h5><?= "Sua pesquisa retornou $total_geral resultados." ?></h5>
@@ -53,7 +53,7 @@
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-            
+
             <?php if($total_licitacoes > 0): ?>
                 <div class="wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Licitações</h2>
@@ -68,14 +68,14 @@
                 </div>
             <?php endif; ?>
 
-            <?php if($total_publicacoes > 0): ?>
+            <?php if($total_legislacao > 0): ?>
                 <div class="wow fadeInDown" style="display: inline-block">
-                    <h2 id="tipo_busca">Publicações</h2>
-                    <?php foreach($publicacoes as $publicacao): ?>
+                    <h2 id="tipo_busca">Legislação</h2>
+                    <?php foreach($legislacao as $item): ?>
                         <div class="col-md-12 col-lg-6">
-                            <h3 class="media-heading"><?= $publicacao->titulo ?></h3>
-                            <p><?= $publicacao->resumo ?></p>
-                            <?= $this->Html->link('Veja mais', ['controller' => 'publicacoes', 'action' =>  'publicacao', $publicacao->id], ['class' => 'btn btn-success']) ?>
+                            <h3 class="media-heading"><?= $item->titulo ?></h3>
+                            <p><?= $item->resumo ?></p>
+                            <?= $this->Html->link('Veja mais', ['controller' => 'legislacao', 'action' =>  'documento', $item->id], ['class' => 'btn btn-success']) ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
