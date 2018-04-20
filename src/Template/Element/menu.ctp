@@ -24,7 +24,7 @@
                 </li>
                 <li class="dropdown <?= $this->Menu->activeMenus(['controller' => 'legislacao'], ['controller' => 'licitacoes'], ['controller' => 'concursos'], ['controller' => 'diarias'], ['controller' => 'publicacoes']) ? 'active' : '' ?>">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Publicações <i class="fa fa-angle-down"></i></a>
-                    <ul class="dropdown-menu" style="width: 250px">
+                    <ul class="dropdown-menu" style="min-width: 250px">
                         <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao']) ?>"><?=$this->Html->link('Legislação', ['controller' => 'legislacao'])?></li>
                         <li class="<?= $this->Menu->activeMenu(['controller' => 'licitacoes']) ?>"><?=$this->Html->link('Licitações', ['controller' => 'licitacoes'])?></li>
                         <li class="<?= $this->Menu->activeMenu(['controller' => 'concursos']) ?>"><?=$this->Html->link('Concursos e Processos Seletivos', ['controller' => 'concursos'])?></li>
