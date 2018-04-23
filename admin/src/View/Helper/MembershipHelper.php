@@ -216,6 +216,7 @@ class MembershipHelper extends Helper
             ['chave' => 'feriado', 'active' => $this->handleRole('listar_feriados')],
             ['chave' => 'legislacao', 'active' => $this->handleRole('listar_legislacao')],
             ['chave' => 'licitacoes', 'active' => $this->handleRole('listar_licitacoes')],
+            ['chave' => 'diarias', 'active' => $this->handleRole('listar_diarias')],
             ['chave' => 'noticias', 'active' => $this->handleRole('listar_noticias')],
             ['chave' => 'secretarias', 'active' => $this->handleRole('listar_secretarias')],
             ['chave' => 'banners', 'active' => $this->handleRole('listar_banners')],
