@@ -28,10 +28,17 @@
                             <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-6">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("beneficiario", "Beneficiário") ?>
                                         <?= $this->Form->text("beneficiario", ["id" => "beneficiario", "class" => "form-control", "maxlength" => 80]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("valor", "Valor") ?>
+                                        <?= $this->Form->text("valor", ["id" => "valor", "class" => "form-control text-right"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
