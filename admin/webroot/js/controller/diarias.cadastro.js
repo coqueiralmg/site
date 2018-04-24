@@ -21,6 +21,7 @@ $(function () {
     $('#periodoInicio').mask('00/00/0000');
     $('#periodoFim').mask('00/00/0000');
     $('#placa').mask('SSS 0000');
+    $('#valor').mask("#.##0,00", {reverse: true});
 });
 
 function toggleArquivo() {
@@ -39,6 +40,13 @@ function validar() {
         $("label[for='beneficiario']").css("color", "red");
     } else {
         $("label[for='beneficiario']").css("color", "#aaa");
+    }
+
+    if ($("#valor").val() === "") {
+        mensagem += "<li> É obrigatório informar o valor das diárias concedidas a beneficiário.</li>";
+        $("label[for='valor']").css("color", "red");
+    } else {
+        $("label[for='valor']").css("color", "#aaa");
     }
 
     if ($("#destino").val() === "") {
