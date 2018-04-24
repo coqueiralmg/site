@@ -13,5 +13,5 @@ $(function () {
 
     $('#data_inicial').mask('00/00/0000');
     $('#data_final').mask('00/00/0000');
-    $('#placa').mask('AAA 0000');
+    $('#placa').mask('SSS 0000');
 });
