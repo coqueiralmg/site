@@ -64,10 +64,10 @@
                             </div>
                             <div class="form-group form-button">
                                 <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
-                                <?php if ($this->Membership->handleRole("adicionar_ips_firewall")): ?>
-                                    <a href="<?= $this->Url->build(['controller' => 'Firewall', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                                <?php if ($this->Membership->handleRole("adicionar_diaria")): ?>
+                                    <a href="<?= $this->Url->build(['controller' => 'Diarias', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                                 <?php endif; ?>
-                                <a href="<?= $this->Url->build(['controller' => 'Firewall', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
+                                <a href="<?= $this->Url->build(['controller' => 'Diarias', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                             </div>
                         <?php echo $this->Form->end(); ?>
                     </div>
@@ -76,27 +76,29 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content table-responsive">
-                        <?php if(count($firewall) > 0):?>
-                            <h4 class="card-title">Lista de IPs</h4>
+                        <?php if(count($diarias) > 0):?>
+                            <h4 class="card-title">Relatórios de Diárias</h4>
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
-                                        <th>Endereço de IP</th>
-                                        <th>Data do Cadastro</th>
-                                        <th>Lista Branca</th>
-                                        <th>Bloqueio no Site</th>
+                                        <th>Beneficiário</th>
+                                        <th>Destino</th>
+                                        <th>Período Inicial</th>
+                                        <th>Período Final</th>
+                                        <th>Data de Autorização</th>
                                         <th>Ativo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($firewall as $item): ?>
+                                    <?php foreach ($diarias as $diaria): ?>
                                         <tr>
-                                            <td><?= $item->ip ?></td>
-                                            <td><?= $this->Format->date($item->data) ?></td>
-                                            <td><?= $item->whitelist ?></td>
-                                            <td><?= $item->bloqueiaSite ?></td>
-                                            <td><?= $item->ativado ?></td>
+                                            <td><?= $diaria->beneficiario ?></td>
+                                            <td><?= $diaria->destino ?></td>
+                                            <td><?= $this->Format->date($destino->periodoInicial) ?></td>
+                                            <td><?= $this->Format->date($destino->periodoFinal) ?></td>
+                                            <td><?= $this->Format->date($destino->dataAutorizacao) ?></td>
+                                            <td><?= $destino->ativado ?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_ips_firewall")): ?>
                                                     <a href="<?= $this->Url->build(['controller' => 'Firewall', 'action' => 'edit', $item->id]) ?>" class="btn btn-primary btn-round">
@@ -112,7 +114,11 @@
                                 </tbody>
                             </table>
                         <?php else: ?>
-                            <h3>Nenhum item encontrado.</h3>
+                            <?php if ($this->Membership->handleRole("adicionar_diaria")): ?>
+                                <h3>Nenhum item encontrado. Para adicionar um novo relatório de diárias, <?=$this->Html->link("clique aqui", ["controller" => "diarias", "action" => "add"])?>.</h3>
+                            <?php else:?>
+                                <h3>Nenhum item encontrado.</h3>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                      <div class="card-content">
