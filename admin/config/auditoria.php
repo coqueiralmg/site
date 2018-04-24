@@ -55,7 +55,10 @@ return [
             50 => 'Alteração de status de manifestação',
             51 => 'Inclusão de Feriado',
             52 => 'Alteração de Feriado',
-            53 => 'Exclusão de Feriado'
+            53 => 'Exclusão de Feriado',
+            54 => 'Inclusão de Relatório de Diárias',
+            55 => 'Alteração de Relatório de Diárias',
+            56 => 'Exclusão de Relatórios de Diárias'
         ]
     ]
 ];
