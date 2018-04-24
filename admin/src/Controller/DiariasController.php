@@ -3,8 +3,13 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
+use Cake\I18n\Number;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
+use \Exception;
+use \DateTime;
 
 class DiariasController extends AppController
 {
@@ -184,6 +189,7 @@ class DiariasController extends AppController
         {
             $diaria = $t_diarias->get($id);
 
+            $diaria->valor = Number::precision($diaria->valor, 2);
             $diaria->dataAutorizacao = $diaria->dataAutorizacao->i18nFormat('dd/MM/yyyy');
             $diaria->periodoInicio = $diaria->periodoInicio->i18nFormat('dd/MM/yyyy');
             $diaria->periodoFim = $diaria->periodoFim->i18nFormat('dd/MM/yyyy');
@@ -198,5 +204,145 @@ class DiariasController extends AppController
         $this->set('title', $title);
         $this->set('icon', $icon);
         $this->set('id', $id);
+    }
+
+    public function save(int $id)
+    {
+        if ($this->request->is('post'))
+        {
+            $this->insert();
+        }
+        elseif ($this->request->is('put'))
+        {
+            $this->update($id);
+        }
+    }
+
+    protected function insert()
+    {
+        try
+        {
+            $t_diarias = TableRegistry::get('Diaria');
+            $entity = $t_diarias->newEntity($this->request->data());
+
+            $entity->dataAutorizacao = $this->obterDataAutorizacao($entity->dataAutorizacao);
+            $entity->periodoInicio = $this->Format->formatDateDB($entity->periodoInicio);
+            $entity->periodoFim = $this->Format->formatDateDB($entity->periodoFim);
+
+            $arquivo = $this->request->getData('arquivo');
+            $entity->documento = $this->salvarArquivo($arquivo);
+
+            $t_diarias->save($entity);
+            $this->Flash->greatSuccess('Relatório de diárias salvo com sucesso.');
+
+            $propriedades = $entity->getOriginalValues();
+
+            $auditoria = [
+                'ocorrencia' => 54,
+                'descricao' => 'O usuário criou um novo relatório de diárias.',
+                'dado_adicional' => json_encode(['id_nova_diaria' => $entity->id, 'dados_diaria' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o relatório de diárias.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    protected function update(int $id)
+    {
+        try
+        {
+
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o relatório de diárias.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    private function removerArquivo($arquivo)
+    {
+        $diretorio = Configure::read('Files.paths.public');
+        $arquivo = $diretorio . $arquivo;
+
+        $file = new File($arquivo);
+
+        if($file->exists())
+        {
+            $file->delete();
+        }
+    }
+
+    private function salvarArquivo($arquivo)
+    {
+        $diretorio = Configure::read('Files.paths.diarias');
+        $url_relativa = Configure::read('Files.urls.diarias');
+
+        $file_temp = $arquivo['tmp_name'];
+        $nome_arquivo = $arquivo['name'];
+
+        $file = new File($file_temp);
+        $pivot = new File($nome_arquivo);
+
+        $novo_nome = uniqid() . '.' . $pivot->ext();
+
+        if(!$this->File->validationExtension($pivot, $this->File::TYPE_FILE_DOCUMENT))
+        {
+            throw new Exception("A extensão do arquivo é inválida.");
+        }
+        elseif(!$this->File->validationSize($file))
+        {
+            $maximo = $this->File->getMaxLengh($this->File::TYPE_FILE_DOCUMENT);
+            $divisor = Configure::read('Files.misc.megabyte');
+
+            $maximo = round($maximo / $divisor, 0);
+
+            $mensagem = "O tamaho do arquivo enviado é muito grande. O tamanho máximo do arquivo é de $maximo MB.";
+
+            throw new Exception($mensagem);
+        }
+
+        $file->copy($diretorio . $novo_nome, true);
+
+        return $url_relativa . $novo_nome;
+    }
+
+    private function obterDataAutorizacao($data)
+    {
+        $pivot = null;
+
+        if($data == "")
+        {
+            $pivot = date("Y-m-d");
+        }
+        else
+        {
+            $pivot = $this->Format->formatDateDB($data);
+        }
+
+        return $pivot;
     }
 }
