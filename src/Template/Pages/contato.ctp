@@ -14,7 +14,7 @@
                                     <h5>Prefeitura</h5>
                                     <p>Rua Minas Gerais, 62 - Vila Sônia <br>
                                     Coqueiral - MG</p>
-                                    <p>Telefones:<br/> 
+                                    <p>Telefones:<br/>
                                     (35) 3855-1162<br>
                                     (35) 3855-1166</p>
                                     <p>CEP: 37235-000</p>
@@ -46,10 +46,6 @@
                     <div class="form-group">
                         <label>E-mail *</label>
                         <input type="email" id="email" name="email" class="form-control" required="required">
-                    </div>
-                    <div class="form-group">
-                        <label>Endereço</label>
-                        <input type="text" id="endereco" name="endereco" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Telefone de Contato</label>

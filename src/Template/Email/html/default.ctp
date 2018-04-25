@@ -6,35 +6,35 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>ZURBemails</title>
-	
+
 <style>
 
-/* ------------------------------------- 
-		GLOBAL 
+/* -------------------------------------
+		GLOBAL
 ------------------------------------- */
-* { 
+* {
 	margin:0;
 	padding:0;
 }
 * { font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; }
 
-img { 
-	max-width: 100%; 
+img {
+	max-width: 100%;
 }
 .collapse {
 	margin:0;
 	padding:0;
 }
 body {
-	-webkit-font-smoothing:antialiased; 
-	-webkit-text-size-adjust:none; 
-	width: 100%!important; 
+	-webkit-font-smoothing:antialiased;
+	-webkit-text-size-adjust:none;
+	width: 100%!important;
 	height: 100%;
 }
 
 
-/* ------------------------------------- 
-		ELEMENTS 
+/* -------------------------------------
+		ELEMENTS
 ------------------------------------- */
 a { color: #2BA6CB;}
 
@@ -63,7 +63,7 @@ p.callout {
 table.social {
 /* 	padding:15px; */
 	background-color: #ebebeb;
-	
+
 }
 .social .soc-btn {
 	padding: 3px 7px;
@@ -79,13 +79,13 @@ a.tw { background-color: #1daced!important; }
 a.gp { background-color: #DB4A39!important; }
 a.ms { background-color: #000!important; }
 
-.sidebar .soc-btn { 
+.sidebar .soc-btn {
 	display:block;
 	width:100%;
 }
 
-/* ------------------------------------- 
-		HEADER 
+/* -------------------------------------
+		HEADER
 ------------------------------------- */
 table.head-wrap { width: 100%;}
 
@@ -93,14 +93,14 @@ table.head-wrap { width: 100%;}
 .header.container table td.label { padding: 15px; padding-left:0px;}
 
 
-/* ------------------------------------- 
-		BODY 
+/* -------------------------------------
+		BODY
 ------------------------------------- */
 table.body-wrap { width: 100%;}
 
 
-/* ------------------------------------- 
-		FOOTER 
+/* -------------------------------------
+		FOOTER
 ------------------------------------- */
 table.footer-wrap { width: 100%;	clear:both!important;
 }
@@ -108,12 +108,12 @@ table.footer-wrap { width: 100%;	clear:both!important;
 .footer-wrap .container td.content p {
 	font-size:10px;
 	font-weight: bold;
-	
+
 }
 
 
-/* ------------------------------------- 
-		TYPOGRAPHY 
+/* -------------------------------------
+		TYPOGRAPHY
 ------------------------------------- */
 h1,h2,h3,h4,h5,h6 {
 font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; line-height: 1.1; margin-bottom:15px; color:black;
@@ -129,10 +129,10 @@ h6 { font-weight:900; font-size: 14px; text-transform: uppercase; color:#444;}
 
 .collapse { margin:0!important;}
 
-p, ul { 
-	margin-bottom: 10px; 
-	font-weight: normal; 
-	font-size:14px; 
+p, ul {
+	margin-bottom: 10px;
+	font-weight: normal;
+	font-size:14px;
 	line-height:1.6;
 }
 p.lead { font-size:17px; }
@@ -143,8 +143,8 @@ ul li {
 	list-style-position: inside;
 }
 
-/* ------------------------------------- 
-		SIDEBAR 
+/* -------------------------------------
+		SIDEBAR
 ------------------------------------- */
 ul.sidebar {
 	background:#ebebeb;
@@ -170,9 +170,9 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 
 
 
-/* --------------------------------------------------- 
+/* ---------------------------------------------------
 		RESPONSIVENESS
-		Nuke it from orbit. It's the only way to be sure. 
+		Nuke it from orbit. It's the only way to be sure.
 ------------------------------------------------------ */
 
 /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
@@ -188,7 +188,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 	padding:15px;
 	max-width:600px;
 	margin:0 auto;
-	display:block; 
+	display:block;
 }
 
 /* Let's make sure tables in the content area are 100% wide */
@@ -201,9 +201,9 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 	float:left;
 }
 .column tr td { padding: 15px; }
-.column-wrap { 
-	padding:0!important; 
-	margin:0 auto; 
+.column-wrap {
+	padding:0!important;
+	margin:0 auto;
 	max-width:600px!important;
 }
 .column table { width:100%;}
@@ -217,17 +217,17 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 .clear { display: block; clear: both; }
 
 
-/* ------------------------------------------- 
+/* -------------------------------------------
 		PHONE
 		For clients that support media queries.
-		Nothing fancy. 
+		Nothing fancy.
 -------------------------------------------- */
 @media only screen and (max-width: 600px) {
-	
+
 	a[class="btn"] { display:block!important; margin-bottom:10px!important; background-image:none!important; margin-right:0!important;}
 
 	div[class="column"] { width: auto!important; float:none!important;}
-	
+
 	table.social div[class="column"] {
 		width:auto!important;
 	}
@@ -237,7 +237,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 </style
 
 </head>
- 
+
 <body bgcolor="#FFFFFF">
 
 
@@ -254,29 +254,28 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 					<td>
 						<p class="lead"><?=$mensagem?></p>
 						<!-- Callout Panel -->
-								
-												
+
+
 						<!-- social & contact -->
 						<table class="social" width="100%">
 							<tr>
 								<td>
-									
+
 									<!-- column 1 -->
 									<table align="left">
 										<tr>
-											<td>				
+											<td>
 												<h5 class="">Informações de Contato:</h5>
 												<p class="">
 												<p>
 													<b>Nome:</b> <?=$nome?><br/>
 													<b>Email: </b><?=$email?> <br/>
-													<b>Endereço: </b><?=$endereco?> <br/>
 													<b>Telefone de Contato: </b><?=$telefone?>
 												</p>
 											</td>
 										</tr>
-									</table><!-- /column 1 -->	
-									<span class="clear"></span>	
+									</table><!-- /column 1 -->
+									<span class="clear"></span>
 								</td>
 							</tr>
 						</table><!-- /social & contact -->
@@ -294,7 +293,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 	<tr>
 		<td></td>
 		<td class="container">
-			
+
 				<!-- content -->
 				<div class="content">
 				<table>
@@ -307,7 +306,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 				</tr>
 			</table>
 				</div><!-- /content -->
-				
+
 		</td>
 		<td></td>
 	</tr>

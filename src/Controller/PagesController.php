@@ -26,21 +26,21 @@ use Cake\ORM\Entity;
  * @link http://book.cakephp.org/3.0/en/controllers/pages-controller.html
  */
 class PagesController extends AppController
-{   
+{
 
     public function home()
     {
         $t_noticia = TableRegistry::get('Noticia');
         $t_licitacoes = TableRegistry::get('Licitacao');
         $t_banners = TableRegistry::get('Banner');
-        
+
         $noticias = $t_noticia->find('all', [
             'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
             'conditions' => [
                 'Post.destaque' => true,
                 'Post.ativo' => true
             ],
-            'order' => ['Post.datapostagem' => 'DESC'], 
+            'order' => ['Post.datapostagem' => 'DESC'],
             'limit' => 3
         ]);
 
@@ -66,6 +66,37 @@ class PagesController extends AppController
          $this->set('noticias', $noticias);
          $this->set('licitacoes', $licitacoes);
          $this->set('banners', $banners->toArray());
+    }
+
+    public function contato()
+    {
+        if($this->request->is('post'))
+        {
+            $nome = $this->request->getData('nome');
+            $email = $this->request->getData('email');
+            $telefone = $this->request->getData('telefone');
+            $assunto = $this->request->getData('assunto');
+            $mensagem = $this->request->getData('mensagem');
+
+            $header = array(
+                'name' => $nome,
+                'from' => $email,
+                'to' => Configure::read("Contact.ouvidoria"),
+                'subject' => 'Formulário de Contato - ' . $assunto
+            );
+
+            $params = array(
+                'nome' => $nome,
+                'email' => $email,
+                'telefone' => $telefone,
+                'mensagem' => nl2br($mensagem)
+            );
+
+            if($this->Sender->sendEmailTemplate($header, 'default', $params))
+            {
+                $this->redirect(['controller' => 'pages', 'action' => 'contatosucesso']);
+            }
+        }
     }
 
     public function privacidade() { }
