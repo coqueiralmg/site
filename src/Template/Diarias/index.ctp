@@ -17,8 +17,8 @@
                         <h3 class="media-heading" style="text-transform: uppercase;">Beneficiário: <?= $diaria->beneficiario ?></h3>
                         <p>Destino: <?= $diaria->destino ?></p>
                         <p>Período: <?= $this->Format->date($diaria->periodoInicio) ?> à <?= $this->Format->date($diaria->periodoFim)  ?></p>
-                        <p>Objetivo: <?= $diaria->objetivo ?></p>
-                        <?= $this->Html->link('Detalhes', ['controller' => 'legislacao', 'action' =>  'documento', $diaria->id], ['class' => 'btn btn-success']) ?>
+                        <p>Objetivo: <?= $diaria->resumo ?></p>
+                        <?= $this->Html->link('Detalhes', ['controller' => 'diarias', 'action' =>  'diaria', $diaria->id], ['class' => 'btn btn-success']) ?>
                     </div>
                     <?php if($i % 2 != 0): ?>
                         </div>
