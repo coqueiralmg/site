@@ -4,6 +4,7 @@ namespace App\View\Helper;
 
 use Cake\View\Helper;
 use Cake\I18n\Date;
+use Cake\I18n\Number;
 
 /**
  * Classe de formatação em geral para exibição ao usuário
@@ -22,7 +23,7 @@ class FormatHelper extends Helper
         'Friday' => 'Sexta-Feira',
         'Saturday' => 'Sábado',
     ];
-    
+
     /**
      * Formata para o número de telefone
      * @param string $value Valor original do telefone
@@ -102,4 +103,14 @@ class FormatHelper extends Helper
         return $this->dias_semana[date_format($data, 'l')];
     }
 
+    /**
+     * Ajusta a precisão de números decimais
+     * @param $value Valor em decimal
+     * @param $precision Quantidade de cadas decimais a serem exibidas
+     * @return string Número formatado com a quantidade de casas decimais pré-definidas
+     */
+    public function precision($value, $precision)
+    {
+        return Number::precision($value, $precision);
+    }
 }
