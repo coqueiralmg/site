@@ -103,7 +103,7 @@
                                     <div id="panel_arquivo">
                                         <div class="col-md-9">
                                             <div class="form-group form-file-upload is-fileinput">
-                                                Documento atual: <?=$this->Html->link($diaria->beneficiario, '/../' . $licitacao->documento, ['target' => '_blank'])?>
+                                                Documento atual: <?=$this->Html->link($diaria->beneficiario, '/../' . $diaria->documento, ['target' => '_blank'])?>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -149,7 +149,7 @@
                                 <button type="button" onclick="window.location='<?= $this->Url->build(['action' => 'add']) ?>'" class="btn btn-warning pull-right">Novo</button>
                             <?php endif; ?>
                             <button type="reset" class="btn btn-default pull-right">Limpar</button>
-                            <button type="button" onclick="window.location='<?= $this->Url->build('/licitacoes') ?>'" class="btn btn-info pull-right">Voltar</button>
+                            <button type="button" onclick="window.location='<?= $this->Url->build('/diarias') ?>'" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

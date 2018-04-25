@@ -269,7 +269,47 @@ class DiariasController extends AppController
     {
         try
         {
+            $t_diarias = TableRegistry::get('Diaria');
+            $entity = $t_diarias->get($id);
 
+            $antigo_arquivo = $entity->arquivo;
+
+            $t_diarias->patchEntity($entity, $this->request->data());
+
+            $entity->dataAutorizacao = $this->Format->formatDateDB($entity->dataAutorizacao);
+            $entity->periodoInicio = $this->Format->formatDateDB($entity->periodoInicio);
+            $entity->periodoFim = $this->Format->formatDateDB($entity->periodoFim);
+
+            $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
+
+            if($enviaArquivo)
+            {
+                $this->removerArquivo($antigo_arquivo);
+                $arquivo = $this->request->getData('arquivo');
+                $entity->documento = $this->salvarArquivo($arquivo);
+            }
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_diarias->save($entity);
+            $this->Flash->greatSuccess('Relatório de diárias salvo com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 55,
+                'descricao' => 'O usuário editou um relatório de diárias.',
+                'dado_adicional' => json_encode(['diaria_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $id]);
         }
         catch(Exception $ex)
         {
@@ -279,7 +319,7 @@ class DiariasController extends AppController
                 ]
             ]);
 
-            $this->redirect(['action' => 'cadastro', 0]);
+            $this->redirect(['action' => 'cadastro', $id]);
         }
     }
 
