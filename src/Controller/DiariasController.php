@@ -30,4 +30,15 @@ class DiariasController extends AppController
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
     }
+
+    public function diaria(int $id)
+    {
+        $t_diarias = TableRegistry::get('Diaria');
+        $diaria = $t_diarias->get($id);
+
+        $titulo = 'Relatório de Diária Para ' . $diaria->beneficiario;
+
+        $this->set('title', $titulo);
+        $this->set('diaria', $diaria);
+    }
 }
