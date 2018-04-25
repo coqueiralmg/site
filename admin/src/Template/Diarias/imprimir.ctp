@@ -16,10 +16,10 @@
                 <tr>
                     <td><?= $diaria->beneficiario ?></td>
                     <td><?= $diaria->destino ?></td>
-                    <td><?= $this->Format->date($destino->periodoInicial) ?></td>
-                    <td><?= $this->Format->date($destino->periodoFinal) ?></td>
-                    <td><?= $this->Format->date($destino->dataAutorizacao) ?></td>
-                    <td><?= $destino->ativado ?></td>
+                    <td><?= $this->Format->date($diaria->periodoInicio) ?></td>
+                    <td><?= $this->Format->date($diaria->periodoFim) ?></td>
+                    <td><?= $this->Format->date($diaria->dataAutorizacao) ?></td>
+                    <td><?= $diaria->ativado ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

@@ -57,7 +57,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("mostrar", "Mostrar") ?> <br/>
-                                        <?= $this->Form->text("mostrar", ["class" => "form-control"]) ?>
+                                        <?=$this->Form->select('mostrar', $combo_mostra, ['class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -95,18 +95,18 @@
                                         <tr>
                                             <td><?= $diaria->beneficiario ?></td>
                                             <td><?= $diaria->destino ?></td>
-                                            <td><?= $this->Format->date($destino->periodoInicial) ?></td>
-                                            <td><?= $this->Format->date($destino->periodoFinal) ?></td>
-                                            <td><?= $this->Format->date($destino->dataAutorizacao) ?></td>
-                                            <td><?= $destino->ativado ?></td>
+                                            <td><?= $this->Format->date($diaria->periodoInicio) ?></td>
+                                            <td><?= $this->Format->date($diaria->periodoFim) ?></td>
+                                            <td><?= $this->Format->date($diaria->dataAutorizacao) ?></td>
+                                            <td><?= $diaria->ativado ?></td>
                                             <td class="td-actions text-right">
-                                                <?php if ($this->Membership->handleRole("editar_ips_firewall")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Firewall', 'action' => 'edit', $item->id]) ?>" class="btn btn-primary btn-round">
+                                                <?php if ($this->Membership->handleRole("editar_diaria")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'Diarias', 'action' => 'edit', $diaria->id]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
-                                                <?php if ($this->Membership->handleRole("excluir_ips_firewall")): ?>
-                                                    <button type="button" onclick="excluirRegistro(<?= $item->id ?>, '<?= $item->ip ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php if ($this->Membership->handleRole("excluir_diaria")): ?>
+                                                    <button type="button" onclick="excluirRegistro(<?= $diaria->id ?>, '<?= $diaria->beneficiario ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
