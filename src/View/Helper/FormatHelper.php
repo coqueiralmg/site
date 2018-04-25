@@ -2,6 +2,7 @@
 
 namespace App\View\Helper;
 
+use Cake\I18n\Number;
 use Cake\View\Helper;
 
 class FormatHelper extends Helper
@@ -73,6 +74,17 @@ class FormatHelper extends Helper
         }
 
         return $data;
+    }
+
+    /**
+     * Ajusta a precisão de números decimais
+     * @param $value Valor em decimal
+     * @param $precision Quantidade de cadas decimais a serem exibidas
+     * @return string Número formatado com a quantidade de casas decimais pré-definidas
+     */
+    public function precision($value, $precision)
+    {
+        return Number::precision($value, $precision);
     }
 
 }

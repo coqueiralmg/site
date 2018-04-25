@@ -5,12 +5,13 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
+use Cake\I18n\Number;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 use \Exception;
 use \DateTime;
 
-class LegislacaoController extends AppController
+class DiariasController extends AppController
 {
     public function initialize()
     {
@@ -19,7 +20,7 @@ class LegislacaoController extends AppController
 
     public function index()
     {
-        $t_legislacao = TableRegistry::get('Legislacao');
+        $t_diarias = TableRegistry::get('Diaria');
         $limite_paginacao = Configure::read('Pagination.limit');
 
         $condicoes = array();
@@ -27,26 +28,32 @@ class LegislacaoController extends AppController
 
         if (count($this->request->getQueryParams()) > 3)
         {
-            $numero = $this->request->query('numero');
-            $titulo = $this->request->query('titulo');
+            $beneficiario = $this->request->query('beneficiario');
             $data_inicial = $this->request->query('data_inicial');
             $data_final = $this->request->query('data_final');
+            $destino = $this->request->query('destino');
+            $placa = $this->request->query('placa');
             $mostrar = $this->request->query('mostrar');
 
-            if($numero != "")
+            if($beneficiario != "")
             {
-                $condicoes['numero LIKE'] = '%' . $numero . '%';
-            }
-
-            if($titulo != "")
-            {
-                $condicoes['titulo LIKE'] = '%' . $titulo . '%';
+                $condicoes['beneficiario LIKE'] = '%' . $beneficiario . '%';
             }
 
             if ($data_inicial != "" && $data_final != "")
             {
-                $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
-                $condicoes["data <="] = $this->Format->formatDateDB($data_final);
+                $condicoes["periodoInicio >="] = $this->Format->formatDateDB($data_inicial);
+                $condicoes["periodoFim <="] = $this->Format->formatDateDB($data_final);
+            }
+
+            if($destino != "")
+            {
+                $condicoes['destino LIKE'] = '%' . $destino . '%';
+            }
+
+            if($placa != "")
+            {
+                $condicoes['placa LIKE'] = '%' . $placa . '%';
             }
 
             if ($mostrar != 'T')
@@ -54,10 +61,11 @@ class LegislacaoController extends AppController
                 $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
             }
 
-            $data['numero'] = $numero;
-            $data['titulo'] = $titulo;
+            $data['beneficiario'] = $beneficiario;
             $data['data_inicial'] = $data_inicial;
             $data['data_final'] = $data_final;
+            $data['destino'] = $destino;
+            $data['placa'] = $placa;
             $data['mostrar'] = $mostrar;
 
             $this->request->data = $data;
@@ -67,48 +75,61 @@ class LegislacaoController extends AppController
             'limit' => $limite_paginacao,
             'conditions' => $condicoes,
             'order' => [
-                'data' => 'DESC'
+                'dataAutorizacao' => 'DESC'
             ]
         ];
 
-        $legislacao = $this->paginate($t_legislacao);
+        $diarias = $this->paginate($t_diarias);
 
-        $qtd_total = $t_legislacao->find('all', [
-            'conditions' => $condicoes]
-        )->count();
+        $qtd_total = $t_diarias->find('all', [
+            'conditions' => $condicoes
+        ])->count();
 
         $combo_mostra = ["T" => "Todos", "A" => "Somente ativos", "I" => "Somente inativos"];
 
-        $this->set('title', 'Legislação');
-        $this->set('icon', 'gavel');
-        $this->set('combo_mostra', $combo_mostra);
-        $this->set('legislacao', $legislacao);
+        $this->set('title', 'Diárias de Viagem');
+        $this->set('icon', 'directions_car');
+        $this->set('diarias', $diarias);
         $this->set('qtd_total', $qtd_total);
+        $this->set('combo_mostra', $combo_mostra);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('data', $data);
     }
 
     public function imprimir()
     {
-        $t_legislacao = TableRegistry::get('Legislacao');
+        $t_diarias = TableRegistry::get('Diaria');
 
         $condicoes = array();
 
-        if (count($this->request->getQueryParams()) > 0)
+        if (count($this->request->getQueryParams()) > 3)
         {
-            $numero = $this->request->query('numero');
-            $titulo = $this->request->query('titulo');
+            $beneficiario = $this->request->query('beneficiario');
             $data_inicial = $this->request->query('data_inicial');
             $data_final = $this->request->query('data_final');
+            $destino = $this->request->query('destino');
+            $placa = $this->request->query('placa');
             $mostrar = $this->request->query('mostrar');
 
-            $condicoes['numero LIKE'] = '%' . $numero . '%';
-            $condicoes['titulo LIKE'] = '%' . $titulo . '%';
+            if($beneficiario != "")
+            {
+                $condicoes['beneficiario LIKE'] = '%' . $beneficiario . '%';
+            }
 
             if ($data_inicial != "" && $data_final != "")
             {
-                $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
-                $condicoes["data <="] = $this->Format->formatDateDB($data_final);
+                $condicoes["periodoInicio >="] = $this->Format->formatDateDB($data_inicial);
+                $condicoes["periodoFim <="] = $this->Format->formatDateDB($data_final);
+            }
+
+            if($destino != "")
+            {
+                $condicoes['destino LIKE'] = '%' . $destino . '%';
+            }
+
+            if($placa != "")
+            {
+                $condicoes['placa LIKE'] = '%' . $placa . '%';
             }
 
             if ($mostrar != 'T')
@@ -117,18 +138,18 @@ class LegislacaoController extends AppController
             }
         }
 
-        $legislacao = $t_legislacao->find('all', [
+        $diarias = $t_diarias->find('all', [
             'conditions' => $condicoes,
             'order' => [
-                'id' => 'DESC'
+                'dataAutorizacao' => 'DESC'
             ]
         ]);
 
-        $qtd_total = $legislacao->count();
+        $qtd_total = $diarias->count();
 
         $auditoria = [
             'ocorrencia' => 9,
-            'descricao' => 'O usuário solicitou a impressão da listagem de legislação municipal.',
+            'descricao' => 'O usuário solicitou a impressão da lista de relatórios de diárias.',
             'usuario' => $this->request->session()->read('UsuarioID')
         ];
 
@@ -141,13 +162,14 @@ class LegislacaoController extends AppController
 
         $this->viewBuilder()->layout('print');
 
-        $this->set('title', 'Legislação');
-        $this->set('legislacao', $legislacao);
+        $this->set('title', 'Diárias de Viagem');
+        $this->set('diarias', $diarias);
         $this->set('qtd_total', $qtd_total);
     }
 
     public function add()
     {
+        $this->Flash->info('Dica: A data de autorização será preenchida automaticamente com a data corrente, caso seja deixada em branco.');
         $this->redirect(['action' => 'cadastro', 0]);
     }
 
@@ -158,21 +180,25 @@ class LegislacaoController extends AppController
 
     public function cadastro(int $id)
     {
-        $title = ($id > 0) ? 'Edição do Documento Legislação' : 'Novo Documento da Legislação';
-        $icon = 'gavel';
+        $title = ($id > 0) ? 'Edição da Diária' : 'Novo Relatório de Diária';
+        $icon = 'work';
 
-        $t_legislacao = TableRegistry::get('Legislacao');
+        $t_diarias = TableRegistry::get('Diaria');
 
-        if ($id > 0)
+        if($id > 0)
         {
-            $legislacao = $t_legislacao->get($id);
-            $legislacao->hora = $legislacao->data->i18nFormat('HH:mm');
+            $diaria = $t_diarias->get($id);
 
-            $this->set('legislacao', $legislacao);
+            $diaria->valor = Number::precision($diaria->valor, 2);
+            $diaria->dataAutorizacao = $diaria->dataAutorizacao->i18nFormat('dd/MM/yyyy');
+            $diaria->periodoInicio = $diaria->periodoInicio->i18nFormat('dd/MM/yyyy');
+            $diaria->periodoFim = $diaria->periodoFim->i18nFormat('dd/MM/yyyy');
+
+            $this->set('diaria', $diaria);
         }
         else
         {
-            $this->set('legislacao', null);
+            $this->set('diaria', null);
         }
 
         $this->set('title', $title);
@@ -196,21 +222,23 @@ class LegislacaoController extends AppController
     {
         try
         {
-            $t_legislacao = TableRegistry::get('Legislacao');
-            $marcado = $t_legislacao->get($id);
+            $t_diarias = TableRegistry::get('Diaria');
+            $marcado = $t_diarias->get($id);
+
+            $beneficiario = $marcado->beneficiario;
 
             $propriedades = $marcado->getOriginalValues();
 
-            $this->removerArquivo($marcado->arquivo);
+            $this->removerArquivo($marcado->documento);
 
-            $t_legislacao->delete($marcado);
+            $t_diarias->delete($marcado);
 
-            $this->Flash->greatSuccess('O documento da legislação foi excluído com sucesso!');
+            $this->Flash->greatSuccess('O relatório de diárias para o beneficiário ' . $beneficiario . ' foi excluído com sucesso!');
 
             $auditoria = [
-                'ocorrencia' => 23,
-                'descricao' => 'O usuário excluiu um documento da legislação.',
-                'dado_adicional' => json_encode(['legislacao_excluida' => $id, 'dados_legislacao_excluida' => $propriedades]),
+                'ocorrencia' => 56,
+                'descricao' => 'O usuário excluiu um relatório de diárias.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
@@ -225,7 +253,7 @@ class LegislacaoController extends AppController
         }
         catch(Exception $ex)
         {
-            $this->Flash->exception('Ocorreu um erro no sistema ao excluir um documento da legislação.', [
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir o relatório de diárias.', [
                 'params' => [
                     'details' => $ex->getMessage()
                 ]
@@ -239,33 +267,25 @@ class LegislacaoController extends AppController
     {
         try
         {
-            $t_legislacao = TableRegistry::get('Legislacao');
-            $entity = $t_legislacao->newEntity($this->request->data());
+            $t_diarias = TableRegistry::get('Diaria');
+            $entity = $t_diarias->newEntity($this->request->data());
 
-            if($entity->hora == '')
-            {
-                $pivot = new DateTime();
-                $hora = $pivot->format('H:i:s');
-            }
-            else
-            {
-                $hora = $entity->hora;
-            }
-
-            $entity->data = $this->Format->mergeDateDB($entity->data, $hora);
+            $entity->dataAutorizacao = $this->obterDataAutorizacao($entity->dataAutorizacao);
+            $entity->periodoInicio = $this->Format->formatDateDB($entity->periodoInicio);
+            $entity->periodoFim = $this->Format->formatDateDB($entity->periodoFim);
 
             $arquivo = $this->request->getData('arquivo');
-            $entity->arquivo = $this->salvarArquivo($arquivo);
+            $entity->documento = $this->salvarArquivo($arquivo);
 
-            $t_legislacao->save($entity);
-            $this->Flash->greatSuccess('O documento da legislação foi salvo com sucesso.');
+            $t_diarias->save($entity);
+            $this->Flash->greatSuccess('Relatório de diárias salvo com sucesso.');
 
             $propriedades = $entity->getOriginalValues();
 
             $auditoria = [
-                'ocorrencia' => 21,
-                'descricao' => 'O usuário criou um novo documento da legislação.',
-                'dado_adicional' => json_encode(['id_nova_legislacao' => $entity->id, 'dados_legislacao' => $propriedades]),
+                'ocorrencia' => 54,
+                'descricao' => 'O usuário criou um novo relatório de diárias.',
+                'dado_adicional' => json_encode(['id_nova_diaria' => $entity->id, 'dados_diaria' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
@@ -280,7 +300,7 @@ class LegislacaoController extends AppController
         }
         catch(Exception $ex)
         {
-            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a publicação', [
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o relatório de diárias.', [
                 'params' => [
                     'details' => $ex->getMessage()
                 ]
@@ -294,37 +314,36 @@ class LegislacaoController extends AppController
     {
         try
         {
-            $t_legislacao = TableRegistry::get('Legislacao');
-            $entity = $t_legislacao->get($id);
+            $t_diarias = TableRegistry::get('Diaria');
+            $entity = $t_diarias->get($id);
 
-            $antigo_arquivo = $entity->arquivo;
+            $antigo_arquivo = $entity->documento;
 
-            $t_legislacao->patchEntity($entity, $this->request->data());
+            $t_diarias->patchEntity($entity, $this->request->data());
 
-            $entity->data = $this->Format->mergeDateDB($entity->data, $entity->hora);
+            $entity->dataAutorizacao = $this->Format->formatDateDB($entity->dataAutorizacao);
+            $entity->periodoInicio = $this->Format->formatDateDB($entity->periodoInicio);
+            $entity->periodoFim = $this->Format->formatDateDB($entity->periodoFim);
+
             $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
 
             if($enviaArquivo)
             {
                 $this->removerArquivo($antigo_arquivo);
                 $arquivo = $this->request->getData('arquivo');
-                $entity->arquivo = $this->salvarArquivo($arquivo);
-            }
-            else
-            {
-                $entity->arquivo = $antigo_arquivo;
+                $entity->documento = $this->salvarArquivo($arquivo);
             }
 
             $propriedades = $this->Auditoria->changedOriginalFields($entity);
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
 
-            $t_legislacao->save($entity);
-            $this->Flash->greatSuccess('O documento da legislação foi salvo com sucesso.');
+            $t_diarias->save($entity);
+            $this->Flash->greatSuccess('Relatório de diárias salvo com sucesso.');
 
             $auditoria = [
-                'ocorrencia' => 22,
-                'descricao' => 'O usuário editou um documento da legislação.',
-                'dado_adicional' => json_encode(['legislacao_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'ocorrencia' => 55,
+                'descricao' => 'O usuário editou um relatório de diárias.',
+                'dado_adicional' => json_encode(['diaria_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
@@ -339,7 +358,7 @@ class LegislacaoController extends AppController
         }
         catch(Exception $ex)
         {
-            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o documento da legislação', [
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o relatório de diárias.', [
                 'params' => [
                     'details' => $ex->getMessage()
                 ]
@@ -364,8 +383,8 @@ class LegislacaoController extends AppController
 
     private function salvarArquivo($arquivo)
     {
-        $diretorio = Configure::read('Files.paths.legislacao');
-        $url_relativa = Configure::read('Files.urls.legislacao');
+        $diretorio = Configure::read('Files.paths.diarias');
+        $url_relativa = Configure::read('Files.urls.diarias');
 
         $file_temp = $arquivo['tmp_name'];
         $nome_arquivo = $arquivo['name'];
@@ -394,5 +413,21 @@ class LegislacaoController extends AppController
         $file->copy($diretorio . $novo_nome, true);
 
         return $url_relativa . $novo_nome;
+    }
+
+    private function obterDataAutorizacao($data)
+    {
+        $pivot = null;
+
+        if($data == "")
+        {
+            $pivot = date("Y-m-d");
+        }
+        else
+        {
+            $pivot = $this->Format->formatDateDB($data);
+        }
+
+        return $pivot;
     }
 }

@@ -1,4 +1,4 @@
-var enviaArquivo = (idPublicacao == 0);
+var enviaArquivo = (idLegislacao == 0);
 
 $(function () {
     $('#data').datepicker({
@@ -25,28 +25,28 @@ function validar() {
     var mensagem = "";
 
     if ($("#numero").val() === "") {
-        mensagem += "<li> O número da pulicação é obrigatório.</li>";
+        mensagem += "<li> O número do documento da legislação é obrigatório.</li>";
         $("label[for='numero']").css("color", "red");
     } else {
         $("label[for='numero']").css("color", "#aaa");
     }
 
     if ($("#titulo").val() === "") {
-        mensagem += "<li> O título da publicação é obrigatório.</li>";
+        mensagem += "<li> O título do documento da legislação é obrigatório.</li>";
         $("label[for='titulo']").css("color", "red");
     } else {
         $("label[for='titulo']").css("color", "#aaa");
     }
 
     if ($("#data").val() === "") {
-        mensagem += "<li> A data da publicação é obrigatória.</li>";
+        mensagem += "<li> A data do documento da legislação é obrigatória.</li>";
         $("label[for='data']").css("color", "red");
     } else {
         $("label[for='data']").css("color", "#aaa");
     }
 
     if (CKEDITOR.instances.descricao.getData() === "") {
-        mensagem += "<li> É obrigatório informar a descrição da publicação.</li>";
+        mensagem += "<li> É obrigatório informar a descrição do documento da legislação.</li>";
         $("label[for='descricao']").css("color", "red");
     } else {
         $("label[for='descricao']").css("color", "#aaa");

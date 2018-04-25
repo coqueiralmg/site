@@ -5,7 +5,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 
-class Publicacao extends Entity
+class Legislacao extends Entity
 {
     protected function _getResumo()
     {

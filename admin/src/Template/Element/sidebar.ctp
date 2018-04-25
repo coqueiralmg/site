@@ -10,7 +10,7 @@
 
         <div class="info">
             <a data-toggle="collapse" href="#collapseExample" class="collapsed" aria-expanded="false">
-                <i class="material-icons">assignment_ind</i> 
+                <i class="material-icons">assignment_ind</i>
                  <?=$this->request->session()->read('UsuarioNome')?>
                 <b class="caret"></b>
             </a>
@@ -69,11 +69,11 @@
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if ($this->Membership->handleMenu("publicacoes")): ?>
-                <li class="<?= $this->Menu->activeMenu(['controller' => 'publicacoes']) ?>">
-                    <a href="<?= $this->Url->build('/publicacoes') ?>">
-                        <i class="material-icons">library_books</i>
-                        <p>Publicações</p>
+            <?php if ($this->Membership->handleMenu("legislacao")): ?>
+                <li class="<?= $this->Menu->activeMenu(['controller' => 'legislacao']) ?>">
+                    <a href="<?= $this->Url->build('/legislacao') ?>">
+                        <i class="material-icons">gavel</i>
+                        <p>Legislação</p>
                     </a>
                 </li>
             <?php endif; ?>
@@ -82,6 +82,14 @@
                     <a href="<?= $this->Url->build('/licitacoes') ?>">
                         <i class="material-icons">work</i>
                         <p>Licitações</p>
+                    </a>
+                </li>
+            <?php endif; ?>
+            <?php if ($this->Membership->handleMenu("diarias")): ?>
+                <li class="<?= $this->Menu->activeMenu(['controller' => 'diarias']) ?>">
+                    <a href="<?= $this->Url->build('/diarias') ?>">
+                        <i class="material-icons">directions_car</i>
+                        <p>Diárias</p>
                     </a>
                 </li>
             <?php endif; ?>

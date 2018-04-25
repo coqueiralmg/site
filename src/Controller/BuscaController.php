@@ -10,19 +10,19 @@ class BuscaController extends AppController
     public function index()
     {
         $licitacoes = array();
-        $publicacoes = array();
+        $legislacao = array();
         $noticias = array();
 
         $total_licitacoes = 0;
-        $total_publicacoes = 0;
+        $total_legislacao = 0;
         $total_noticias = 0;
-        
+
         if($this->request->is('get') && count($this->request->query) > 0)
         {
             $chave = $this->request->query('chave');
-            
+
             $t_licitacoes = TableRegistry::get('Licitacao');
-            $t_publicacoes = TableRegistry::get('Publicacao');
+            $t_legislacao = TableRegistry::get('Legislacao');
             $t_noticias = TableRegistry::get('Noticia');
 
             $licitacoes = $t_licitacoes->find('all', [
@@ -43,7 +43,7 @@ class BuscaController extends AppController
                 ]
             ])->count();
 
-            $publicacoes = $t_publicacoes->find('all', [
+            $legislacao = $t_legislacao->find('all', [
                 'conditions' => [
                     'titulo LIKE' => '%' . $chave . '%'
                 ],
@@ -52,7 +52,7 @@ class BuscaController extends AppController
                 ]
             ]);
 
-            $total_publicacoes = $t_publicacoes->find('all', [
+            $total_legislacao = $t_legislacao->find('all', [
                 'conditions' => [
                     'titulo LIKE' => '%' . $chave . '%'
                 ],
@@ -85,14 +85,14 @@ class BuscaController extends AppController
 
             $this->request->data = $data;
         }
-        
+
         $this->set('title', "Busca");
         $this->set('licitacoes', $licitacoes);
-        $this->set('publicacoes', $publicacoes);
+        $this->set('legislacao', $legislacao);
         $this->set('noticias', $noticias);
         $this->set('total_licitacoes', $total_licitacoes);
-        $this->set('total_publicacoes', $total_publicacoes);
+        $this->set('total_legislacao', $total_legislacao);
         $this->set('total_noticias', $total_noticias);
-        $this->set('total_geral', $total_licitacoes + $total_publicacoes + $total_noticias);
+        $this->set('total_geral', $total_licitacoes + $total_legislacao + $total_noticias);
     }
 }

@@ -29,13 +29,13 @@ switch($type)
 ?>
 <div id="<?=$name?>" class="<?=$class?>" data-notify="container" style="display: none">
     <i class="material-icons" data-notify="icon"><?=$icon?></i>
-    <button type="button" aria-hidden="true" class="close" onclick="$(this).parent().hide()">
+    <button type="button" aria-hidden="true" class="close" onclick="$(this).parent().hide()" style="cursor: pointer;">
         <i class="material-icons">close</i>
     </button>
     <?php if(isset($details)): ?>
         <span data-notify="message">
             <?= h($message) ?>
-            &nbsp;&nbsp;&nbsp;&nbsp;<a onclick="$('#details').toggle('blind');">Detalhes</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a style="cursor: pointer;" onclick="$('#details').toggle('blind');">Detalhes</a>
         </span>
         <div id="details" class="detalhes">
             <?= h($details) ?>

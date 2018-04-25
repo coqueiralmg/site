@@ -4,13 +4,17 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
-
-class Publicacao extends Entity
+class Diaria extends Entity
 {
+    protected function _getAtivado()
+    {
+        return $this->_properties['ativo'] ? 'Sim' : 'Não';
+    }
+
     protected function _getResumo()
     {
         $limiteCaracteres = 250;
-        $texto = $this->_properties['descricao'];
+        $texto = $this->_properties['objetivo'];
         $texto = strip_tags($texto);
         $reticences = "";
 

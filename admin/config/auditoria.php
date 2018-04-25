@@ -23,9 +23,9 @@ return [
             18 => 'Edição do registro do firewall',
             19 => 'Exclusão do registro do firewall',
             20 => 'Liberação de usuário suspenso',
-            21 => 'Inclusão da publicação',
-            22 => 'Alteração da publicação',
-            23 => 'Exclusão da publicação',
+            21 => 'Inclusão da legislação',
+            22 => 'Alteração da legislação',
+            23 => 'Exclusão da legislação',
             24 => 'Inclusão da licitação',
             25 => 'Alteração da licitação',
             26 => 'Exclusão da licitação',
@@ -55,7 +55,10 @@ return [
             50 => 'Alteração de status de manifestação',
             51 => 'Inclusão de Feriado',
             52 => 'Alteração de Feriado',
-            53 => 'Exclusão de Feriado'
+            53 => 'Exclusão de Feriado',
+            54 => 'Inclusão de Relatório de Diárias',
+            55 => 'Alteração de Relatório de Diárias',
+            56 => 'Exclusão de Relatórios de Diárias'
         ]
     ]
 ];

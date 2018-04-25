@@ -21,15 +21,17 @@ return [
         'paths' => [
             'editor' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS . 'images' . DS,
             'public' => ROOT . DS . '..' . DS . 'webroot' . DS,
-            'publicacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS,
+            'legislacao' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS,
             'licitacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'licitacao-edital' . DS,
+            'diarias' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'relatorios-diaria' . DS,
             'noticias' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'noticia-foto' . DS . 'large' . DS,
             'bannerHome' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'slides' . DS . 'home' . DS
         ],
         'urls' => [
             'editor' => '/public/editor/images/',
-            'publicacoes' => 'public/storage/legislacao-arquivo/',
+            'legislacao' => 'public/storage/legislacao-arquivo/',
             'licitacoes' => 'public/storage/licitacao-edital/',
+            'diarias' => 'public/storage/relatorios-diaria/',
             'noticias' => 'public/storage/noticia-foto/large/',
             'bannerHome' => 'public/slides/home/'
         ]

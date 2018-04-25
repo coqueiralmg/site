@@ -182,7 +182,7 @@ class MembershipHelper extends Helper
                         'funcao' => $funcao->id
                     ]
                 ]);
-                
+
                 foreach($query as $acao)
                 {
                     $valor = [
@@ -214,8 +214,9 @@ class MembershipHelper extends Helper
             ['chave' => 'grupo_usuarios', 'active' => $this->handleRole('listar_grupos_usuario')],
             ['chave' => 'firewall', 'active' => $this->handleRole('listar_ips_firewall')],
             ['chave' => 'feriado', 'active' => $this->handleRole('listar_feriados')],
-            ['chave' => 'publicacoes', 'active' => $this->handleRole('listar_publicacoes')],
+            ['chave' => 'legislacao', 'active' => $this->handleRole('listar_legislacao')],
             ['chave' => 'licitacoes', 'active' => $this->handleRole('listar_licitacoes')],
+            ['chave' => 'diarias', 'active' => $this->handleRole('listar_diarias')],
             ['chave' => 'noticias', 'active' => $this->handleRole('listar_noticias')],
             ['chave' => 'secretarias', 'active' => $this->handleRole('listar_secretarias')],
             ['chave' => 'banners', 'active' => $this->handleRole('listar_banners')],

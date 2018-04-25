@@ -7,8 +7,13 @@ $(function () {
         language: 'pt-BR'
     });
 
+    $('#placa').blur(function (e) {
+        this.value = this.value.toUpperCase();
+    });
+
     $('#data_inicial').mask('00/00/0000');
     $('#data_final').mask('00/00/0000');
+    $('#placa').mask('SSS 0000');
 });
 
 function validar() {
@@ -55,10 +60,10 @@ function validar() {
     }
 }
 
-function excluirPublicacao(id, titulo) {
+function excluirRegistro(id, beneficiario) {
     swal({
-        title: "Deseja excluir esta publicação?",
-        html: "A exclusão da publicação com o título <b> " + titulo + "</b> irá tornar a operação irreversível.",
+        title: "Deseja excluir este relatório de diárias de viagem?",
+        html: "A exclusão do relatório de diária de viagens para o beneficiário <b> " + beneficiario + "</b> irá tornar a operação irreversível.",
         type: 'warning',
         showCancelButton: true,
         confirmButtonClass: 'btn btn-success',
@@ -66,6 +71,6 @@ function excluirPublicacao(id, titulo) {
         confirmButtonText: 'Sim',
         cancelButtonText: 'Não'
     }).then(function () {
-        window.location = '/admin/publicacoes/delete/' + id;
+        window.location = '/admin/diarias/delete/' + id;
     });
 }
