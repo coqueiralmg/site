@@ -6,6 +6,12 @@
                 <div class="card">
                     <div class="card-content">
                         <?= $this->Flash->render() ?>
+                        <?=$this->element('message', [
+                            'name' => 'lista_erro',
+                            'type' => 'error',
+                            'message' => 'Ocorreu um erro ao buscar as licitações',
+                            'details' => ''
+                        ]) ?>
                         <h4 class="card-title">Buscar</h4>
                          <?php
                         echo $this->Form->create("Diarias", [
@@ -63,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="form-group form-button">
-                                <button type="submit" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
+                                <button type="submit" onclick="return validar()" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
                                 <?php if ($this->Membership->handleRole("adicionar_diaria")): ?>
                                     <a href="<?= $this->Url->build(['controller' => 'Diarias', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                                 <?php endif; ?>

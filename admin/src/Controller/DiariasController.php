@@ -218,6 +218,51 @@ class DiariasController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_diarias = TableRegistry::get('Diaria');
+            $marcado = $t_diarias->get($id);
+
+            $beneficiario = $marcado->beneficiario;
+
+            $propriedades = $marcado->getOriginalValues();
+
+            $this->removerArquivo($marcado->documento);
+
+            $t_diarias->delete($marcado);
+
+            $this->Flash->greatSuccess('O relatório de diárias para o beneficiário ' . $beneficiario . ' foi excluído com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 56,
+                'descricao' => 'O usuário excluiu um relatório de diárias.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir o relatório de diárias.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'index']);
+        }
+    }
+
     protected function insert()
     {
         try
@@ -272,7 +317,7 @@ class DiariasController extends AppController
             $t_diarias = TableRegistry::get('Diaria');
             $entity = $t_diarias->get($id);
 
-            $antigo_arquivo = $entity->arquivo;
+            $antigo_arquivo = $entity->documento;
 
             $t_diarias->patchEntity($entity, $this->request->data());
 
