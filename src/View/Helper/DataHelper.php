@@ -38,4 +38,14 @@ class DataHelper extends Helper
     {
         return Configure::read($chave);
     }
+
+    /**
+     * Decodifica um dado ou uma coleção de dados
+     * @param $data Um dado ou uma coleção de dados a ser criptografado.
+     * @return string Uma string criptografada que representa dados criptogradados.
+     */
+    public function crypt($data)
+    {
+        return base64_encode(json_encode($data));
+    }
 }
