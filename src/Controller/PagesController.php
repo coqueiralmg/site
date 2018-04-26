@@ -99,6 +99,26 @@ class PagesController extends AppController
         }
     }
 
+    public function construcao(string $parametros = "")
+    {
+        if($parametros != "")
+        {
+            $parametros = $this->Data->decrypt($parametros);
+
+            $mensagem = isset($parametros->mensagem) ? $parametros->mensagem: "";
+            $detalhes = isset($parametros->detalhes) ? $parametros->detalhes: "";
+            $link = isset($parametros->link) ? $parametros->link : null;
+
+            $this->set('mensagem', $mensagem);
+            $this->set('detalhes', $detalhes);
+            $this->set('link', $link);
+        }
+        else
+        {
+            $this->set('mensagem', "");
+        }
+    }
+
     public function privacidade() { }
     public function contatosucesso() { }
 }
