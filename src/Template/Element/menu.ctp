@@ -32,7 +32,7 @@
                         <li class="<?= $this->Menu->activeMenu(['controller' => 'publicacoes']) ?>"><?=$this->Html->link('Outras Publicações', ['controller' => 'publicacoes'])?></li>
                     </ul>
                 </li>
-                <li><a onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência'); LE.info('Acesso ao site da transparência. Página de referência: ' + window.location.href);" href="https://e-gov.betha.com.br/transparencia/01030-015/recursos.faces?mun=_fV0IsqgT0A_livlamqEHrXhxsPXsJ0O" target="_blank">Transparência</a>
+                <li><a onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência'); LE.info('Acesso ao site da transparência. Página de referência: ' + window.location.href);" href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'construcao', $this->Data->crypt(['mensagem' => 'O sistema encontra-se em manutenção, podendo retornar até o dia 7 de maio.'])])?>">Transparência</a>
                 <li class="<?= $this->Menu->activeMenu(['controller' => 'noticias']) ?>"><a href="/noticias">Notícias</a></li>
                 <li class="<?= $this->Menu->activeMenu(['controller' => 'pages', 'action' => 'contato']) ?>"><a href="/contato">Fale com a Prefeitura</a></li>
 
