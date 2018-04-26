@@ -11,7 +11,32 @@ $(function () {
     $("input[type='password']").change(function () {
         $("#mudasenha").val("true");
     });
+
+    $("input").change(function(){
+        autosave();
+    });
 });
+
+function autosave(){
+    var data = {
+        id: idUsuario,
+        object: {
+            id: idUsuario,
+            nome: $("#nome").val(),
+            dataNascimento: $("#data_nascimento").val(),
+            email: $("#email").val(),
+            usuario: $("#usuario").val(),
+            mudaSenha: $("#mudasenha").val(),
+            senha: $("#senha").val(),
+            confirmaSenha: $("#confirma_senha").val(),
+            grupo: $("#grupo").val(),
+            ativo: $("input[name='ativo']").val(),
+            verificar: $("input[name='verificar']").val()
+        }
+    };
+
+    cacheSave('usuario', data);
+}
 
 function validar() {
     var mensagem = "";

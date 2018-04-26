@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var idUsuario = <?=$id?>;
+</script>
 <?= $this->Html->script('controller/usuarios.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
