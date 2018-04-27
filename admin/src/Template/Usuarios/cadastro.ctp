@@ -24,6 +24,12 @@
                                 'message' => 'Ocorreu um erro ao salvar o usuário',
                                 'details' => ''
                             ]) ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_info',
+                                'type' => 'info',
+                                'restore' => true,
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em cancelar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
+                            ]) ?>
                             <?= $this->Flash->render() ?>
                             <?= $this->Form->hidden('mudasenha', ["id" => "mudasenha", "value" => ($id == 0) ? "true" : "false"]) ?>
                             <legend>Dados Cadastrais</legend>
