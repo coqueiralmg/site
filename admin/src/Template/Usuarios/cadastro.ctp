@@ -1,6 +1,7 @@
 <script type="text/javascript">
     var idUsuario = <?=$id?>;
 </script>
+<?= $this->Html->script('base64.js', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('controller/usuarios.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -94,12 +95,12 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo") ?> Ativo
+                                                <?= $this->Form->checkbox("ativo", ["id" => "ativo"]) ?> Ativo
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("verificar") ?> Obrigar o usuário a trocar de senha
+                                                <?= $this->Form->checkbox("verificar", ["id" => "verificar"]) ?> Obrigar o usuário a trocar de senha
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
