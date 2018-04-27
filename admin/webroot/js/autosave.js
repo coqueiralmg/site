@@ -65,3 +65,31 @@ function cacheSave(controller, data) {
         localStorage.setItem(chave, salvo);
     }
 }
+
+function removeData(controller, cod) {
+    if (!suporte) return false;
+    var colecao, salvo;
+    var usuario = getCookie('Client.User');
+    var chave = "datacache:" + controller + "@" + usuario;
+
+    if(localStorage.getItem(chave)) {
+        salvo = localStorage.getItem(chave);
+        colecao = JSON.parse(salvo);
+
+        for(var i = 0; i < colecao.length; i++) {
+            var item = colecao[i];
+
+            if(item.id == cod) {
+                colecao.splice(i, 1);
+                break;
+            }
+        }
+
+        colecao.sort(function(a, b) {
+            return a.id-b.id
+        });
+
+        salvo = JSON.stringify(colecao);
+        localStorage.setItem(chave, salvo);
+    }
+}
