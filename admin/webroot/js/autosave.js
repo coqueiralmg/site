@@ -1,11 +1,7 @@
 var suporte;
 
 $(function () {
-    if (checkLocalStorage()) {
-        suporte = true;
-    } else {
-        suporte = false;
-    }
+    suporte = (checkLocalStorage()) ? true : false;
 });
 
 function checkLocalStorage() {
@@ -14,6 +10,22 @@ function checkLocalStorage() {
     } catch (e) {
       return false;
     }
+}
+
+function getCacheSaveOption(controller) {
+    if (!suporte) return false;
+    var chave = "optioncache@" + controller;
+    var salvo = sessionStorage.getItem(chave);
+    var opcoes = JSON.parse(salvo);
+
+    return opcoes;
+}
+
+function setCacheSaveOption(controller, options) {
+    if (!suporte) return false;
+    var chave = "optioncache@" + controller;
+    var salvo = JSON.stringify(options);
+    sessionStorage.setItem(chave, salvo);
 }
 
 function cacheSave(controller, data) {
@@ -42,15 +54,16 @@ function cacheSave(controller, data) {
         }
 
         colecao.sort(function(a, b) {
-
+            return a.id-b.id
         });
 
+        salvo = JSON.stringify(colecao);
+        localStorage.setItem(chave, salvo);
     } else {
         colecao = new Array();
 
         colecao.push(data);
-        salvo = JSON.stringify(data);
-
+        salvo = JSON.stringify(colecao);
         localStorage.setItem(chave, salvo);
     }
 }
