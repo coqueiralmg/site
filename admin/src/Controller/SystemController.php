@@ -73,7 +73,7 @@ class SystemController extends AppController
             }
             else
             {
-                $this->Cookie->write('login_user', $login);
+                $this->Cookie->write('Login.User', $login);
                 $t_usuario = TableRegistry::get('Usuario');
 
                 $query = $t_usuario->find('all', [
@@ -379,9 +379,9 @@ class SystemController extends AppController
     {
         $login = "";
 
-        if($this->Cookie->check('login_user'))
+        if($this->Cookie->check('Login.User'))
         {
-            $login = $this->Cookie->read('login_user');
+            $login = $this->Cookie->read('Login.User');
         }
 
         return $login;
