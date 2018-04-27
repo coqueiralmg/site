@@ -12,26 +12,20 @@ function checkLocalStorage() {
     }
 }
 
-function getCacheSaveOption(controller) {
-    if (!suporte) return false;
-    var chave = "optioncache@" + controller;
-    var salvo = sessionStorage.getItem(chave);
-    var opcoes = JSON.parse(salvo);
-
-    return opcoes;
-}
-
-function setCacheSaveOption(controller, options) {
-    if (!suporte) return false;
-    var chave = "optioncache@" + controller;
-    var salvo = JSON.stringify(options);
-    sessionStorage.setItem(chave, salvo);
-}
-
 function cacheSave(controller, data) {
     if (!suporte) return false;
     var colecao, salvo;
-    var chave = "datacache@" + controller;
+    var usuario = getCookie('Client.User');
+    var chave = "datacache:" + controller + "@" + usuario;
+
+    if(data.metadata == null)
+    {
+        data.metadata = {
+            created: null,
+            updated: null,
+            author: usuario
+        };
+    }
 
     if(localStorage.getItem(chave)) {
         var atualizado = false;
@@ -43,6 +37,8 @@ function cacheSave(controller, data) {
             var item = colecao[i];
 
             if(item.id == pivot) {
+                data.metadata.created = item.metadata.created;
+                data.metadata.updated = new Date();
                 colecao.splice(i, 1, data);
                 atualizado = true;
                 break;
@@ -50,6 +46,7 @@ function cacheSave(controller, data) {
         }
 
         if(!atualizado) {
+            data.metadata.created = new Date();
             colecao.push(data);
         }
 
@@ -62,6 +59,7 @@ function cacheSave(controller, data) {
     } else {
         colecao = new Array();
 
+        data.metadata.created = new Date();
         colecao.push(data);
         salvo = JSON.stringify(colecao);
         localStorage.setItem(chave, salvo);
