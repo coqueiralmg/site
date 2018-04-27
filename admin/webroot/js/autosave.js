@@ -93,3 +93,51 @@ function removeData(controller, cod) {
         localStorage.setItem(chave, salvo);
     }
 }
+
+function getDataCache(controller, cod) {
+    if (!suporte) return null;
+    var colecao, salvo;
+    var data = null;
+    var usuario = getCookie('Client.User');
+    var chave = "datacache:" + controller + "@" + usuario;
+
+    if(localStorage.getItem(chave)) {
+        salvo = localStorage.getItem(chave);
+        colecao = JSON.parse(salvo);
+
+        for(var i = 0; i < colecao.length; i++) {
+            var item = colecao[i];
+
+            if(item.id == cod) {
+                data = item;
+                break;
+            }
+        }
+    }
+
+    return data;
+}
+
+function hasCache(controller, cod) {
+    if (!suporte) return false;
+    var colecao, salvo;
+    var existe = false;
+    var usuario = getCookie('Client.User');
+    var chave = "datacache:" + controller + "@" + usuario;
+
+    if(localStorage.getItem(chave)) {
+        salvo = localStorage.getItem(chave);
+        colecao = JSON.parse(salvo);
+
+        for(var i = 0; i < colecao.length; i++) {
+            var item = colecao[i];
+
+            if(item.id == cod) {
+                existe = true;
+                break;
+            }
+        }
+    }
+
+    return existe;
+}

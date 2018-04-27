@@ -15,7 +15,29 @@ $(function () {
     $("input, select, #ativo, #verificar").change(function(){
         autosave();
     });
+
+    if(hasCache('usuario', idUsuario)) {
+        $("#cadastro_info").show('fade');
+    }
 });
+
+function restaurar() {
+    var data = getDataCache('usuario', idUsuario);
+
+    if (data != null) {
+        $("#nome").val(data.object.nome);
+        $("#apelido").val(data.object.apelido);
+        $("#data_nascimento").val(data.object.dataNascimento);
+        $("#email").val(data.object.email);
+        $("#usuario").val(data.object.usuario);
+        $("#mudasenha").val(data.object.mudaSenha);
+        $("#grupo").val(data.object.grupo);
+    }
+}
+
+function cancelarRestauracao() {
+    alert('Cancelar');
+}
 
 function autosave() {
     var data = {
