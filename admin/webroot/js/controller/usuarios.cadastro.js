@@ -39,6 +39,10 @@ function autosave() {
     cacheSave('usuario', data);
 }
 
+function removeCache() {
+    removeData('usuario', idUsuario);
+}
+
 function validar() {
     var mensagem = "";
 
@@ -107,6 +111,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        removeCache();
         return true;
     } else {
         $("#cadastro_erro").show('shake');
