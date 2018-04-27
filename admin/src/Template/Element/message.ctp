@@ -29,9 +29,19 @@ switch($type)
 ?>
 <div id="<?=$name?>" class="<?=$class?>" data-notify="container" style="display: none">
     <i class="material-icons" data-notify="icon"><?=$icon?></i>
-    <button type="button" aria-hidden="true" class="close" onclick="$(this).parent().hide()" style="cursor: pointer;">
-        <i class="material-icons">close</i>
-    </button>
+
+    <?php if(isset($restore) && $restore == true): ?>
+        <button type="button" aria-hidden="true" rel="tooltip" title="Fechar" class="close" onclick="$(this).parent().hide(); cancelarRestauracao()" style="cursor: pointer; padding: 3px">
+            <i class="material-icons">close</i>
+        </button>
+        <button type="button" aria-hidden="true" rel="tooltip" title="Restaurar" class="close" onclick="$(this).parent().hide(); restaurar()" style="cursor: pointer; padding: 3px">
+            <i class="material-icons">unarchive</i>
+        </button>
+    <?php else: ?>
+        <button type="button" aria-hidden="true" rel="tooltip" title="Fechar" class="close" onclick="$(this).parent().hide()" style="cursor: pointer;">
+            <i class="material-icons">close</i>
+        </button>
+    <?php endif; ?>
     <?php if(isset($details)): ?>
         <span data-notify="message">
             <?= h($message) ?>
