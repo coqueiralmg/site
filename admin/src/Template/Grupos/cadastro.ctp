@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var idGrupoUsuario = <?=$id?>;
+</script>
 <?= $this->Html->script('controller/grupos.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -19,6 +22,12 @@
                                 'type' => 'error',
                                 'message' => 'Ocorreu um erro ao salvar o grupo de usuário.',
                                 'details' => ''
+                            ]) ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_info',
+                                'type' => 'info',
+                                'restore' => true,
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
                             ]) ?>
                             <?= $this->Flash->render() ?>
                             <div class="row">
@@ -53,7 +62,7 @@
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
-                                </div> 
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -68,17 +77,17 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo") ?> Ativo
+                                                <?= $this->Form->checkbox("ativo", ["id" => "ativo"]) ?> Ativo
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("integrado") ?> Permitir integração com outros sistemas da prefeitura
+                                                <?= $this->Form->checkbox("integrado", ["id" => "integrado"]) ?> Permitir integração com outros sistemas da prefeitura
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("administrativo") ?> Grupo Administrativo
+                                                <?= $this->Form->checkbox("administrativo", ["id" => "administrativo"]) ?> Grupo Administrativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
