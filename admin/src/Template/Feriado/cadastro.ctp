@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var idFeriado = <?=$id?>;
+</script>
 <?= $this->Html->script('controller/feriado.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -19,6 +22,12 @@
                                 'type' => 'error',
                                 'message' => 'Ocorreu um erro ao salvar o feriado',
                                 'details' => ''
+                            ]) ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_info',
+                                'type' => 'info',
+                                'restore' => true,
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
                             ]) ?>
                             <?= $this->Flash->render() ?>
                             <legend>Dados Cadastrais</legend>
@@ -53,7 +62,7 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("facultativo") ?>Ponto Facultativo
+                                                <?= $this->Form->checkbox("facultativo", ["id" => "facultativo"]) ?>Ponto Facultativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
