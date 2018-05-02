@@ -1,7 +1,6 @@
 <script type="text/javascript">
     var idUsuario = <?=$id?>;
 </script>
-<?= $this->Html->script('base64.js', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('controller/usuarios.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -28,7 +27,7 @@
                                 'name' => 'cadastro_info',
                                 'type' => 'info',
                                 'restore' => true,
-                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em cancelar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
                             ]) ?>
                             <?= $this->Flash->render() ?>
                             <?= $this->Form->hidden('mudasenha', ["id" => "mudasenha", "value" => ($id == 0) ? "true" : "false"]) ?>
