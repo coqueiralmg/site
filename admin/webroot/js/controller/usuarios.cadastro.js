@@ -32,11 +32,16 @@ function restaurar() {
         $("#usuario").val(data.object.usuario);
         $("#mudasenha").val(data.object.mudaSenha);
         $("#grupo").val(data.object.grupo);
+        $("#ativo").prop("checked", data.object.ativo);
+        $("#verificar").prop("checked", data.object.verificar);
     }
+
+    notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
 }
 
 function cancelarRestauracao() {
-    alert('Cancelar');
+    removeCache();
+    notificarUsuario("Você acabou de descartar dados que estão em cache.", "warning")
 }
 
 function autosave() {
@@ -50,8 +55,6 @@ function autosave() {
             email: $("#email").val(),
             usuario: $("#usuario").val(),
             mudaSenha: $("#mudasenha").val(),
-            senha: base64Encode($("#senha").val()),
-            confirmaSenha: base64Encode($("#confirma_senha").val()),
             grupo: $("#grupo").val(),
             ativo: $("#ativo").is(':checked'),
             verificar: $("#verificar").is(':checked')
