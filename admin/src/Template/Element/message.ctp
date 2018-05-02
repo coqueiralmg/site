@@ -31,7 +31,7 @@ switch($type)
     <i class="material-icons" data-notify="icon"><?=$icon?></i>
 
     <?php if(isset($restore) && $restore == true): ?>
-        <button type="button" aria-hidden="true" rel="tooltip" title="Fechar" class="close" onclick="$(this).parent().hide(); cancelarRestauracao()" style="cursor: pointer; padding: 3px">
+        <button type="button" aria-hidden="true" rel="tooltip" title="Descartar" class="close" onclick="$(this).parent().hide(); cancelarRestauracao()" style="cursor: pointer; padding: 3px">
             <i class="material-icons">close</i>
         </button>
         <button type="button" aria-hidden="true" rel="tooltip" title="Restaurar" class="close" onclick="$(this).parent().hide(); restaurar()" style="cursor: pointer; padding: 3px">
