@@ -67,6 +67,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        removeCache();
         return true;
     } else {
         $("#cadastro_erro").show('shake');
