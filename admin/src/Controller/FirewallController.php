@@ -21,7 +21,7 @@ class FirewallController extends AppController
         $limite_paginacao = Configure::read('Pagination.limit');
         $condicoes = array();
         $data = array();
-        
+
         if(count($this->request->getQueryParams()) > 3)
         {
             $mostrar = $this->request->query('mostrar');
@@ -35,7 +35,7 @@ class FirewallController extends AppController
 
             $this->request->data = $data;
         }
-        
+
         $combo_mostra = ["T" => "Todos", "N" => "Lista Negra", "B" => "Lista Branca"];
 
         $this->paginate = [
@@ -45,7 +45,7 @@ class FirewallController extends AppController
 
         $firewall = $this->paginate($t_firewall);
         $qtd_total = $t_firewall->find('all', ['conditions' => $condicoes])->count();
-        
+
         $this->set('title', 'Firewall');
         $this->set('icon', 'security');
         $this->set('combo_mostra', $combo_mostra);
@@ -60,7 +60,7 @@ class FirewallController extends AppController
         $t_firewall = TableRegistry::get('Firewall');
 
         $condicoes = array();
-        
+
         if(count($this->request->getQueryParams()) > 0)
         {
             $mostrar = $this->request->query('mostrar');
@@ -86,7 +86,7 @@ class FirewallController extends AppController
         {
             $this->Monitoria->monitorar($auditoria);
         }
-        
+
         $this->viewBuilder()->layout('print');
 
         $this->set('title', 'Firewall');
@@ -116,21 +116,10 @@ class FirewallController extends AppController
         if($id > 0)
         {
             $firewall = $t_firewall->get($id);
-
-            $tipo_lista = [
-                ['value' => 'N', 'text' => 'Lista Negra', 'style' => 'margin-left:5px;', 'checked' => (!$firewall->lista_branca)],
-                ['value' => 'B', 'text' => 'Lista Branca', 'style' => 'margin-left:15px;', 'checked' => ($firewall->lista_branca)]
-            ];
-
             $this->set('firewall', $firewall);
         }
         else
         {
-            $tipo_lista = [
-                ['value' => 'N', 'text' => 'Lista Negra', 'style' => 'margin-left:5px;'],
-                ['value' => 'B', 'text' => 'Lista Branca', 'style' => 'margin-left:15px;']
-            ];
-            
             $this->set('firewall', null);
         }
 
@@ -201,7 +190,6 @@ class FirewallController extends AppController
 
             $entity = $t_firewall->newEntity($this->request->data());
             $entity->data = date("Y-m-d H:i:s");
-            $entity->lista_branca = ($entity->tipo_lista == 'B');
 
             $t_firewall->save($entity);
             $this->Flash->greatSuccess('Registro salvo com sucesso');
@@ -209,7 +197,7 @@ class FirewallController extends AppController
             $propriedades = $entity->getOriginalValues();
             $auditoria = array();
 
-            if($entity->tipo_lista == 'N')
+            if(!$entity->lista_branca)
             {
                 $auditoria = [
                     'ocorrencia' => 16,
@@ -218,7 +206,7 @@ class FirewallController extends AppController
                     'usuario' => $this->request->session()->read('UsuarioID')
                 ];
             }
-            elseif($entity->tipo_lista == 'B')
+            else
             {
                 $auditoria = [
                     'ocorrencia' => 17,
@@ -257,8 +245,6 @@ class FirewallController extends AppController
             $entity = $t_firewall->get($id);
 
             $t_firewall->patchEntity($entity, $this->request->data());
-
-            $entity->lista_branca = ($entity->tipo_lista == 'B');
 
             $propriedades = $this->Auditoria->changedOriginalFields($entity);
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
