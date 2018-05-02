@@ -89,8 +89,12 @@ function removeData(controller, cod) {
             return a.id-b.id
         });
 
-        salvo = JSON.stringify(colecao);
-        localStorage.setItem(chave, salvo);
+        if(colecao.length == 0){
+            localStorage.removeItem(chave);
+        } else {
+            salvo = JSON.stringify(colecao);
+            localStorage.setItem(chave, salvo);
+        }
     }
 }
 
