@@ -39,3 +39,18 @@ function getCookie(cname) {
     }
     return "";
 }
+
+function notificarUsuario(mensagem, tipo) {
+    $.notify({
+        icon: "notifications",
+        message: mensagem
+    },
+    {
+        type: tipo,
+        timer: 5000,
+        placement: {
+            from: 'bottom',
+            align: 'right'
+        }
+    });
+}
