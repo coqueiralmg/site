@@ -22,7 +22,64 @@ $(function () {
     $('#periodoFim').mask('00/00/0000');
     $('#placa').mask('SSS 0000');
     $('#valor').mask("#.##0,00", {reverse: true});
+
+    $("input, textarea").change(function(){
+        autosave();
+    });
+
+    if(hasCache('diaria', idDiaria)) {
+        $("#cadastro_info").show('fade');
+    }
 });
+
+function restaurar() {
+    var data = getDataCache('diaria', idDiaria);
+
+    if (data != null) {
+        $("#beneficiario").val(data.object.beneficiario);
+        $("#valor").val(data.object.valor);
+        $("#dataAutorizacao").val(data.object.dataAutorizacao);
+        $("#destino").val(data.object.destino);
+        $("#periodoInicio").val(data.object.periodoInicio);
+        $("#periodoFim").val(data.object.periodoFim);
+        $("#objetivo").val(data.object.objetivo);
+        $("#veiculo").val(data.object.veiculo);
+        $("#placa").val(data.object.placa);
+        $("#ativo").prop("checked", data.object.ativo);
+    }
+
+    notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
+}
+
+function cancelarRestauracao() {
+    removeCache();
+    notificarUsuario("Você acabou de descartar dados que estão em cache.", "warning")
+}
+
+function autosave() {
+    var data = {
+        id: idDiaria,
+        object: {
+            id: idDiaria,
+            beneficiario: $("#beneficiario").val(),
+            valor: $("#valor").val(),
+            dataAutorizacao: $("#dataAutorizacao").val(),
+            destino: $("#destino").val(),
+            periodoInicio: $("#periodoInicio").val(),
+            periodoFim: $("#periodoFim").val(),
+            objetivo: $("#objetivo").val(),
+            veiculo: $("#veiculo").val(),
+            placa: $("#placa").val(),
+            ativo: $("#ativo").is(':checked')
+        }
+    };
+
+    cacheSave('diaria', data);
+}
+
+function removeCache() {
+    removeData('diaria', idDiaria);
+}
 
 function toggleArquivo() {
     $("#panel_arquivo").hide();
@@ -101,6 +158,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        removeCache();
         return true;
     } else {
         $("#cadastro_erro").show('shake');
