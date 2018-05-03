@@ -18,7 +18,63 @@ $(function () {
     CKEDITOR.replace('descricao');
 
     $('#enviaArquivo').val(enviaArquivo);
+
+    $("input").change(function(){
+        autosave();
+    });
+
+    CKEDITOR.instances.descricao.on('change', function() {
+        autosave();
+    });
+
+    if(hasCache('licitacao', idLicitacao)) {
+        $("#cadastro_info").show('fade');
+    }
 });
+
+function restaurar() {
+    var data = getDataCache('licitacao', idLicitacao);
+
+    if (data != null) {
+        $("#titulo").val(data.object.titulo);
+        $("#data_inicio").val(data.object.dataInicio);
+        $("#hora_inicio").val(data.object.horaInicio);
+        $("#data_termino").val(data.object.dataTermino);
+        $("#hora_termino").val(data.object.horaTermino);
+        $("#ativo").prop("checked", data.object.ativo);
+
+        CKEDITOR.instances.descricao.setData(data.object.descricao);
+    }
+
+    notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
+}
+
+function cancelarRestauracao() {
+    removeCache();
+    notificarUsuario("Você acabou de descartar dados que estão em cache.", "warning")
+}
+
+function autosave() {
+    var data = {
+        id: idLicitacao,
+        object: {
+            id: idLicitacao,
+            titulo: $("#titulo").val(),
+            dataInicio: $("#data_inicio").val(),
+            horaInicio: $("#hora_inicio").val(),
+            dataTermino: $("#data_termino").val(),
+            horaTermino: $("#hora_termino").val(),
+            descricao: CKEDITOR.instances.descricao.getData(),
+            ativo: $("#ativo").is(':checked'),
+        }
+    };
+
+    cacheSave('licitacao', data);
+}
+
+function removeCache() {
+    removeData('licitacao', idLicitacao);
+}
 
 function toggleArquivo() {
     $("#panel_arquivo").hide();
@@ -67,7 +123,7 @@ function validar() {
     }
 
     if ($("#data_inicio").val() !== "" && $("#hora_inicio").val() !== "" && $("#data_termino").val() !== "" && $("#hora_termino").val() !== "") {
-        
+
         var dataInicio = null;
         var dataTermino = null;
 
