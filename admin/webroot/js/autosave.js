@@ -2,7 +2,46 @@ var suporte;
 
 $(function () {
     suporte = (checkLocalStorage()) ? true : false;
+
+    if(suporte) {
+        garbageCollector();
+    }
+
 });
+
+function garbageCollector() {
+    var limit = 15;
+
+    for (var key in localStorage) {
+        if(key.match(/datacache:/)) {
+            var salvo = localStorage.getItem(key);
+            var colecao = JSON.parse(salvo);
+
+            for(var i = 0; i < colecao.length; i++) {
+                var item = colecao[i];
+                var agora = new Date();
+                var diferenca = (agora.getTime() - data.metadata.updated.getTime()) / 86400000;
+
+                if(diferenca > limit) {
+                    colecao.splice(i, 1);
+
+                    if(colecao.length == 0){
+                        localStorage.removeItem(key);
+                    } else {
+                        if(colecao.length > 1) {
+                            colecao.sort(function(a, b) {
+                                return a.id-b.id
+                            });
+                        }
+
+                        salvo = JSON.stringify(colecao);
+                        localStorage.setItem(key, salvo);
+                    }
+                }
+            }
+        }
+    }
+}
 
 function checkLocalStorage() {
     try {
@@ -85,13 +124,15 @@ function removeData(controller, cod) {
             }
         }
 
-        colecao.sort(function(a, b) {
-            return a.id-b.id
-        });
-
         if(colecao.length == 0){
             localStorage.removeItem(chave);
         } else {
+            if(colecao.length > 1) {
+                colecao.sort(function(a, b) {
+                    return a.id-b.id
+                });
+            }
+
             salvo = JSON.stringify(colecao);
             localStorage.setItem(chave, salvo);
         }
