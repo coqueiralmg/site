@@ -1,4 +1,4 @@
-var enviaArquivo = (idLicitacao == 0);
+var enviaArquivo = (idNoticia == 0);
 
 $(function () {
     $('#data').datepicker({
@@ -11,7 +11,61 @@ $(function () {
     CKEDITOR.replace('texto');
 
     $('#enviaArquivo').val(enviaArquivo);
+
+    $("input").change(function(){
+        autosave();
+    });
+
+    CKEDITOR.instances.texto.on('change', function() {
+        autosave();
+    });
+
+    if(hasCache('noticia', idNoticia)) {
+        $("#cadastro_info").show('fade');
+    }
 });
+
+function restaurar() {
+    var data = getDataCache('noticia', idNoticia);
+
+    if (data != null) {
+        $("#titulo").val(data.object.titulo);
+        $("#data").val(data.object.data);
+        $("#hora").val(data.object.hora);
+        $("#ativo").prop("checked", data.object.ativo);
+        $("#destaque").prop("checked", data.object.destaque);
+
+        CKEDITOR.instances.texto.setData(data.object.texto);
+    }
+
+    notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
+}
+
+function cancelarRestauracao() {
+    removeCache();
+    notificarUsuario("Você acabou de descartar dados que estão em cache.", "warning")
+}
+
+function autosave() {
+    var data = {
+        id: idNoticia,
+        object: {
+            id: idNoticia,
+            titulo: $("#titulo").val(),
+            data: $("#data").val(),
+            hora: $("#hora").val(),
+            texto: CKEDITOR.instances.texto.getData(),
+            ativo: $("#ativo").is(':checked'),
+            destaque: $("#destaque").is(':checked')
+        }
+    };
+
+    cacheSave('noticia', data);
+}
+
+function removeCache() {
+    removeData('noticia', idNoticia);
+}
 
 function toggleArquivo() {
     $("#panel_arquivo").hide();
@@ -23,7 +77,7 @@ function toggleArquivo() {
 
 function validar() {
     var mensagem = "";
-    
+
     if ($("#titulo").val() === "") {
         mensagem += "<li> O título da licitação é obrigatório.</li>";
         $("label[for='titulo']").css("color", "red");
@@ -48,6 +102,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        removeCache();
         return true;
     } else {
         $("#cadastro_erro").show('shake');
