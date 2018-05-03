@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var idSecretaria = <?=$id?>;
+</script>
 <?= $this->Html->script('controller/secretarias.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -21,6 +24,12 @@
                             'message' => 'Ocorreu um erro ao salvar a secretaria',
                             'details' => ''
                         ]) ?>
+                        <?=$this->element('message', [
+                                'name' => 'cadastro_info',
+                                'type' => 'info',
+                                'restore' => true,
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
+                            ]) ?>
                         <?= $this->Flash->render() ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
@@ -96,7 +105,7 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo") ?> Ativo
+                                                <?= $this->Form->checkbox("ativo", ['id' => 'ativo']) ?> Ativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
