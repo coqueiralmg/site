@@ -20,7 +20,8 @@ function garbageCollector() {
             for(var i = 0; i < colecao.length; i++) {
                 var item = colecao[i];
                 var agora = new Date();
-                var diferenca = (agora.getTime() - data.metadata.updated.getTime()) / 86400000;
+                var pivot = new Date(item.metadata.updated);
+                var diferenca = (agora.getTime() - pivot.getTime()) / 86400000;
 
                 if(diferenca > limit) {
                     colecao.splice(i, 1);
