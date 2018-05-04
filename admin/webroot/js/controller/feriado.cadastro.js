@@ -1,3 +1,5 @@
+var modificado = false;
+
 $(function () {
     $('#data').datepicker({
         language: 'pt-BR'
@@ -7,11 +9,18 @@ $(function () {
 
     $("input, select").change(function(){
         autosave();
+        modificado = true;
     });
 
     if(hasCache('feriado', idFeriado)) {
         $("#cadastro_info").show('fade');
     }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
 
 function restaurar() {
@@ -49,6 +58,7 @@ function autosave() {
 
 function removeCache() {
     removeData('feriado', idFeriado);
+    modificado = false;
 }
 
 function validar() {

@@ -1,3 +1,5 @@
+var modificado = false;
+
 $(function () {
     $('#data_nascimento').datepicker({
         language: 'pt-BR'
@@ -14,11 +16,18 @@ $(function () {
 
     $("input, select, #ativo, #verificar").change(function(){
         autosave();
+        modificado = true;
     });
 
     if(hasCache('usuario', idUsuario)) {
         $("#cadastro_info").show('fade');
     }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
 
 function restaurar() {
@@ -41,7 +50,7 @@ function restaurar() {
 
 function cancelarRestauracao() {
     removeCache();
-    notificarUsuario("Você acabou de descartar dados que estão em cache.", "warning")
+    notificarUsuario("Você acabou de descartar dados que estão em cache.", "warning");
 }
 
 function autosave() {

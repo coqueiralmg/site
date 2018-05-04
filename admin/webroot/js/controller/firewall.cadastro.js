@@ -1,13 +1,22 @@
+var modificado = false;
+
 $(function () {
     $('#ip').mask('099.099.099.099');
 
     $("input, textarea").change(function(){
         autosave();
+        modificado = true;
     });
 
     if(hasCache('firewall', idRegistro)) {
         $("#cadastro_info").show('fade');
     }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
 
 function restaurar() {
@@ -47,6 +56,7 @@ function autosave() {
 
 function removeCache() {
     removeData('firewall', idRegistro);
+    modificado = false;
 }
 
 function validar() {

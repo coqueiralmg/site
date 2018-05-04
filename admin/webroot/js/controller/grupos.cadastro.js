@@ -1,11 +1,20 @@
+var modificado = false;
+
 $(function () {
     $("input").change(function(){
         autosave();
+        modificado = true;
     });
 
     if(hasCache('grupoUsuario', idGrupoUsuario)) {
         $("#cadastro_info").show('fade');
     }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
 
 function autosave() {
@@ -45,6 +54,7 @@ function cancelarRestauracao() {
 
 function removeCache() {
     removeData('grupoUsuario', idGrupoUsuario);
+    modificado = false;
 }
 
 function coletarFuncoes() {

@@ -1,3 +1,5 @@
+var modificado = false;
+
 $(function () {
     CKEDITOR.replace('descricao');
 
@@ -14,6 +16,12 @@ $(function () {
     if(hasCache('secretaria', idSecretaria)) {
         $("#cadastro_info").show('fade');
     }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
 
 function restaurar() {
@@ -58,10 +66,12 @@ function autosave() {
     };
 
     cacheSave('secretaria', data);
+    modificado = true;
 }
 
 function removeCache() {
     removeData('secretaria', idSecretaria);
+    modificado = false;
 }
 
 function validar() {

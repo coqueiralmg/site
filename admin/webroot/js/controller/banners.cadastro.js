@@ -1,4 +1,5 @@
 var enviaArquivo = (idBanner == 0);
+var modificado = false;
 
 $(function () {
     $('#validade').datepicker({
@@ -30,6 +31,12 @@ $(function () {
     if(hasCache('banner', idBanner)) {
         $("#cadastro_info").show('fade');
     }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
 
 function restaurar() {
@@ -91,10 +98,12 @@ function autosave() {
     };
 
     cacheSave('banner', data);
+    modificado = true;
 }
 
 function removeCache() {
     removeData('banner', idBanner);
+    modificado = false;
 }
 
 function toggleArquivo() {

@@ -1,3 +1,5 @@
+var modificado = false;
+
 $(function () {
     $("input, select, textarea").change(function(){
         autosave();
@@ -6,6 +8,12 @@ $(function () {
     if(hasCache('manifestacaoOuvidoria', idManifestacao)) {
         $("#cadastro_info").show('fade');
     }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
 
 function restaurar() {
@@ -41,10 +49,12 @@ function autosave() {
     };
 
     cacheSave('manifestacaoOuvidoria', data);
+    modificado = true;
 }
 
 function removeCache() {
     removeData('manifestacaoOuvidoria', idManifestacao);
+    modificado = false;
 }
 
 function validar() {

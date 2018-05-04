@@ -1,4 +1,5 @@
 var enviaArquivo = (idLegislacao == 0);
+var modificado = false;
 
 $(function () {
     $('#data').datepicker({
@@ -23,6 +24,12 @@ $(function () {
     if(hasCache('legislacao', idLegislacao)) {
         $("#cadastro_info").show('fade');
     }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
 
 function restaurar() {
@@ -61,10 +68,12 @@ function autosave() {
     };
 
     cacheSave('legislacao', data);
+    modificado = true;
 }
 
 function removeCache() {
     removeData('legislacao', idLegislacao);
+    modificado = false;
 }
 
 function toggleArquivo() {

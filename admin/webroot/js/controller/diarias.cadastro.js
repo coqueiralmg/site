@@ -1,4 +1,5 @@
 var enviaArquivo = (idDiaria == 0);
+var modificado = false;
 
 $(function () {
     $('#dataAutorizacao').datepicker({
@@ -30,6 +31,12 @@ $(function () {
     if(hasCache('diaria', idDiaria)) {
         $("#cadastro_info").show('fade');
     }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
 
 function restaurar() {
@@ -75,10 +82,12 @@ function autosave() {
     };
 
     cacheSave('diaria', data);
+    modificado = true;
 }
 
 function removeCache() {
     removeData('diaria', idDiaria);
+    modificado = false;
 }
 
 function toggleArquivo() {
