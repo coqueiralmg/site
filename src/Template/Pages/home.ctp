@@ -75,11 +75,11 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'construcao', $this->Data->crypt(['mensagem' => 'O sistema encontra-se em manutenção, podendo retornar até o dia 7 de maio.', 'detalhes' => 'Para verificar o sistema antigo de emissão de nota fiscal, acesse aqui', 'link' => ['url' => 'https://e-gov.betha.com.br/e-nota/login.faces', 'target' => '_blank']])])?>" onclick="ga('send', 'event', 'Externo', 'Site', 'Nota Fiscal Eletrônica');">
+                    <a href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'notafiscal'])?>">
                         <div class="feature-wrap">
                             <i class="fa fa-file-text"></i>
-                            <h2>Nota Fiscal Eletrônica</h2>
-                            <h3>Emissão e consulta de notas fiscais eletrônicas</h3>
+                            <h2>Serviços Fiscais e Tributários</h2>
+                            <h3>ISS e Nota Fiscal Eletrônica</h3>
                         </div>
                     </a>
                 </div>
