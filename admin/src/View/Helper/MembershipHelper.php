@@ -220,7 +220,7 @@ class MembershipHelper extends Helper
             ['chave' => 'noticias', 'active' => $this->handleRole('listar_noticias')],
             ['chave' => 'secretarias', 'active' => $this->handleRole('listar_secretarias')],
             ['chave' => 'banners', 'active' => $this->handleRole('listar_banners')],
-            ['chave' => 'controles', 'active' => $this->handleRole('listar_controles_home')],
+            ['chave' => 'concursos', 'active' => $this->handleRole('listar_concursos')],
             ['chave' => 'auditoria', 'active' => $this->handleRole('listar_auditoria')],
             ['chave' => 'ouvidoria_manifestacoes', 'active' => $this->handleRole('consultar_manifestacoes')],
             ['chave' => 'ouvidoria_manifestantes', 'active' => $this->handleRole('listar_manifestantes_ouvidoria')]
