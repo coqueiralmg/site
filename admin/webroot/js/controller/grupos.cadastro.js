@@ -83,12 +83,16 @@ function marcarTodos() {
     $("#funcoes input").each(function () {
         $(this).prop("checked", true);
     });
+
+    autosave();
 }
 
 function desmarcarTodos() {
     $("#funcoes input").each(function () {
         $(this).prop("checked", false);
     });
+
+    autosave();
 }
 
 function validar() {
