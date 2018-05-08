@@ -109,6 +109,7 @@ class PagesController extends AppController
             $detalhes = isset($parametros->detalhes) ? $parametros->detalhes: "";
             $link = isset($parametros->link) ? $parametros->link : null;
 
+            $this->set('title', 'Página em construção');
             $this->set('mensagem', $mensagem);
             $this->set('detalhes', $detalhes);
             $this->set('link', $link);
@@ -119,6 +120,16 @@ class PagesController extends AppController
         }
     }
 
-    public function privacidade() { }
-    public function contatosucesso() { }
+    public function privacidade()
+    {
+        $this->set('title', 'Política de privacidade');
+    }
+    public function notafiscal()
+    {
+        $this->set('title', 'Serviços fiscais');
+    }
+    public function contatosucesso()
+    {
+        $this->set('title', 'Mensagem enviada com sucesso');
+    }
 }
