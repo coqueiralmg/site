@@ -120,12 +120,12 @@
                                             <td><?=$feriado->opcional?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_feriados")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Feriado', 'action' => 'edit', $feriado->id]) ?>" class="btn btn-primary btn-round">
+                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'edit', $feriado->id]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if ($this->Membership->handleRole("excluir_feriados")): ?>
-                                                    <button type="button" onclick="excluirFeriado(<?= $feriado->id ?>, '<?= $feriado->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <button type="button" onclick="excluirConcurso(<?= $feriado->id ?>, '<?= $feriado->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -133,7 +133,7 @@
                                 </tbody>
                             </table>
                         <?php else: ?>
-                            <?php if ($this->Membership->handleRole("adicionar_legislacao")): ?>
+                            <?php if ($this->Membership->handleRole("adicionar_concurso")): ?>
                                 <h3>Nenhum item encontrado. Para cadastrar um novo concurso público ou processo seletivo, <?=$this->Html->link("clique aqui", ["controller" => "concursos", "action" => "add"])?>.</h3>
                             <?php else:?>
                                 <h3>Nenhum item encontrado.</h3>
