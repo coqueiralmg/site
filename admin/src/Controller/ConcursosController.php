@@ -131,4 +131,53 @@ class ConcursosController extends AppController
         $this->set('qtd_total', $qtd_total);
         $this->set('data', $data);
     }
+
+    public function add()
+    {
+        $this->Flash->info('Para adicionar informações como editais, anexos, retificações entre outros, primeiramente informe dados cadastrais sobre o concurso e depois clique em Salvar.');
+        $this->redirect(['action' => 'cadastro', 0]);
+    }
+
+    public function edit(int $id)
+    {
+        $this->redirect(['action' => 'cadastro', $id]);
+    }
+
+    public function cadastro(int $id)
+    {
+        $title = ($id > 0) ? 'Edição de Concurso Público' : 'Novo Concurso Público';
+        $t_concursos = TableRegistry::get('Concurso');
+        $t_status_concurso = TableRegistry::get('StatusConcurso');
+
+        if($id > 0)
+        {
+            $concurso = $t_concursos->get($id);
+
+
+            $this->set('concurso', $concurso);
+        }
+        else
+        {
+            $this->set('concurso', null);
+        }
+
+        $status_concurso = $t_status_concurso->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'order' => [
+                'ordem' => 'ASC'
+            ]
+        ]);
+
+        $tipo_concurso = [
+            'CP' => 'Concurso Público',
+            'PS' => 'Processo Seletivo'
+        ];
+
+        $this->set('title', $title);
+        $this->set('icon', 'content_paste');
+        $this->set('id', $id);
+        $this->set('status', $status_concurso);
+        $this->set('tipos', $tipo_concurso);
+    }
 }
