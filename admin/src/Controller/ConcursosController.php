@@ -152,7 +152,9 @@ class ConcursosController extends AppController
         if($id > 0)
         {
             $concurso = $t_concursos->get($id);
-
+            $concurso->inscricao_inicio = $concurso->inscricaoInicio->i18nFormat('dd/MM/yyyy');
+            $concurso->inscricao_fim = $concurso->inscricaoFim->i18nFormat('dd/MM/yyyy');
+            $concurso->data_prova = $concurso->dataProva->i18nFormat('dd/MM/yyyy');
 
             $this->set('concurso', $concurso);
         }
@@ -179,5 +181,79 @@ class ConcursosController extends AppController
         $this->set('id', $id);
         $this->set('status', $status_concurso);
         $this->set('tipos', $tipo_concurso);
+    }
+
+    public function save(int $id)
+    {
+        if ($this->request->is('post'))
+        {
+            $this->insert();
+        }
+        elseif ($this->request->is('put'))
+        {
+            $this->update($id);
+        }
+    }
+
+    protected function insert()
+    {
+        try
+        {
+            $t_concursos = TableRegistry::get('Concurso');
+            $entity = $t_concursos->newEntity($this->request->data());
+
+            $entity->inscricaoInicio = $this->Format->formatDateDB($entity->inscricao_inicio);
+            $entity->inscricaoFim = $this->Format->formatDateDB($entity->inscricao_fim);
+            $entity->dataProva = $this->Format->formatDateDB($entity->data_prova);
+
+            $t_concursos->save($entity);
+            $this->Flash->greatSuccess('Este concurso ou processo seletivo encontra-se cadastrado com sucesso.');
+
+            $propriedades = $entity->getOriginalValues();
+
+            $auditoria = [
+                'ocorrencia' => 57,
+                'descricao' => 'O usuário cadastrou um novo concurso público ou um novo processo seletivo.',
+                'dado_adicional' => json_encode(['id_novo_concurso' => $entity->id, 'dados_concurso' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao efetuar cadastro do concurso público ou processo seletivo.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    protected function update(int $id)
+    {
+        try
+        {
+
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a publicação', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
     }
 }
