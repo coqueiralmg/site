@@ -243,11 +243,18 @@ class ConcursosController extends AppController
     {
         try
         {
+            $t_concursos = TableRegistry::get('Concurso');
+            $entity = $t_concursos->get($id);
 
+            $t_concursos->patchEntity($entity, $this->request->data());
+
+            $entity->inscricaoInicio = $this->Format->formatDateDB($entity->inscricao_inicio);
+            $entity->inscricaoFim = $this->Format->formatDateDB($entity->inscricao_fim);
+            $entity->dataProva = $this->Format->formatDateDB($entity->data_prova);
         }
         catch(Exception $ex)
         {
-            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a publicação', [
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar os dados do concurso público ou processo seletivo.', [
                 'params' => [
                     'details' => $ex->getMessage()
                 ]
