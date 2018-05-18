@@ -196,6 +196,50 @@ class ConcursosController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_concursos = TableRegistry::get('Concurso');
+            $marcado = $t_concursos->get($id);
+
+            $numero = $marcado->numero;
+            $titulo = $marcado->titulo;
+
+            $propriedades = $marcado->getOriginalValues();
+
+            $t_concursos->delete($marcado);
+
+            $this->Flash->greatSuccess('O concurso ' . $numero . ' - ' . $titulo . ' foi excluído com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 59,
+                'descricao' => 'O usuário excluiu uma concurso ou um processo seletivo.',
+                'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir o concurso público ou processo seletivo.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
     protected function insert()
     {
         try
