@@ -9,5 +9,12 @@ class ConcursoTable extends BaseTable
         $this->table('concursos');
         $this->primaryKey('id');
         $this->entityClass('Concurso');
+
+        $this->belongsTo('StatusConcurso', [
+            'className' => 'StatusConcurso',
+            'foreignKey' => 'status',
+            'propertyName' => 'status',
+            'joinType' => 'INNER'
+        ]);
     }
 }
