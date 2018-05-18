@@ -8,9 +8,9 @@
                         <?= $this->Flash->render() ?>
                         <h4 class="card-title">Buscar</h4>
                         <?php
-                        echo $this->Form->create("Feriado", [
+                        echo $this->Form->create("Concursos", [
                             "url" => [
-                                "controller" => "feriado",
+                                "controller" => "concursos",
                                 "action" => "index"
                             ],
                             'type' => 'get',
@@ -98,34 +98,34 @@
                 <div class="card">
                     <div class="card-content table-responsive">
                         <?php if($qtd_total > 0):?>
-                            <h4 class="card-title">Lista de Concursos Públicos</h4>
+                            <h4 class="card-title">Lista de Concursos Públicos e Processos Seletivos</h4>
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
-                                        <th>Data</th>
-                                        <th>Dia de Semana</th>
+                                        <th>Número</th>
                                         <th>Descrição</th>
-                                        <th>Tipo</th>
-                                        <th>Ponto Facultativo</th>
+                                        <th>Período de Inscrição</th>
+                                        <th>Data da Prova</th>
+                                        <th>Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($feriados as $feriado): ?>
+                                    <?php foreach ($concursos as $concurso): ?>
                                         <tr>
-                                            <td><?=$this->Format->date($feriado->data)?></td>
-                                            <td><?=$this->Format->dayWeek($feriado->data)?></td>
-                                            <td><?=$feriado->descricao?></td>
-                                            <td><?=$feriado->tipo?></td>
-                                            <td><?=$feriado->opcional?></td>
+                                            <td><?=$concurso->numero?></td>
+                                            <td><?=$concurso->titulo?></td>
+                                            <td><?=$this->Format->date($concurso->inscricaoInicio)?> à <?=$this->Format->date($concurso->inscricaoFim)?></td>
+                                            <td><?=$this->Format->date($concurso->dataProva)?></td>
+                                            <td><?=$concurso->status->nome?></td>
                                             <td class="td-actions text-right">
-                                                <?php if ($this->Membership->handleRole("editar_feriados")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'edit', $feriado->id]) ?>" class="btn btn-primary btn-round">
+                                                <?php if ($this->Membership->handleRole("editar_concurso")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'edit', $concurso->id]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
-                                                <?php if ($this->Membership->handleRole("excluir_feriados")): ?>
-                                                    <button type="button" onclick="excluirConcurso(<?= $feriado->id ?>, '<?= $feriado->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php if ($this->Membership->handleRole("excluir_concurso")): ?>
+                                                    <button type="button" onclick="excluirConcurso(<?= $concurso->id ?>, '<?= $concurso->numero ?>', '<?= $concurso->titulo ?>', '<?= $concurso->tipo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
