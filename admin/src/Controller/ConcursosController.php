@@ -89,6 +89,7 @@ class ConcursosController extends AppController
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $condicoes,
+            'contain' => ['StatusConcurso'],
             'order' => [
                 'data' => 'DESC'
             ]
@@ -251,6 +252,28 @@ class ConcursosController extends AppController
             $entity->inscricaoInicio = $this->Format->formatDateDB($entity->inscricao_inicio);
             $entity->inscricaoFim = $this->Format->formatDateDB($entity->inscricao_fim);
             $entity->dataProva = $this->Format->formatDateDB($entity->data_prova);
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_concursos->save($entity);
+            $this->Flash->greatSuccess('O concurso ou processo seletivo foi salvo com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 58,
+                'descricao' => 'O usuário editou uma concurso ou um processo seletivo.',
+                'dado_adicional' => json_encode(['concurso_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $id]);
         }
         catch(Exception $ex)
         {
