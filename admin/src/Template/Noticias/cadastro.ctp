@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    var idLicitacao = <?=$id?>;
+    var idNoticia = <?=$id?>;
 </script>
 <?= $this->Html->script('controller/noticias.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
@@ -23,6 +23,12 @@
                                 'type' => 'error',
                                 'message' => 'Ocorreu um erro ao salvar a notícia',
                                 'details' => ''
+                            ]) ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_info',
+                                'type' => 'info',
+                                'restore' => true,
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
                             ]) ?>
                             <?= $this->Flash->render() ?>
                             <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
@@ -98,16 +104,16 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("destaque") ?> Destaque
+                                                <?= $this->Form->checkbox("destaque", ['id' => 'destaque']) ?> Destaque
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo") ?> Ativo
+                                                <?= $this->Form->checkbox("ativo", ['id' => 'ativo']) ?> Ativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
-                                        
+
                                     </div>
                                 </div>
                             </div>

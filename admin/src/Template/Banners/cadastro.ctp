@@ -24,6 +24,12 @@
                                 'message' => 'Ocorreu um erro ao salvar o banner',
                                 'details' => ''
                             ]) ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_info',
+                                'type' => 'info',
+                                'restore' => true,
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
+                            ]) ?>
                             <?= $this->Flash->render() ?>
                             <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
                             <legend>Dados Cadastrais</legend>
@@ -120,7 +126,7 @@
                                                                 <span class="material-input"></span>
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
@@ -161,7 +167,7 @@
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -178,19 +184,19 @@
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("blank") ?> Abrir o destino em nova janela
+                                                <?= $this->Form->checkbox("blank", ['id' => 'blank']) ?> Abrir o destino em nova janela
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo") ?> Ativo
+                                                <?= $this->Form->checkbox("ativo", ['id' => 'ativo']) ?> Ativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>

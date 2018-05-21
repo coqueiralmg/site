@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var idManifestacao = <?=$id?>;
+</script>
 <?= $this->Html->script('controller/ouvidoria.manifestacao.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -5,6 +8,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_info',
+                                'type' => 'info',
+                                'restore' => true,
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
+                            ]) ?>
                             <?= $this->Flash->render() ?>
                             <legend>Dados da Manifestação</legend>
                             <div class="row">
@@ -61,11 +70,11 @@
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="clearfix"></div>
                     </div>
-                                        
+
                     <div class="card-content">
                         <legend>Dados do Manifestante</legend>
                         <div class="row">
@@ -115,7 +124,7 @@
                                     <span class="material-input"></span>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -132,7 +141,7 @@
                                         <p><?=$item->mensagem?></p>
                                     </div>
                                 </div>
-                            <?php else:?>    
+                            <?php else:?>
                                 <div class="timeline-panel">
                                     <div class="timeline-heading">
                                         <span class="label label-warning"><?=$this->Format->date($item->data, true)?> | Status: <?=$item->status->nome?></span>
@@ -193,7 +202,7 @@
                                                     <label>Outras Opções</label> <br/>
                                                     <div class="togglebutton">
                                                         <label>
-                                                            <?= $this->Form->checkbox("enviar", ['checked' => true]) ?> Notificar o manifestante
+                                                            <?= $this->Form->checkbox("enviar", ['id' => 'notificar', 'checked' => true]) ?> Notificar o manifestante
                                                         </label>
                                                     </div>
                                                     <span class="material-input"></span>

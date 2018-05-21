@@ -1,17 +1,23 @@
 <script type="text/javascript">
-    var idDiaria = <?=$id?>;
+    var idConcurso = <?=$id?>;
 </script>
-<?= $this->Html->script('controller/diarias.cadastro.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('controller/concursos.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <?php if ($id > 0) :?>
+                        <div class="card-content">
+                            <?= $this->element('mnconcursos') ?>
+                            <hr clear="all"/>
+                        </div>
+                    <?php endif; ?>
                     <div class="card-content">
                         <?php
-                            echo $this->Form->create($diaria, [
+                            echo $this->Form->create($concurso, [
                                 "url" => [
-                                    "controller" => "diarias",
+                                    "controller" => "concursos",
                                     "action" => "save",
                                     $id
                                 ],
@@ -21,7 +27,7 @@
                             <?=$this->element('message', [
                                 'name' => 'cadastro_erro',
                                 'type' => 'error',
-                                'message' => 'Ocorreu um erro ao salvar o relatório de diárias',
+                                'message' => 'Ocorreu um erro ao salvar o concurso',
                                 'details' => ''
                             ]) ?>
                             <?=$this->element('message', [
@@ -31,50 +37,50 @@
                                 'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
                             ]) ?>
                             <?= $this->Flash->render() ?>
-                            <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("beneficiario", "Beneficiário") ?>
-                                        <?= $this->Form->text("beneficiario", ["id" => "beneficiario", "class" => "form-control", "maxlength" => 80]) ?>
+                                        <?= $this->Form->label("numero", "Número") ?>
+                                        <?= $this->Form->text("numero", ["id" => "numero", "class" => "form-control", "maxlength" => 20]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-9">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("valor", "Valor") ?>
-                                        <?= $this->Form->text("valor", ["id" => "valor", "class" => "form-control text-right"]) ?>
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group label-control">
-                                        <?= $this->Form->label("dataAutorizacao", "Data de Autorização") ?>
-                                        <?= $this->Form->text("dataAutorizacao", ["id" => "dataAutorizacao", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("titulo", "Título") ?>
+                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 80]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group label-control">
-                                        <?= $this->Form->label("destino", "Destino") ?>
-                                        <?= $this->Form->text("destino", ["id" => "destino", "class" => "form-control", "maxlength" => 80]) ?>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->Form->label("tipo", "Tipo") ?> <br/>
+                                        <?=$this->Form->select('tipo', $tipos, ['id' => 'tipo', 'empty' => true, 'class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("periodoInicio", "Período Início") ?>
-                                        <?= $this->Form->text("periodoInicio", ["id" => "periodoInicio", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("inscricao_inicio", "Início das Inscrições") ?>
+                                        <?= $this->Form->text("inscricao_inicio", ["id" => "inscricao_inicio", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("periodoFim", "Período Final") ?>
-                                        <?= $this->Form->text("periodoFim", ["id" => "periodoFim", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("inscricao_fim", "Término das Inscrições") ?>
+                                        <?= $this->Form->text("inscricao_fim", ["id" => "inscricao_fim", "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("data_prova", "Data da Prova") ?>
+                                        <?= $this->Form->text("data_prova", ["id" => "data_prova", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -82,60 +88,44 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <?= $this->Form->label("objetivo", "Objetivo") ?>
-                                        <?= $this->Form->textarea("objetivo", ["id" => "objetivo", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("descricao", "Descrição do Concurso") ?>
+                                        <?= $this->Form->textarea("descricao", ["id" => "descricao", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <?= $this->Form->label("observacoes", "Observações") ?>
+                                        <?= $this->Form->textarea("observacoes", ["id" => "observacoes", "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("veiculo", "Veículo") ?>
-                                        <?= $this->Form->text("veiculo", ["id" => "veiculo", "class" => "form-control", "maxlength" => 50]) ?>
+                                        <?= $this->Form->label("banca", "Nome da Banca") ?>
+                                        <?= $this->Form->text("banca", ["id" => "banca", "class" => "form-control", "maxlength" => 50]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("placa", "Placa") ?>
-                                        <?= $this->Form->text("placa", ["id" => "placa", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("siteBanca", "Site da Banca") ?>
+                                        <?= $this->Form->text("siteBanca", ["id" => "siteBanca", "class" => "form-control", "maxlength" => 80]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->Form->label("status", "Status") ?> <br/>
+                                        <?=$this->Form->select('status', $status, ['id' => 'status', 'empty' => true, 'class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <?php if($id > 0): ?>
-                                    <div id="panel_arquivo">
-                                        <div class="col-md-9">
-                                            <div class="form-group form-file-upload is-fileinput">
-                                                Documento atual: <?=$this->Html->link($diaria->beneficiario, '/../' . $diaria->documento, ['target' => '_blank'])?>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button type="button" onclick="toggleArquivo()" class="btn btn-default btn-simple btn-wd btn-lg">Substituir Edital</button>
-                                        </div>
-                                    </div>
-                                    <div id="panel_envio" style="display: none">
-                                        <div class="col-md-12">
-                                            <div class="form-group form-file-upload is-fileinput">
-                                                <?= $this->Form->label("arquivo", "Documento") ?>
-                                                <?= $this->Form->file("arquivo", ["id" => "arquivo", "class" => "form-control"]) ?>
-                                                <span class="material-input"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="col-md-12">
-                                        <div class="form-group form-file-upload is-fileinput">
-                                            <?= $this->Form->label("arquivo", "Documento") ?>
-                                            <?= $this->Form->file("arquivo", ["id" => "arquivo", "class" => "form-control"]) ?>
-                                            <span class="material-input"></span>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -155,7 +145,7 @@
                                 <button type="button" onclick="window.location='<?= $this->Url->build(['action' => 'add']) ?>'" class="btn btn-warning pull-right">Novo</button>
                             <?php endif; ?>
                             <button type="reset" class="btn btn-default pull-right">Limpar</button>
-                            <button type="button" onclick="window.location='<?= $this->Url->build('/diarias') ?>'" class="btn btn-info pull-right">Voltar</button>
+                            <button type="button" onclick="window.location='<?= $this->Url->build('/concursos') ?>'" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

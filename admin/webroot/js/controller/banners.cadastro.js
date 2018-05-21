@@ -1,4 +1,5 @@
 var enviaArquivo = (idBanner == 0);
+var modificado = false;
 
 $(function () {
     $('#validade').datepicker({
@@ -22,7 +23,88 @@ $(function () {
             $("#nome_arquivo").prop("disabled", false);
         }
     });
+
+    $("input, textarea").change(function(){
+        autosave();
+    });
+
+    if(hasCache('banner', idBanner)) {
+        $("#cadastro_info").show('fade');
+    }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
+
+function restaurar() {
+    var data = getDataCache('banner', idBanner);
+
+    if (data != null) {
+        $("#nome").val(data.object.nome);
+        $("#titulo").val(data.object.titulo);
+        $("#descricao").val(data.object.descricao);
+        $("#ordem").val(data.object.ordem);
+        $("#validade").val(data.object.validade);
+        $("#acao").val(data.object.acao);
+        $("#destino").val(data.object.destino);
+        $("#nome_arquivo").val(data.object.nomeArquivo);
+        $("#ativo").prop("checked", data.object.ativo);
+        $("#mantem_nome").prop("checked", data.object.manterNome);
+        $("#unique_id").prop("checked", data.object.gerarUniqueID);
+        $("#blank").prop("checked", data.object.novaJanela);
+
+        if(data.object.manterNome) {
+            $("#novo_nome_arquivo").hide();
+        } else {
+            $("#novo_nome_arquivo").show();
+        }
+
+        if(data.object.gerarUniqueID) {
+            $("#nome_arquivo").prop("disabled", true);
+        } else {
+            $("#nome_arquivo").prop("disabled", false);
+        }
+    }
+
+    notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
+}
+
+function cancelarRestauracao() {
+    removeCache();
+    notificarUsuario("Você acabou de descartar dados que estão em cache.", "warning")
+}
+
+function autosave() {
+    var data = {
+        id: idBanner,
+        object: {
+            id: idBanner,
+            nome: $("#nome").val(),
+            titulo: $("#titulo").val(),
+            descricao: $("#descricao").val(),
+            ordem: $("#ordem").val(),
+            validade: $("#validade").val(),
+            acao: $("#acao").val(),
+            destino: $("#destino").val(),
+            nomeArquivo: $("#nome_arquivo").val(),
+            ativo: $("#ativo").is(':checked'),
+            manterNome: $("#mantem_nome").is(':checked'),
+            gerarUniqueID: $("#unique_id").is(':checked'),
+            novaJanela: $("#blank").is(':checked')
+        }
+    };
+
+    cacheSave('banner', data);
+    modificado = true;
+}
+
+function removeCache() {
+    removeData('banner', idBanner);
+    modificado = false;
+}
 
 function toggleArquivo() {
     $("#panel_arquivo").hide();
@@ -55,7 +137,7 @@ function validar() {
             $("label[for='destino']").css("color", "red");
         } else {
             $("label[for='destino']").css("color", "#aaa");
-        }   
+        }
     } else {
         $("label[for='destino']").css("color", "#aaa");
     }
@@ -81,6 +163,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        removeCache();
         return true;
     } else {
         $("#cadastro_erro").show('shake');

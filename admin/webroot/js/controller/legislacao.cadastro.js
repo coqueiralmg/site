@@ -1,4 +1,5 @@
 var enviaArquivo = (idLegislacao == 0);
+var modificado = false;
 
 $(function () {
     $('#data').datepicker({
@@ -11,7 +12,69 @@ $(function () {
     CKEDITOR.replace('descricao');
 
     $('#enviaArquivo').val(enviaArquivo);
+
+    $("input").change(function(){
+        autosave();
+    });
+
+    CKEDITOR.instances.descricao.on('change', function() {
+        autosave();
+    });
+
+    if(hasCache('legislacao', idLegislacao)) {
+        $("#cadastro_info").show('fade');
+    }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
+
+function restaurar() {
+    var data = getDataCache('legislacao', idLegislacao);
+
+    if (data != null) {
+        $("#numero").val(data.object.numero);
+        $("#titulo").val(data.object.titulo);
+        $("#data").val(data.object.data);
+        $("#hora").val(data.object.hora);
+        $("#ativo").prop("checked", data.object.ativo);
+
+        CKEDITOR.instances.descricao.setData(data.object.descricao);
+    }
+
+    notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
+}
+
+function cancelarRestauracao() {
+    removeCache();
+    notificarUsuario("Você acabou de descartar dados que estão em cache.", "warning")
+}
+
+function autosave() {
+    var data = {
+        id: idLegislacao,
+        object: {
+            id: idLegislacao,
+            numero: $("#numero").val(),
+            titulo: $("#titulo").val(),
+            data: $("#data").val(),
+            hora: $("#hora").val(),
+            descricao: CKEDITOR.instances.descricao.getData(),
+            ativo: $("#ativo").is(':checked'),
+        }
+    };
+
+    cacheSave('legislacao', data);
+    modificado = true;
+}
+
+function removeCache() {
+    removeData('legislacao', idLegislacao);
+    modificado = false;
+}
 
 function toggleArquivo() {
     $("#panel_arquivo").hide();
@@ -62,6 +125,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        removeCache();
         return true;
     } else {
         $("#cadastro_erro").show('shake');

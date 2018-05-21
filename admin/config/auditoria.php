@@ -58,7 +58,10 @@ return [
             53 => 'Exclusão de Feriado',
             54 => 'Inclusão de Relatório de Diárias',
             55 => 'Alteração de Relatório de Diárias',
-            56 => 'Exclusão de Relatórios de Diárias'
+            56 => 'Exclusão de Relatórios de Diárias',
+            57 => 'Inclusão de Concurso Público ou Processo Seletivo',
+            58 => 'Alteração de Concurso Público ou Processo Seletivo',
+            59 => 'Exclusão de Concurso Público ou Processo Seletivo'
         ]
     ]
 ];

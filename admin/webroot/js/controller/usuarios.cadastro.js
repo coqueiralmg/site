@@ -1,3 +1,5 @@
+var modificado = false;
+
 $(function () {
     $('#data_nascimento').datepicker({
         language: 'pt-BR'
@@ -11,7 +13,69 @@ $(function () {
     $("input[type='password']").change(function () {
         $("#mudasenha").val("true");
     });
+
+    $("input, select, #ativo, #verificar").change(function(){
+        autosave();
+        modificado = true;
+    });
+
+    if(hasCache('usuario', idUsuario)) {
+        $("#cadastro_info").show('fade');
+    }
+
+    $(window).bind("beforeunload", function() {
+        if(modificado){
+            return "É possível que as alterações não estejam salvas.";
+        }
+    });
 });
+
+function restaurar() {
+    var data = getDataCache('usuario', idUsuario);
+
+    if (data != null) {
+        $("#nome").val(data.object.nome);
+        $("#apelido").val(data.object.apelido);
+        $("#data_nascimento").val(data.object.dataNascimento);
+        $("#email").val(data.object.email);
+        $("#usuario").val(data.object.usuario);
+        $("#mudasenha").val(data.object.mudaSenha);
+        $("#grupo").val(data.object.grupo);
+        $("#ativo").prop("checked", data.object.ativo);
+        $("#verificar").prop("checked", data.object.verificar);
+    }
+
+    notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
+}
+
+function cancelarRestauracao() {
+    removeCache();
+    notificarUsuario("Você acabou de descartar dados que estão em cache.", "warning");
+}
+
+function autosave() {
+    var data = {
+        id: idUsuario,
+        object: {
+            id: idUsuario,
+            nome: $("#nome").val(),
+            apelido: $("#apelido").val(),
+            dataNascimento: $("#data_nascimento").val(),
+            email: $("#email").val(),
+            usuario: $("#usuario").val(),
+            mudaSenha: $("#mudasenha").val(),
+            grupo: $("#grupo").val(),
+            ativo: $("#ativo").is(':checked'),
+            verificar: $("#verificar").is(':checked')
+        }
+    };
+
+    cacheSave('usuario', data);
+}
+
+function removeCache() {
+    removeData('usuario', idUsuario);
+}
 
 function validar() {
     var mensagem = "";
@@ -81,6 +145,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        removeCache();
         return true;
     } else {
         $("#cadastro_erro").show('shake');

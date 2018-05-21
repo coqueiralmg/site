@@ -28,7 +28,7 @@
 	<?= $this->Html->css('bootstrap-datepicker.css') ?>
 
 	<!-- LightBox CSS -->
-	<?= $this->Html->css('lightbox.css') ?>	
+	<?= $this->Html->css('lightbox.css') ?>
 
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
 
 <body>
 	<div class="wrapper">
-	    
+
 		<?= $this->element('sidebar') ?>
 
 	    <div class="main-panel">
@@ -72,7 +72,7 @@
 								<?php if ($ultimo_acesso == null): ?>
 									<a href="#">
 										<i class="material-icons">info</i>Este é o seu primeiro acesso ao sistema
-									</a>	
+									</a>
 								<?php else: ?>
 								<a href="<?= $this->Url->build(['controller' => 'log', 'action' => 'index']) ?>">
 									<i class="material-icons">info</i>Último acesso: <?= $this->Format->date($ultimo_acesso, true) ?>
@@ -131,8 +131,9 @@
 	</div>
 	<?= $this->Html->script('material-dashboard.js') ?>
 	<?= $this->Html->script('default.js') ?>
-	<?= $this->Html->script('lightbox.js') ?>	
+	<?= $this->Html->script('lightbox.js') ?>
+    <?= $this->Html->script('autosave.js') ?>
 	<?= $this->fetch('scriptBottom') ?>
 </body>
-	
+
 </html>

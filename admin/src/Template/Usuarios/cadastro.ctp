@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var idUsuario = <?=$id?>;
+</script>
 <?= $this->Html->script('controller/usuarios.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -19,6 +22,12 @@
                                 'type' => 'error',
                                 'message' => 'Ocorreu um erro ao salvar o usuário',
                                 'details' => ''
+                            ]) ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_info',
+                                'type' => 'info',
+                                'restore' => true,
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
                             ]) ?>
                             <?= $this->Flash->render() ?>
                             <?= $this->Form->hidden('mudasenha', ["id" => "mudasenha", "value" => ($id == 0) ? "true" : "false"]) ?>
@@ -91,12 +100,12 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo") ?> Ativo
+                                                <?= $this->Form->checkbox("ativo", ["id" => "ativo"]) ?> Ativo
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("verificar") ?> Obrigar o usuário a trocar de senha
+                                                <?= $this->Form->checkbox("verificar", ["id" => "verificar"]) ?> Obrigar o usuário a trocar de senha
                                             </label>
                                         </div>
                                         <span class="material-input"></span>

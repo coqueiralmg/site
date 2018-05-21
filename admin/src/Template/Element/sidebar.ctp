@@ -85,6 +85,14 @@
                     </a>
                 </li>
             <?php endif; ?>
+            <?php if ($this->Membership->handleMenu("concursos")): ?>
+                <li class="<?= $this->Menu->activeMenu(['controller' => 'concursos']) ?>">
+                    <a href="<?= $this->Url->build('/concursos') ?>">
+                        <i class="material-icons">content_paste</i>
+                        <p>Concursos</p>
+                    </a>
+                </li>
+            <?php endif; ?>
             <?php if ($this->Membership->handleMenu("diarias")): ?>
                 <li class="<?= $this->Menu->activeMenu(['controller' => 'diarias']) ?>">
                     <a href="<?= $this->Url->build('/diarias') ?>">

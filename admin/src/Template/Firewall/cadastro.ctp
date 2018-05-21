@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var idRegistro = <?=$id?>;
+</script>
 <?= $this->Html->script('controller/firewall.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -20,6 +23,12 @@
                                 'message' => 'Ocorreu um erro ao salvar o registro do firewall',
                                 'details' => ''
                             ]) ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_info',
+                                'type' => 'info',
+                                'restore' => true,
+                                'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
+                            ]) ?>
                             <?= $this->Flash->render() ?>
                             <legend>Bloquear ou Cadastrar na Lista Branca</legend>
                             <div class="row">
@@ -31,7 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    
+
                                 </div>
                                 <?php if($firewall != null): ?>
                                 <div class="col-md-2">
@@ -41,13 +50,6 @@
                                     </div>
                                 </div>
                                 <?php endif; ?>
-                                <div class="col-md-6">
-                                    <div class="form-group label-control">
-                                        <?= $this->Form->label("tipo_lista", "Tipo de Registro") ?> <br/>
-                                        <?= $this->Form->radio("tipo_lista", $tipo_lista) ?>
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -64,12 +66,17 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("site") ?>Aplicável também ao site
+                                                <?= $this->Form->checkbox("lista_branca", ["id" => "lista_branca"]) ?> Lista Branca
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo") ?> Ativo
+                                                <?= $this->Form->checkbox("site", ["id" => "site"]) ?> Aplicável também ao site
+                                            </label>
+                                        </div>
+                                        <div class="togglebutton">
+                                            <label>
+                                                <?= $this->Form->checkbox("ativo", ["id" => "ativo"]) ?> Ativo
                                             </label>
                                         </div>
                                         <span class="material-input"></span>
