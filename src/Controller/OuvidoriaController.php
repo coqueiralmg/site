@@ -19,12 +19,12 @@ class OuvidoriaController extends AppController
         {
             $this->redirect(['controller' => 'ouvidoria', 'action' => 'indisponivel']);
         }
-    }   
-    
+    }
+
     public function index()
     {
         $manifestante = null;
-        
+
         if($this->request->session()->check('Manifestante'))
         {
             $manifestante = $this->request->session()->read('Manifestante');
@@ -39,7 +39,28 @@ class OuvidoriaController extends AppController
         }
 
         $this->set('title', "Ouvidoria");
-        $this->set('manifestante', $manifestante);        
+        $this->set('manifestante', $manifestante);
+    }
+
+    public function iluminacao()
+    {
+        $manifestante = null;
+
+        if($this->request->session()->check('Manifestante'))
+        {
+            $manifestante = $this->request->session()->read('Manifestante');
+        }
+        else
+        {
+            if($this->Cookie->check('ouvidoria_manifestante'))
+            {
+                $idManifestante = $this->Cookie->read('ouvidoria_manifestante');
+                $manifestante = $this->obterManifestante($idManifestante);
+            }
+        }
+
+        $this->set('title', "Ouvidoria");
+        $this->set('manifestante', $manifestante);
     }
 
     public function send()
@@ -73,9 +94,9 @@ class OuvidoriaController extends AppController
                 else
                 {
                     $idManifestacao = $this->inserirManifestacao($idManifestante, $assunto, $mensagem);
-            
+
                     $this->registrarHistorico($idManifestacao, 'Nova manifestação de ouvidoria', false,  true);
-            
+
                     $this->enviarMensagemOuvidores($idManifestante, $idManifestacao);
                     $this->notificarManifestate($idManifestante, $idManifestacao);
 
@@ -107,7 +128,7 @@ class OuvidoriaController extends AppController
         $idManifestacao = base64_decode($idManifestacao);
         $manifestacao = $this->obterManifestacao($idManifestacao);
         $manifestacoes = $this->obterManifestacoesAbertas($manifestacao->manifestante->id);
-        
+
         $this->set('title', "Sucesso");
         $this->set('manifestacao', $idManifestacao);
         $this->set('manifestacoes', $manifestacoes);
@@ -117,9 +138,9 @@ class OuvidoriaController extends AppController
     public function imprimir(int $idManifestacao)
     {
         $manifestacao = $this->obterManifestacao($idManifestacao);
-        
+
         $this->viewBuilder()->layout('print');
-        
+
         $this->set('title', "Manifestação da Ouvidoria");
         $this->set('manifestacao', $manifestacao);
     }
@@ -128,16 +149,16 @@ class OuvidoriaController extends AppController
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
-        
+
         $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
         $historico = $t_historico->find('all', [
             'conditions' => [
                 'manifestacao' => $id
             ]
         ]);
-        
+
         $this->viewBuilder()->layout('print');
-        
+
         $this->set('title', "Manifestação da Ouvidoria");
         $this->set('manifestacao', $manifestacao);
         $this->set('historico', $historico);
@@ -152,7 +173,7 @@ class OuvidoriaController extends AppController
         else
         {
             $manifestante = null;
-            
+
             if($this->Cookie->check('ouvidoria_manifestante'))
             {
                 $idManifestante = $this->Cookie->read('ouvidoria_manifestante');
@@ -235,7 +256,7 @@ class OuvidoriaController extends AppController
     public function andamento()
     {
         $this->controlAuth();
-        
+
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $limite_paginacao = Configure::read('Pagination.limit');
 
@@ -277,7 +298,7 @@ class OuvidoriaController extends AppController
 
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
-        
+
 
         $manifestacao = $t_manifestacao->get($id, ['contain' => ['Manifestante', 'Prioridade', 'Status']]);
         $historico = $t_historico->find('all', [
@@ -290,15 +311,15 @@ class OuvidoriaController extends AppController
         if($this->request->session()->check('ManifestanteID'))
         {
             $manifestanteID = $this->request->session()->read('ManifestanteID');
-            
+
             $qenviados = $t_manifestacao->find('enviados', [
                 'manifestante' => $manifestanteID
             ])->count();
-    
+
             $qrespondidos = $t_manifestacao->find('respondidos', [
                 'manifestante' => $manifestanteID
             ])->count();
-    
+
             $qatrasados = $t_manifestacao->find('atrasados', [
                 'manifestante' => $manifestanteID
             ])->count();
@@ -315,13 +336,13 @@ class OuvidoriaController extends AppController
 
         $this->set('title', "Dados da Manifestação");
         $this->set('manifestacao', $manifestacao);
-        $this->set('historico', $historico);        
+        $this->set('historico', $historico);
         $this->set('id', $id);
     }
 
     public function resposta(int $id)
     {
-        $t_manifestacao = TableRegistry::get('Manifestacao');        
+        $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
 
         $resposta = $this->request->getData('resposta');
@@ -377,7 +398,7 @@ class OuvidoriaController extends AppController
 
             if($nome != $entity->nome)
             {
-                $entity->nome = $nome;    
+                $entity->nome = $nome;
             }
 
             if($endereco != '' && $endereco != $entity->endereco)
@@ -396,7 +417,7 @@ class OuvidoriaController extends AppController
 
             $entity->nome = $nome;
             $entity->email = $email;
-            
+
             if($endereco != '')
             {
                 $entity->endereco = $endereco;
@@ -438,7 +459,7 @@ class OuvidoriaController extends AppController
 
         return $entity->id;
     }
-    
+
     /**
      * Faz o registro no histórico de ouvidoria
      * @param int $manifestacao Manifestação de onde o histórico deve ser registrado
@@ -480,7 +501,7 @@ class OuvidoriaController extends AppController
 
         $manifestante = $t_manifestante->get($idManifestante);
         $manifestacao = $t_manifestacao->get($idManifestacao);
-        
+
         $codigo = $this->Format->zeroPad($manifestacao->id);
         $assunto = $manifestacao->assunto;
         $ouvidores = $this->obterOuvidores();
@@ -490,13 +511,13 @@ class OuvidoriaController extends AppController
         $titulo = "Nova Manifestação da Ouvidoria: $codigo";
 
         $mensagem = "<h4>Você recebeu a nova manifestação do usuário no sistema de ouvidoria<h4>";
-        $mensagem = $mensagem . "<p>O cidadão $nome_manifestante deseja saber sobre o $assunto. Ele aguarda no prazo de $prazo dias úteis pela resposta.</p>"; 
+        $mensagem = $mensagem . "<p>O cidadão $nome_manifestante deseja saber sobre o $assunto. Ele aguarda no prazo de $prazo dias úteis pela resposta.</p>";
         $mensagem = $mensagem . "<p><b>Código da Manifestação: </b> $codigo.</p>";
-        
+
         foreach($ouvidores as $ouvidor)
         {
             $entity = $t_mensagens->newEntity();
-            
+
             $entity->destinatario = $ouvidor->id;
             $entity->data = date("Y-m-d H:i:s");
             $entity->assunto = $titulo;
@@ -576,23 +597,23 @@ class OuvidoriaController extends AppController
     private function notificarOuvidoria(Manifestacao $manifestacao, string $resposta)
     {
         $t_mensagens = TableRegistry::get('Mensagem');
-        
+
         $ouvidores = $this->obterOuvidores();
         $codigo = $this->Format->zeroPad($manifestacao->id);
         $nome_manifestante = $manifestacao->manifestante->nome;
-        
+
         $envia_copia = Configure::read('Ouvidoria.sendMail');
 
         $titulo = "Resposta da Manifestação da Ouvidoria: $codigo";
 
         $mensagem = "<h4>Você recebeu a resposta da ouvidoria, referente ao manifesto $codigo<h4>";
-        $mensagem = $mensagem . "<p>O cidadão $nome_manifestante enviou uma mensagem referente à manifestação com código $codigo.</p>"; 
+        $mensagem = $mensagem . "<p>O cidadão $nome_manifestante enviou uma mensagem referente à manifestação com código $codigo.</p>";
         $mensagem = $mensagem . "<p><b>Código da Manifestação: </b> $codigo.</p>";
 
         foreach($ouvidores as $ouvidor)
         {
             $entity = $t_mensagens->newEntity();
-            
+
             $entity->destinatario = $ouvidor->id;
             $entity->data = date("Y-m-d H:i:s");
             $entity->assunto = $titulo;
@@ -700,7 +721,7 @@ class OuvidoriaController extends AppController
         {
             $this->request->session()->destroy();
             $mensagem = 'A sessão foi expirada. Favor tente o acesso novamente!';
-            
+
             $this->Flash->success($mensagem);
             $this->redirect(['controller' => 'ouvidoria', 'action' => 'acesso']);
         }
