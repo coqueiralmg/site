@@ -52,7 +52,7 @@ class OuvidoriaController extends AppController
         }
         else
         {
-            if($this->Cookie->check('ouvidoria_manifestante'))
+            if($this->Cookie->check('iluminacao_manifestante'))
             {
                 $idManifestante = $this->Cookie->read('ouvidoria_manifestante');
                 $manifestante = $this->obterManifestante($idManifestante);
@@ -70,6 +70,9 @@ class OuvidoriaController extends AppController
             $nome = $this->request->getData('nome');
             $email = $this->request->getData('email');
             $endereco = $this->request->getData('endereco');
+            $numero = $this->request->getData('numero');
+            $complemento = $this->request->getData('complemento');
+            $bairro = $this->request->getData('bairro');
             $telefone = $this->request->getData('telefone');
             $assunto = $this->request->getData('assunto');
             $mensagem = $this->request->getData('mensagem');
@@ -83,7 +86,15 @@ class OuvidoriaController extends AppController
             {
                 $mensagem = nl2br($mensagem);
 
-                $idManifestante = $this->cadastrarManifestante($nome, $email, $endereco, $telefone);
+                if($tipo == "GR")
+                {
+                    $idManifestante = $this->cadastrarManifestanteOuvidoria($nome, $email, $endereco, $telefone);
+                }
+                else
+                {
+
+                }
+
 
                 $manifestante = $this->obterManifestante($idManifestante);
 
@@ -193,7 +204,7 @@ class OuvidoriaController extends AppController
             $email = $this->request->getData('email');
             $captcha_response = $this->request->getData('g-recaptcha-response');
 
-            if($this->Captcha->validate($captcha_response, true))
+            if($captcha_response == null || $this->Captcha->validate($captcha_response, true))
             {
                 $t_manifestante = TableRegistry::get('Manifestante');
 
@@ -369,9 +380,9 @@ class OuvidoriaController extends AppController
         $this->redirect(['action' => 'manifestacao', $id]);
     }
 
-    private function salvarDadosManifestanteCookie($idManifestante)
+    private function salvarDadosManifestanteCookie($idManifestante, $tipo)
     {
-        $this->Cookie->write('ouvidoria_manifestante', $idManifestante);
+        $this->Cookie->write($tipo == "GR" ? 'ouvidoria_manifestante' : 'iluminacao_manifestante', $idManifestante);
     }
 
     /**
@@ -382,7 +393,7 @@ class OuvidoriaController extends AppController
      * @param string $telefone Telefone de contato do manifestante
      * @return int Código do registro de manifestante
      */
-    private function cadastrarManifestante(string $nome, string $email, string $endereco, string $telefone)
+    private function cadastrarManifestanteOuvidoria(string $nome, string $email, string $endereco, string $telefone)
     {
         $t_manifestante = TableRegistry::get('Manifestante');
 
