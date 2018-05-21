@@ -120,6 +120,11 @@ class PagesController extends AppController
         }
     }
 
+    public function faleconosco()
+    {
+        $this->set('title', 'Fale Conosco');
+    }
+
     public function privacidade()
     {
         $this->set('title', 'Política de privacidade');
