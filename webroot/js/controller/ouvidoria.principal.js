@@ -1,12 +1,12 @@
 function enviarMensagem() {
-    var response = grecaptcha.getResponse(); 
+    var response = grecaptcha.getResponse();
 
     if(response == null || response == ""){
        swal(
            'Atenção',
-           'Por favor, prove à Prefeitura de Coqueiral de que você não é um robô.',
+           'Por favor, prove à Prefeitura de Coqueiral que você não é um robô.',
            'warning'
-       );	
+       );
 
        return false;
     }
@@ -16,5 +16,5 @@ function enviarMensagem() {
 
 function onSubmit(token)
 {
-    document.getElementById("main-contact-form").submit();	
+    document.getElementById("main-contact-form").submit();
 }
