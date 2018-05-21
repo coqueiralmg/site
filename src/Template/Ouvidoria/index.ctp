@@ -58,7 +58,7 @@
                     "class" => "contact-form",
                     "name" => "contact-form"]);
                 ?>
-
+                <?=$this->Form->hidden('tipo', ['value' => 'GR'])?>
                 <div class="col-sm-5 col-sm-offset-1">
                     <div class="form-group">
                         <label>Nome *</label>
