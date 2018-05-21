@@ -73,6 +73,7 @@ class OuvidoriaController extends AppController
             $telefone = $this->request->getData('telefone');
             $assunto = $this->request->getData('assunto');
             $mensagem = $this->request->getData('mensagem');
+            $tipo = $this->request->getData('tipo');
 
             $privativo = ($this->request->getData('privativo') == "on");
             $captcha_response = $this->request->getData('g-recaptcha-response');
@@ -88,12 +89,12 @@ class OuvidoriaController extends AppController
 
                 if($manifestante->bloqueado)
                 {
-                    $mensagem = 'O e-mail que você informou, está impedido de enviar mensagens para a ouvidoria.';
+                    $mensagem = 'O e-mail que você informou, está impedido de enviar mensagens para a ouvidoria da prefeitura.';
                     $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
                 }
                 else
                 {
-                    $idManifestacao = $this->inserirManifestacao($idManifestante, $assunto, $mensagem);
+                    $idManifestacao = $this->inserirManifestacao($idManifestante, $assunto, $mensagem, $tipo);
 
                     $this->registrarHistorico($idManifestacao, 'Nova manifestação de ouvidoria', false,  true);
 
@@ -441,7 +442,7 @@ class OuvidoriaController extends AppController
      * @param string $mensagem Mensagem do corpo da mensagem da manifestação
      * @return int Código da manifestação do sistema.
      */
-    private function inserirManifestacao(int $idManifestante, string $assunto, string $mensagem)
+    private function inserirManifestacao(int $idManifestante, string $assunto, string $mensagem, string $tipo)
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
 
@@ -450,6 +451,7 @@ class OuvidoriaController extends AppController
         $entity->manifestante = $idManifestante;
         $entity->assunto = $assunto;
         $entity->texto = $mensagem;
+        $entity->tipo = $tipo;
         $entity->data = date("Y-m-d H:i:s");
         $entity->ip = $_SERVER['REMOTE_ADDR'];
         $entity->prioridade = Configure::read('Ouvidoria.prioridade.inicial');
