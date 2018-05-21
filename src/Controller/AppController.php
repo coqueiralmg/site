@@ -54,8 +54,9 @@ class AppController extends Controller
         $this->loadComponent('Entries');
         $this->loadComponent('Format');
         $this->loadComponent('Captcha');
+        $this->loadComponent('Data');
 
-        $this->registerAccessLog();  
+        $this->registerAccessLog();
         $this->configurarAcesso();
     }
 
@@ -134,7 +135,7 @@ class AppController extends Controller
         $agent = $_SERVER['HTTP_USER_AGENT'];
 
         $registro = "$ip    $method   $scheme://$host$here    $agent";
-        
+
         Log::info($registro, ['register']);
     }
 

@@ -5,6 +5,9 @@ namespace App\View\Helper;
 use Cake\View\Helper;
 use Cake\Core\Configure;
 
+/**
+ * Classe ajudante de manipulação de dados, metadados e informações de sistema
+ */
 class DataHelper extends Helper
 {
     /**
@@ -37,5 +40,15 @@ class DataHelper extends Helper
     public function setting(string $chave)
     {
         return Configure::read($chave);
+    }
+
+    /**
+     * Codifica um dado ou uma coleção de dados
+     * @param $data Um dado ou uma coleção de dados a ser criptografado.
+     * @return string Uma string criptografada que representa dados criptogradados.
+     */
+    public function crypt($data)
+    {
+        return base64_encode(json_encode($data));
     }
 }

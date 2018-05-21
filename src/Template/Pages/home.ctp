@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                 <?php endfor;?>
             </div>
             <!--/.carousel-inner-->
@@ -55,7 +55,7 @@
         <div class="row">
             <div class="features">
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="https://e-gov.betha.com.br/cdweb/03109-000/contribuinte/main.faces" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Cidadão');" target="_blank">
+                    <a href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'construcao', $this->Data->crypt(['mensagem' => 'O sistema encontra-se em manutenção, podendo retornar até o dia 7 de maio.'])])?>" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Cidadão');">
                         <div class="feature-wrap">
                             <i class="fa fa-users"></i>
                             <h2>Serviços ao Cidadão</h2>
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="http://cloud.betha.com.br/" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Servidor');" target="_blank">
+                    <a href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'construcao', $this->Data->crypt(['mensagem' => 'O sistema encontra-se em manutenção, podendo retornar até o dia 7 de maio.'])])?>" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Servidor');">
                         <div class="feature-wrap">
                             <i class="fa fa-building-o"></i>
                             <h2>Serviços ao Servidor</h2>
@@ -75,15 +75,15 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="https://e-gov.betha.com.br/e-nota/login.faces" onclick="ga('send', 'event', 'Externo', 'Site', 'Nota Fiscal Eletrônica');" target="_blank">
+                    <a href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'notafiscal'])?>">
                         <div class="feature-wrap">
                             <i class="fa fa-file-text"></i>
-                            <h2>Nota Fiscal Eletrônica</h2>
-                            <h3>Emissão e consulta de notas fiscais eletrônicas</h3>
+                            <h2>Serviços Fiscais e Tributários</h2>
+                            <h3>ISS e Nota Fiscal Eletrônica</h3>
                         </div>
                     </a>
                 </div>
-                
+
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                     <a href="/fale-conosco"  target="_blank">
                         <div class="feature-wrap">
@@ -113,7 +113,7 @@
                         </div>
                     </a>
                 </div>
-                
+
             </div>
             <!--/.services-->
         </div>
@@ -134,7 +134,7 @@
                         <source src="videos/tour_coqueiral/tour_coqueiral_mobile.3gp" type="video/3gpp; codecs='mp4v.20.8, samr''">
                         <iframe src="https://player.vimeo.com/video/209560023" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     </video>
-                </div>    
+                </div>
         </div><!--/.container-->
     </section><!--/#partner-->
 
@@ -154,7 +154,7 @@
                             <a href="<?= 'noticias/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
                                 <img class="img-responsive" src="<?= $noticia->foto ?>" alt="<?= $noticia->post->titulo ?>">
                             </a>
-                            <div class="blog-text"> 
+                            <div class="blog-text">
                                 <div class="prod-title">
                                     <h3 style="text-transform: uppercase;">
                                         <a href="<?= 'noticias/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
@@ -172,7 +172,7 @@
              <?php else: ?>
                 <p>Nenhuma notícia disponível no momento!</p>
              <?php endif; ?>
-            
+
             <div class="clearfix visible-md-block"></div>
         </div>
 

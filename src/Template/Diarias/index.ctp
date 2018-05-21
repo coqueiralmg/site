@@ -25,7 +25,7 @@
                     <?php endif; ?>
                 <?php endfor; ?>
             <?php else: ?>
-                <p>Nenhuma publicação disponível!</p>
+                <p>Nenhuma informação disponível!</p>
             <?php endif; ?>
         </div>
         <?php if($movel):?>
