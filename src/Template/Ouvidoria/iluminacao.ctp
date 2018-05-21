@@ -74,15 +74,15 @@
                     </div>
                     <div class="form-group">
                         <label>Número *</label>
-                        <?= $this->Form->text("endereco", ["id" => "endereco", "class" => "form-control", "required" => true, "maxlength" => 50]) ?>
+                        <?= $this->Form->text("numendereco", ["id" => "numendereco", "class" => "form-control", "required" => true, "maxlength" => 50]) ?>
                     </div>
                     <div class="form-group">
                         <label>Complemento</label>
-                        <?= $this->Form->text("endereco", ["id" => "endereco", "class" => "form-control", "required" => true, "maxlength" => 50]) ?>
+                        <?= $this->Form->text("complemento", ["id" => "complemento", "class" => "form-control", "required" => true, "maxlength" => 50]) ?>
                     </div>
                     <div class="form-group">
                         <label>Bairro *</label>
-                        <?= $this->Form->text("endereco", ["id" => "bairro", "class" => "form-control", "required" => true, "maxlength" => 50]) ?>
+                        <?= $this->Form->text("bairro", ["id" => "bairro", "class" => "form-control", "required" => true, "maxlength" => 50]) ?>
                     </div>
                     <div class="form-group">
                         <label>Telefone de Contato</label>
