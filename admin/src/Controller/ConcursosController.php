@@ -133,6 +133,103 @@ class ConcursosController extends AppController
         $this->set('data', $data);
     }
 
+    public function imprimir()
+    {
+        $t_concursos = TableRegistry::get('Concurso');
+
+        $condicoes = array();
+
+        if (count($this->request->getQueryParams()) > 3)
+        {
+            $numero = $this->request->query('numero');
+            $titulo = $this->request->query('titulo');
+            $banca = $this->request->query('banca');
+            $tipo = $this->request->query('tipo');
+            $inscricao_inicial = $this->request->query('inscricao_inicial');
+            $inscricao_final = $this->request->query('inscricao_final');
+            $prova_inicial = $this->request->query('prova_inicial');
+            $prova_final = $this->request->query('prova_final');
+            $mostrar = $this->request->query('mostrar');
+
+            if($numero != "")
+            {
+                $condicoes['numero LIKE'] = '%' . $numero . '%';
+            }
+
+            if($titulo != "")
+            {
+                $condicoes['titulo LIKE'] = '%' . $titulo . '%';
+            }
+
+            if($banca != "")
+            {
+                $condicoes['banca LIKE'] = '%' . $banca . '%';
+            }
+
+            if($tipo != "T")
+            {
+                $condicoes['tipo'] = $tipo;
+            }
+
+            if ($inscricao_inicial != "" && $inscricao_final != "")
+            {
+                $condicoes["inscricaoInicio >="] = $this->Format->formatDateDB($inscricao_inicial);
+                $condicoes["inscricaoFim <="] = $this->Format->formatDateDB($inscricao_final);
+            }
+
+            if ($prova_inicial != "" && $prova_final != "")
+            {
+                $condicoes["dataProva >="] = $this->Format->formatDateDB($prova_inicial);
+                $condicoes["dataProva <="] = $this->Format->formatDateDB($prova_final);
+            }
+
+            if($mostrar != "")
+            {
+                $condicoes['status'] = $mostrar;
+            }
+
+            $data['numero'] = $numero;
+            $data['titulo'] = $titulo;
+            $data['banca'] = $banca;
+            $data['tipo'] = $tipo;
+            $data['inscricao_inicial'] = $inscricao_inicial;
+            $data['inscricao_final'] = $inscricao_final;
+            $data['prova_inicial'] = $prova_inicial;
+            $data['prova_final'] = $prova_final;
+
+            $data['mostrar'] = $mostrar;
+
+            $this->request->data = $data;
+        }
+
+        $concursos = $t_concursos->find('all', [
+            'conditions' => $condicoes,
+            'contain' => ['StatusConcurso']
+        ]);
+
+        $qtd_total = $concursos->count();
+
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão da lista de concursos públicos e processos seletivos.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if ($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Concursos e Processos Seletivos');
+        $this->set('concursos', $concursos);
+        $this->set('qtd_total', $qtd_total);
+
+    }
+
     public function add()
     {
         $this->Flash->info('Para adicionar informações como editais, anexos, retificações entre outros, primeiramente informe dados cadastrais sobre o concurso e depois clique em Salvar.');
