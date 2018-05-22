@@ -1,5 +1,4 @@
 <?= $this->Html->script('controller/ouvidoria.principal.js', ['block' => 'scriptBottom']) ?>
-<?= $this->Html->script('controller/ouvidoria.acesso.js', ['block' => 'scriptBottom']) ?>
 <section id="error" class="container text-center">
     <h2>Verifique o resultado de suas manifestações</h2>
     <p>Para verificar todos as suas manifestações e ainda editar seus dados, digite seu e-mail e clique em "Entrar".</p>
