@@ -70,7 +70,7 @@ class OuvidoriaController extends AppController
             $nome = $this->request->getData('nome');
             $email = $this->request->getData('email');
             $endereco = $this->request->getData('endereco');
-            $numero = $this->request->getData('numero');
+            $numero = $this->request->getData('numendereco');
             $complemento = $this->request->getData('complemento');
             $bairro = $this->request->getData('bairro');
             $telefone = $this->request->getData('telefone');
@@ -92,7 +92,7 @@ class OuvidoriaController extends AppController
                 }
                 else
                 {
-
+                    $idManifestante = $this->cadastrarManifestanteOuvidoria($nome, $email, $endereco, $telefone, $numero, $complemento, $bairro);
                 }
 
 
@@ -114,7 +114,7 @@ class OuvidoriaController extends AppController
 
                     if(!$privativo)
                     {
-                        $this->salvarDadosManifestanteCookie($idManifestante);
+                        $this->salvarDadosManifestanteCookie($idManifestante, $tipo);
                     }
                     else
                     {
@@ -391,9 +391,12 @@ class OuvidoriaController extends AppController
      * @param string $email E-mail de contato do manifestante. Este e-mail deverá ser único no banco de dados.
      * @param string $endereco Endereço de contato do manifestante
      * @param string $telefone Telefone de contato do manifestante
+     * @param string $numendereco Número do endereço do manifestante
+     * @param string $complemento Complemento do endereço do manifestante
+     * @param string $bairro Bairro onde mora o manifestante
      * @return int Código do registro de manifestante
      */
-    private function cadastrarManifestanteOuvidoria(string $nome, string $email, string $endereco, string $telefone)
+    private function cadastrarManifestanteOuvidoria(string $nome, string $email, string $endereco, string $telefone, string $numendereco = null, string $complemento = null, string $bairro = null)
     {
         $t_manifestante = TableRegistry::get('Manifestante');
 
@@ -422,6 +425,33 @@ class OuvidoriaController extends AppController
             {
                 $entity->telefone = $telefone;
             }
+
+            if($numendereco != null && $numendereco != $entity->numendereco)
+            {
+                $entity->numendereco = $numendereco;
+            }
+            else
+            {
+                $entity->numendereco = null;
+            }
+
+            if($complemento != null && $complemento != $entity->complemento)
+            {
+                $entity->complemento = $complemento;
+            }
+            else
+            {
+                $entity->complemento = null;
+            }
+
+            if($bairro != null && $bairro != $entity->bairro)
+            {
+                $entity->bairro = $bairro;
+            }
+            else
+            {
+                $entity->bairro = null;
+            }
         }
         else
         {
@@ -438,6 +468,21 @@ class OuvidoriaController extends AppController
             if($telefone != '')
             {
                 $entity->telefone = $telefone;
+            }
+
+            if($numendereco != null)
+            {
+                $entity->numendereco = $numendereco;
+            }
+
+            if($complemento != null)
+            {
+                $entity->complemento = $complemento;
+            }
+
+            if($bairro != null)
+            {
+                $entity->bairro = $bairro;
             }
         }
 
