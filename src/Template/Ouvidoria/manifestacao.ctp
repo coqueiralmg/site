@@ -1,6 +1,6 @@
 <section id="about-us">
     <div class="container">
-        
+
         <div class="center wow fadeInDown">
             <h2><?= $this->Format->zeroPad($manifestacao->id) . ' : ' . $manifestacao->assunto ?></h2>
             <p class="lead">Data: <?= $this->Format->date($manifestacao->data, true) ?> | Prioridade: <?= $manifestacao->prioridade->nome ?> | Status: <?= $manifestacao->status->nome ?></p>
@@ -68,7 +68,7 @@
                         </div>
                     <?php endif;?>
                 </div>
-            </div><!--/.container-->    
+            </div><!--/.container-->
         </section>
         <h1 id="comments_title">Histórico</h1>
         <?php foreach($historico as $item): ?>
@@ -94,7 +94,7 @@
                     <div class="message_heading">
                         <h4>Resposta</h4>
                         <p>Digite abaixo para enviar resposta a ouvidoria da prefeitura.</p>
-                    </div> 
+                    </div>
 
                     <?php
                     echo $this->Form->create("Ouvidoria", [
@@ -110,11 +110,11 @@
                         'type' => 'post']);
                     ?>
                         <div class="row">
-                            <div class="col-sm-12">                        
+                            <div class="col-sm-12">
                                 <div class="form-group">
                                     <?= $this->Form->label("resposta", "Mensagem de Resposta") ?>
                                     <?= $this->Form->textarea("resposta", ["id" => "resposta", "required" => true, "class" => "form-control", "rows" => "5", "class" => "form-control"]) ?>
-                                </div>                        
+                                </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-lg" style="float: right" required="required">Enviar</button>
                                 </div>
@@ -127,7 +127,7 @@
                     <div class="status alert alert-success" style="display: none"></div>
                     <div class="message_heading">
                         <p>Se você é o próprio manifestante e pretende responder a este chamado, <?=$this->Html->Link('clique aqui', ['controller' => 'ouvidoria', 'action' => 'acesso'])?>.</p>
-                    </div> 
+                    </div>
                 </div><!--/#contact-page-->
             <?php endif;?>
         <?php else: ?>
@@ -139,7 +139,7 @@
                         case $this->Data->setting('Ouvidoria.status.definicoes.recusado'):
                             $mensagem = 'A manifestação foi recusada e você não pode responder. Caso tenha objeções e deseja criar novo chamado relacionado a este, ';
                             break;
-                        
+
                         case $this->Data->setting('Ouvidoria.status.definicoes.fechado'):
                             $mensagem = 'A manifestação foi fechada e você não pode mais responder. Caso deseja criar novo chamado relacionado a este, ';
                             break;
@@ -147,14 +147,14 @@
                         case $this->Data->setting('Ouvidoria.status.definicoes.novo'):
                             $mensagem = 'A manifestação ainda não foi atendida. Aguarde a nossa resposta. Caso deseja criar uma outra manifestação, ';
                             break;
-                    }   
+                    }
 
                 ?>
                 <div id="contact-page clearfix">
                     <div class="status alert alert-success" style="display: none"></div>
                     <div class="message_heading">
-                        <p><?=$mensagem?> <?=$this->Html->Link('clique aqui', ['controller' => 'ouvidoria', 'action' => 'index'])?>.</p>
-                    </div> 
+                        <p><?=$mensagem?> <?=$this->Html->Link('clique aqui', ['controller' => 'pages', 'action' => 'faleconosco'])?>.</p>
+                    </div>
                 </div><!--/#contact-page-->
         <?php endif;?>
     </div>

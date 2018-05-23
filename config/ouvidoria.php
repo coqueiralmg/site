@@ -6,6 +6,11 @@ return[
         'grupoOuvidor'=> 7,
         'prazo' => 10,
         'sendMail' => true,
+        'tipos' => [
+            'GR' => 'Geral',
+            'IP' => 'Iluminação Pública',
+            'LX' => 'Lixo, Entulho e Limpeza Urbana'
+        ],
         'status' => [
             'inicial' => 1,
             'fechado' => 6,

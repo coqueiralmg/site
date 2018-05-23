@@ -3,7 +3,7 @@
         <div class="center wow fadeInDown">
             <h2>Consulta de Manifestações</h2>
             <p class="lead">Verifique aqui o andamento de todas as manifestações que você fez à Prefeitura Municipal de Coqueiral.</p>
-            <a class="btn btn-primary" href="/ouvidoria">Nova Manifestação</a>
+            <a class="btn btn-primary" href="/faleconosco">Nova Manifestação</a>
             <a class="btn btn-primary" href="/ouvidoria/logoff">Sair</a>
         </div>
 
@@ -18,6 +18,7 @@
                     <?php endif; ?>
                     <div class="item col-md-12 col-lg-6">
                         <h3 class="media-heading" style="text-transform: uppercase;"><?= $this->Format->zeroPad($manifestacao->id) . ' : ' . $manifestacao->assunto ?></h3>
+                        <p>Tipo: <?= $this->Data->setting('Ouvidoria.tipos')[$manifestacao->tipo] ?></p>
                         <p>Data: <?= $this->Format->date($manifestacao->data, true) ?></p>
                         <p>Prioridade: <?= $manifestacao->prioridade->nome ?></p>
                         <p>Status: <?= $manifestacao->status->nome ?></p>
