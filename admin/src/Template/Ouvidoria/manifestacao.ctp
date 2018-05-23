@@ -49,12 +49,19 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
+                                        <?= $this->Form->label("tipo", "Tipo") ?><br/>
+                                        <?=$this->Data->setting('Ouvidoria.tipos')[$manifestacao->tipo] ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-control">
                                         <?= $this->Form->label("ip", "Endereço de IP") ?><br/>
                                         <?= $manifestacao->ip?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->Form->label("assunto", "Assunto") ?><br/>
                                         <?=$manifestacao->assunto?>

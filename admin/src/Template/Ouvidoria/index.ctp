@@ -13,7 +13,7 @@
                             'details' => ''
                         ]) ?>
                         <h4 class="card-title">Buscar</h4>
-                        
+
                         <?php
                         echo $this->Form->create("Ouvidoria", [
                             "url" => [
@@ -69,7 +69,7 @@
                                     <tr>
                                         <th>Número</th>
                                         <th>Data</th>
-                                        <th>Manifestante</th>
+                                        <th>Tipo</th>
                                         <th>Assunto</th>
                                         <th>Status</th>
                                         <th>Prioridade</th>
@@ -79,14 +79,14 @@
                                 <tbody>
                                     <?php foreach ($manifestacoes as $manifestacao): ?>
                                         <tr style="
-                                        <?=($manifestacao->prioridade->id == $this->Data->setting('Ouvidoria.prioridade.definicoes.urgente.id') 
+                                        <?=($manifestacao->prioridade->id == $this->Data->setting('Ouvidoria.prioridade.definicoes.urgente.id')
                                              && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.fechado')
                                              && $manifestacao->status->id != $this->Data->setting('Ouvidoria.status.definicoes.recusado')) ? "font-weight: bold;" : ""?>
                                         <?=($manifestacao->atrasado) ? "color: red;" : ""?>
                                         ">
                                             <td><?=$this->Format->zeroPad($manifestacao->id)?></td>
                                             <td><?=$this->Format->date($manifestacao->data, true)?></td>
-                                            <td><?=$manifestacao->manifestante->nome?></td>
+                                            <td><?=$this->Data->setting('Ouvidoria.tipos')[$manifestacao->tipo] ?></td>
                                             <td><?=$manifestacao->assunto?></td>
                                             <td><?=$manifestacao->status->nome?></td>
                                             <td><?=$manifestacao->prioridade->nome?></td>

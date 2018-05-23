@@ -103,7 +103,7 @@
                                 <thead class="text-warning">
                                     <th>Número</th>
                                     <th>Data</th>
-                                    <th>Manifestante</th>
+                                    <th>Tipo</th>
                                     <th>Assunto</th>
                                     <th>Status</th>
                                     <th>Prioridade</th>
@@ -119,7 +119,7 @@
                                             ">
                                             <td><?=$this->Format->zeroPad($manifestacao->id)?></td>
                                             <td><?=$this->Format->date($manifestacao->data, true)?></td>
-                                            <td><?=$manifestacao->manifestante->nome?></td>
+                                            <td><?=$this->Data->setting('Ouvidoria.tipos')[$manifestacao->tipo] ?></td>
                                             <td><?=$manifestacao->assunto?></td>
                                             <td><?=$manifestacao->status->nome?></td>
                                             <td><?=$manifestacao->prioridade->nome?></td>
