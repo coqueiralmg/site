@@ -1,43 +1,47 @@
 <?= $this->Html->script('controller/ouvidoria.principal.js', ['block' => 'scriptBottom']) ?>
 <section id="error" class="container text-center">
     <h2>Verifique o resultado de suas manifestações</h2>
-    <p>Para verificar todos as suas manifestações e ainda editar seus dados, digite seu e-mail e clique em "Entrar".</p>
-    <p>Para verificar apenas um manifesto específico, digite o número e clique "Consultar".</p>
+    <?php if($this->request->session()->check('ManifestanteID')):?>
+        <a class="btn btn-primary" href="/ouvidoria/andamento">Ver Andamentos</a>
+    <?php else: ?>
+        <p>Para verificar todos as suas manifestações e ainda editar seus dados, digite seu e-mail e clique em "Entrar".</p>
+        <p>Para verificar apenas um manifesto específico, digite o número e clique "Consultar".</p>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <?php
+                    echo $this->Form->create("ouvidoria", [
+                        'class' => 'login_ouvidoria',
+                        'id' => 'frm_logon',
+                        'url' => [
+                            'controller' => 'ouvidoria',
+                            'action' => 'logon'
+                        ]]);
+                    ?>
+                    <?= $this->Form->label('email', 'E-mail') ?>
+                    <?= $this->Form->email('email', ['id' => 'email', 'class' => 'form-control', "required" => true]) ?>
+                    <button type="submit" id="btn-entrar" class="btn btn-success"><i class="fa fa-chevron-circle-right"></i>&nbsp;Entrar</button>
+                    <?php echo $this->Form->end(); ?>
+                </div>
+                <div class="col-md-6">
                 <?php
-                echo $this->Form->create("ouvidoria", [
-                    'class' => 'login_ouvidoria',
-                    'id' => 'frm_logon',
-                    'url' => [
-                        'controller' => 'ouvidoria',
-                        'action' => 'logon'
-                    ]]);
-                ?>
-                 <?= $this->Form->label('email', 'E-mail') ?>
-                 <?= $this->Form->email('email', ['id' => 'email', 'class' => 'form-control', "required" => true]) ?>
-                 <button type="submit" id="btn-entrar" class="btn btn-success"><i class="fa fa-chevron-circle-right"></i>&nbsp;Entrar</button>
-                <?php echo $this->Form->end(); ?>
-            </div>
-            <div class="col-md-6">
-            <?php
-                echo $this->Form->create("ouvidoria", [
-                    'class' => 'login_ouvidoria',
-                    'id' => 'frm_manifestacao',
-                    'url' => [
-                        'controller' => 'ouvidoria',
-                        'action' => 'manifestacao'
-                    ]]);
-                ?>
-                <?= $this->Form->label('numero', 'Número') ?>
-                <?= $this->Form->number('numero', ['id' => 'numero', 'min' => 0, "required" => true, 'class' => 'form-control']) ?>
-                <button type="submit" id="btn-consultar" class="btn btn-success"><i class="fa fa-eye"></i>&nbsp;Consultar</button>
-                <?php echo $this->Form->end(); ?>
+                    echo $this->Form->create("ouvidoria", [
+                        'class' => 'login_ouvidoria',
+                        'id' => 'frm_manifestacao',
+                        'url' => [
+                            'controller' => 'ouvidoria',
+                            'action' => 'manifestacao'
+                        ]]);
+                    ?>
+                    <?= $this->Form->label('numero', 'Número') ?>
+                    <?= $this->Form->number('numero', ['id' => 'numero', 'min' => 0, "required" => true, 'class' => 'form-control']) ?>
+                    <button type="submit" id="btn-consultar" class="btn btn-success"><i class="fa fa-eye"></i>&nbsp;Consultar</button>
+                    <?php echo $this->Form->end(); ?>
+                </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
 </section><!--/#error-->
 <section id="contact-page">
     <div class="container">

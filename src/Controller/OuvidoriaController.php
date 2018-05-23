@@ -24,10 +24,12 @@ class OuvidoriaController extends AppController
     public function index()
     {
         $manifestante = null;
+        $aberto = false;
 
         if($this->request->session()->check('Manifestante'))
         {
             $manifestante = $this->request->session()->read('Manifestante');
+            $aberto = true;
         }
         else
         {
@@ -40,15 +42,18 @@ class OuvidoriaController extends AppController
 
         $this->set('title', "Ouvidoria");
         $this->set('manifestante', $manifestante);
+        $this->set('aberto', $aberto);
     }
 
     public function iluminacao()
     {
         $manifestante = null;
+        $aberto = false;
 
         if($this->request->session()->check('Manifestante'))
         {
             $manifestante = $this->request->session()->read('Manifestante');
+            $aberto = true;
         }
         else
         {
@@ -61,6 +66,7 @@ class OuvidoriaController extends AppController
 
         $this->set('title', "Ouvidoria");
         $this->set('manifestante', $manifestante);
+        $this->set('aberto', $aberto);
     }
 
     public function send()
