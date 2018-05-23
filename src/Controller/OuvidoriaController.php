@@ -129,7 +129,7 @@ class OuvidoriaController extends AppController
             }
             else
             {
-                $mensagem = 'O sistema detectou que você está enviando SPAM ou usando sistemas automatizados (robôs). Por favor, utilize o sistema de ouvidoria de forma correta.';
+                $mensagem = 'O sistema detectou que você está enviando SPAM ou usando sistemas automatizados (robôs). Também existe a possibilidade de enviar solicitações duplicadas ao sistema, o que invalida a operação. Por favor, utilize o sistema de ouvidoria de forma correta.';
                 $this->redirect(['controller' => 'ouvidoria', 'action' => 'falha', base64_encode($mensagem)]);
             }
         }
