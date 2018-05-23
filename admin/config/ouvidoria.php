@@ -4,6 +4,11 @@ return[
     'Ouvidoria' => [
         'grupoOuvidor'=> 7,
         'prazo' => 10,
+        'tipos' => [
+            'GR' => 'Geral',
+            'IP' => 'Iluminação Pública',
+            'LX' => 'Lixo, Entulho e Limpeza Urbana'
+        ],
         'status' => [
             'inicial' => 1,
             'fechado' => 6,
@@ -38,5 +43,5 @@ return[
                 ]
             ]
         ]
-    ]    
+    ]
 ];
