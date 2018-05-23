@@ -48,6 +48,11 @@
                                     <?php if($this->request->session()->check('ManifestanteID')): ?>
                                         <b>E-mail: </b><?= $manifestacao->manifestante->email ?><br/>
                                         <b>Endereço: </b><?= $manifestacao->manifestante->endereco ?><br/>
+                                        <?php if($manifestacao->tipo == 'IP'): ?>
+                                            <b>Número: </b><?= $manifestacao->manifestante->numendereco ?><br/>
+                                            <b>Complemento: </b><?= $manifestacao->manifestante->complemento ?><br/>
+                                            <b>Bairro: </b><?= $manifestacao->manifestante->bairro ?><br/>
+                                        <?php endif; ?>
                                         <b>Telefone de Contato: </b><?= $manifestacao->manifestante->telefone ?><br/>
                                     <?php endif;?>
                                 </p>
