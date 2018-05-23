@@ -107,22 +107,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group label-control">
-                                    <?= $this->Form->label("endereco", "Endereço") ?><br/>
-                                    <?= $manifestacao->manifestante->endereco?>
-                                    <span class="material-input"></span>
+                        <?php if($manifestacao->tipo == 'IP'): ?>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("endereco", "Endereço") ?><br/>
+                                        <?= $manifestacao->manifestante->endereco?>, <?= $manifestacao->manifestante->numendereco?> - <?= $manifestacao->manifestante->bairro?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <?= $this->Form->label("telefone", "Telefone") ?><br/>
+                                        <?=$manifestacao->manifestante->telefone?>
+                                        <span class="material-input"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <?= $this->Form->label("telefone", "Telefone") ?><br/>
-                                    <?=$manifestacao->manifestante->telefone?>
-                                    <span class="material-input"></span>
+                        <?php else: ?>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("endereco", "Endereço") ?><br/>
+                                        <?= $manifestacao->manifestante->endereco?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <?= $this->Form->label("telefone", "Telefone") ?><br/>
+                                        <?=$manifestacao->manifestante->telefone?>
+                                        <span class="material-input"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif;?>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group label-control">
