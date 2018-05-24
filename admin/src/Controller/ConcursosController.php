@@ -388,6 +388,11 @@ class ConcursosController extends AppController
         $title = ($id > 0) ? 'Edição de Anexo' : 'Novo Anexo';
 
         $t_documentos = TableRegistry::get('Documento');
+        $t_concursos = TableRegistry::get('Concurso');
+
+        $idConcurso = $this->request->query('idConcurso');
+
+        $concurso = $t_concursos->get($idConcurso);
 
         if($id > 0)
         {
@@ -405,6 +410,7 @@ class ConcursosController extends AppController
         $this->set('title', $title);
         $this->set('icon', 'content_paste');
         $this->set('id', $id);
+        $this->set('concurso', $concurso);
     }
 
     protected function insert()
