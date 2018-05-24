@@ -7,7 +7,7 @@
             }
             else
             {
-                echo $this->Html->link("Dados Cadastrais", ['controller' => 'concursos', 'action' => 'cadastro'], ['class' => 'nav-link']);
+                echo $this->Html->link("Dados Cadastrais", ['controller' => 'concursos', 'action' => 'cadastro', $id], ['class' => 'nav-link']);
             }
         ?>
     </li>
@@ -19,7 +19,7 @@
             }
             else
             {
-                echo $this->Html->link("Documentos e Anexos", ['controller' => 'concursos', 'action' => 'anexos'], ['class' => 'nav-link']);
+                echo $this->Html->link("Documentos e Anexos", ['controller' => 'concursos', 'action' => 'anexos', $id], ['class' => 'nav-link']);
             }
         ?>
     </li>
@@ -31,7 +31,7 @@
             }
             else
             {
-                echo $this->Html->link("Cargos", ['controller' => 'concursos', 'action' => 'cargos'], ['class' => 'nav-link']);
+                echo $this->Html->link("Cargos", ['controller' => 'concursos', 'action' => 'cargos', $id], ['class' => 'nav-link']);
             }
         ?>
     </li>
@@ -43,7 +43,7 @@
             }
             else
             {
-                echo $this->Html->link("Informativos", ['controller' => 'concursos', 'action' => 'informativos'], ['class' => 'nav-link']);
+                echo $this->Html->link("Informativos", ['controller' => 'concursos', 'action' => 'informativos', $id], ['class' => 'nav-link']);
             }
         ?>
     </li>
@@ -55,7 +55,7 @@
             }
             else
             {
-                echo $this->Html->link("Visualizar e Imprimir", ['controller' => 'concursos', 'action' => 'documento'], ['class' => 'nav-link']);
+                echo $this->Html->link("Visualizar e Imprimir", ['controller' => 'concursos', 'action' => 'documento', $id], ['class' => 'nav-link']);
             }
         ?>
     </li>
