@@ -11,7 +11,7 @@
                     <div class="card-content">
                         <?= $this->Flash->render() ?>
                         <div class="form-group form-button">
-                            <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'anexo', 0]) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                            <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'anexo', 0, '?' => ['idConcurso' => $id]]) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                                 </tbody>
                             </table>
                         <?php else: ?>
-                            <h3>Não existem documentos e anexos relativos a <?= $concurso->tipo == 'CP' ? 'concurso público' : 'processo seletivo' ?> <?= $concurso->numero ?> - <?= $concurso->titulo ?>. Para adicionar o novo documento ou anexo, <?=$this->Html->link("clique aqui", ["controller" => "concursos", "action" => "anexo", 0])?>.</h3>
+                            <h3>Não existem documentos e anexos relativos a <?= $concurso->tipo == 'CP' ? 'concurso público' : 'processo seletivo' ?> <?= $concurso->numero ?> - <?= $concurso->titulo ?>. Para adicionar o novo documento ou anexo, <?=$this->Html->link("clique aqui", ["controller" => "concursos", "action" => "anexo", 0, '?' => ['idConcurso' => $id]])?>.</h3>
                         <?php endif; ?>
                     </div>
                      <div class="card-content">
