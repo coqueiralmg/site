@@ -337,6 +337,76 @@ class ConcursosController extends AppController
         }
     }
 
+    public function anexos(int $id)
+    {
+        $t_concursos = TableRegistry::get('Concurso');
+        $t_documentos = TableRegistry::get('Documento');
+        $limite_paginacao = Configure::read('Pagination.limit');
+
+        $concurso = $t_concursos->get($id);
+        $titulo = $subtitulo = '';
+
+        $condicoes = [
+            'concurso' => $id
+        ];
+
+        if($concurso->tipo == 'CP')
+        {
+            $titulo = 'Documentos e Anexos do Concurso Público';
+            $subtitulo = 'Documentos e anexos relativos a Concurso Público ' . $concurso->numero . ' - ' . $concurso->titulo;
+        }
+        elseif($concurso->tipo == 'PS')
+        {
+            $titulo = 'Documentos e Anexos do Processo Seletivo';
+            $subtitulo = 'Documentos e anexos relativos ao Processo Seletivo ' . $concurso->numero . ' - ' . $concurso->titulo;
+        }
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ];
+
+        $documentos = $this->paginate($t_documentos);
+
+        $qtd_total = $t_documentos->find('all', [
+            'conditions' => $condicoes
+        ])->count();
+
+        $this->set('title', $titulo);
+        $this->set('icon', 'content_paste');
+        $this->set('concurso', $concurso);
+        $this->set('documentos', $documentos);
+        $this->set('qtd_total', $qtd_total);
+        $this->set('id', $id);
+    }
+
+    public function anexo(int $id)
+    {
+        $title = ($id > 0) ? 'Edição de Anexo' : 'Novo Anexo';
+
+        $t_documentos = TableRegistry::get('Documento');
+
+        if($id > 0)
+        {
+            $documento = $t_documentos->get($id);
+
+            $documento->data = $documento->data->i18nFormat('dd/MM/yyyy');
+
+            $this->set('documento', $documento);
+        }
+        else
+        {
+            $this->set('documento', null);
+        }
+
+        $this->set('title', $title);
+        $this->set('icon', 'content_paste');
+        $this->set('id', $id);
+    }
+
     protected function insert()
     {
         try
