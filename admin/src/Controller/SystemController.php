@@ -209,7 +209,7 @@ class SystemController extends AppController
         $this->set('noticias', $noticias);
         $this->set('licitacoes', $licitacoes);
         $this->set('publicacoes', $publicacoes);
-        $this->set('manifestacoes', $manifestacoes);
+        $this->set('manifestacoes', $manifestacoes->toList());
         $this->set('stat_ouvidoria', $stat_ouvidoria);
     }
 
