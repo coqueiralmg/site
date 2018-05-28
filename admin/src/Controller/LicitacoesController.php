@@ -22,11 +22,11 @@ class LicitacoesController extends AppController
     {
         $t_licitacoes = TableRegistry::get('Licitacao');
         $limite_paginacao = Configure::read('Pagination.limit');
-        
+
         $condicoes = array();
         $data = array();
 
-        if (count($this->request->getQueryParams()) > 3) 
+        if (count($this->request->getQueryParams()) > 3)
         {
             $titulo = $this->request->query('titulo');
             $data_inicial = $this->request->query('data_inicial');
@@ -38,13 +38,13 @@ class LicitacoesController extends AppController
                 $condicoes['titulo LIKE'] = '%' . $titulo . '%';
             }
 
-            if ($data_inicial != "" && $data_final != "") 
+            if ($data_inicial != "" && $data_final != "")
             {
                 $condicoes["dataInicio >="] = $this->Format->formatDateDB($data_inicial);
                 $condicoes["dataInicio <="] = $this->Format->formatDateDB($data_final);
             }
 
-            if ($mostrar != 'T') 
+            if ($mostrar != 'T')
             {
                 $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
             }
@@ -79,7 +79,7 @@ class LicitacoesController extends AppController
         ])->count();
 
         $combo_mostra = ["T" => "Todos", "A" => "Somente ativos", "I" => "Somente inativos"];
-        
+
         $this->set('title', 'Licitações');
         $this->set('icon', 'work');
         $this->set('combo_mostra', $combo_mostra);
@@ -96,7 +96,7 @@ class LicitacoesController extends AppController
 
         $condicoes = array();
 
-        if (count($this->request->getQueryParams()) > 0) 
+        if (count($this->request->getQueryParams()) > 0)
         {
             $titulo = $this->request->query('titulo');
             $data_inicial = $this->request->query('data_inicial');
@@ -108,13 +108,13 @@ class LicitacoesController extends AppController
                 $condicoes['titulo LIKE'] = '%' . $titulo . '%';
             }
 
-            if ($data_inicial != "" && $data_final != "") 
+            if ($data_inicial != "" && $data_final != "")
             {
                 $condicoes["dataInicio >="] = $this->Format->formatDateDB($data_inicial);
                 $condicoes["dataInicio <="] = $this->Format->formatDateDB($data_final);
             }
 
-            if ($mostrar != 'T') 
+            if ($mostrar != 'T')
             {
                 $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
             }
@@ -137,7 +137,7 @@ class LicitacoesController extends AppController
 
         $this->Auditoria->registrar($auditoria);
 
-        if ($this->request->session()->read('UsuarioSuspeito')) 
+        if ($this->request->session()->read('UsuarioSuspeito'))
         {
             $this->Monitoria->monitorar($auditoria);
         }
@@ -166,17 +166,17 @@ class LicitacoesController extends AppController
 
         $t_licitacoes = TableRegistry::get('Licitacao');
 
-        if ($id > 0) 
+        if ($id > 0)
         {
             $licitacao = $t_licitacoes->get($id);
             $licitacao->data_inicio = $licitacao->dataInicio->i18nFormat('dd/MM/yyyy');
             $licitacao->hora_inicio = $licitacao->dataInicio->i18nFormat('HH:mm');
             $licitacao->data_termino = $licitacao->dataTermino->i18nFormat('dd/MM/yyyy');
             $licitacao->hora_termino = $licitacao->dataTermino->i18nFormat('HH:mm');
-            
+
             $this->set('licitacao', $licitacao);
-        } 
-        else 
+        }
+        else
         {
             $this->set('licitacao', null);
         }
@@ -188,11 +188,11 @@ class LicitacoesController extends AppController
 
     public function save(int $id)
     {
-        if ($this->request->is('post')) 
+        if ($this->request->is('post'))
         {
             $this->insert();
-        } 
-        elseif ($this->request->is('put')) 
+        }
+        elseif ($this->request->is('put'))
         {
             $this->update($id);
         }
@@ -239,7 +239,7 @@ class LicitacoesController extends AppController
             ]);
 
             $this->redirect(['action' => 'index']);
-        }  
+        }
     }
 
     protected function insert()
@@ -254,12 +254,12 @@ class LicitacoesController extends AppController
 
             $arquivo = $this->request->getData('arquivo');
             $entity->edital = $this->salvarArquivo($arquivo);
-        
+
             $t_licitacoes->save($entity);
             $this->Flash->greatSuccess('Licitação salva com sucesso.');
 
             $propriedades = $entity->getOriginalValues();
-            
+
             $auditoria = [
                 'ocorrencia' => 24,
                 'descricao' => 'O usuário criou uma nova licitação.',
@@ -295,7 +295,7 @@ class LicitacoesController extends AppController
             $t_licitacoes = TableRegistry::get('Licitacao');
             $entity = $t_licitacoes->get($id);
 
-            $antigo_arquivo = $entity->arquivo;
+            $antigo_arquivo = $entity->edital;
 
             $t_licitacoes->patchEntity($entity, $this->request->data());
 
@@ -303,7 +303,7 @@ class LicitacoesController extends AppController
             $entity->dataTermino = $this->Format->mergeDateDB($entity->data_termino, $entity->hora_termino);
 
             $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
-            
+
             if($enviaArquivo)
             {
                 $this->removerArquivo($antigo_arquivo);
@@ -383,10 +383,10 @@ class LicitacoesController extends AppController
             $maximo = round($maximo / $divisor, 0);
 
             $mensagem = "O tamaho do arquivo enviado é muito grande. O tamanho máximo do arquivo é de $maximo MB.";
-            
+
             throw new Exception($mensagem);
-        }   
-        
+        }
+
         $file->copy($diretorio . $novo_nome, true);
 
         return $url_relativa . $novo_nome;
