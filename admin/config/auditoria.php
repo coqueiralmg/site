@@ -61,7 +61,10 @@ return [
             56 => 'Exclusão de Relatórios de Diárias',
             57 => 'Inclusão de Concurso Público ou Processo Seletivo',
             58 => 'Alteração de Concurso Público ou Processo Seletivo',
-            59 => 'Exclusão de Concurso Público ou Processo Seletivo'
+            59 => 'Exclusão de Concurso Público ou Processo Seletivo',
+            60 => 'Inclusão de Documento de Concurso Público ou Processo Seletivo',
+            61 => 'Edição de Documento de Concurso Público ou Processo Seletivo',
+            62 => 'Exclusão de Documento de Concurso Público ou Processo Seletivo'
         ]
     ]
 ];
