@@ -25,6 +25,7 @@ return [
             'licitacoes' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'licitacao-edital' . DS,
             'diarias' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'relatorios-diaria' . DS,
             'noticias' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'noticia-foto' . DS . 'large' . DS,
+            'concursos' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'concurso-documento' . DS,
             'bannerHome' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'slides' . DS . 'home' . DS
         ],
         'urls' => [
@@ -33,6 +34,7 @@ return [
             'licitacoes' => 'public/storage/licitacao-edital/',
             'diarias' => 'public/storage/relatorios-diaria/',
             'noticias' => 'public/storage/noticia-foto/large/',
+            'concursos' => 'public/storage/concurso-documento/',
             'bannerHome' => 'public/slides/home/'
         ]
     ]
