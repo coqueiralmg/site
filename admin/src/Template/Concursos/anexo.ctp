@@ -31,6 +31,7 @@
                                 'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
                             ]) ?>
                             <?= $this->Flash->render() ?>
+                            <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
                             <?= $this->Form->hidden('concurso', ['value' => $concurso->id]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
@@ -64,7 +65,7 @@
                                     <div id="panel_arquivo">
                                         <div class="col-md-9">
                                             <div class="form-group form-file-upload is-fileinput">
-                                                Arquivo atual: <?=$this->Html->link($licitacao->titulo, '/../' . $licitacao->edital, ['target' => '_blank'])?>
+                                                Arquivo atual: <?=$this->Html->link($documento->descricao, '/../' . $documento->arquivo, ['target' => '_blank'])?>
                                             </div>
                                         </div>
                                         <div class="col-md-3">

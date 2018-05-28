@@ -79,27 +79,39 @@ class DocumentosController extends AppController
 
     protected function update(int $id)
     {
+        $idConcurso = $this->request->getData('concurso');
+
         try
         {
-            $t_concursos = TableRegistry::get('Concurso');
-            $entity = $t_concursos->get($id);
+            $t_documentos = TableRegistry::get('Documento');
+            $entity = $t_documentos->get($id);
 
-            $t_concursos->patchEntity($entity, $this->request->data());
+            $antigo_arquivo = $entity->arquivo;
 
-            $entity->inscricaoInicio = $this->Format->formatDateDB($entity->inscricao_inicio);
-            $entity->inscricaoFim = $this->Format->formatDateDB($entity->inscricao_fim);
-            $entity->dataProva = $this->Format->formatDateDB($entity->data_prova);
+            $t_documentos->patchEntity($entity, $this->request->data());
+
+            $entity->data = $this->Format->formatDateDB($entity->data);
+            $entity->concurso = $idConcurso;
+
+            $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
+
+            if($enviaArquivo)
+            {
+                $this->removerArquivo($antigo_arquivo);
+                $arquivo = $this->request->getData('arquivo');
+                $entity->arquivo = $this->salvarArquivo($arquivo);
+            }
 
             $propriedades = $this->Auditoria->changedOriginalFields($entity);
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
 
-            $t_concursos->save($entity);
-            $this->Flash->greatSuccess('O concurso ou processo seletivo foi salvo com sucesso.');
+            $t_documentos->save($entity);
+            $this->Flash->greatSuccess('O anexo do concurso foi salvo com sucesso.');
 
             $auditoria = [
-                'ocorrencia' => 58,
-                'descricao' => 'O usuário editou uma concurso ou um processo seletivo.',
-                'dado_adicional' => json_encode(['concurso_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'ocorrencia' => 61,
+                'descricao' => 'O usuário editou o anexo do concurso ou processo seletivo.',
+                'dado_adicional' => json_encode(['documento_anexo_modificado' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
@@ -110,7 +122,7 @@ class DocumentosController extends AppController
                 $this->Monitoria->monitorar($auditoria);
             }
 
-            $this->redirect(['action' => 'cadastro', $id]);
+            $this->redirect(['controller' => 'concursos', 'action' => 'anexo', $id, '?' => ['idConcurso' => $idConcurso]]);
         }
         catch(Exception $ex)
         {
@@ -120,7 +132,7 @@ class DocumentosController extends AppController
                 ]
             ]);
 
-            $this->redirect(['action' => 'cadastro', 0]);
+            $this->redirect(['controller' => 'concursos', 'action' => 'anexo', $id, '?' => ['idConcurso' => $idConcurso]]);
         }
     }
 
