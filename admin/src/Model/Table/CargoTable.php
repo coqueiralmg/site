@@ -6,7 +6,7 @@ class CargoTable extends BaseTable
 {
     public function initialize(array $config)
     {
-        $this->table('documentos');
+        $this->table('cargos');
         $this->primaryKey('id');
         $this->entityClass('Cargo');
 
