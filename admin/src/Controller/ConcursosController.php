@@ -414,6 +414,13 @@ class ConcursosController extends AppController
         $this->set('concurso', $concurso);
     }
 
+    public function cargos(int $id)
+    {
+        $t_concursos = TableRegistry::get('Concurso');
+        $t_cargos = TableRegistry::get('Cargo');
+
+    }
+
     protected function insert()
     {
         try
