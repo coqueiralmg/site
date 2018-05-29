@@ -376,6 +376,7 @@ class ConcursosController extends AppController
         ])->count();
 
         $this->set('title', $titulo);
+        $this->set('subtitle', $subtitulo);
         $this->set('icon', 'content_paste');
         $this->set('concurso', $concurso);
         $this->set('documentos', $documentos);
