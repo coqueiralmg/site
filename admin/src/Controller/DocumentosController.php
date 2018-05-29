@@ -28,6 +28,37 @@ class DocumentosController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        $t_documentos = TableRegistry::get('Documento');
+
+        $marcado = $t_documentos->get($id);
+        $descricao = $marcado->descricao;
+        $concurso = $marcado->concurso;
+
+        $propriedades = $marcado->getOriginalValues();
+
+        $t_documentos->delete($marcado);
+
+        $this->Flash->greatSuccess('O documento ' . $descricao . ' foi excluído com sucesso!');
+
+        $auditoria = [
+            'ocorrencia' => 62,
+            'descricao' => 'O usuário excluiu um documento anexo de concurso ou um processo seletivo.',
+            'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->redirect(['controller' => 'concursos', 'action' => 'anexos', $concurso]);
+    }
+
     protected function insert()
     {
         $idConcurso = $this->request->getData('concurso');
