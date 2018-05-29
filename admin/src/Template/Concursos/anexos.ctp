@@ -1,4 +1,4 @@
-<?= $this->Html->script('controller/concursos.lista.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('controller/concursos.anexos.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -20,34 +20,30 @@
                 <div class="card">
                     <div class="card-content table-responsive">
                         <?php if($qtd_total > 0):?>
-                            <h4 class="card-title">Lista de Concursos Públicos e Processos Seletivos</h4>
+                            <h4 class="card-title"><?=$subtitle?></h4>
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
-                                        <th>Número</th>
+                                        <th>Data</th>
                                         <th>Descrição</th>
-                                        <th>Período de Inscrição</th>
-                                        <th>Data da Prova</th>
-                                        <th>Status</th>
+                                        <th>Ativo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($concursos as $concurso): ?>
+                                    <?php foreach ($documentos as $documento): ?>
                                         <tr>
-                                            <td><?=$concurso->numero?></td>
-                                            <td><?=$concurso->titulo?></td>
-                                            <td><?=$this->Format->date($concurso->inscricaoInicio)?> à <?=$this->Format->date($concurso->inscricaoFim)?></td>
-                                            <td><?=$this->Format->date($concurso->dataProva)?></td>
-                                            <td><?=$concurso->status->nome?></td>
+                                            <td><?=$this->Format->date($documento->data)?></td>
+                                            <td><?=$documento->descricao?></td>
+                                            <td><?=$documento->ativado?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_concurso")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'edit', $concurso->id]) ?>" class="btn btn-primary btn-round">
+                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'anexo', $documento->id, '?' => ['idConcurso' => $id]]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if ($this->Membership->handleRole("excluir_concurso")): ?>
-                                                    <button type="button" onclick="excluirConcurso(<?= $concurso->id ?>, '<?= $concurso->numero ?>', '<?= $concurso->titulo ?>', '<?= $concurso->tipo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <button type="button" onclick="excluirDocumentoConcurso(<?= $documento->id ?>, '<?= $documento->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
