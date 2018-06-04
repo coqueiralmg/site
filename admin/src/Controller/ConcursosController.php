@@ -418,7 +418,47 @@ class ConcursosController extends AppController
     {
         $t_concursos = TableRegistry::get('Concurso');
         $t_cargos = TableRegistry::get('Cargo');
+        $limite_paginacao = Configure::read('Pagination.limit');
 
+        $concurso = $t_concursos->get($id);
+        $titulo = $subtitulo = '';
+
+        $condicoes = [
+            'concurso' => $id
+        ];
+
+        if($concurso->tipo == 'CP')
+        {
+            $titulo = 'Cargos do Concurso Público';
+            $subtitulo = 'Cargos para o Concurso Público ' . $concurso->numero . ' - ' . $concurso->titulo;
+        }
+        elseif($concurso->tipo == 'PS')
+        {
+            $titulo = 'Cargos do Processo Seletivo';
+            $subtitulo = 'Cargos para o Processo Seletivo ' . $concurso->numero . ' - ' . $concurso->titulo;
+        }
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ];
+
+        $cargos = $this->paginate($t_cargos);
+
+        $qtd_total = $t_cargos->find('all', [
+            'conditions' => $condicoes
+        ])->count();
+
+        $this->set('title', $titulo);
+        $this->set('subtitle', $subtitulo);
+        $this->set('icon', 'content_paste');
+        $this->set('id', $id);
+        $this->set('cargos', $cargos);
+        $this->set('concurso', $concurso);
+        $this->set('qtd_total', $qtd_total);
     }
 
     protected function insert()
