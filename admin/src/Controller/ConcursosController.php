@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\I18n\Number;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 use \Exception;
@@ -459,6 +460,36 @@ class ConcursosController extends AppController
         $this->set('cargos', $cargos);
         $this->set('concurso', $concurso);
         $this->set('qtd_total', $qtd_total);
+    }
+
+    public function cargo(int $id)
+    {
+        $title = ($id > 0) ? 'Edição de Cargo' : 'Novo Cargo';
+
+        $t_concursos = TableRegistry::get('Concurso');
+        $t_cargos = TableRegistry::get('Cargo');
+
+        $idConcurso = $this->request->query('idConcurso');
+
+        $concurso = $t_concursos->get($idConcurso);
+
+        if($id > 0)
+        {
+            $cargo = $t_cargos->get($id);
+
+            $cargo->vencimento = Number::precision($cargo->vencimento, 2);
+
+            $this->set('cargo', $cargo);
+        }
+        else
+        {
+            $this->set('cargo', null);
+        }
+
+        $this->set('title', $title);
+        $this->set('icon', 'content_paste');
+        $this->set('id', $id);
+        $this->set('concurso', $concurso);
     }
 
     protected function insert()
