@@ -2,11 +2,22 @@ var modificado = false;
 
 $(function () {
 
-    $("input").change(function(){
-        autosave();
+    $('#vencimento').mask("#.##0,00", {reverse: true});
+    $('#taxaInscricao').mask("#.##0,00", {reverse: true});
+
+    CKEDITOR.replace('atribuicoes', {
+        height: 300
     });
 
-    if(hasCache('documentoConcurso', idDocumentoConcurso)) {
+    CKEDITOR.replace('observacoes', {
+        height: 150
+    });
+
+    $("input").change(function(){
+        //autosave();
+    });
+
+    if(hasCache('cargoConcurso', idDocumentoConcurso)) {
         $("#cadastro_info").show('fade');
     }
 

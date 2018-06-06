@@ -66,35 +66,55 @@
                                 <div class="col-md-2">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("vagasTotal", "Total de Vagas") ?>
-                                        <?= $this->Form->number("vagasTotal", ["id" => "vagasTotal", "class" => "form-control", "rows" => 2, "maxlength" => 3]) ?>
+                                        <?= $this->Form->number("vagasTotal", ["id" => "vagasTotal", "class" => "form-control", "maxlength" => 3]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("vagaspcd", "Vagas PCD") ?>
-                                        <?= $this->Form->number("vagaspcd", ["id" => "vagaspcd", "class" => "form-control", "rows" => 2, "maxlength" => 3]) ?>
+                                        <?= $this->Form->number("vagaspcd", ["id" => "vagaspcd", "class" => "form-control", "maxlength" => 3]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("cargaHoraria", "Carga Horária (H/sem)") ?>
-                                        <?= $this->Form->text("cargaHoraria", ["id" => "cargaHoraria", "class" => "form-control", "rows" => 2, "maxlength" => 300]) ?>
+                                        <?= $this->Form->number("cargaHoraria", ["id" => "cargaHoraria", "class" => "form-control", "maxlength" => 300]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("vencimento", "Vencimento") ?>
-                                        <?= $this->Form->text("vencimento", ["id" => "vencimento", "class" => "form-control", "rows" => 2, "maxlength" => 300]) ?>
+                                        <?= $this->Form->text("vencimento", ["id" => "vencimento", "class" => "form-control text-right", "maxlength" => 300]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("taxaInscricao", "Taxa de Inscrição") ?>
-                                        <?= $this->Form->text("taxaInscricao", ["id" => "taxaInscricao", "class" => "form-control", "rows" => 2, "maxlength" => 300]) ?>
+                                        <?= $this->Form->text("taxaInscricao", ["id" => "taxaInscricao", "class" => "form-control text-right", "maxlength" => 300]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("atribuicoes", "Atribuições do Cargo") ?>
+                                        <?= $this->Form->textarea("atribuicoes", ["id" => "atribuicoes", "class" => "form-control", "maxlength" => 300]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("observacoes", "Informações e Outras Observaçoes Adicionais") ?>
+                                        <?= $this->Form->textarea("observacoes", ["id" => "observacoes", "class" => "form-control", "maxlength" => 300]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
