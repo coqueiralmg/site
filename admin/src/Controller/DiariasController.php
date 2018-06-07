@@ -273,6 +273,7 @@ class DiariasController extends AppController
             $entity->dataAutorizacao = $this->obterDataAutorizacao($entity->dataAutorizacao);
             $entity->periodoInicio = $this->Format->formatDateDB($entity->periodoInicio);
             $entity->periodoFim = $this->Format->formatDateDB($entity->periodoFim);
+            $entity->valor = $this->Format->decimal($entity->valor);
 
             $arquivo = $this->request->getData('arquivo');
             $entity->documento = $this->salvarArquivo($arquivo);
