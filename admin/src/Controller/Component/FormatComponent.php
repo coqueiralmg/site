@@ -46,7 +46,7 @@ class FormatComponent extends Component
     {
         var_dump($data);
         $pivot = new Date($data);
-        
+
         return $pivot->format('d/m/Y');
     }
 
@@ -71,5 +71,18 @@ class FormatComponent extends Component
     public function zeroPad(string $value, int $lenght = 7)
     {
         return str_pad($value, $lenght, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Formata o número decimal para que seja salvo no banco de dados ou em outro tipo de método de armazenamento.
+     * @param $value Valor formatado para telas
+     * @return Valor formatado para salvar em banco de dados.
+     */
+    public function decimal($value)
+    {
+        $valor = str_replace('.', '', $value);
+        $valor = str_replace(',', '.', $value);
+
+        return $valor;
     }
 }
