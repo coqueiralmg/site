@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\I18n\Number;
 use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 use \Exception;
@@ -36,16 +37,18 @@ class CargosController extends AppController
             $entity = $t_cargos->newEntity($this->request->data());
 
             $entity->concurso = $idConcurso;
+            $entity->vencimento = $this->Format->decimal($this->vencimento);
+            $entity->taxaInscricao = $this->Format->decimal($this->taxaInscricao);
 
-            $t_documentos->save($entity);
-            $this->Flash->greatSuccess('O anexo do concurso foi inserido com sucesso.');
+            $t_cargos->save($entity);
+            $this->Flash->greatSuccess('O cargo foi inserido com sucesso.');
 
             $propriedades = $entity->getOriginalValues();
 
             $auditoria = [
-                'ocorrencia' => 60,
-                'descricao' => 'O usuário adicionou o anexo do concurso ou processo seletivo.',
-                'dado_adicional' => json_encode(['id_novo_documento_concurso' => $entity->id, 'dados_anexo_concurso' => $propriedades]),
+                'ocorrencia' => 63,
+                'descricao' => 'O usuário adicionou o cargo a ser provido via concurso ou processo seletivo',
+                'dado_adicional' => json_encode(['id_novo_cargo_concurso' => $entity->id, 'dados_cargo_concurso' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
@@ -56,7 +59,7 @@ class CargosController extends AppController
                 $this->Monitoria->monitorar($auditoria);
             }
 
-            $this->redirect(['controller' => 'concursos', 'action' => 'anexo', $entity->id, '?' => ['idConcurso' => $entity->concurso]]);
+            $this->redirect(['controller' => 'concursos', 'action' => 'cargo', $entity->id, '?' => ['idConcurso' => $entity->concurso]]);
         }
         catch(Exception $ex)
         {
