@@ -1,6 +1,7 @@
 var modificado = false;
 
 $(function () {
+
     $("input, select, textarea").change(function(){
         autosave();
     });
@@ -14,6 +15,7 @@ $(function () {
             return "É possível que as alterações não estejam salvas.";
         }
     });
+
 });
 
 function restaurar() {
@@ -68,6 +70,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        removeCache();
         return true;
     } else {
         $("#lista_erro").show('shake');
