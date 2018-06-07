@@ -105,7 +105,7 @@
                                             <td><?= $this->Format->date($diaria->periodoInicio) ?></td>
                                             <td><?= $this->Format->date($diaria->periodoFim) ?></td>
                                             <td><?= $this->Format->date($diaria->dataAutorizacao) ?></td>
-                                            <td>R$ <?= $this->Format->precision($diaria->valor, 2) ?></td>
+                                            <td><?= $this->Format->currency($diaria->valor) ?></td>
                                             <td><?= $diaria->ativado ?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_diaria")): ?>
