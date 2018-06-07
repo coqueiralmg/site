@@ -64,7 +64,10 @@ return [
             59 => 'Exclusão de Concurso Público ou Processo Seletivo',
             60 => 'Inclusão de Documento de Concurso Público ou Processo Seletivo',
             61 => 'Edição de Documento de Concurso Público ou Processo Seletivo',
-            62 => 'Exclusão de Documento de Concurso Público ou Processo Seletivo'
+            62 => 'Exclusão de Documento de Concurso Público ou Processo Seletivo',
+            63 => 'Inclusão de Cargo a ser Provido no Concurso Público ou Processo Seletivo',
+            64 => 'Edição de Cargo a ser Provido no Concurso Público ou Processo Seletivo',
+            65 => 'Exclusão de Cargo a ser Provido no Concurso Público ou Processo Seletivo'
         ]
     ]
 ];
