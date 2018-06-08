@@ -37,8 +37,8 @@ class CargosController extends AppController
             $entity = $t_cargos->newEntity($this->request->data());
 
             $entity->concurso = $idConcurso;
-            $entity->vencimento = $this->Format->decimal($this->vencimento);
-            $entity->taxaInscricao = $this->Format->decimal($this->taxaInscricao);
+            $entity->vencimento = $this->Format->decimal($entity->vencimento);
+            $entity->taxaInscricao = $this->Format->decimal($entity->taxaInscricao);
 
             $t_cargos->save($entity);
             $this->Flash->greatSuccess('O cargo foi inserido com sucesso.');
