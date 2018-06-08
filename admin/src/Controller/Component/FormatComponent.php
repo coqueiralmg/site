@@ -81,7 +81,7 @@ class FormatComponent extends Component
     public function decimal($value)
     {
         $valor = str_replace('.', '', $value);
-        $valor = str_replace(',', '.', $value);
+        $valor = str_replace(',', '.', $valor);
 
         return $valor;
     }
