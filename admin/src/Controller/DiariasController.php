@@ -325,6 +325,7 @@ class DiariasController extends AppController
             $entity->dataAutorizacao = $this->Format->formatDateDB($entity->dataAutorizacao);
             $entity->periodoInicio = $this->Format->formatDateDB($entity->periodoInicio);
             $entity->periodoFim = $this->Format->formatDateDB($entity->periodoFim);
+            $entity->valor = $this->Format->decimal($entity->valor);
 
             $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
 
