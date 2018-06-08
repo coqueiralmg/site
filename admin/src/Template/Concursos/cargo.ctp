@@ -80,21 +80,21 @@
                                 <div class="col-md-2">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("cargaHoraria", "Carga Horária (H/sem)") ?>
-                                        <?= $this->Form->number("cargaHoraria", ["id" => "cargaHoraria", "class" => "form-control", "maxlength" => 300]) ?>
+                                        <?= $this->Form->number("cargaHoraria", ["id" => "cargaHoraria", "class" => "form-control", "maxlength" => 3]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("vencimento", "Vencimento") ?>
-                                        <?= $this->Form->text("vencimento", ["id" => "vencimento", "class" => "form-control text-right", "maxlength" => 300]) ?>
+                                        <?= $this->Form->text("vencimento", ["id" => "vencimento", "class" => "form-control text-right", "maxlength" => 9]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("taxaInscricao", "Taxa de Inscrição") ?>
-                                        <?= $this->Form->text("taxaInscricao", ["id" => "taxaInscricao", "class" => "form-control text-right", "maxlength" => 300]) ?>
+                                        <?= $this->Form->text("taxaInscricao", ["id" => "taxaInscricao", "class" => "form-control text-right", "maxlength" => 6]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
