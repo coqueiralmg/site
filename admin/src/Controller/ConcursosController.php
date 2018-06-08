@@ -478,6 +478,7 @@ class ConcursosController extends AppController
             $cargo = $t_cargos->get($id);
 
             $cargo->vencimento = Number::precision($cargo->vencimento, 2);
+            $cargo->taxaInscricao = Number::precision($cargo->taxaInscricao, 2);
 
             $this->set('cargo', $cargo);
         }
