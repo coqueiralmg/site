@@ -493,6 +493,84 @@ class ConcursosController extends AppController
         $this->set('concurso', $concurso);
     }
 
+    public function informativos(int $id)
+    {
+        $t_concursos = TableRegistry::get('Concurso');
+        $t_informativo = TableRegistry::get('Informativo');
+        $limite_paginacao = Configure::read('Pagination.limit');
+
+        $concurso = $t_concursos->get($id);
+        $titulo = $subtitulo = '';
+
+        $condicoes = [
+            'concurso' => $id
+        ];
+
+        if($concurso->tipo == 'CP')
+        {
+            $titulo = 'Informativos do Concurso Público';
+            $subtitulo = 'Informativo do Concurso Público ' . $concurso->numero . ' - ' . $concurso->titulo;
+        }
+        elseif($concurso->tipo == 'PS')
+        {
+            $titulo = 'Informativos do Processo Seletivo';
+            $subtitulo = 'Informativo do Processo Seletivo ' . $concurso->numero . ' - ' . $concurso->titulo;
+        }
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ];
+
+        $informativos = $this->paginate($t_informativo);
+
+        $qtd_total = $t_informativo->find('all', [
+            'conditions' => $condicoes
+        ])->count();
+
+        $this->set('title', $titulo);
+        $this->set('subtitle', $subtitulo);
+        $this->set('icon', 'content_paste');
+        $this->set('id', $id);
+        $this->set('informativos', $informativos);
+        $this->set('concurso', $concurso);
+        $this->set('qtd_total', $qtd_total);
+    }
+
+    public function informativo(int $id)
+    {
+        $title = ($id > 0) ? 'Edição de Informativo' : 'Novo Informativo';
+
+        $t_concursos = TableRegistry::get('Concurso');
+        $t_informativo = TableRegistry::get('Informativo');
+
+        $idConcurso = $this->request->query('idConcurso');
+
+        $concurso = $t_concursos->get($idConcurso);
+
+        if($id > 0)
+        {
+            $informativo = $t_informativo->get($id);
+
+            $informativo->data = $informativo->data->i18nFormat('dd/MM/yyyy');
+            $informativo->hora = $informativo->data->i18nFormat('HH:mm');
+
+            $this->set('informativo', $informativo);
+        }
+        else
+        {
+            $this->set('informativo', null);
+        }
+
+        $this->set('title', $title);
+        $this->set('icon', 'content_paste');
+        $this->set('id', $id);
+        $this->set('concurso', $concurso);
+    }
+
     protected function insert()
     {
         try
