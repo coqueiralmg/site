@@ -88,14 +88,14 @@ function validar() {
     var mensagem = "";
 
     if ($("#titulo").val() === "") {
-        mensagem += "<li> O título da licitação é obrigatório.</li>";
+        mensagem += "<li> O título da notícia é obrigatório.</li>";
         $("label[for='titulo']").css("color", "red");
     } else {
         $("label[for='titulo']").css("color", "#aaa");
     }
 
     if (CKEDITOR.instances.texto.getData() === "") {
-        mensagem += "<li> É obrigatório informar a descrição da licitação.</li>";
+        mensagem += "<li> É obrigatório informar o texto da notícia.</li>";
         $("label[for='texto']").css("color", "red");
     } else {
         $("label[for='texto']").css("color", "#aaa");
