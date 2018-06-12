@@ -38,20 +38,20 @@
                                     <?php foreach ($cargos as $cargo): ?>
                                         <tr>
                                             <td><?=$cargo->nome?></td>
-                                            <td><?=$cargo->vagasTotal?></td>
-                                            <td><?=$cargo->vagaspcd?></td>
+                                            <td><?=$cargo->vagas?></td>
+                                            <td><?=$cargo->PCD?></td>
                                             <td><?=$cargo->cargaHoraria?></td>
-                                            <td><?=$cargo->vencimento?></td>
-                                            <td><?=$cargo->taxaInscricao?></td>
+                                            <td><?=$this->Format->currency($cargo->vencimento)?></td>
+                                            <td><?=$this->Format->currency($cargo->taxaInscricao)?></td>
                                             <td><?=$cargo->ativado?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_concurso")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'anexo', $cargo->id, '?' => ['idConcurso' => $id]]) ?>" class="btn btn-primary btn-round">
+                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'cargo', $cargo->id, '?' => ['idConcurso' => $id]]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if ($this->Membership->handleRole("excluir_concurso")): ?>
-                                                    <button type="button" onclick="excluirDocumentoConcurso(<?= $cargo->id ?>, '<?= $cargo->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <button type="button" onclick="excluirCargoConcurso(<?= $cargo->id ?>, '<?= $cargo->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
