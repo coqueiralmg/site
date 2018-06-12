@@ -11,7 +11,7 @@
                             <?php
                             echo $this->Form->create($informativo, [
                                 "url" => [
-                                    "controller" => "noticias",
+                                    "controller" => "informativos",
                                     "action" => "save",
                                     $id
                                 ],
@@ -24,6 +24,13 @@
                                 'message' => 'Ocorreu um erro ao salvar o informativo do concurso ou processo seletivo',
                                 'details' => ''
                             ]) ?>
+                            <?php if($id == 0): ?>
+                                <?=$this->element('message', [
+                                    'name' => 'info',
+                                    'type' => 'info',
+                                    'message' => 'Deixe a data e hora em branco, para salvar o informativo com a data e hora corrente.'
+                                ]) ?>
+                            <?php endif; ?>
                             <?=$this->element('message', [
                                 'name' => 'cadastro_info',
                                 'type' => 'info',
@@ -86,7 +93,7 @@
                                 <button type="button" onclick="window.location='<?= $this->Url->build(['action' => 'add']) ?>'" class="btn btn-warning pull-right">Novo</button>
                             <?php endif; ?>
                             <button type="reset" class="btn btn-default pull-right">Limpar</button>
-                            <button type="button" onclick="window.location='<?= $this->Url->build('/noticias') ?>'" class="btn btn-info pull-right">Voltar</button>
+                            <button type="button" onclick="window.location='<?= $this->Url->build(['controller' => 'concursos', 'action' => 'informativos', $concurso->id]) ?>'" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
