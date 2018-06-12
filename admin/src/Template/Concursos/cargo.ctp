@@ -66,21 +66,21 @@
                                 <div class="col-md-2">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("vagasTotal", "Total de Vagas") ?>
-                                        <?= $this->Form->number("vagasTotal", ["id" => "vagasTotal", "class" => "form-control", "maxlength" => 3]) ?>
+                                        <?= $this->Form->number("vagasTotal", ["id" => "vagasTotal", "class" => "form-control", "min" => 0, "size" => 3]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("vagaspcd", "Vagas PCD") ?>
-                                        <?= $this->Form->number("vagaspcd", ["id" => "vagaspcd", "class" => "form-control", "maxlength" => 3]) ?>
+                                        <?= $this->Form->number("vagaspcd", ["id" => "vagaspcd", "class" => "form-control", "min" => 0, "size" => 3]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("cargaHoraria", "Carga Horária (H/sem)") ?>
-                                        <?= $this->Form->number("cargaHoraria", ["id" => "cargaHoraria", "class" => "form-control", "maxlength" => 3]) ?>
+                                        <?= $this->Form->number("cargaHoraria", ["id" => "cargaHoraria", "class" => "form-control", "min" => 0, "size" => 2]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
