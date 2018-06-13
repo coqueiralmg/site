@@ -555,8 +555,10 @@ class ConcursosController extends AppController
         {
             $informativo = $t_informativo->get($id);
 
-            $informativo->data = $informativo->data->i18nFormat('dd/MM/yyyy');
-            $informativo->hora = $informativo->data->i18nFormat('HH:mm');
+            $data = $informativo->data;
+
+            $informativo->data = $data->i18nFormat('dd/MM/yyyy');
+            $informativo->hora = $data->i18nFormat('HH:mm');
 
             $this->set('informativo', $informativo);
         }
