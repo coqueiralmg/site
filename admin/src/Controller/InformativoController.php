@@ -8,7 +8,7 @@ use Cake\Network\Session;
 use Cake\ORM\TableRegistry;
 use \Exception;
 
-class CargosController extends AppController
+class InformativoController extends AppController
 {
     public function initialize()
     {
@@ -37,6 +37,8 @@ class CargosController extends AppController
             $entity = $t_informativo->newEntity($this->request->data());
 
             $entity->concurso = $idConcurso;
+            $entity->data = $this->obterDataPostagem($entity->data, $entity->hora);
+
             $t_informativo->save($entity);
             $this->Flash->greatSuccess('O informativo relativo a concurso foi inserido com sucesso.');
 
