@@ -7,6 +7,7 @@ $(function () {
 
     $('#data').mask('00/00/0000');
     $('#hora').mask('00:00');
+    $('#info').show();
 
     CKEDITOR.replace('texto');
 
