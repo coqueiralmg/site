@@ -38,12 +38,12 @@
                                             <td><?=$informativo->ativado?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_concurso")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'cargo', $cargo->id, '?' => ['idConcurso' => $id]]) ?>" class="btn btn-primary btn-round">
+                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'informativo', $informativo->id, '?' => ['idConcurso' => $id]]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if ($this->Membership->handleRole("excluir_concurso")): ?>
-                                                    <button type="button" onclick="excluirCargoConcurso(<?= $cargo->id ?>, '<?= $cargo->nome ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <button type="button" onclick="excluirCargoConcurso(<?= $informativo->id ?>, '<?= $informativo->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
