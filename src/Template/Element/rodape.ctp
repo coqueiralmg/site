@@ -3,7 +3,7 @@
 </div>
 <div class="col-sm-5">
     <ul class="pull-right">
-        <li><a href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'construcao', $this->Data->crypt(['mensagem' => 'O sistema encontra-se em manutenção, podendo retornar até o dia 7 de maio.'])])?>">Transparência</a></li>
+        <li><a href="http://www.municipalnet.com.br/fornecedorweb/portalTransparencia.php?cod=dHJhbnNwd2ViX2NvcXVlaXJhbA==" target="_blank">Transparência</a></li>
         <li><?=$this->Html->link('Política de Privacidade', ['controller' => 'pages', 'action' => 'privacidade'])?></li>
         <li><?=$this->Html->link('Contato', ['controller' => 'pages', 'action' => 'contato'])?></li>
     </ul>
