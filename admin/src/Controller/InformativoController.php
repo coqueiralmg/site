@@ -78,7 +78,35 @@ class InformativoController extends AppController
 
         try
         {
+            $t_informativo = TableRegistry::get('Informativo');
 
+            $entity = $t_informativo->get($id);
+            $t_cargos->patchEntity($entity, $this->request->data());
+
+            $entity->concurso = $idConcurso;
+            $entity->data = $this->obterDataPostagem($entity->data, $entity->hora);
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_informativo->save($entity);
+            $this->Flash->greatSuccess('O informativo foi alterado com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 67,
+                'descricao' => 'O usuário alterou o cargo a ser provido via concurso ou processo seletivo',
+                'dado_adicional' => json_encode(['id_cargo_concurso_modificado' => $entity->id, 'dados_cargo_concurso' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['controller' => 'concursos', 'action' => 'cargo', $entity->id, '?' => ['idConcurso' => $entity->concurso]]);
         }
         catch(Exception $ex)
         {
