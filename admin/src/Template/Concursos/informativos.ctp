@@ -33,7 +33,7 @@
                                 <tbody>
                                     <?php foreach ($informativos as $informativo): ?>
                                         <tr>
-                                            <td><?=$this->Format->date($informativo->data)?></td>
+                                            <td><?=$this->Format->date($informativo->data, true)?></td>
                                             <td><?=$informativo->titulo?></td>
                                             <td><?=$informativo->ativado?></td>
                                             <td class="td-actions text-right">
