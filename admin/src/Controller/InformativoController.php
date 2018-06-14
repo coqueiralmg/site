@@ -81,7 +81,7 @@ class InformativoController extends AppController
             $t_informativo = TableRegistry::get('Informativo');
 
             $entity = $t_informativo->get($id);
-            $t_cargos->patchEntity($entity, $this->request->data());
+            $t_informativo->patchEntity($entity, $this->request->data());
 
             $entity->concurso = $idConcurso;
             $entity->data = $this->obterDataPostagem($entity->data, $entity->hora);
@@ -106,7 +106,7 @@ class InformativoController extends AppController
                 $this->Monitoria->monitorar($auditoria);
             }
 
-            $this->redirect(['controller' => 'concursos', 'action' => 'cargo', $entity->id, '?' => ['idConcurso' => $entity->concurso]]);
+            $this->redirect(['controller' => 'concursos', 'action' => 'informativo', $entity->id, '?' => ['idConcurso' => $entity->concurso]]);
         }
         catch(Exception $ex)
         {
