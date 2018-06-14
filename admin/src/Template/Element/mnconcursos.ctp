@@ -49,13 +49,13 @@
     </li>
     <li class="nav-item">
         <?php
-            if($this->Menu->activeMenu(['controller' => 'concursos', 'action' => 'documento']))
+            if($this->Menu->activeMenu(['controller' => 'concursos', 'action' => 'visualizar']))
             {
                 echo $this->Html->link("Visualizar e Imprimir", "#", ['class' => 'nav-link active show']);
             }
             else
             {
-                echo $this->Html->link("Visualizar e Imprimir", ['controller' => 'concursos', 'action' => 'documento', $id], ['class' => 'nav-link']);
+                echo $this->Html->link("Visualizar e Imprimir", ['controller' => 'concursos', 'action' => 'visualizar', $id], ['class' => 'nav-link']);
             }
         ?>
     </li>
