@@ -12,6 +12,7 @@
                         <?= $this->Flash->render() ?>
                         <div class="form-group form-button">
                             <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'informativo', 0, '?' => ['idConcurso' => $id]]) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                            <button type="button" onclick="window.location='<?= $this->Url->build('/concursos') ?>'" class="btn btn-info pull-right">Voltar</button>
                         </div>
                     </div>
                 </div>
