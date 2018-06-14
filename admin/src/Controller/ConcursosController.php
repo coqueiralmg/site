@@ -441,10 +441,7 @@ class ConcursosController extends AppController
 
         $this->paginate = [
             'limit' => $limite_paginacao,
-            'conditions' => $condicoes,
-            'order' => [
-                'data' => 'DESC'
-            ]
+            'conditions' => $condicoes
         ];
 
         $cargos = $this->paginate($t_cargos);
@@ -571,6 +568,46 @@ class ConcursosController extends AppController
         $this->set('icon', 'content_paste');
         $this->set('id', $id);
         $this->set('concurso', $concurso);
+    }
+
+    public function visualizar(int $id)
+    {
+        $t_concursos = TableRegistry::get('Concurso');
+        $t_documentos = TableRegistry::get('Documento');
+        $t_cargos = TableRegistry::get('Cargo');
+        $t_informativo = TableRegistry::get('Informativo');
+
+        $concurso = $t_concursos->get($id, ['contain' => 'StatusConcurso']);
+
+        $condicoes = [
+            'concurso' => $id
+        ];
+
+        $documentos = $t_documentos->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ]);
+
+        $informativo = $t_informativo->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'ASC'
+            ]
+        ]);
+
+        $cargos = $t_cargos->find('all', [
+            'conditions' => $condicoes
+        ]);
+
+        $this->set('title', 'Visualização de Dados do Concurso');
+        $this->set('icon', 'content_paste');
+        $this->set('concurso', $concurso);
+        $this->set('documentos', $documentos);
+        $this->set('informativo', $informativo);
+        $this->set('cargos', $cargos);
+        $this->set('id', $id);
     }
 
     protected function insert()
