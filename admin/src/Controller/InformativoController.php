@@ -27,6 +27,37 @@ class InformativoController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        $t_informativo = TableRegistry::get('Informativo');
+        $marcado = $t_informativo->get($id);
+
+        $titulo = $marcado->titulo;
+        $concurso = $marcado->concurso;
+
+        $propriedades = $marcado->getOriginalValues();
+
+        $t_informativo->delete($marcado);
+
+        $this->Flash->greatSuccess('O informativo com o título ' . $titulo . ' foi excluído com sucesso!');
+
+        $auditoria = [
+            'ocorrencia' => 68,
+            'descricao' => 'O usuário excluiu um informativo relativo ao concurso ou um processo seletivo.',
+            'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->redirect(['controller' => 'concursos', 'action' => 'informativos', $concurso]);
+    }
+
     protected function insert()
     {
         $idConcurso = $this->request->getData('concurso');
