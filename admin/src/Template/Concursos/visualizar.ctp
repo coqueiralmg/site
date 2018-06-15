@@ -26,26 +26,26 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                            <div class="form-group label-control">
-                                <?= $this->Form->label("inscricaoInicial", "Início das Inscrições") ?><br/>
-                                <?=$concurso->inscricaoInicio->i18nFormat('dd/MM/yyyy')?>
-                                <span class="material-input"></span>
+                                <div class="form-group label-control">
+                                    <?= $this->Form->label("inscricaoInicial", "Início das Inscrições") ?><br/>
+                                    <?=$concurso->inscricaoInicio->i18nFormat('dd/MM/yyyy')?>
+                                    <span class="material-input"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group label-control">
-                                <?= $this->Form->label("inscricaoFinal", "Término das Inscrições") ?><br/>
-                                <?=$concurso->inscricaoFim->i18nFormat('dd/MM/yyyy')?>
-                                <span class="material-input"></span>
+                            <div class="col-md-3">
+                                <div class="form-group label-control">
+                                    <?= $this->Form->label("inscricaoFinal", "Término das Inscrições") ?><br/>
+                                    <?=$concurso->inscricaoFim->i18nFormat('dd/MM/yyyy')?>
+                                    <span class="material-input"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group label-control">
-                                <?= $this->Form->label("prova", "Data da Prova") ?><br/>
-                                <?=$concurso->dataProva->i18nFormat('dd/MM/yyyy')?>
-                                <span class="material-input"></span>
+                            <div class="col-md-2">
+                                <div class="form-group label-control">
+                                    <?= $this->Form->label("prova", "Data da Prova") ?><br/>
+                                    <?=$concurso->dataProva->i18nFormat('dd/MM/yyyy')?>
+                                    <span class="material-input"></span>
+                                </div>
                             </div>
-                        </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
