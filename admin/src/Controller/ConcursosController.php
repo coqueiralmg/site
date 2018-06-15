@@ -299,6 +299,10 @@ class ConcursosController extends AppController
         try
         {
             $t_concursos = TableRegistry::get('Concurso');
+            $t_cargos = TableRegistry::get('Cargo');
+            $t_documentos = TableRegistry::get('Documento');
+            $t_informativo = TableRegistry::get('Informativo');
+
             $marcado = $t_concursos->get($id);
 
             $numero = $marcado->numero;
@@ -306,13 +310,19 @@ class ConcursosController extends AppController
 
             $propriedades = $marcado->getOriginalValues();
 
+            $opcoes = ['concurso' => $id];
+
+            $t_cargos->deleteAll($opcoes);
+            $t_documentos->deleteAll($opcoes);
+            $t_informativo->deleteAll($opcoes);
+
             $t_concursos->delete($marcado);
 
             $this->Flash->greatSuccess('O concurso ' . $numero . ' - ' . $titulo . ' foi excluído com sucesso!');
 
             $auditoria = [
                 'ocorrencia' => 59,
-                'descricao' => 'O usuário excluiu uma concurso ou um processo seletivo.',
+                'descricao' => 'O usuário excluiu uma concurso ou um processo seletivo, juntamente com todos os seus respectivos itens relacionados, como documentos, cargos e informativo.',
                 'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
@@ -660,6 +670,7 @@ class ConcursosController extends AppController
             $entity->inscricaoInicio = $this->Format->formatDateDB($entity->inscricao_inicio);
             $entity->inscricaoFim = $this->Format->formatDateDB($entity->inscricao_fim);
             $entity->dataProva = $this->Format->formatDateDB($entity->data_prova);
+            $entity->status = $this->request->getData('status');
 
             $t_concursos->save($entity);
             $this->Flash->greatSuccess('Este concurso ou processo seletivo encontra-se cadastrado com sucesso.');
@@ -706,6 +717,7 @@ class ConcursosController extends AppController
             $entity->inscricaoInicio = $this->Format->formatDateDB($entity->inscricao_inicio);
             $entity->inscricaoFim = $this->Format->formatDateDB($entity->inscricao_fim);
             $entity->dataProva = $this->Format->formatDateDB($entity->data_prova);
+            $entity->status = $this->request->getData('status');
 
             $propriedades = $this->Auditoria->changedOriginalFields($entity);
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
