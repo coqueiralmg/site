@@ -88,7 +88,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-content table-responsive">
-                    <?php if(count($cargos) > 0):?>
+                    <?php if($cargos->count() > 0):?>
                         <table class="table">
                             <thead class="text-primary">
                                 <tr>
@@ -130,7 +130,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-content table-responsive">
-                    <?php if(count($documentos) > 0):?>
+                    <?php if($documentos->count() > 0):?>
                         <table class="table">
                             <thead class="text-primary">
                                 <tr>
@@ -160,19 +160,21 @@
     </div>
 </div>
 
-<h4 class="card-title">Informativo do Concurso</h4>
-<div class="content">
-    <div class="container-fluid">
-        <?php foreach($informativo as $noticia): ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group label-control">
-                        <?= $this->Form->label("data", $this->Format->date($noticia->data, true) . ' | ' . $noticia->titulo) ?><br/>
-                        <?= $noticia->texto ?>
-                        <span class="material-input"></span>
+<?php if($informativo->count() > 0): ?>
+    <h4 class="card-title">Informativo do Concurso</h4>
+    <div class="content">
+        <div class="container-fluid">
+            <?php foreach($informativo as $noticia): ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group label-control">
+                            <?= $this->Form->label("data", $this->Format->date($noticia->data, true) . ' | ' . $noticia->titulo) ?><br/>
+                            <?= $noticia->texto ?>
+                            <span class="material-input"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
-</div>
+<?php endif; ?>

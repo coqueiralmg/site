@@ -97,7 +97,7 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-content table-responsive">
-                                        <?php if(count($cargos) > 0):?>
+                                        <?php if($cargos->count() > 0):?>
                                             <table class="table">
                                                 <thead class="text-primary">
                                                     <tr>
@@ -139,7 +139,7 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-content table-responsive">
-                                        <?php if(count($documentos) > 0):?>
+                                        <?php if($documentos->count() > 0):?>
                                             <table class="table">
                                                 <thead class="text-primary">
                                                     <tr>
@@ -173,20 +173,22 @@
                         </div>
                     </div>
 
-                    <div class="card-content">
-                        <legend>Informativo do Concurso</legend>
-                        <?php foreach($informativo as $noticia): ?>
-                            <div class="timeline-panel resposta" >
-                                <div class="timeline-heading">
-                                    <span class="label label-success"><?=$this->Format->date($noticia->data, true)?> | <?=$noticia->titulo?></span>
+                    <?php if($informativo->count() > 0): ?>
+                        <div class="card-content">
+                            <legend>Informativo do Concurso</legend>
+                            <?php foreach($informativo as $noticia): ?>
+                                <div class="timeline-panel resposta" >
+                                    <div class="timeline-heading">
+                                        <span class="label label-success"><?=$this->Format->date($noticia->data, true)?> | <?=$noticia->titulo?></span>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p><?=$noticia->texto?></p>
+                                    </div>
                                 </div>
-                                <div class="timeline-body">
-                                    <p><?=$noticia->texto?></p>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                        <div class="clearfix"></div>
-                    </div>
+                            <?php endforeach; ?>
+                            <div class="clearfix"></div>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="card-content">
                         <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'documento', $id]) ?>" class="btn btn-default btn-default pull-right" target="_blank">Imprimir<div class="ripple-container"></div></a>
