@@ -610,6 +610,46 @@ class ConcursosController extends AppController
         $this->set('id', $id);
     }
 
+    public function documento(int $id)
+    {
+        $t_concursos = TableRegistry::get('Concurso');
+        $t_documentos = TableRegistry::get('Documento');
+        $t_cargos = TableRegistry::get('Cargo');
+        $t_informativo = TableRegistry::get('Informativo');
+
+        $concurso = $t_concursos->get($id, ['contain' => 'StatusConcurso']);
+
+        $condicoes = [
+            'concurso' => $id
+        ];
+
+        $documentos = $t_documentos->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ]);
+
+        $informativo = $t_informativo->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'ASC'
+            ]
+        ]);
+
+        $cargos = $t_cargos->find('all', [
+            'conditions' => $condicoes
+        ]);
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Visualização de Dados do Concurso');
+        $this->set('concurso', $concurso);
+        $this->set('documentos', $documentos);
+        $this->set('informativo', $informativo);
+        $this->set('cargos', $cargos);
+    }
+
     protected function insert()
     {
         try
