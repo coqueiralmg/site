@@ -124,19 +124,19 @@
 <!--/#feature-->
 
 <section id="partner">
-        <div class="container">
-                <div class="center wow fadeInDown">
-                    <video onplay="registrarEventoVideo()" poster="videos/tour_coqueiral/tour_coqueiral.jpg" controls="controls">
-                        <source src="videos/tour_coqueiral/tour_coqueiral.webm" type="video/webm">
-                        <source src="videos/tour_coqueiral/tour_coqueiral.ogv" type="video/ogg">
-                        <source src="videos/tour_coqueiral/tour_coqueiral.mp4" type="video/mp4">
-                        <source src="videos/tour_coqueiral/tour_coqueiral_mobile.mp4" type="video/mp4">
-                        <source src="videos/tour_coqueiral/tour_coqueiral_mobile.3gp" type="video/3gpp; codecs='mp4v.20.8, samr''">
-                        <iframe src="https://player.vimeo.com/video/209560023" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                    </video>
-                </div>
-        </div><!--/.container-->
-    </section><!--/#partner-->
+    <div class="container">
+            <div class="center wow fadeInDown">
+                <video onplay="registrarEventoVideo()" poster="videos/tour_coqueiral/tour_coqueiral.jpg" controls="controls">
+                    <source src="videos/tour_coqueiral/tour_coqueiral.webm" type="video/webm">
+                    <source src="videos/tour_coqueiral/tour_coqueiral.ogv" type="video/ogg">
+                    <source src="videos/tour_coqueiral/tour_coqueiral.mp4" type="video/mp4">
+                    <source src="videos/tour_coqueiral/tour_coqueiral_mobile.mp4" type="video/mp4">
+                    <source src="videos/tour_coqueiral/tour_coqueiral_mobile.3gp" type="video/3gpp; codecs='mp4v.20.8, samr''">
+                    <iframe src="https://player.vimeo.com/video/209560023" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </video>
+            </div>
+    </div><!--/.container-->
+</section><!--/#partner-->
 
 <section id="recent-works">
     <div class="container">
