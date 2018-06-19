@@ -33,9 +33,38 @@ class ConcursosController extends AppController
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
+            'contain' => ['StatusConcurso'],
             'order' => [
                 'dataProva' => 'DESC'
             ]
         ];
+
+        $opcao_paginacao = [
+            'name' => 'concursos',
+            'name_singular' => 'concurso',
+            'predicate' => 'encontrados',
+            'singular' => 'econtrado'
+        ];
+
+        $concursos = $this->paginate($t_concursos);
+        $qtd_total = $t_concursos->find('all', ['conditions' => $conditions])->count();
+
+        $informativos = $t_informativo->find('all', [
+            'conditions' => [
+                'Informativo.ativo' => true
+            ],
+            'order' => [
+                'data' => 'DESC'
+            ],
+            'contain' => ['Concurso'],
+            'limit' => 10
+        ]);
+
+        $this->set('title', "Concursos Públicos e Processos");
+        $this->set('concursos', $concursos->toArray());
+        $this->set('informativos', $informativos->toArray());
+        $this->set('qtd_total', $qtd_total);
+        $this->set('limit_pagination', $limite_paginacao);
+        $this->set('opcao_paginacao', $opcao_paginacao);
     }
 }
