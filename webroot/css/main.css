@@ -293,7 +293,7 @@ input.search-form:hover {
 
 .navbar-brand img {
     max-height: 120px;
-        
+
 }
 
 .navbar {
@@ -820,7 +820,7 @@ input.search-form:hover {
     .busca {
         display: inline-block;
         width: 70%;
-    }   
+    }
 }
 
 .services-wrap {
@@ -2154,6 +2154,8 @@ textarea#message {
 
 .single_comments {
     margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 4px;
 }
 
 .single_comments img {
