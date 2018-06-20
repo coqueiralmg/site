@@ -87,6 +87,7 @@ try {
     Configure::load('auditoria');
     Configure::load('logentries');
     Configure::load('ouvidoria');
+    Configure::load('concursos');
 
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
