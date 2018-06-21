@@ -2858,3 +2858,11 @@ shortcodes page css
 #malert .buttons .btn {
     background-color: #009900;
 }
+
+.table tr th {
+    color: #4e4e4e;
+}
+
+.table tr td {
+    vertical-align: middle;
+}
