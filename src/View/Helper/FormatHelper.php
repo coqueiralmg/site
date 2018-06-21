@@ -87,4 +87,15 @@ class FormatHelper extends Helper
         return Number::precision($value, $precision);
     }
 
+    /**
+     * Formata o valor para aparecer em formato de moeda
+     * @param $value Valor em decimal
+     * @param $currency Código da moeda em padrão ISO
+     * @return string Valor formatado em moeda
+     */
+    public function currency($value, $currency = 'BRL')
+    {
+        return Number::currency($value, $currency);
+    }
+
 }
