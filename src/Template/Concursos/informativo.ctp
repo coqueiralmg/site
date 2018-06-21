@@ -15,6 +15,14 @@
                     <h3><?=($concurso->tipo == 'CP' ? 'Dados do Concurso' : 'Dados do Processo Seletivo')?></h3>
                     <div class="row">
                         <div class="col-md-12">
+                            <strong>Número:</strong>
+                            <span><?=$concurso->numero?></span>
+                        </div>
+                        <div class="col-md-12">
+                            <strong>Nome:</strong>
+                            <span><?=$concurso->titulo?></span>
+                        </div>
+                        <div class="col-md-12">
                             <strong>Status:</strong>
                             <span><?=$concurso->situacao?></span>
                         </div>
@@ -29,6 +37,9 @@
                         <div class="col-md-12">
                             <strong>Banca Organizadora:</strong>
                             <span><?= $this->Html->link($concurso->banca, $concurso->siteBanca, ['target' => '_blank', 'title' => 'Clique aqui para ir ao site da banca']) ?></span>
+                        </div>
+                        <div class="col-md-12" style="padding-top: 25px">
+                            <?= $this->Html->link('Ver Detalhes', ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success btn-sm pull-right']) ?>
                         </div>
                     </div>
                 </div>
