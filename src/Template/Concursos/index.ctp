@@ -25,12 +25,13 @@
                                 </div>
                             <?php endif; ?>
                         <?php endfor; ?>
-                        <br/>
-                        <?php if($movel):?>
-                            <?=$this->element('pagination_mobile', $opcao_paginacao) ?>
-                        <?php else:?>
-                            <?=$this->element('pagination', $opcao_paginacao) ?>
-                        <?php endif;?>
+                        <div class="item col-md-12">
+                            <?php if($movel):?>
+                                <?=$this->element('pagination_mobile', $opcao_paginacao) ?>
+                            <?php else:?>
+                                <?=$this->element('pagination', $opcao_paginacao) ?>
+                            <?php endif;?>
+                        </div>
                     <?php else: ?>
                         <p>Nenhum concurso disponível no momento!</p>
                     <?php endif; ?>
