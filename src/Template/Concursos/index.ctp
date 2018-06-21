@@ -42,7 +42,7 @@
                             <div class="col-sm-12">
                                 <?php foreach($informativos as $informativo): ?>
                                     <div class="single_comments">
-                                        <p><?=$this->Html->link('[' . $this->Format->date($informativo->data, true) . '] ' . $informativo->titulo, ['controller' => 'concursos', 'action' =>  'informativo', $concurso->id])?></p>
+                                        <p><?=$this->Html->link('[' . $this->Format->date($informativo->data, true) . '] ' . $informativo->titulo, ['controller' => 'concursos', 'action' =>  'informativo', $informativo->id])?></p>
                                         <div class="entry-meta small muted">
                                             <span>Em <?= $this->Html->link($informativo->concurso->numero . ' - ' . $informativo->concurso->titulo, ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id]) ?></span>
                                         </div>
