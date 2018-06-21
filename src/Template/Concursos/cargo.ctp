@@ -74,6 +74,9 @@
                             <strong>Banca Organizadora:</strong>
                             <span><?= $this->Html->link($concurso->banca, $concurso->siteBanca, ['target' => '_blank', 'title' => 'Clique aqui para ir ao site da banca']) ?></span>
                         </div>
+                        <div class="col-md-12" style="padding-top: 25px">
+                            <?= $this->Html->link('Ver Detalhes', ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success btn-sm pull-right']) ?>
+                        </div>
                     </div>
                 </div>
                 <?php if(count($informativos) > 0): ?>
