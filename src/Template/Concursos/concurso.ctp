@@ -37,7 +37,7 @@
                                                 <td class="text-right"><?=$this->Format->currency($cargo->vencimento)?></td>
                                                 <td class="text-right"><?=$this->Format->currency($cargo->taxaInscricao)?></td>
                                                 <td class="td-actions text-right">
-                                                    <a href="<?= $this->Url->build(['controller' => 'concursos', 'action' => 'cargo']) ?>" title="Ver Detalhes" class="btn btn-success btn-round">
+                                                    <a href="<?= $this->Url->build(['controller' => 'concursos', 'action' => 'cargo', $cargo->id]) ?>" title="Ver Detalhes" class="btn btn-success btn-round">
                                                         <i class="fa fa-file-text"></i>
                                                     </a>
                                                 </td>
@@ -46,7 +46,7 @@
                                     </tbody>
                                 </table>
                             <?php else: ?>
-                                <h4>Não existem cargos cadastrados para o <?= $concurso->tipo == 'CP' ? 'concurso público' : 'processo seletivo' ?> <?= $concurso->numero ?> - <?= $concurso->titulo ?>.</h4>
+                                <p>Não existem cargos cadastrados para o <?= $concurso->tipo == 'CP' ? 'concurso público' : 'processo seletivo' ?> <?= $concurso->numero ?> - <?= $concurso->titulo ?>.</p>
                             <?php endif; ?>
 
                             <legend>Documentos e Anexos</legend>
@@ -74,7 +74,7 @@
                                     </tbody>
                                 </table>
                             <?php else: ?>
-                                <h4>Não existem editais e documentos relacionados a <?= $concurso->tipo == 'CP' ? 'concurso público' : 'processo seletivo' ?> <?= $concurso->numero ?> - <?= $concurso->titulo ?>.</h4>
+                                <p>Não existem editais e documentos relacionados a <?= $concurso->tipo == 'CP' ? 'concurso público' : 'processo seletivo' ?> <?= $concurso->numero ?> - <?= $concurso->titulo ?>.</p>
                             <?php endif; ?>
                         </div>
                     </div>
