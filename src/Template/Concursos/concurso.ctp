@@ -20,7 +20,7 @@
                                         <tr>
                                             <th>Cargo</th>
                                             <th>Vagas Total</th>
-                                            <th>Vagas PCD</th>
+                                            <th title="Vagas ao portador de necessidades especiais">Vagas PCD</th>
                                             <th>Carga Horária</th>
                                             <th>Vencimento</th>
                                             <th>Taxa de Inscrição</th>
@@ -81,7 +81,7 @@
                 </div>
                 <!--/.blog-item-->
 
-                <!-- Go to www.addthis.com/dashboard to customize your tools --> <div class="addthis_inline_share_toolbox"></div>
+
             </div>
             <!--/.col-md-8-->
 
@@ -124,7 +124,7 @@
 
         </div>
         <!--/.row-->
-
+        <!-- Go to www.addthis.com/dashboard to customize your tools --> <div class="addthis_inline_share_toolbox"></div>
     </div>
     <!--/.blog-->
 
