@@ -79,7 +79,7 @@
                         </div>
                     </div>
                 </div>
-                <?php if(count($informativos) > 0): ?>
+                <?php if($informativos->count() > 0): ?>
                     <div class="widget categories">
                         <h3>Informativo</h3>
                         <div class="col-sm-12">
