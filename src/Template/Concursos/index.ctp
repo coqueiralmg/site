@@ -32,7 +32,7 @@
                             <?=$this->element('pagination', $opcao_paginacao) ?>
                         <?php endif;?>
                     <?php else: ?>
-                        <p>Nenhum concurso disponível!</p>
+                        <p>Nenhum concurso disponível no momento!</p>
                     <?php endif; ?>
                 </div>
                 <?php if(count($informativos) > 0): ?>
