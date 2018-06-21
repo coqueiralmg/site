@@ -67,4 +67,45 @@ class ConcursosController extends AppController
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
     }
+
+    public function concurso(string $slug)
+    {
+        $gate = explode('-', $slug);
+        $id = end($gate);
+
+        $t_concursos = TableRegistry::get('Concurso');
+        $t_documentos = TableRegistry::get('Documento');
+        $t_cargos = TableRegistry::get('Cargo');
+        $t_informativo = TableRegistry::get('Informativo');
+
+        $concurso = $t_concursos->get($id, ['contain' => 'StatusConcurso']);
+
+        $condicoes = [
+            'concurso' => $id
+        ];
+
+        $documentos = $t_documentos->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ]);
+
+        $informativos = $t_informativo->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'ASC'
+            ]
+        ]);
+
+        $cargos = $t_cargos->find('all', [
+            'conditions' => $condicoes
+        ]);
+
+        $this->set('title', $concurso->numero . ' - ' . $concurso->titulo);
+        $this->set('concurso', $concurso);
+        $this->set('documentos', $documentos);
+        $this->set('informativos', $informativos);
+        $this->set('cargos', $cargos);
+    }
 }
