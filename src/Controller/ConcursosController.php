@@ -81,7 +81,8 @@ class ConcursosController extends AppController
         $concurso = $t_concursos->get($id, ['contain' => 'StatusConcurso']);
 
         $condicoes = [
-            'concurso' => $id
+            'concurso' => $id,
+            'ativo' => true
         ];
 
         $documentos = $t_documentos->find('all', [
@@ -107,5 +108,29 @@ class ConcursosController extends AppController
         $this->set('documentos', $documentos);
         $this->set('informativos', $informativos);
         $this->set('cargos', $cargos);
+    }
+
+    public function cargo(int $id)
+    {
+        $t_cargos = TableRegistry::get('Cargo');
+        $t_informativo = TableRegistry::get('Informativo');
+
+        $cargo = $t_cargos->get($id, ['contain' => ['Concurso' => ['StatusConcurso']]]);
+        $concurso = $cargo->concurso;
+
+        $informativos = $t_informativo->find('all', [
+            'conditions' => [
+                'concurso' => $concurso->id,
+                'ativo' => true
+            ],
+            'order' => [
+                'data' => 'ASC'
+            ]
+        ]);
+
+        $this->set('title', $concurso->numero . ' - ' . $concurso->titulo);
+        $this->set('concurso', $concurso);
+        $this->set('cargo', $cargo);
+        $this->set('informativos', $informativos);
     }
 }
