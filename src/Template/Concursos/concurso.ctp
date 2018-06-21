@@ -9,11 +9,13 @@
                             <?= $concurso->descricao ?>
 
                             <?php if($concurso->observacoes != null && $concurso->observacoes != ''): ?>
-                                <legend>Observações</legend>
+                                <h4>Observações</h4>
+                                <hr/>
                                 <?= $concurso->observacoes ?>
                             <?php endif;?>
 
-                            <legend>Cargos</legend>
+                            <h4>Cargos</h4>
+                            <hr/>
                             <?php if($cargos->count() > 0):?>
                                 <table class="table table-striped">
                                     <thead class="text-primary">
@@ -49,7 +51,8 @@
                                 <p>Não existem cargos cadastrados para o <?= $concurso->tipo == 'CP' ? 'concurso público' : 'processo seletivo' ?> <?= $concurso->numero ?> - <?= $concurso->titulo ?>.</p>
                             <?php endif; ?>
 
-                            <legend>Documentos e Anexos</legend>
+                            <h4>Documentos e Anexos</h4>
+                            <hr/>
                             <?php if($documentos->count() > 0):?>
                                 <table class="table table-striped">
                                     <thead class="text-primary">
