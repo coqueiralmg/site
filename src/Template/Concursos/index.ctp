@@ -19,7 +19,7 @@
                                 <p style="font-weight: bold"><?= $concurso->situacao ?></p>
                                 <p>Inscrições: <?= $this->Format->date($concurso->inscricaoInicio) ?> à <?= $this->Format->date($concurso->inscricaoFim) ?></p>
                                 <p>Data da Prova: <?= $this->Format->date($concurso->dataProva) ?></p>
-                                <?= $this->Html->link('Detalhes', ['controller' => 'licitacoes', 'action' =>  'licitacao', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success']) ?>
+                                <?= $this->Html->link('Detalhes', ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success']) ?>
                             </div>
                             <?php if($i % 2 != 0): ?>
                                 </div>
