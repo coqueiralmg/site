@@ -53,9 +53,10 @@
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-
+        </div>
+        <div class="row">
             <?php if($total_licitacoes > 0): ?>
-                <div class="wow fadeInDown" style="display: inline-block">
+                <div class="col-md-12 wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Licitações</h2>
                     <?php foreach($licitacoes as $licitacao): ?>
                         <div class="col-md-12 col-lg-6">
@@ -67,9 +68,41 @@
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-
+        </div>
+        <div class="row">
+            <?php if($total_concursos > 0): ?>
+                <div class="col-md-12 wow fadeInDown" style="display: inline-block">
+                    <h2 id="tipo_busca">Concursos e Processos Seletivos</h2>
+                    <?php foreach($concursos as $concurso): ?>
+                        <div class="col-md-12 col-lg-6">
+                            <h3 class="media-heading" style="text-transform: uppercase;"><?= $concurso->numero ?> - <?= $concurso->titulo ?></h3>
+                            <p style="font-weight: bold"><?= $concurso->situacao ?></p>
+                            <p>Inscrições: <?= $this->Format->date($concurso->inscricaoInicio) ?> à <?= $this->Format->date($concurso->inscricaoFim) ?></p>
+                            <p>Data da Prova: <?= $this->Format->date($concurso->dataProva) ?></p>
+                            <?= $this->Html->link('Detalhes', ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success']) ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="row">
+            <?php if($total_informativos_concursos > 0): ?>
+                <div class="col-md-12 wow fadeInDown" style="display: inline-block">
+                    <h2 id="tipo_busca">Novidades Sobre Concursos e Processos Seletivos</h2>
+                    <?php foreach($informativos as $informativo): ?>
+                        <div class="col-md-12 col-lg-6">
+                            <h3 class="media-heading" style="text-transform: uppercase;"><?= $informativo->titulo ?></h3>
+                            <p style="font-weight: bold"><?= $this->Format->Date($informativo->data, true) ?></p>
+                            <p><?=$informativo->resumo?></p>
+                            <?= $this->Html->link('Detalhes', ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success']) ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="row">
             <?php if($total_legislacao > 0): ?>
-                <div class="wow fadeInDown" style="display: inline-block">
+                <div class="col-md-12 wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Legislação</h2>
                     <?php foreach($legislacao as $item): ?>
                         <div class="col-md-12 col-lg-6">
