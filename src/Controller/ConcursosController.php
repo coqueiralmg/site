@@ -133,4 +133,27 @@ class ConcursosController extends AppController
         $this->set('cargo', $cargo);
         $this->set('informativos', $informativos);
     }
+
+    public function informativo(int $id)
+    {
+        $t_informativo = TableRegistry::get('Informativo');
+
+        $informativo = $t_informativo->get($id, ['contain' => ['Concurso' => ['StatusConcurso']]]);
+        $concurso = $informativo->concurso;
+
+        $informativos = $t_informativo->find('all', [
+            'conditions' => [
+                'concurso' => $concurso->id,
+                'ativo' => true
+            ],
+            'order' => [
+                'data' => 'ASC'
+            ]
+        ]);
+
+        $this->set('title', $informativo->titulo);
+        $this->set('concurso', $concurso);
+        $this->set('informativo', $informativo);
+        $this->set('informativos', $informativos);
+    }
 }
