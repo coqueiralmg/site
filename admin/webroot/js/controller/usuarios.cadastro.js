@@ -16,7 +16,6 @@ $(function () {
 
     $("input, select, #ativo, #verificar").change(function(){
         autosave();
-        modificado = true;
     });
 
     if(hasCache('usuario', idUsuario)) {
@@ -70,11 +69,13 @@ function autosave() {
         }
     };
 
+    modificado = true;
     cacheSave('usuario', data);
 }
 
 function removeCache() {
     removeData('usuario', idUsuario);
+    modificado = false;
 }
 
 function validar() {
