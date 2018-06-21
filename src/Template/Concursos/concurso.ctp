@@ -1,7 +1,7 @@
 <section id="blog" class="container">
     <div class="blog">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="blog-item">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 blog-content">
@@ -24,17 +24,23 @@
                                             <th>Carga Horária</th>
                                             <th>Vencimento</th>
                                             <th>Taxa de Inscrição</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($cargos as $cargo): ?>
                                             <tr>
                                                 <td><?=$cargo->nome?></td>
-                                                <td><?=$cargo->vagas?></td>
-                                                <td><?=$cargo->PCD?></td>
-                                                <td><?=$cargo->cargaHoraria?></td>
-                                                <td><?=$this->Format->currency($cargo->vencimento)?></td>
-                                                <td><?=$this->Format->currency($cargo->taxaInscricao)?></td>
+                                                <td class="text-center"><?=$cargo->vagas?></td>
+                                                <td class="text-center"><?=$cargo->PCD?></td>
+                                                <td><?=$cargo->cargaHoraria?> (h/sem)</td>
+                                                <td class="text-right"><?=$this->Format->currency($cargo->vencimento)?></td>
+                                                <td class="text-right"><?=$this->Format->currency($cargo->taxaInscricao)?></td>
+                                                <td class="td-actions text-right">
+                                                    <a href="<?= $this->Url->build(['controller' => 'concursos', 'action' => 'cargo']) ?>" title="Ver Detalhes" class="btn btn-success btn-round">
+                                                        <i class="fa fa-file-text"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -79,7 +85,7 @@
             </div>
             <!--/.col-md-8-->
 
-            <aside class="col-md-4">
+            <aside class="col-md-3">
 
                 <div class="widget categories">
                     <h3>Dados Gerais</h3>
