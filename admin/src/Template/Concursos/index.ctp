@@ -107,6 +107,7 @@
                                         <th>Período de Inscrição</th>
                                         <th>Data da Prova</th>
                                         <th>Status</th>
+                                        <th>Ativo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -118,6 +119,7 @@
                                             <td><?=$this->Format->date($concurso->inscricaoInicio)?> à <?=$this->Format->date($concurso->inscricaoFim)?></td>
                                             <td><?=$this->Format->date($concurso->dataProva)?></td>
                                             <td><?=$concurso->status->nome?></td>
+                                            <td><?=$concurso->ativado?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_concurso")): ?>
                                                     <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'edit', $concurso->id]) ?>" class="btn btn-primary btn-round">
