@@ -33,7 +33,8 @@ class BuscaController extends AppController
 
             $licitacoes = $t_licitacoes->find('all', [
                 'conditions' => [
-                    'titulo LIKE' => '%' . $chave . '%'
+                    'titulo LIKE' => '%' . $chave . '%',
+                    'ativo' => true
                 ],
                 'order' => [
                     'id' => 'DESC'
@@ -42,7 +43,8 @@ class BuscaController extends AppController
 
             $total_licitacoes = $t_licitacoes->find('all', [
                 'conditions' => [
-                    'titulo LIKE' => '%' . $chave . '%'
+                    'titulo LIKE' => '%' . $chave . '%',
+                    'ativo' => true
                 ],
                 'order' => [
                     'id' => 'DESC'
@@ -51,7 +53,8 @@ class BuscaController extends AppController
 
             $legislacao = $t_legislacao->find('all', [
                 'conditions' => [
-                    'titulo LIKE' => '%' . $chave . '%'
+                    'titulo LIKE' => '%' . $chave . '%',
+                    'ativo' => true
                 ],
                 'order' => [
                     'data' => 'DESC'
@@ -60,7 +63,8 @@ class BuscaController extends AppController
 
             $total_legislacao = $t_legislacao->find('all', [
                 'conditions' => [
-                    'titulo LIKE' => '%' . $chave . '%'
+                    'titulo LIKE' => '%' . $chave . '%',
+                    'ativo' => true
                 ],
                 'order' => [
                     'data' => 'DESC'
@@ -69,7 +73,8 @@ class BuscaController extends AppController
 
             $noticias = $t_noticias->find('all', [
                 'conditions' => [
-                    'Post.titulo LIKE' => '%' . $chave . '%'
+                    'Post.titulo LIKE' => '%' . $chave . '%',
+                    'Post.ativo' => true
                 ],
                 'order' => [
                     'Post.dataPostagem' => 'DESC'
@@ -79,7 +84,8 @@ class BuscaController extends AppController
 
             $total_noticias = $t_noticias->find('all', [
                 'conditions' => [
-                    'Post.titulo LIKE' => '%' . $chave . '%'
+                    'Post.titulo LIKE' => '%' . $chave . '%',
+                    'Post.ativo' => true
                 ],
                 'order' => [
                     'Post.dataPostagem' => 'DESC'
@@ -89,7 +95,8 @@ class BuscaController extends AppController
 
             $concursos = $t_concursos->find('all', [
                 'conditions' => [
-                    'Concurso.titulo LIKE' => '%' . $chave . '%'
+                    'Concurso.titulo LIKE' => '%' . $chave . '%',
+                    'Concurso.ativo' => true
                 ],
                 'order' => [
                     'Concurso.dataProva' => 'DESC'
@@ -101,7 +108,8 @@ class BuscaController extends AppController
 
             $informativos = $t_informativo->find('all', [
                 'conditions' => [
-                    'Informativo.titulo LIKE' => '%' . $chave . '%'
+                    'Informativo.titulo LIKE' => '%' . $chave . '%',
+                    'Informativo.ativo' => true
                 ],
                 'order' => [
                     'Informativo.data' => 'DESC'
