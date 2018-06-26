@@ -59,7 +59,7 @@ class OuvidoriaController extends AppController
         {
             if($this->Cookie->check('iluminacao_manifestante'))
             {
-                $idManifestante = $this->Cookie->read('ouvidoria_manifestante');
+                $idManifestante = $this->Cookie->read('iluminacao_manifestante');
                 $manifestante = $this->obterManifestante($idManifestante);
             }
         }
