@@ -348,7 +348,7 @@ class SystemController extends AppController
 
     protected function bloquearAcesso()
     {
-        $login = $this->Cookie->read('login_user');
+        $login = $this->Cookie->read('Login.User');
         $t_usuario = TableRegistry::get('Usuario');
 
         $query = $t_usuario->find('all', [
