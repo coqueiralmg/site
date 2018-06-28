@@ -12,7 +12,7 @@ use Cake\ORM\TableRegistry;
 class MonitoriaComponent extends Component
 {
     public $components = ['Cookie', 'Sender', 'Auditoria'];
-    
+
     /*
     * Faz o registro de monitoramento, alertando os administradores
     *
@@ -20,7 +20,7 @@ class MonitoriaComponent extends Component
     public function monitorar(array $dados)
     {
         $emails = $this->buscarEmailsAdministradores();
-        
+
         $header = array(
             'name' => 'Segurança Coqueiral',
             'from' => 'security@coqueiral.mg.gov.br',
@@ -29,16 +29,16 @@ class MonitoriaComponent extends Component
         );
 
         $params = array(
-            'usuário' => $this->Cookie->read('login_user'),
+            'usuário' => $this->Cookie->read('Login.User'),
             'ip' => $_SERVER['REMOTE_ADDR'],
             'agent' => $_SERVER['HTTP_USER_AGENT'],
             'atividade' => $this->Auditoria->buscarNomeOcorrencia($dados['ocorrencia']),
             'descricao_atividade' => empty($dados['descricao']) ? 'Não informado' : $dados['descricao'],
-            'chave' => $this->montaChave($this->Cookie->read('login_user'), $_SERVER['REMOTE_ADDR'])
+            'chave' => $this->montaChave($this->Cookie->read('Login.User'), $_SERVER['REMOTE_ADDR'])
         );
 
         $this->Sender->sendEmailTemplate($header, 'monitoring', $params);
-        $this->Sender->sendMessage(null, $emails, 'Monitoramento de Atividade do Usuário Suspeito', 'O usuário suspeito ' . $this->Cookie->read('login_user') . ' executou a seguinte atividade: ' . $this->Auditoria->buscarNomeOcorrencia($dados['ocorrencia']) . ' - Com a seguinte descrição: ' . empty($dados['descricao']) ? 'Não informado' : $dados['descricao']);
+        $this->Sender->sendMessage(null, $emails, 'Monitoramento de Atividade do Usuário Suspeito', 'O usuário suspeito ' . $this->Cookie->read('Login.User') . ' executou a seguinte atividade: ' . $this->Auditoria->buscarNomeOcorrencia($dados['ocorrencia']) . ' - Com a seguinte descrição: ' . empty($dados['descricao']) ? 'Não informado' : $dados['descricao']);
     }
 
     /**
@@ -47,7 +47,7 @@ class MonitoriaComponent extends Component
     public function alertarTentativasIntermitentes()
     {
         $emails = $this->buscarEmailsAdministradores();
-        
+
         $header = array(
             'name' => 'Segurança Coqueiral',
             'from' => 'security@coqueiral.mg.gov.br',
@@ -56,14 +56,14 @@ class MonitoriaComponent extends Component
         );
 
         $params = array(
-            'usuário' => $this->Cookie->read('login_user'),
+            'usuário' => $this->Cookie->read('Login.User'),
             'ip' => $_SERVER['REMOTE_ADDR'],
             'agent' => $_SERVER['HTTP_USER_AGENT'],
-            'chave' => $this->montaChave($this->Cookie->read('login_user'), $_SERVER['REMOTE_ADDR'])
+            'chave' => $this->montaChave($this->Cookie->read('Login.User'), $_SERVER['REMOTE_ADDR'])
         );
 
         $this->Sender->sendEmailTemplate($header, 'hacking', $params);
-        $this->Sender->sendMenssage(null, $emails, 'Possível tentativa não autorizada de acesso ao Administrador do Site', 'Alguém está tentando acessar o administrador do site da Prefeitura Municipal de Coqueiral com este usuário' . $this->Cookie->read('login_user') .'. O mesmo pode ser bloqueado automaticamente, caso insista em acessar o sistema sem sucesso. O sistema poderá monitorar as atividades do usuário, caso ele consiga acessar com sucesso, enviando e-mail aos grupos administradores, em cada atividade feita. Endereço de IP: ' .  $_SERVER['REMOTE_ADDR']);
+        $this->Sender->sendMenssage(null, $emails, 'Possível tentativa não autorizada de acesso ao Administrador do Site', 'Alguém está tentando acessar o administrador do site da Prefeitura Municipal de Coqueiral com este usuário' . $this->Cookie->read('Login.User') .'. O mesmo pode ser bloqueado automaticamente, caso insista em acessar o sistema sem sucesso. O sistema poderá monitorar as atividades do usuário, caso ele consiga acessar com sucesso, enviando e-mail aos grupos administradores, em cada atividade feita. Endereço de IP: ' .  $_SERVER['REMOTE_ADDR']);
     }
 
     /**
@@ -72,7 +72,7 @@ class MonitoriaComponent extends Component
     public function alertarUsuarioBloqueado()
     {
         $emails = $this->buscarEmailsAdministradores();
-        
+
         $header = array(
             'name' => 'Segurança Coqueiral',
             'from' => 'security@coqueiral.mg.gov.br',
@@ -81,13 +81,13 @@ class MonitoriaComponent extends Component
         );
 
         $params = array(
-            'usuário' => $this->Cookie->read('login_user'),
+            'usuário' => $this->Cookie->read('Login.User'),
             'ip' => $_SERVER['REMOTE_ADDR'],
             'agent' => $_SERVER['HTTP_USER_AGENT']
         );
 
         $this->Sender->sendEmailTemplate($header, 'blocked', $params);
-        $this->Sender->sendMenssage(null, $emails, 'Acesso bloqueado ao Administrador da Prefeitura de Coqueiral', 'O usuário' . $this->Cookie->read('login_user') . ' encontra-se bloqueado no acesso ao sistema. Caso ele tenha tentado com usuário válido, o mesmo se encontrará suspenso.');
+        $this->Sender->sendMenssage(null, $emails, 'Acesso bloqueado ao Administrador da Prefeitura de Coqueiral', 'O usuário' . $this->Cookie->read('Login.User') . ' encontra-se bloqueado no acesso ao sistema. Caso ele tenha tentado com usuário válido, o mesmo se encontrará suspenso.');
     }
 
     /**
@@ -114,7 +114,7 @@ class MonitoriaComponent extends Component
 
     /**
     * Faz uma busca de todos os e-mails de administradores do sistema ativos.
-    * @return array Lista de e-mails de administradores 
+    * @return array Lista de e-mails de administradores
     */
     private function buscarEmailsAdministradores()
     {
