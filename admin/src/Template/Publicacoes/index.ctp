@@ -1,4 +1,4 @@
-<?= $this->Html->script('controller/licitacoes.lista.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('controller/publicacoes.lista.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -9,14 +9,14 @@
                         <?=$this->element('message', [
                             'name' => 'lista_erro',
                             'type' => 'error',
-                            'message' => 'Ocorreu um erro ao buscar as licitações',
+                            'message' => 'Ocorreu um erro ao buscar as publicações',
                             'details' => ''
                         ]) ?>
                         <h4 class="card-title">Buscar</h4>
                         <?php
-                        echo $this->Form->create("Licitacoes", [
+                        echo $this->Form->create("Publicacoes", [
                             "url" => [
-                                "controller" => "licitacoes",
+                                "controller" => "publicacoes",
                                 "action" => "index"
                             ],
                             'type' => 'get',
