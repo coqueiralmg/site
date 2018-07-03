@@ -93,6 +93,14 @@
                     </a>
                 </li>
             <?php endif; ?>
+            <?php if ($this->Membership->handleMenu("publicacoes")): ?>
+                <li class="<?= $this->Menu->activeMenu(['controller' => 'publicacoes']) ?>">
+                    <a href="<?= $this->Url->build('/publicacoes') ?>">
+                        <i class="material-icons">insert_drive_file</i>
+                        <p>Publicações</p>
+                    </a>
+                </li>
+            <?php endif; ?>
             <?php if ($this->Membership->handleMenu("diarias")): ?>
                 <li class="<?= $this->Menu->activeMenu(['controller' => 'diarias']) ?>">
                     <a href="<?= $this->Url->build('/diarias') ?>">
