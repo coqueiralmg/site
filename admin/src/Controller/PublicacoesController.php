@@ -92,4 +92,19 @@ class PublicacoesController extends AppController
         $this->set('opcao_paginacao', $opcao_paginacao);
         $this->set('data', $data);
     }
+
+    public function add()
+    {
+        $this->redirect(['action' => 'cadastro', 0]);
+    }
+
+    public function edit(int $id)
+    {
+        $this->redirect(['action' => 'cadastro', $id]);
+    }
+
+    public function cadastro(int $id)
+    {
+
+    }
 }
