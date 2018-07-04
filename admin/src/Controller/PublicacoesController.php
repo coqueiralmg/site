@@ -105,6 +105,23 @@ class PublicacoesController extends AppController
 
     public function cadastro(int $id)
     {
+        $title = ($id > 0) ? 'Edição de Publicação' : 'Nova Publicação';
+        $t_publicacoes = TableRegistry::get('Publicacao');
 
+        if($id > 0)
+        {
+            $publicacao = $t_publicacoes->get($id);
+            $publicacao->hora = $publicacao->data->i18nFormat('HH:mm');
+
+            $this->set('publicacao', $publicacao);
+        }
+        else
+        {
+            $this->set('publicacao', null);
+        }
+
+        $this->set('title', $title);
+        $this->set('icon', 'insert_drive_file');
+        $this->set('id', $id);
     }
 }
