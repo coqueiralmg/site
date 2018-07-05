@@ -1,4 +1,4 @@
-<?= $this->Html->script('controller/legislacao.lista.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('controller/publicacoes.lista.js', ['block' => 'scriptBottom']) ?>
 <section id="legislacao">
     <div class="container">
         <div class="center wow fadeInDown">
