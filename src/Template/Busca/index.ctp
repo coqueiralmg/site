@@ -114,5 +114,19 @@
                 </div>
             <?php endif; ?>
         </div>
+        <div class="row">
+            <?php if($total_publicacoes > 0): ?>
+                <div class="col-md-12 wow fadeInDown" style="display: inline-block">
+                    <h2 id="tipo_busca">Publicações</h2>
+                    <?php foreach($publicacoes as $item): ?>
+                        <div class="col-md-12 col-lg-6">
+                            <h3 class="media-heading"><?= $item->titulo ?></h3>
+                            <p><?= $item->resumo ?></p>
+                            <?= $this->Html->link('Veja mais', ['controller' => 'legislacao', 'action' =>  'documento', $item->id], ['class' => 'btn btn-success']) ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
 </section><!--/#error-->
