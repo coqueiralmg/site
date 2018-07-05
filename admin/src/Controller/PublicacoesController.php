@@ -198,6 +198,49 @@ class PublicacoesController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_publicacoes = TableRegistry::get('Publicacao');
+            $marcado = $t_publicacoes->get($id);
+
+            $propriedades = $marcado->getOriginalValues();
+
+            $this->removerArquivo($marcado->arquivo);
+
+            $t_publicacoes->delete($marcado);
+
+            $this->Flash->greatSuccess('A publicação foi excluída com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 71,
+                'descricao' => 'O usuário excluiu um documento da legislação.',
+                'dado_adicional' => json_encode(['legislacao_excluida' => $id, 'dados_legislacao_excluida' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir um documento da legislação.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'index']);
+        }
+    }
+
     protected function insert()
     {
         try
@@ -226,7 +269,7 @@ class PublicacoesController extends AppController
             $propriedades = $entity->getOriginalValues();
 
             $auditoria = [
-                'ocorrencia' => 21,
+                'ocorrencia' => 69,
                 'descricao' => 'O usuário criou uma nova publicação.',
                 'dado_adicional' => json_encode(['id_nova_publicacao' => $entity->id, 'dados_publicacao' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
@@ -285,7 +328,7 @@ class PublicacoesController extends AppController
             $this->Flash->greatSuccess('A publicação foi salva com sucesso.');
 
             $auditoria = [
-                'ocorrencia' => 22,
+                'ocorrencia' => 70,
                 'descricao' => 'O usuário editou uma publicação.',
                 'dado_adicional' => json_encode(['publicacao_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
                 'usuario' => $this->request->session()->read('UsuarioID')
