@@ -71,6 +71,9 @@ return [
             66 => 'Inclusão do Informativo Relacionado a Concurso Público ou Processo Seletivo',
             67 => 'Edição do Informativo Relacionado a Concurso Público ou Processo Seletivo',
             68 => 'Exclusão do Informativo Relacionado a Concurso Público ou Processo Seletivo',
+            69 => 'Inclusão de Publicação',
+            70 => 'Alteração de Publicação',
+            71 => 'Exclusão de Publicação'
         ]
     ]
 ];
