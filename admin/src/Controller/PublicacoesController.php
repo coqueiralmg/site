@@ -215,8 +215,8 @@ class PublicacoesController extends AppController
 
             $auditoria = [
                 'ocorrencia' => 71,
-                'descricao' => 'O usuário excluiu um documento da legislação.',
-                'dado_adicional' => json_encode(['legislacao_excluida' => $id, 'dados_legislacao_excluida' => $propriedades]),
+                'descricao' => 'O usuário excluiu uma publicação.',
+                'dado_adicional' => json_encode(['publicacao_excluida' => $id, 'dados_publicacao_excluida' => $propriedades]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 

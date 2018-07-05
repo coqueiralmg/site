@@ -55,7 +55,7 @@ function validar() {
     }
 }
 
-function excluir(id, titulo) {
+function excluirPublicacao(id, titulo) {
     swal({
         title: "Deseja excluir esta publicação?",
         html: "A exclusão da publicação com o título <b> " + titulo + "</b> irá tornar a operação irreversível.",
