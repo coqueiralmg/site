@@ -52,4 +52,13 @@ class PublicacoesController extends AppController
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
     }
+
+    public function publicacao(int $id)
+    {
+        $t_publicacoes = TableRegistry::get('Publicacao');
+        $publicacao = $t_publicacoes->get($id);
+
+        $this->set('title', $publicacao->titulo);
+        $this->set('publicacao', $publicacao);
+    }
 }
