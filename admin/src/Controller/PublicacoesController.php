@@ -96,6 +96,64 @@ class PublicacoesController extends AppController
         $this->set('data', $data);
     }
 
+    public function imprimir()
+    {
+        $t_publicacoes = TableRegistry::get('Publicacao');
+
+        $condicoes = array();
+
+        if (count($this->request->getQueryParams()) > 0)
+        {
+            $numero = $this->request->query('numero');
+            $titulo = $this->request->query('titulo');
+            $data_inicial = $this->request->query('data_inicial');
+            $data_final = $this->request->query('data_final');
+            $mostrar = $this->request->query('mostrar');
+
+            $condicoes['numero LIKE'] = '%' . $numero . '%';
+            $condicoes['titulo LIKE'] = '%' . $titulo . '%';
+
+            if ($data_inicial != "" && $data_final != "")
+            {
+                $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
+                $condicoes["data <="] = $this->Format->formatDateDB($data_final);
+            }
+
+            if ($mostrar != 'T')
+            {
+                $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
+            }
+        }
+
+        $publicacoes = $t_publicacoes->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'id' => 'DESC'
+            ]
+        ]);
+
+        $qtd_total = $publicacoes->count();
+
+        $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão da listagem de publicações.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if ($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Publicações');
+        $this->set('publicacoes', $publicacoes);
+        $this->set('qtd_total', $qtd_total);
+    }
+
     public function add()
     {
         $this->redirect(['action' => 'cadastro', 0]);
