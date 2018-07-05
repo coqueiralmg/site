@@ -11,7 +11,7 @@
                         <?php
                             echo $this->Form->create($publicacao, [
                                 "url" => [
-                                    "controller" => "publicacao",
+                                    "controller" => "publicacoes",
                                     "action" => "save",
                                     $id
                                 ],
