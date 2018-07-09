@@ -33,6 +33,7 @@ class PagesController extends AppController
         $t_noticia = TableRegistry::get('Noticia');
         $t_licitacoes = TableRegistry::get('Licitacao');
         $t_banners = TableRegistry::get('Banner');
+        $t_publicacoes = TableRegistry::get('Publicacao');
 
         $noticias = $t_noticia->find('all', [
             'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
@@ -47,6 +48,14 @@ class PagesController extends AppController
         $licitacoes = $t_licitacoes->find('ativo', [
             'order' => ['Licitacao.id' => 'DESC'],
             'limit' => 5
+        ]);
+
+        $publicacoes = $t_publicacoes->find('all', [
+            'order' => ['Publicacao.data' => 'DESC'],
+            'conditions' => [
+                'Publicacao.ativo' => true
+            ],
+            'limit' => 4
         ]);
 
         $banners = $t_banners->find('all', [
@@ -65,6 +74,7 @@ class PagesController extends AppController
 
          $this->set('noticias', $noticias);
          $this->set('licitacoes', $licitacoes);
+         $this->set('publicacoes', $publicacoes);
          $this->set('banners', $banners->toArray());
     }
 
