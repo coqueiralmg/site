@@ -257,3 +257,32 @@
         </div>
         <!--/.container-->
 </section>
+
+<?php if($publicacoes->count() > 0): ?>
+    <section id="conatcat-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="media contact-info wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <div class="pull-left">
+                            <i class="fa fa-archive"></i><br/>
+                            <?= $this->Html->link('Ver Todos', ['controller' => 'publicacoes', 'action' =>  'index']) ?>
+                        </div>
+                        <div class="media-body">
+                            <h2>Publicações Recentes</h2>
+                            <div class="row">
+                                <?php foreach($publicacoes as $publicacao): ?>
+                                    <div class="col-md-3">
+                                        <h3 class="media-heading" style="text-transform: uppercase;"><?=$publicacao->titulo?></h3>
+                                        <p><?=$publicacao->resumo?></p>
+                                        <?= $this->Html->link('Detalhes', ['controller' => 'publicacoes', 'action' =>  'publicacao', $publicacao->id], ['class' => 'btn btn-link pull-right']) ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            <div class="row">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/.container-->
+    </section><!--/#conatcat-info-->
+<?php endif; ?>
