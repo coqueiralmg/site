@@ -273,7 +273,7 @@
                             <div class="row">
                                 <?php foreach($publicacoes as $publicacao): ?>
                                     <div class="col-md-3">
-                                        <h3 class="media-heading" style="text-transform: uppercase;"><?=$publicacao->titulo?></h3>
+                                        <h3 class="media-heading" style="text-transform: uppercase; font-weight: bold"><?=$publicacao->titulo?></h3>
                                         <p><?=$publicacao->resumo?></p>
                                         <?= $this->Html->link('Detalhes', ['controller' => 'publicacoes', 'action' =>  'publicacao', $publicacao->id], ['class' => 'btn btn-link pull-right']) ?>
                                     </div>
