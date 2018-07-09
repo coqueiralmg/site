@@ -85,7 +85,17 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="/fale-conosco"  target="_blank">
+                    <a  href="http://www.municipalnet.com.br/fornecedorweb/portalTransparencia.php?cod=dHJhbnNwd2ViX2NvcXVlaXJhbA==" onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência');" target="_blank">
+                        <div class="feature-wrap">
+                            <i class="fa fa-files-o"></i>
+                            <h2>Transparência</h2>
+                            <h3>informações sobre o município</h3>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="/faleconosco">
                         <div class="feature-wrap">
                             <i class="fa fa-bullhorn"></i>
                             <h2>Ouvidoria</h2>
@@ -105,11 +115,31 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a  href="http://www.municipalnet.com.br/fornecedorweb/portalTransparencia.php?cod=dHJhbnNwd2ViX2NvcXVlaXJhbA==" onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência');" target="_blank">
+                    <a  href="/legislacao">
                         <div class="feature-wrap">
-                            <i class="fa fa-files-o"></i>
-                            <h2>Transparência</h2>
-                            <h3>informações sobre o município</h3>
+                            <i class="fa fa-gavel"></i>
+                            <h2>Legislação</h2>
+                            <h3>Legislação do Município de Coqueiral</h3>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="/publicacoes">
+                        <div class="feature-wrap">
+                            <i class="fa fa-archive"></i>
+                            <h2>Publicações</h2>
+                            <h3>Atos, convênios, editais, ofícios, entre outros.</h3>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="/concursos">
+                        <div class="feature-wrap">
+                            <i class="fa fa-clipboard"></i>
+                            <h2>Concursos</h2>
+                            <h3>Concursos públicos e processos seletivos</h3>
                         </div>
                     </a>
                 </div>
