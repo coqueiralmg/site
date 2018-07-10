@@ -6172,3 +6172,156 @@ table.dataTable > tbody > tr.child span.dtr-title {
 .nav-pills.nav-pills-icons .nav-item .nav-link {
     border-radius: 4px
 }
+
+.animation-transition-fast,.bootstrap-datetimepicker-widget table td span,.bootstrap-datetimepicker-widget table td>div,.bootstrap-datetimepicker-widget table th,.bootstrap-datetimepicker-widget table th>div,.bootstrap-tagsinput .tag,.bootstrap-tagsinput [data-role=remove],.index-page .section-cards .card,.navbar,.panel .panel-heading i,.presentation-page .section-cards .card,.product-page .flexi-nav>li a {
+    -webkit-transition:all 150ms ease 0s;
+    -moz-transition:all 150ms ease 0s;
+    -o-transition:all 150ms ease 0s;
+    -ms-transition:all 150ms ease 0s;
+    transition:all 150ms ease 0s
+ }
+
+.bootstrap-tagsinput .tag,footer ul li a {
+    font-weight:500;
+}
+
+.bootstrap-tagsinput input,.bootstrap-tagsinput input:focus {
+    border:none;
+    box-shadow:none
+}
+
+.bootstrap-tagsinput {
+    display:inline-block;
+    padding:4px 6px;
+    max-width:100%;
+    line-height:22px
+}
+
+.bootstrap-tagsinput input {
+    outline:0;
+    background-color:transparent;
+    margin:0;
+    width:74px;
+    max-width:inherit
+}
+
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+    color:#777;
+    opacity:1
+ }
+
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder,.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+    color:#777
+}
+
+.bootstrap-tagsinput .tag {
+    cursor:pointer;
+    margin:5px 3px 5px 0;
+    position:relative;
+    padding:3px 8px 3px .8em;
+    border-radius:12px;
+    color:#FFF;
+    font-size:.75em;
+    display:inline-block;
+    line-height:1.5em
+}
+
+.bootstrap-tagsinput .tag.tag-primary .tag {
+    background-color:#9c27b0;
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-primary .tag .tagsinput-remove-link {
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-primary .tagsinput-add {
+    color:#9c27b0
+}
+
+.bootstrap-tagsinput .tag.tag-info .tag {
+    background-color:#00bcd4;
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-info .tag .tagsinput-remove-link {
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-info .tagsinput-add {
+    color:#00bcd4
+}
+
+.bootstrap-tagsinput .tag.tag-success .tag {
+    background-color:#4caf50;
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-success .tag .tagsinput-remove-link {
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-success .tagsinput-add {
+    color:#4caf50
+}
+
+.bootstrap-tagsinput .tag.tag-warning .tag {
+    background-color:#ff9800;
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-warning .tag .tagsinput-remove-link {
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-warning .tagsinput-add {
+    color:#ff9800
+}
+
+.bootstrap-tagsinput .tag.tag-danger .tag {
+    background-color:#f44336;
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-danger .tag .tagsinput-remove-link {
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-danger .tagsinput-add {
+    color:#f44336
+}
+
+.bootstrap-tagsinput .tag.tag-rose .tag {
+    background-color:#e91e63;
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-rose .tag .tagsinput-remove-link {
+    color:#FFF
+}
+
+.bootstrap-tagsinput .tag.tag-rose .tagsinput-add {
+    color:#e91e63
+}
+
+.bootstrap-tagsinput .tag:hover {
+    padding-right:18px
+}
+
+.bootstrap-tagsinput .tag:hover [data-role=remove] {
+    opacity:1;
+    padding-right:6px
+}
+
+.bootstrap-tagsinput .tag [data-role=remove] {
+    cursor:pointer;
+    position:absolute;
+    top:3px;
+    right:0;
+    opacity:0
+}
+
+.bootstrap-tagsinput .tag [data-role=remove]:after {
+    content:"x";
+    padding:0 2px
+}
