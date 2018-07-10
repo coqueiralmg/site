@@ -17,6 +17,12 @@ $(function () {
         autosave();
     });
 
+    $('input.tagsinput').tagsinput({
+        freeInput: true,
+        allowDuplicates: false,
+        trimValue: true
+     });
+
     CKEDITOR.instances.descricao.on('change', function() {
         autosave();
     });
