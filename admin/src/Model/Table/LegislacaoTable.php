@@ -9,5 +9,12 @@ class LegislacaoTable extends BaseTable
     {
         $this->table('legislacao');
         $this->primaryKey('id');
+
+        $this->belongsTo('TipoLegislacao', [
+            'className' => 'TipoLegislacao',
+            'foreignKey' => 'tipo',
+            'propertyName' => 'tipo',
+            'joinType' => 'INNER'
+        ]);
     }
 }
