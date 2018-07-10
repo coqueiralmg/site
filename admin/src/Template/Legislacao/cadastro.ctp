@@ -1,6 +1,7 @@
 <script type="text/javascript">
     var idLegislacao = <?=$id?>;
 </script>
+<?= $this->Html->script('bootstrap-tagsinput.min', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('controller/legislacao.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -64,13 +65,30 @@
                                 </div>
                             </div>
                             <div class="row">
-
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <?= $this->Form->label("descricao", "Descrição") ?>
                                         <?= $this->Form->textarea("descricao", ["id" => "descricao", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <?= $this->Form->label("tipo", "Tipo") ?>
+                                        <?=$this->Form->select('grupo', $tipos, ['id' => 'grupo', 'empty' => true, 'class' => 'form-control'])?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span class="bmd-form-group is-filled">
+                                        <?= $this->Form->label("assuntos", "Assuntos") ?>
+                                        <input type="text" class="tagsinput form-control" data-role="tagsinput" style="display:none" data-color="success">
+                                    </span>
                                 </div>
                             </div>
                             <div class="row">
