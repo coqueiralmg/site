@@ -20,6 +20,7 @@ class LegislacaoController extends AppController
     public function index()
     {
         $t_legislacao = TableRegistry::get('Legislacao');
+        $t_tipo_legislacao = TableRegistry::get('TipoLegislacao');
         $limite_paginacao = Configure::read('Pagination.limit');
 
         $condicoes = array();
@@ -78,10 +79,17 @@ class LegislacaoController extends AppController
         )->count();
 
         $combo_mostra = ["T" => "Todos", "A" => "Somente ativos", "I" => "Somente inativos"];
+        $combo_tipo = $t_tipo_legislacao->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'conditions' => [
+                'ativo' => true
+        ]]);
 
         $this->set('title', 'Legislação');
         $this->set('icon', 'gavel');
         $this->set('combo_mostra', $combo_mostra);
+        $this->set('combo_tipo', $combo_tipo);
         $this->set('legislacao', $legislacao);
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
@@ -162,6 +170,14 @@ class LegislacaoController extends AppController
         $icon = 'gavel';
 
         $t_legislacao = TableRegistry::get('Legislacao');
+        $t_tipo_legislacao = TableRegistry::get('TipoLegislacao');
+
+        $combo_tipo = $t_tipo_legislacao->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'conditions' => [
+                'ativo' => true
+        ]]);
 
         if ($id > 0)
         {
@@ -177,6 +193,7 @@ class LegislacaoController extends AppController
 
         $this->set('title', $title);
         $this->set('icon', $icon);
+        $this->set('tipos', $combo_tipo);
         $this->set('id', $id);
     }
 
