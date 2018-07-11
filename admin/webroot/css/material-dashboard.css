@@ -6194,14 +6194,14 @@ table.dataTable > tbody > tr.child span.dtr-title {
     display:inline-block;
     padding:4px 6px;
     max-width:100%;
-    line-height:22px
+    line-height:22px;
 }
 
 .bootstrap-tagsinput input {
     outline:0;
     background-color:transparent;
     margin:0;
-    width:74px;
+    width:250px;
     max-width:inherit
 }
 
@@ -6219,9 +6219,8 @@ table.dataTable > tbody > tr.child span.dtr-title {
     margin:5px 3px 5px 0;
     position:relative;
     padding:3px 8px 3px .8em;
-    border-radius:12px;
+    border-radius:6px;
     color:#FFF;
-    font-size:.75em;
     display:inline-block;
     line-height:1.5em
 }
@@ -6252,12 +6251,12 @@ table.dataTable > tbody > tr.child span.dtr-title {
     color:#00bcd4
 }
 
-.bootstrap-tagsinput .tag.tag-success .tag {
+.bootstrap-tagsinput .tag.tag-success {
     background-color:#4caf50;
     color:#FFF
 }
 
-.bootstrap-tagsinput .tag.tag-success .tag .tagsinput-remove-link {
+.bootstrap-tagsinput .tag.tag-success .tagsinput-remove-link {
     color:#FFF
 }
 
