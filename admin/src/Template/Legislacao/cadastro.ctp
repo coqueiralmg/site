@@ -85,8 +85,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
+                                    <?= $this->Form->label("assuntos", "Assuntos") ?>
+                                    <button type="button" onclick="marcarTodos()" class="btn btn-default btn-simple">Selecionar Um Assunto<div class="ripple-container"></div></button>
                                     <span class="bmd-form-group is-filled">
-                                        <?= $this->Form->label("assuntos", "Assuntos") ?>
                                         <input type="text" id="assuntos" placeholder="Digite aqui para adicionar um assunto" class="tagsinput form-control">
                                     </span>
                                 </div>
