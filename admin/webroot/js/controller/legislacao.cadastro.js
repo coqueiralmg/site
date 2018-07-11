@@ -21,8 +21,16 @@ $(function () {
         freeInput: true,
         allowDuplicates: false,
         trimValue: true,
+        cancelConfirmKeysOnEmpty: true,
         tagClass: 'badge tag-success'
      });
+
+    $('#assuntos').on('keypress', function(e){
+        if (e.keyCode == 13){
+            e.keyCode = 188;
+            e.preventDefault();
+        };
+    });
 
     CKEDITOR.instances.descricao.on('change', function() {
         autosave();
