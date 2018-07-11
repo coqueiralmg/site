@@ -1,7 +1,7 @@
 <script type="text/javascript">
     var idLegislacao = <?=$id?>;
 </script>
-<?= $this->Html->script('bootstrap-tagsinput.min', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('bootstrap-tagsinput', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('controller/legislacao.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -87,7 +87,7 @@
                                 <div class="col-md-12">
                                     <span class="bmd-form-group is-filled">
                                         <?= $this->Form->label("assuntos", "Assuntos") ?>
-                                        <input type="text" class="tagsinput form-control" data-role="tagsinput" style="display:none" data-color="success">
+                                        <input type="text" id="assuntos" placeholder="Digite aqui para adicionar um assunto" class="tagsinput form-control">
                                     </span>
                                 </div>
                             </div>

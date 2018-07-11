@@ -17,10 +17,11 @@ $(function () {
         autosave();
     });
 
-    $('input.tagsinput').tagsinput({
+    $('#assuntos').tagsinput({
         freeInput: true,
         allowDuplicates: false,
-        trimValue: true
+        trimValue: true,
+        tagClass: 'badge tag-success'
      });
 
     CKEDITOR.instances.descricao.on('change', function() {
