@@ -171,6 +171,7 @@ class LegislacaoController extends AppController
 
         $t_legislacao = TableRegistry::get('Legislacao');
         $t_tipo_legislacao = TableRegistry::get('TipoLegislacao');
+        $t_assuntos = TableRegistry::get('Assunto');
 
         $combo_tipo = $t_tipo_legislacao->find('list', [
             'keyField' => 'id',
@@ -178,6 +179,15 @@ class LegislacaoController extends AppController
             'conditions' => [
                 'ativo' => true
         ]]);
+
+        $assuntos = $t_assuntos->find('all', [
+            'conditions' => [
+                'tipo' => 'LG'
+            ],
+            'order' => [
+                'descricao' => 'ASC'
+            ]
+        ]);
 
         if ($id > 0)
         {
@@ -193,6 +203,7 @@ class LegislacaoController extends AppController
 
         $this->set('title', $title);
         $this->set('icon', $icon);
+        $this->set('assuntos', $assuntos);
         $this->set('tipos', $combo_tipo);
         $this->set('id', $id);
     }
