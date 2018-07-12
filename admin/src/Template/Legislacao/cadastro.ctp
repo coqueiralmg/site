@@ -1,6 +1,7 @@
 <script type="text/javascript">
     var idLegislacao = <?=$id?>;
 </script>
+<?= $this->Html->script('typeahead', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('bootstrap-tagsinput', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('controller/legislacao.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
@@ -90,6 +91,17 @@
                                     <span class="bmd-form-group is-filled">
                                         <input type="text" id="assuntos" placeholder="Digite aqui para adicionar um assunto" class="tagsinput form-control">
                                     </span>
+                                    <div id="painel_assuntos" class="row">
+                                        <?php foreach ($assuntos as $assunto): ?>
+                                            <div class="col-md-3">
+                                                <div class="togglebutton">
+                                                    <label>
+                                                        <?= $this->Form->checkbox('assunto@' . $assunto->id) ?> <?=$assunto->descricao?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

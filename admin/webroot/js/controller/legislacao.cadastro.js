@@ -1,7 +1,18 @@
 var enviaArquivo = (idLegislacao == 0);
 var modificado = false;
 
+
 $(function () {
+
+    var pre_assuntos = [];
+
+    $.post("/admin/assuntos/list.json", {
+        chave: '',
+        tipo: 'LG'
+    }, function(data){
+        pre_assuntos = data.assuntos;
+    })
+
     $('#data').datepicker({
         language: 'pt-BR'
     });
@@ -21,7 +32,10 @@ $(function () {
         freeInput: true,
         allowDuplicates: false,
         trimValue: true,
-        tagClass: 'badge tag-success'
+        tagClass: 'badge tag-success',
+        typeahead: {
+            source: pre_assuntos
+        }
      });
 
     $('.bootstrap-tagsinput input[type=text]').keydown(function(e){
