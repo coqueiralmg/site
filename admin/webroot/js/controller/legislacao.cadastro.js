@@ -21,14 +21,14 @@ $(function () {
         freeInput: true,
         allowDuplicates: false,
         trimValue: true,
-        cancelConfirmKeysOnEmpty: true,
         tagClass: 'badge tag-success'
      });
 
-    $('#assuntos').on('keypress', function(e){
+    $('.bootstrap-tagsinput input[type=text]').keydown(function(e){
         if (e.keyCode == 13){
-            e.keyCode = 188;
-            e.preventDefault();
+            $(this).blur();
+            $(this).focus();
+            return false;
         };
     });
 
