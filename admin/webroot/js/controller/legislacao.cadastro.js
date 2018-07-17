@@ -11,6 +11,24 @@ $(function () {
         tipo: 'LG'
     }, function(data){
         pre_assuntos = data.assuntos;
+
+        $('#assuntos').tagsinput({
+            freeInput: true,
+            allowDuplicates: false,
+            trimValue: true,
+            tagClass: 'badge tag-success',
+            typeaheadjs: {
+                source: ['Rio de Janeiro', 'Belo Horizonte', 'Vitória', 'Salvador', 'São Paulo', 'Florianópolis']
+            }
+         });
+
+        $('.bootstrap-tagsinput input[type=text]').keydown(function(e){
+            if (e.keyCode == 13){
+                $(this).blur();
+                $(this).focus();
+                return false;
+            };
+        });
     })
 
     $('#data').datepicker({
@@ -28,23 +46,7 @@ $(function () {
         autosave();
     });
 
-    $('#assuntos').tagsinput({
-        freeInput: true,
-        allowDuplicates: false,
-        trimValue: true,
-        tagClass: 'badge tag-success',
-        typeahead: {
-            source: pre_assuntos
-        }
-     });
 
-    $('.bootstrap-tagsinput input[type=text]').keydown(function(e){
-        if (e.keyCode == 13){
-            $(this).blur();
-            $(this).focus();
-            return false;
-        };
-    });
 
     CKEDITOR.instances.descricao.on('change', function() {
         autosave();
