@@ -1,8 +1,7 @@
 <script type="text/javascript">
     var idLegislacao = <?=$id?>;
 </script>
-<?= $this->Html->script('typeahead', ['block' => 'scriptBottom']) ?>
-<?= $this->Html->script('bootstrap-tagsinput', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('select2.min', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('controller/legislacao.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -78,32 +77,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <?= $this->Form->label("tipo", "Tipo") ?>
-                                        <?=$this->Form->select('grupo', $tipos, ['id' => 'grupo', 'empty' => true, 'class' => 'form-control'])?>
+                                        <?=$this->Form->select('tipo', $tipos, ['id' => 'tipo', 'empty' => true, 'class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <?= $this->Form->label("assuntos", "Assuntos") ?>
-                                    <button type="button" onclick="marcarTodos()" class="btn btn-default btn-simple">Selecionar Um Assunto<div class="ripple-container"></div></button>
-                                    <span class="bmd-form-group is-filled">
-                                        <input type="text" id="assuntos" placeholder="Digite aqui para adicionar um assunto" class="tagsinput form-control">
-                                    </span>
-                                    <div id="painel_assuntos" class="row">
-                                        <?php foreach ($assuntos as $assunto): ?>
-                                            <div class="col-md-3">
-                                                <div class="togglebutton">
-                                                    <label>
-                                                        <?= $this->Form->checkbox('assunto@' . $assunto->id) ?> <?=$assunto->descricao?>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        <?php endforeach; ?>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <?= $this->Form->label("assuntos", "Assuntos") ?>
+                                        <?=$this->Form->select('assuntos', $assuntos, ['id' => 'assuntos', 'multiple' => true, 'class' => 'form-control'])?>
+                                        <span class="material-input"></span>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <?php if($id > 0): ?>
                                     <div id="panel_arquivo">
