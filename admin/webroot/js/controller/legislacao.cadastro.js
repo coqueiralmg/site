@@ -4,32 +4,6 @@ var modificado = false;
 
 $(function () {
 
-    var pre_assuntos = [];
-
-    $.post("/admin/assuntos/list.json", {
-        chave: '',
-        tipo: 'LG'
-    }, function(data){
-        pre_assuntos = data.assuntos;
-
-        $('#assuntos').tagsinput({
-            freeInput: true,
-            allowDuplicates: false,
-            trimValue: true,
-            tagClass: 'badge tag-success',
-            typeaheadjs: {
-                source: ['Rio de Janeiro', 'Belo Horizonte', 'Vitória', 'Salvador', 'São Paulo', 'Florianópolis']
-            }
-         });
-
-        $('.bootstrap-tagsinput input[type=text]').keydown(function(e){
-            if (e.keyCode == 13){
-                $(this).blur();
-                $(this).focus();
-                return false;
-            };
-        });
-    })
 
     $('#data').datepicker({
         language: 'pt-BR'
@@ -46,7 +20,11 @@ $(function () {
         autosave();
     });
 
-
+    $("#assuntos").select2({
+        placeholder: "Clique e digite aqui para selecionar ou adicionar novo assunto.",
+        tokenSeparators: [','],
+        tags: true
+    });
 
     CKEDITOR.instances.descricao.on('change', function() {
         autosave();
