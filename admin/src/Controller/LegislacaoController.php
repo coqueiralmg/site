@@ -180,7 +180,9 @@ class LegislacaoController extends AppController
                 'ativo' => true
         ]]);
 
-        $assuntos = $t_assuntos->find('all', [
+        $assuntos = $t_assuntos->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'descricao',
             'conditions' => [
                 'tipo' => 'LG'
             ],
