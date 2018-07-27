@@ -1,10 +1,7 @@
 var enviaArquivo = (idLegislacao == 0);
 var modificado = false;
 
-
 $(function () {
-
-
     $('#data').datepicker({
         language: 'pt-BR'
     });
@@ -23,7 +20,8 @@ $(function () {
     $("#assuntos").select2({
         placeholder: "Clique e digite aqui para selecionar ou adicionar novo assunto.",
         tokenSeparators: [','],
-        tags: true
+        tags: true,
+        allowClear: true
     });
 
     CKEDITOR.instances.descricao.on('change', function() {
