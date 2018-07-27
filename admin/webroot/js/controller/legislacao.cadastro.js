@@ -122,6 +122,20 @@ function validar() {
         $("label[for='descricao']").css("color", "#aaa");
     }
 
+    if($("#tipo").val() == "") {
+        mensagem += "<li> É obrigatório informar o tipo do documento da legislação.</li>";
+        $("label[for='tipo']").css("color", "red");
+    } else {
+        $("label[for='tipo']").css("color", "#aaa");
+    }
+
+    if($("#assuntos").select2('data').length == 0) {
+        mensagem += "<li> O documento da legislação precisa estar enquadrado em algum assunto. Favor selecionar pelo menos um assunto.</li>";
+        $("label[for='assuntos']").css("color", "red");
+    } else {
+        $("label[for='assuntos']").css("color", "#aaa");
+    }
+
     if (enviaArquivo) {
         if (document.getElementById("arquivo").files.length == 0) {
             mensagem += "<li> É obrigatório informar o arquivo em anexo.</li>";
