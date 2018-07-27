@@ -1,5 +1,6 @@
 var enviaArquivo = (idLegislacao == 0);
 var modificado = false;
+var assuntos = new Array();
 
 $(function () {
     $('#data').datepicker({
@@ -22,6 +23,16 @@ $(function () {
         tokenSeparators: [','],
         tags: true,
         allowClear: true
+    });
+
+    $("#assuntos").on('select2:select', function(e){
+        var data = e.params.data;
+        console.log(data);
+    });
+
+    $("#assuntos").on('select2:unselect', function(e){
+        var data = e.params.data;
+        console.log(data);
     });
 
     CKEDITOR.instances.descricao.on('change', function() {
