@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'construcao', $this->Data->crypt(['mensagem' => 'O sistema encontra-se em manutenção, podendo retornar até o dia 7 de maio.'])])?>" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Servidor');">
+                    <a href="https://www.diretriz.net/pagamento/?pg=login" target="_blank" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Servidor');">
                         <div class="feature-wrap">
                             <i class="fa fa-building-o"></i>
                             <h2>Serviços ao Servidor</h2>
