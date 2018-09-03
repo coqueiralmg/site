@@ -34,6 +34,7 @@
                             <?= $this->Flash->render() ?>
                             <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
                             <?= $this->Form->hidden('temas', ["id" => "temas"]) ?>
+                            <?= $this->Form->hidden('lassuntos', ["id" => "lassuntos"]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
                                 <div class="col-md-3">
