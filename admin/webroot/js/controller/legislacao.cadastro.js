@@ -21,18 +21,27 @@ $(function () {
     $("#assuntos").select2({
         placeholder: "Clique e digite aqui para selecionar ou adicionar novo assunto.",
         tokenSeparators: [','],
-        tags: true,
-        allowClear: true
+        tags: true
     });
 
     $("#assuntos").on('select2:select', function(e){
         var data = e.params.data;
-        console.log(data);
+
+        var assunto = {
+            id: validarIdAssunto(data),
+            nome: data.text
+        };
+
+        assuntos.push(assunto);
+        $("#lassuntos").val(JSON.stringify(assuntos));
     });
 
     $("#assuntos").on('select2:unselect', function(e){
         var data = e.params.data;
-        console.log(data);
+        var idAssunto = obterAssunto(data);
+
+        assuntos.splice(idAssunto, 1);
+        $("#lassuntos").val(JSON.stringify(assuntos));
     });
 
     CKEDITOR.instances.descricao.on('change', function() {
@@ -49,6 +58,20 @@ $(function () {
         }
     });
 });
+
+function obterAssunto(data) {
+    var chave = data.text;
+    var idAssunto = assuntos.findIndex(function(v){
+        var pivot = null;
+        return v.nome == chave;
+    });
+
+    return idAssunto;
+}
+
+function validarIdAssunto(data) {
+    return (data.id != data.text) ? eval(data.id) : -1;
+}
 
 function restaurar() {
     var data = getDataCache('legislacao', idLegislacao);
