@@ -284,6 +284,15 @@ class LegislacaoController extends AppController
 
             $entity->data = $this->Format->mergeDateDB($entity->data, $hora);
 
+            $assuntos = json_decode($entity->lassuntos);
+
+            foreach($assuntos as $assunto)
+            {
+                $t_assunto = TableRegistry::get('Assunto');
+                $t_al = TableRegistry::get('AssuntoLegislacao');
+            }
+
+
             $arquivo = $this->request->getData('arquivo');
             $entity->arquivo = $this->salvarArquivo($arquivo);
 
