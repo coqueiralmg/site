@@ -34,6 +34,7 @@ $(function () {
 
         assuntos.push(assunto);
         $("#lassuntos").val(JSON.stringify(assuntos));
+        autosave();
     });
 
     $("#assuntos").on('select2:unselect', function(e){
@@ -42,6 +43,7 @@ $(function () {
 
         assuntos.splice(idAssunto, 1);
         $("#lassuntos").val(JSON.stringify(assuntos));
+        autosave();
     });
 
     CKEDITOR.instances.descricao.on('change', function() {
@@ -84,6 +86,16 @@ function restaurar() {
         $("#ativo").prop("checked", data.object.ativo);
 
         CKEDITOR.instances.descricao.setData(data.object.descricao);
+
+        assuntos = data.object.assuntos;
+        $("#lassuntos").val(JSON.stringify(data.object.assuntos));
+        $("#assuntos").val(null);
+
+        for(var i = 0; i < assuntos.length; i++){
+            var assunto = assuntos[i];
+            var option = new Option(assunto.nome, assunto.id, true, true);
+            $("#assuntos").append(option);
+        }
     }
 
     notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
@@ -105,6 +117,7 @@ function autosave() {
             hora: $("#hora").val(),
             descricao: CKEDITOR.instances.descricao.getData(),
             ativo: $("#ativo").is(':checked'),
+            assuntos: $("#lassuntos").val() == "" ? [] : JSON.parse($("#lassuntos").val())
         }
     };
 
