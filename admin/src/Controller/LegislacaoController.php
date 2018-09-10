@@ -6,6 +6,7 @@ use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
 use Cake\Network\Session;
+use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use \Exception;
 use \DateTime;
@@ -290,6 +291,11 @@ class LegislacaoController extends AppController
             {
                 $t_assunto = TableRegistry::get('Assunto');
                 $t_al = TableRegistry::get('AssuntoLegislacao');
+
+                if($assunto->id < 0)
+                {
+
+                }
             }
 
 
@@ -431,7 +437,11 @@ class LegislacaoController extends AppController
         }
 
         $file->copy($diretorio . $novo_nome, true);
-
         return $url_relativa . $novo_nome;
+    }
+
+    private function atualizarAssuntosLegislacao(Entity $entity, array $assuntos, bool $clear = false)
+    {
+
     }
 }
