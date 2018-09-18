@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Table\BaseTable;
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
@@ -287,18 +288,6 @@ class LegislacaoController extends AppController
 
             $assuntos = json_decode($entity->lassuntos);
 
-            foreach($assuntos as $assunto)
-            {
-                $t_assunto = TableRegistry::get('Assunto');
-                $t_al = TableRegistry::get('AssuntoLegislacao');
-
-                if($assunto->id < 0)
-                {
-
-                }
-            }
-
-
             $arquivo = $this->request->getData('arquivo');
             $entity->arquivo = $this->salvarArquivo($arquivo);
 
@@ -442,6 +431,17 @@ class LegislacaoController extends AppController
 
     private function atualizarAssuntosLegislacao(Entity $entity, array $assuntos, bool $clear = false)
     {
+        $t_assunto = TableRegistry::get('Assunto');
+        $t_legislacao = TableRegistry::get('Assunto');
 
+        $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
+
+        $a_antigos = array();
+        $a_novos = array();
+
+        if($clear)
+        {
+
+        }
     }
 }
