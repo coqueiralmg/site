@@ -115,6 +115,7 @@
                                 <li><a href="http://camaracoqueiral.com.br/" target="_blank">Câmara Municipal</a></li>
                                 <li><a href="http://saaecoqueiral.com.br/" target="_blank">SAAE</a></li>
                                 <li><a href="http://portalamm.org.br/" target="_blank">Associação Mineira dos Municípios</a></li>
+                                <li><a href="http://www.diariomunicipal.com.br/amm-mg/" target="_blank">Diário Oficial dos Municípios - AMM</a></li>
                             </ul>
                         </div>
                     <?php endif; ?>
