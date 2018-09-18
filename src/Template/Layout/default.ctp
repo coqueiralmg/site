@@ -94,10 +94,8 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6">
-                </div>
 
-                <div class="col-md-7 col-sm-6">
+                <div class="col-md-4 col-sm-12">
                     <?php if(count($secretarias) > 0): ?>
                         <div class="widget">
                             <h3>Secretarias</h3>
@@ -105,6 +103,18 @@
                                 <?php foreach ($secretarias as $secretaria): ?>
                                     <li><a href="<?= '/secretaria/' . $secretaria->slug . '-' . $secretaria->id ?>"><?=$secretaria->nome?></a></li>
                                 <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <?php if(count($secretarias) > 0): ?>
+                        <div class="widget">
+                            <h3>Links</h3>
+                            <ul>
+                                <li><a href="http://camaracoqueiral.com.br/" target="_blank">Câmara Municipal</a></li>
+                                <li><a href="http://saaecoqueiral.com.br/" target="_blank">SAAE</a></li>
+                                <li><a href="http://portalamm.org.br/" target="_blank">Associação Mineira dos Municípios</a></li>
                             </ul>
                         </div>
                     <?php endif; ?>
