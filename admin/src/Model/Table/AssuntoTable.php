@@ -8,5 +8,12 @@ class AssuntoTable extends BaseTable
     {
         $this->table('assuntos');
         $this->primaryKey('id');
+
+        $this->belongsToMany('Assunto', [
+            'joinTable' => 'funcoes_grupos',
+            'foreignKey' => 'assunto',
+            'targetForeignKey' => 'legislacao',
+            'propertyName' => 'itens'
+        ]);
     }
 }
