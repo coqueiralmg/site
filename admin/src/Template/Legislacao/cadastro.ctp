@@ -85,7 +85,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <?= $this->Form->label("assuntos", "Assuntos") ?>
-                                        <?=$this->Form->select('assuntos', $assuntos, ['id' => 'assuntos', 'multiple' => true, 'class' => 'form-control'])?>
+                                        <?=$this->Form->select('assuntos', $assuntos, ['id' => 'assuntos', 'multiple' => true, 'value' => $assuntos_pivot, 'class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
