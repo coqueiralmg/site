@@ -196,14 +196,24 @@ class LegislacaoController extends AppController
 
         if ($id > 0)
         {
-            $legislacao = $t_legislacao->get($id);
+            $legislacao = $t_legislacao->get($id, ['contain' => ['Assunto']]);
             $legislacao->hora = $legislacao->data->i18nFormat('HH:mm');
 
+            $ap = array();
+
+            foreach($legislacao->assuntos as $assunto)
+            {
+                $ap[] = $assunto->id;
+            }
+
+
             $this->set('legislacao', $legislacao);
+            $this->set('assuntos_pivot', $ap);
         }
         else
         {
             $this->set('legislacao', null);
+            $this->set('assuntos_pivot', []);
         }
 
         $this->set('title', $title);
@@ -343,9 +353,10 @@ class LegislacaoController extends AppController
             $t_legislacao->patchEntity($entity, $this->request->data());
 
             $entity->data = $this->Format->mergeDateDB($entity->data, $entity->hora);
+            $entity->tipo = $this->request->getData('tipo');
             $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
 
-            $auditoria_assuntos = $this->atualizarAssuntosLegislacao($entity, $assuntos, true);
+            $assuntos = json_decode($entity->lassuntos);
 
             if($enviaArquivo)
             {
@@ -362,6 +373,8 @@ class LegislacaoController extends AppController
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
 
             $t_legislacao->save($entity);
+            $auditoria_assuntos = $this->atualizarAssuntosLegislacao($entity, $assuntos, true);
+
             $this->Flash->greatSuccess('O documento da legislação foi salvo com sucesso.');
 
             $auditoria = [
