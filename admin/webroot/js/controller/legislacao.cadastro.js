@@ -24,6 +24,22 @@ $(function () {
         tags: true
     });
 
+    if(idLegislacao > 0) {
+        var data = $("#assuntos").select2('data');
+
+        for(var d = 0; d < data.length; d++) {
+            var info = data[d];
+
+            var assunto = {
+                id: validarIdAssunto(info),
+                nome: info.text
+            };
+
+            assuntos.push(assunto);
+            $("#lassuntos").val(JSON.stringify(assuntos));
+        }
+    }
+
     $("#assuntos").on('select2:select', function(e){
         var data = e.params.data;
 
