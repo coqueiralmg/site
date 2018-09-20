@@ -331,7 +331,7 @@ class LegislacaoController extends AppController
         }
         catch(Exception $ex)
         {
-            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a publicação', [
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar o documento da legislação.', [
                 'params' => [
                     'details' => $ex->getMessage()
                 ]
