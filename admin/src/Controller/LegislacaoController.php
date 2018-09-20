@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Table\BaseTable;
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
 use Cake\Network\Session;
@@ -285,6 +286,7 @@ class LegislacaoController extends AppController
             }
 
             $entity->data = $this->Format->mergeDateDB($entity->data, $hora);
+            $entity->tipo = $this->request->getData('tipo');
 
             $assuntos = json_decode($entity->lassuntos);
 
@@ -292,6 +294,8 @@ class LegislacaoController extends AppController
             $entity->arquivo = $this->salvarArquivo($arquivo);
 
             $t_legislacao->save($entity);
+            $auditoria_assuntos = $this->atualizarAssuntosLegislacao($entity, $assuntos, false);
+
             $this->Flash->greatSuccess('O documento da legislação foi salvo com sucesso.');
 
             $propriedades = $entity->getOriginalValues();
@@ -299,7 +303,10 @@ class LegislacaoController extends AppController
             $auditoria = [
                 'ocorrencia' => 21,
                 'descricao' => 'O usuário criou um novo documento da legislação.',
-                'dado_adicional' => json_encode(['id_nova_legislacao' => $entity->id, 'dados_legislacao' => $propriedades]),
+                'dado_adicional' => json_encode([
+                    'id_nova_legislacao' => $entity->id,
+                    'dados_legislacao' => $propriedades,
+                    'assuntos_associados' => $auditoria_assuntos]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
@@ -338,6 +345,8 @@ class LegislacaoController extends AppController
             $entity->data = $this->Format->mergeDateDB($entity->data, $entity->hora);
             $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
 
+            $auditoria_assuntos = $this->atualizarAssuntosLegislacao($entity, $assuntos, true);
+
             if($enviaArquivo)
             {
                 $this->removerArquivo($antigo_arquivo);
@@ -358,7 +367,11 @@ class LegislacaoController extends AppController
             $auditoria = [
                 'ocorrencia' => 22,
                 'descricao' => 'O usuário editou um documento da legislação.',
-                'dado_adicional' => json_encode(['legislacao_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'dado_adicional' => json_encode([
+                    'legislacao_modificada' => $id,
+                    'valores_originais' => $propriedades,
+                    'valores_modificados' => $modificadas,
+                    'assuntos_associados' => $auditoria_assuntos]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
@@ -432,7 +445,8 @@ class LegislacaoController extends AppController
     private function atualizarAssuntosLegislacao(Entity $entity, array $assuntos, bool $clear = false)
     {
         $t_assunto = TableRegistry::get('Assunto');
-        $t_legislacao = TableRegistry::get('Assunto');
+        $t_legislacao = TableRegistry::get('Legislacao');
+        $id_legislacao = $entity->id;
 
         $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
 
@@ -441,7 +455,53 @@ class LegislacaoController extends AppController
 
         if($clear)
         {
+            $e = $t_legislacao->get($id_legislacao, [
+                'contain' => ['Assunto']
+            ]);
 
+            foreach($e->assuntos as $assunto)
+            {
+                $a_antigos[$assunto->id] = $assunto->descricao;
+            }
+
+            $conn->delete('assuntos_legislacao', [
+                'legislacao' => $id_legislacao
+            ]);
         }
+
+        foreach($assuntos as $assunto)
+        {
+            $qtd = $t_assunto->find('all', [
+                'conditions' => [
+                    'descricao' => $assunto->nome,
+                    'tipo' => 'LG'
+                ]
+            ])->count();
+
+            if($qtd == 0)
+            {
+                $na = $t_assunto->newEntity();
+                $na->descricao = $assunto->nome;
+                $na->tipo = 'LG';
+
+                $t_assunto->save($na);
+
+                $assunto->id = $na->id;
+            }
+
+            $conn->insert('assuntos_legislacao', [
+                'legislacao' => $id_legislacao,
+                'assunto' => $assunto->id
+            ]);
+
+            $a_novos[$assunto->id] = $assunto->nome;
+        }
+
+        $auditoria_assuntos = [
+            'assuntos_antigos' => $a_antigos,
+            'assuntos_novos' => $a_novos
+        ];
+
+        return $auditoria_assuntos;
     }
 }
