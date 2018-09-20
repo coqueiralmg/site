@@ -235,6 +235,22 @@ class LegislacaoController extends AppController
         }
     }
 
+    public function relacionamentos(int $id)
+    {
+        $this->set('title', 'Relacionamento Entre Documentos da Legislação');
+        $this->set('icon', 'gavel');
+        $this->set('id', $id);
+    }
+
+    public function lista($chave)
+    {
+        $t_legislacao = TableRegistry::get('Legislacao');
+
+        $resultado = $t_legislacao->find('all', [
+
+        ]);
+    }
+
     public function delete(int $id)
     {
         try
