@@ -6,9 +6,10 @@ use Cake\ORM\Entity;
 
 class Assunto extends Entity
 {
-    protected function _getTipo()
+    protected function _getClasse()
     {
         $tipo = $this->_properties['tipo'];
+
 
         switch($tipo)
         {
@@ -25,5 +26,6 @@ class Assunto extends Entity
             case 'CP':
                 return 'Concurso Público';
         }
+
     }
 }
