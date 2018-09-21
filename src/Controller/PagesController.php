@@ -139,12 +139,19 @@ class PagesController extends AppController
     {
         $this->set('title', 'Política de privacidade');
     }
+
     public function notafiscal()
     {
         $this->set('title', 'Serviços fiscais');
     }
+
     public function contatosucesso()
     {
         $this->set('title', 'Mensagem enviada com sucesso');
+    }
+
+    public function transparencia()
+    {
+        $this->set('title', 'Transparência');
     }
 }
