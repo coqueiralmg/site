@@ -11,9 +11,9 @@
                     <h2>Portal da Transparência</h2>
                     <p>Para acessar o portal da transparência, pressione o botão abaixo.</p>
 
-                    <center>
-
-                    </center>
+                    <div class="center" style="padding: 20px">
+                        <a><b style="font-size: x-large">Acessar Portal da Transparência</b></a>
+                    </div>
 
                     <h2>Direitos Autorais</h2>
                     <p>É autorizada a reprodução total ou parcial sem fins lucrativos do conteúdo deste portal, desde que citada a fonte, mantendo-se a integridade das informações e respeitando-se o sigilo de terceiros.</p>
