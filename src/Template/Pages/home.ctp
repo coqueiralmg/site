@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a  href="http://www.municipalnet.com.br/fornecedorweb/portalTransparencia.php?cod=dHJhbnNwd2ViX2NvcXVlaXJhbA==" onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência');" target="_blank">
+                    <a  href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'transparencia'])?>">
                         <div class="feature-wrap">
                             <i class="fa fa-files-o"></i>
                             <h2>Transparência</h2>

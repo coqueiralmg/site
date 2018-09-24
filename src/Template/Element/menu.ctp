@@ -32,7 +32,7 @@
                         <li class="<?= $this->Menu->activeMenu(['controller' => 'publicacoes']) ?>"><?=$this->Html->link('Outras Publicações', ['controller' => 'publicacoes'])?></li>
                     </ul>
                 </li>
-                <li><a onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência'); LE.info('Acesso ao site da transparência. Página de referência: ' + window.location.href);" href="http://www.municipalnet.com.br/fornecedorweb/portalTransparencia.php?cod=dHJhbnNwd2ViX2NvcXVlaXJhbA==" target="_blank">Transparência</a></li>
+                <li class="<?= $this->Menu->activeMenus(['controller' => 'pages', 'action' => 'transparencia']) ? 'active' : '' ?>"><?=$this->Html->link('Transparência', ['controller' => 'pages', 'action' => 'transparencia'])?></li>
                 <li class="<?= $this->Menu->activeMenu(['controller' => 'noticias']) ?>"><?=$this->Html->link('Notícias', ['controller' => 'noticias'])?></li>
                 <li class="<?= $this->Menu->activeMenus(['controller' => 'pages', 'action' => 'faleconosco'], ['controller' => 'ouvidoria']) ? 'active' : '' ?>"><?=$this->Html->link('Fale com a Prefeitura', ['controller' => 'pages', 'action' => 'faleconosco'])?></li>
             </ul>

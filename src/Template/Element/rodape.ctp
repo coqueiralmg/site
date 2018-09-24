@@ -3,7 +3,7 @@
 </div>
 <div class="col-sm-5">
     <ul class="pull-right">
-        <li><a href="http://www.municipalnet.com.br/fornecedorweb/portalTransparencia.php?cod=dHJhbnNwd2ViX2NvcXVlaXJhbA==" target="_blank">Transparência</a></li>
+        <li><?=$this->Html->link('Transparência', ['controller' => 'pages', 'action' => 'transparencia'])?></li>
         <li><?=$this->Html->link('Política de Privacidade', ['controller' => 'pages', 'action' => 'privacidade'])?></li>
         <li><?=$this->Html->link('Contato', ['controller' => 'pages', 'action' => 'contato'])?></li>
     </ul>
