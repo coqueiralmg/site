@@ -15,17 +15,17 @@ class FileComponent extends Component
 {
     const TYPE_FILE_DOCUMENT = 'document';
     const TYPE_FILE_IMAGE = 'image';
-    
+
     /**
     * Faz a validação geral no arquivo. A função retorna os seguintes valores:
-    * 1 = Arquivo válido; 
-    * 0 = Arquivo com extensão inválida; 
+    * 1 = Arquivo válido;
+    * 0 = Arquivo com extensão inválida;
     * -1 = Arquivo com tamanho inválido
     * @param File $file Arquivo a ser validado
     * @return 1 = Arquivo válido; 0 = Arquivo com extensão inválida; -1 = Arquivo com tamanho inválido
     */
     public function validation(File $file)
-    {   
+    {
         $valido = 1;
 
         if(!$this->validationExtension($file)) $valido = 0;
@@ -55,7 +55,7 @@ class FileComponent extends Component
         {
             $extensoes = $this->getExtensions($tipo);
         }
-        
+
         foreach ($extensoes as $tipo) {
             if(strtolower($extensao) == $tipo)
             {
@@ -77,7 +77,6 @@ class FileComponent extends Component
         $mime = $file->mime();
         $tamanho = $file->size();
 
-        var_dump($tamanho);
         $maximo = (strpos($mime, 'image') !== false) ? Configure::read('Files.validation.image.maxLength') : Configure::read('Files.validation.document.maxLength');
 
         return ($tamanho <= $maximo);
@@ -96,11 +95,11 @@ class FileComponent extends Component
             case 'document':
                 $extensoes = Configure::read('Files.validation.document.types');
                 break;
-            
+
             case 'image':
                 $extensoes = Configure::read('Files.validation.image.types');
                 break;
-            
+
             default:
                 $extensoes = array();
                 break;
@@ -122,11 +121,11 @@ class FileComponent extends Component
             case 'document':
                 $maximo = Configure::read('Files.validation.document.maxLength');
                 break;
-            
+
             case 'image':
                 $maximo = Configure::read('Files.validation.image.maxLength');
                 break;
-            
+
             default:
                 $maximo = 0;
                 break;
