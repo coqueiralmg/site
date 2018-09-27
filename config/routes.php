@@ -18,6 +18,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
@@ -44,27 +45,26 @@ use Cake\Routing\Route\DashedRoute;
 Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
-    /**
-     * Here, we are connecting '/' (base path) to a controller called 'Pages',
-     * its action called 'display', and we pass a param to select the view file
-     * to use (in this case, src/Template/Pages/home.ctp)...
-     */
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
 
-    /**
-     * ...and connect the rest of 'Pages' controller's URLs.
-     */
-    //$routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
-    $routes->connect('/privacidade', ['controller' => 'Pages', 'action' => 'privacidade']);
-    $routes->connect('/secretaria/*', ['controller' => 'Secretaria', 'action' => 'index']);
-    $routes->connect('/faleconosco', ['controller' => 'Pages', 'action' => 'faleconosco']);
-    $routes->connect('/fale-conosco', ['controller' => 'Pages', 'action' => 'faleconosco']);
-    $routes->connect('/contato', ['controller' => 'Pages', 'action' => 'contato']);
-    $routes->connect('/transparencia', ['controller' => 'Pages', 'action' => 'transparencia']);
-    $routes->connect('/construcao', ['controller' => 'Pages', 'action' => 'construcao']);
-    $routes->connect('/fale-sucesso', ['controller' => 'Pages', 'action' => 'contatosucesso']);
-    $routes->connect('/notafiscal', ['controller' => 'Pages', 'action' => 'notafiscal']);
-    $routes->connect('/iluminacao', ['controller' => 'Ouvidoria', 'action' => 'iluminacao']);
+    if(Configure::read('App.maintenance'))
+    {
+        $routes->connect('*', ['controller' => 'Offline', 'action' => 'index']);
+    }
+    else
+    {
+        $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
+
+        $routes->connect('/privacidade', ['controller' => 'Pages', 'action' => 'privacidade']);
+        $routes->connect('/secretaria/*', ['controller' => 'Secretaria', 'action' => 'index']);
+        $routes->connect('/faleconosco', ['controller' => 'Pages', 'action' => 'faleconosco']);
+        $routes->connect('/fale-conosco', ['controller' => 'Pages', 'action' => 'faleconosco']);
+        $routes->connect('/contato', ['controller' => 'Pages', 'action' => 'contato']);
+        $routes->connect('/transparencia', ['controller' => 'Pages', 'action' => 'transparencia']);
+        $routes->connect('/construcao', ['controller' => 'Pages', 'action' => 'construcao']);
+        $routes->connect('/fale-sucesso', ['controller' => 'Pages', 'action' => 'contatosucesso']);
+        $routes->connect('/notafiscal', ['controller' => 'Pages', 'action' => 'notafiscal']);
+        $routes->connect('/iluminacao', ['controller' => 'Ouvidoria', 'action' => 'iluminacao']);
+    }
 
     /**
      * Connect catchall routes for all controllers.
