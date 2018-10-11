@@ -55,11 +55,11 @@
         <div class="row">
             <div class="features">
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'construcao', $this->Data->crypt(['mensagem' => 'O sistema encontra-se em manutenção, podendo retornar até o dia 7 de maio.'])])?>" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Cidadão');">
+                <a href="http://bauhaus-coqueiral-mg.ddns.me:8080/meuiptu/index.php?cidade=coqueiral" target="_blank" onclick="ga('send', 'event', 'Externo', 'Site', 'Serviços ao Cidadão');">
                         <div class="feature-wrap">
                             <i class="fa fa-users"></i>
                             <h2>Serviços ao Cidadão</h2>
-                            <h3>2ª Via de IPTU e Consulta de Informações Cadastrais.</h3>
+                            <h3>IPTU e Consulta de Informações Cadastrais.</h3>
                         </div>
                     </a>
                 </div>
