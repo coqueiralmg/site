@@ -237,18 +237,31 @@ class LegislacaoController extends AppController
 
     public function relacionamentos(int $id)
     {
-        $this->set('title', 'Relacionamento Entre Documentos da Legislação');
+        $this->set('title', 'Legislação Relacionada');
         $this->set('icon', 'gavel');
         $this->set('id', $id);
     }
 
-    public function lista($chave)
+    public function list()
     {
-        $t_legislacao = TableRegistry::get('Legislacao');
+        if ($this->request->is('post') || $this->request->is('ajax'))
+        {
+            $chave = $this->request->getData('chave');
+            $t_legislacao = TableRegistry::get('Legislacao');
 
-        $resultado = $t_legislacao->find('all', [
+            $resultado = $t_legislacao->find('all', [
+                'conditions' => [
+                    'numero LIKE ' => '%' . $chave . '%'
+                ]
+            ])->orWhere([
+                'titulo LIKE ' => '%' . $chave . '%'
+            ]);
 
-        ]);
+            $this->set([
+                'resultado' => $resultado,
+                '_serialize' => ['resultado']
+            ]);
+        }
     }
 
     public function delete(int $id)
