@@ -237,9 +237,25 @@ class LegislacaoController extends AppController
 
     public function relacionamentos(int $id)
     {
+        $t_legislacao = TableRegistry::get('Legislacao');
+        $legislacao = $t_legislacao->get($id, ['contain' => ['LegislacaoRelacionada']]);
+        $relacionadas = $legislacao->relacionadas;
+        $qtd_total = count($relacionadas);
+
+        $opcao_paginacao = [
+            'name' => 'relacionamentos',
+            'name_singular' => 'relacionamento',
+            'predicate' => 'listados',
+            'singular' => 'listado'
+        ];
+
         $this->set('title', 'Legislação Relacionada');
         $this->set('icon', 'gavel');
         $this->set('id', $id);
+        $this->set('legislacao', $legislacao);
+        $this->set('relacionadas', $relacionadas);
+        $this->set('opcao_paginacao', $opcao_paginacao);
+        $this->set('qtd_total', $qtd_total);
     }
 
     public function list()

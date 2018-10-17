@@ -45,6 +45,49 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content table-responsive">
+                        <?php if(count($relacionadas) > 0):?>
+                            <h4 class="card-title">Lista de Publicações Relacionadas</h4>
+                            <table class="table">
+                                <thead class="text-primary">
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Título</th>
+                                        <th style="width: 15%">Data</th>
+                                        <th>Ativo</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($relacionadas as $relacionada): ?>
+                                        <tr>
+                                            <td><?=$relacionada->numero?></td>
+                                            <td><?=$relacionada->titulo?></td>
+                                            <td><?= $this->Format->date($relacionada->data, true) ?></td>
+                                            <td><?= $relacionada->ativado ?></td>
+                                            <td class="td-actions text-right" style="width: 8%">
+                                                <a href="<?= $this->Url->build(['controller' => 'Legislacao', 'action' => 'relacionamentos', $relacionada->id]) ?>" title="Ver Relacionamentos" class="btn btn-info btn-round"><i class="material-icons">toc</i></a>
+                                                <button type="button" onclick="excluir(<?= $relacionada->id ?>, '<?= $relacionada->titulo ?>')" title="Cortar Relacionamento" class="btn btn-danger btn-round"><i class="material-icons">link_off</i></button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <h3>Não existe nenhum documento relacionado a este.</h3>
+                        <?php endif; ?>
+                    </div>
+                     <div class="card-content">
+                        <div class="material-datatables">
+                            <div class="row">
+                               <?=$this->element('pagination', $opcao_paginacao) ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
