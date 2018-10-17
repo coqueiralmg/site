@@ -13,7 +13,8 @@ $(function () {
             });
         },
         select: function (event, ui) {
-            criarRelacaoBidirecional(ui.item);
+            //criarRelacaoBidirecional(ui.item);
+            relacionarLegislacao(ui.item.id, true);
         },
         minLength: 3,
     }).autocomplete("instance")._renderItem = function (ul, item) {
@@ -28,6 +29,9 @@ function criarRelacaoBidirecional(relacionada) {
     var valor = getCookie(chave);
 
     if (valor === "") {
+
+        var padrao;
+
         swal({
             title: "Criar Relação Bidirecional?",
             html: "Deseja que o relacionamento entre a legislação atual e a legislação com título <b>" + relacionada.titulo + "<b> seja bidirecional?",
@@ -40,14 +44,25 @@ function criarRelacaoBidirecional(relacionada) {
             cancelButtonClass: 'btn btn-danger',
             confirmButtonText: 'Sim',
             cancelButtonText: 'Não'
-        }).then(function (bidirecional) {
-            setCookie(chave, bidirecional);
-            relacionarLegislacao(relacionada.id, bidirecional);
+        }).then((result) => {
+            if (result.value) {
+                console.log(result.log);
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+
+            }
         });
     } else {
         relacionarLegislacao(relacionada.id, valor);
     }
 
+}
+
+function definirBidirecionalPadrao(bidirecional) {
+    bidirecional = (bidirecional == 1);
+    setCookie(chave, bidirecional);
 }
 
 function relacionarLegislacao(idRelacionada, bidirecional) {
@@ -78,7 +93,7 @@ function relacionarLegislacao(idRelacionada, bidirecional) {
     }).fail(function () {
         swal({
             title: "Erro!",
-            html: 'Ocorreu um erro ao aceitar a manifestação de ouvidoria',
+            html: 'Ocorreu um erro ao fazer ligação entre documentos da ouvidoria',
             type: 'error'
         });
     });
