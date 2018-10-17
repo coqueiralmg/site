@@ -267,6 +267,120 @@ class LegislacaoController extends AppController
         }
     }
 
+    public function link()
+    {
+        $this->validationRole = false;
+
+        if ($this->request->is('post') || $this->request->is('ajax'))
+        {
+            $documento = $this->request->getData('documento');
+            $relacionada = $this->request->getData('relacionada');
+            $bidirecional = $this->request->getData('bidirecional');
+
+            if($documento == $relacionada)
+            {
+                $this->set([
+                    'sucesso' => false,
+                    'mensagem' => 'Não é permitido fazer relacionamento com próprio documento (auto-relacionamento)',
+                    '_serialize' => ['sucesso', 'mensagem']
+                ]);
+            }
+            else
+            {
+                $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
+                $query = 'select legislacao_origem, legislacao_relacionada from legislacao_relacionamento where legislacao_origem = :origem and legislacao_relacionada = :relacionada';
+                $pivot = $conn->execute($query, ['origem' => $documento], ['relacionada' => $relacionada])->fetchAll('assoc');
+
+                if($pivot->count() > 0)
+                {
+                    $this->set([
+                        'sucesso' => false,
+                        'mensagem' => 'O relacionamento já existe',
+                        '_serialize' => ['sucesso', 'mensagem']
+                    ]);
+                }
+                else
+                {
+                    try
+                    {
+                        $conn->insert('legislacao_relacionamento', [
+                            'legislacao_origem' => $documento,
+                            'legislacao_relacionada' => $relacionada
+                        ]);
+
+                        if($bidirecional)
+                        {
+                            $conn->insert('legislacao_relacionamento', [
+                                'legislacao_origem' => $relacionada,
+                                'legislacao_relacionada' => $documento
+                            ]);
+
+                            $this->set([
+                                'sucesso' => true,
+                                'mensagem' => 'O relacionamento foi criado com sucesso de forma bidirecional',
+                                '_serialize' => ['sucesso', 'mensagem']
+                            ]);
+                        }
+                        else
+                        {
+                            $this->set([
+                                'sucesso' => true,
+                                'mensagem' => 'O relacionamento foi criado com sucesso de forma unidirecional',
+                                '_serialize' => ['sucesso', 'mensagem']
+                            ]);
+                        }
+
+                        $auditoria = [
+                            'ocorrencia' => 72,
+                            'descricao' => 'Foi criada um relacionamento entre um documento de legislação e outra.',
+                            'dado_adicional' => json_encode(['id_legislacao_origem' => $documento,
+                                                             'id_legislacao_relacionada' => $relacionada,
+                                                             'bidirecional' => $bidirecional]),
+                            'usuario' => $this->request->session()->read('UsuarioID')
+                        ];
+
+                        $this->Auditoria->registrar($auditoria);
+
+                        if($this->request->session()->read('UsuarioSuspeito'))
+                        {
+                            $this->Monitoria->monitorar($auditoria);
+                        }
+                    }
+                    catch(Exception $ex)
+                    {
+                        $this->set([
+                            'sucesso' => false,
+                            'mensagem' => $ex->getMessage(),
+                            '_serialize' => ['sucesso', 'mensagem']
+                        ]);
+                    }
+                }
+            }
+        }
+    }
+
+    public function refresh(string $params)
+    {
+        $p = explode('::', $params);
+
+        $destino = $p[0];
+        $mensagem = $p[1];
+
+        $this->Flash->greatSuccess($mensagem);
+        $this->redirect(['action' => $destino]);
+    }
+
+    public function rollback(string $params)
+    {
+        $p = explode('::', $params);
+
+        $destino = $p[0];
+        $mensagem = $p[1];
+
+        $this->Flash->exception($mensagem);
+        $this->redirect(['action' => $destino]);
+    }
+
     public function delete(int $id)
     {
         try

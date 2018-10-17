@@ -19,11 +19,17 @@
                         echo $this->Form->create("Legislacao", [
                             "url" => [
                                 "controller" => "legislacao",
-                                "action" => "index"
+                                "action" => "relacionamentos"
                             ],
                             'type' => 'get',
                             "role" => "form"]);
                         ?>
+                            <?=$this->element('message', [
+                                'name' => 'cadastro_erro',
+                                'type' => 'error',
+                                'message' => 'Ocorreu um erro ao criar relacionamento na legislação.',
+                                'details' => ''
+                            ]) ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-group-min">
