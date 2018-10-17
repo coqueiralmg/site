@@ -33,6 +33,11 @@
     <!-- Select 2 CSS -->
 	<?= $this->Html->css('select2.css') ?>
 
+    <!-- JQuey -->
+    <?= $this->Html->css('jquery-ui.css') ?>
+    <?= $this->Html->css('jquery-ui.structure.css') ?>
+    <?= $this->Html->css('jquery-ui.theme.css') ?>
+
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
