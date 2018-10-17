@@ -9,6 +9,7 @@ class LegislacaoTable extends BaseTable
     {
         $this->table('legislacao');
         $this->primaryKey('id');
+        $this->entityClass('Legislacao');
 
         $this->belongsTo('TipoLegislacao', [
             'className' => 'TipoLegislacao',
@@ -24,10 +25,10 @@ class LegislacaoTable extends BaseTable
             'propertyName' => 'assuntos'
         ]);
 
-        $this->belongsToMany('Legislacao', [
+        $this->belongsToMany('LegislacaoRelacionada', [
             'joinTable' => 'legislacao_relacionamento',
-            'foreignKey' => 'legislacao',
-            'targetForeignKey' => 'relacionada',
+            'foreignKey' => 'legislacao_origem',
+            'targetForeignKey' => 'legislacao_relacionada ',
             'propertyName' => 'relacionadas'
         ]);
     }
