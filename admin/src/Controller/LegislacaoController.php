@@ -244,15 +244,18 @@ class LegislacaoController extends AppController
 
     public function list()
     {
+        $this->validationRole = false;
+
         if ($this->request->is('post') || $this->request->is('ajax'))
         {
-            $chave = $this->request->getData('chave');
+            $chave = $this->request->query('chave');
             $t_legislacao = TableRegistry::get('Legislacao');
 
             $resultado = $t_legislacao->find('all', [
                 'conditions' => [
                     'numero LIKE ' => '%' . $chave . '%'
-                ]
+                ],
+                'limit' => 15
             ])->orWhere([
                 'titulo LIKE ' => '%' . $chave . '%'
             ]);
