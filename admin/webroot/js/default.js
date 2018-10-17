@@ -24,11 +24,16 @@ function imprimeRelogio() {
     setTimeout("imprimeRelogio()", 1000);
 }
 
+function createKeyDataConfig(name) {
+    var usuario = getCookie('Client.User');
+    return "dataconfig:" + name + "@" + usuario;
+}
+
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
@@ -45,12 +50,12 @@ function notificarUsuario(mensagem, tipo) {
         icon: "notifications",
         message: mensagem
     },
-    {
-        type: tipo,
-        timer: 5000,
-        placement: {
-            from: 'bottom',
-            align: 'right'
-        }
-    });
+        {
+            type: tipo,
+            timer: 5000,
+            placement: {
+                from: 'bottom',
+                align: 'right'
+            }
+        });
 }
