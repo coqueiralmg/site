@@ -73,7 +73,9 @@ return [
             68 => 'Exclusão do Informativo Relacionado a Concurso Público ou Processo Seletivo',
             69 => 'Inclusão de Publicação',
             70 => 'Alteração de Publicação',
-            71 => 'Exclusão de Publicação'
+            71 => 'Exclusão de Publicação',
+            72 => 'Criar Relacionamento Entre Documentos de Legislação',
+            73 => 'Cortar Relacionamento Entre Documentos de Legislação'
         ]
     ]
 ];
