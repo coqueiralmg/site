@@ -23,5 +23,12 @@ class LegislacaoTable extends BaseTable
             'targetForeignKey' => 'assunto',
             'propertyName' => 'assuntos'
         ]);
+
+        $this->belongsToMany('Legislacao', [
+            'joinTable' => 'legislacao_relacionamento',
+            'foreignKey' => 'legislacao',
+            'targetForeignKey' => 'relacionada',
+            'propertyName' => 'relacionadas'
+        ]);
     }
 }
