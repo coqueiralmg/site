@@ -30,6 +30,7 @@
                                 'message' => 'Ocorreu um erro ao criar relacionamento na legislação.',
                                 'details' => ''
                             ]) ?>
+                            <?= $this->Flash->render() ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-group-min">
@@ -39,8 +40,12 @@
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-
                             </div>
+                            <?=$this->element('message', [
+                                'name' => 'aviso_aguarde',
+                                'type' => 'warning',
+                                'message' => 'Aguarde enquanto a operação está sendo efetuada!'
+                            ]) ?>
                         <?php echo $this->Form->end(); ?>
                     </div>
                 </div>
