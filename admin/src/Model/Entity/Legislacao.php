@@ -29,4 +29,9 @@ class Legislacao extends Entity
     {
         return $this->_properties['ativo'] ? 'Sim' : 'Não';
     }
+
+    protected function _getDestacado()
+    {
+        return $this->_properties['destaque'] ? 'Sim' : 'Não';
+    }
 }
