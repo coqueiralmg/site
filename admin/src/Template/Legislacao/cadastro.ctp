@@ -137,6 +137,11 @@
                                                 <?= $this->Form->checkbox("ativo", ["id" => "ativo"]) ?> Ativo
                                             </label>
                                         </div>
+                                        <div class="togglebutton">
+                                            <label>
+                                                <?= $this->Form->checkbox("destaque", ["id" => "destaque"]) ?> Destaque
+                                            </label>
+                                        </div>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
