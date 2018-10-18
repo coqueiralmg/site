@@ -54,7 +54,7 @@
                 <div class="card">
                     <div class="card-content table-responsive">
                         <?php if(count($relacionadas) > 0):?>
-                            <h4 class="card-title">Lista de Publicações Relacionadas</h4>
+                            <h4 class="card-title">Publicações Relacionadas a <?=$legislacao->titulo?></h4>
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
@@ -74,7 +74,7 @@
                                             <td><?= $relacionada->ativado ?></td>
                                             <td class="td-actions text-right" style="width: 8%">
                                                 <a href="<?= $this->Url->build(['controller' => 'Legislacao', 'action' => 'relacionamentos', $relacionada->id]) ?>" title="Ver Relacionamentos" class="btn btn-info btn-round"><i class="material-icons">toc</i></a>
-                                                <button type="button" onclick="excluir(<?= $relacionada->id ?>, '<?= $relacionada->titulo ?>')" title="Cortar Relacionamento" class="btn btn-danger btn-round"><i class="material-icons">link_off</i></button>
+                                                <button type="button" onclick="cortarRelacionamento(<?= $relacionada->id ?>, '<?= $relacionada->titulo ?>')" title="Cortar Relacionamento" class="btn btn-danger btn-round"><i class="material-icons">link_off</i></button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

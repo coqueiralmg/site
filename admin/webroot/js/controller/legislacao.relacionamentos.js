@@ -27,6 +27,21 @@ $(function () {
     };
 });
 
+function cortarRelacionamento(id, titulo) {
+    swal({
+        title: "Deseja cortar a ligação com este documento da legislação?",
+        html: "Este documento da legislação não estará mais relacionado com o documento da legislação com o título <b> " + titulo + "</b>.",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não'
+    }).then(function () {
+        desligarLegislacao(id, true);
+    });
+}
+
 function relacionarLegislacao(idRelacionada, bidirecional) {
     var url = "/admin/legislacao/link.json";
 
@@ -60,6 +75,37 @@ function relacionarLegislacao(idRelacionada, bidirecional) {
         swal({
             title: "Erro!",
             html: 'Ocorreu um erro ao fazer ligação entre documentos da ouvidoria',
+            type: 'error'
+        });
+    });
+
+    $("#aviso_aguarde").show('fade');
+}
+
+function desligarLegislacao(idRelacionada, bidirecional) {
+    var url = "/admin/legislacao/unlink.json";
+
+    $.post(url, {
+        documento: idLegislacao,
+        relacionada: idRelacionada,
+        bidirecional: bidirecional
+    }, function (data) {
+        var destino = 'relacionamentos/' + idLegislacao;
+        $("#aviso_aguarde").hide('fade');
+
+        if (data.sucesso) {
+            var mensagem = "O relacionamento foi excluído com sucesso!";
+            window.location = '/admin/legislacao/refresh?destino=relacionamentos&codigo=' + idLegislacao + "&&mensagem=" + mensagem;
+        } else {
+            var mensagem = data.mensagem;
+            window.location = '/admin/legislacao/rollback?destino=relacionamentos&codigo=' + idLegislacao + "&&mensagem=" + mensagem;
+        }
+    }).fail(function () {
+        $("#aviso_aguarde").hide('fade');
+
+        swal({
+            title: "Erro!",
+            html: 'Ocorreu um erro ao desfazer ligação entre documentos da ouvidoria',
             type: 'error'
         });
     });

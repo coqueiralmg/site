@@ -375,6 +375,73 @@ class LegislacaoController extends AppController
         }
     }
 
+    public function unlink()
+    {
+        $this->validationRole = false;
+
+        if ($this->request->is('post'))
+        {
+            $documento = $this->request->getData('documento');
+            $relacionada = $this->request->getData('relacionada');
+            $bidirecional = $this->request->getData('bidirecional');
+            $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
+
+            try
+            {
+                $conn->delete('legislacao_relacionamento', [
+                    'legislacao_origem' => $documento,
+                    'legislacao_relacionada' => $relacionada
+                ]);
+
+                if($bidirecional)
+                {
+                    $conn->delete('legislacao_relacionamento', [
+                        'legislacao_origem' => $relacionada,
+                        'legislacao_relacionada' => $documento
+                    ]);
+
+                    $this->set([
+                        'sucesso' => true,
+                        'mensagem' => 'O relacionamento foi desfeito com sucesso de forma bidirecional',
+                        '_serialize' => ['sucesso', 'mensagem']
+                    ]);
+                }
+                else
+                {
+                    $this->set([
+                        'sucesso' => true,
+                        'mensagem' => 'O relacionamento foi desfeito com sucesso de forma unidirecional',
+                        '_serialize' => ['sucesso', 'mensagem']
+                    ]);
+                }
+
+                $auditoria = [
+                    'ocorrencia' => 73,
+                    'descricao' => 'Foi cortado um relacionamento entre um documento de legislação e outra.',
+                    'dado_adicional' => json_encode(['id_legislacao_origem' => $documento,
+                                                        'id_legislacao_desrelacionada' => $relacionada,
+                                                        'bidirecional' => $bidirecional]),
+                    'usuario' => $this->request->session()->read('UsuarioID')
+                ];
+
+                $this->Auditoria->registrar($auditoria);
+
+                if($this->request->session()->read('UsuarioSuspeito'))
+                {
+                    $this->Monitoria->monitorar($auditoria);
+                }
+            }
+            catch(Exception $ex)
+            {
+                $this->set([
+                    'sucesso' => false,
+                    'mensagem' => $ex->getMessage(),
+                    '_serialize' => ['sucesso', 'mensagem']
+                ]);
+            }
+        }
+    }
+
     public function refresh()
     {
         $destino = $this->request->query('destino');
