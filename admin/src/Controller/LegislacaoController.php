@@ -483,11 +483,25 @@ class LegislacaoController extends AppController
         try
         {
             $t_legislacao = TableRegistry::get('Legislacao');
+            $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
+
             $marcado = $t_legislacao->get($id);
 
             $propriedades = $marcado->getOriginalValues();
 
             $this->removerArquivo($marcado->arquivo);
+
+            $conn->delete('legislacao_relacionamento', [
+                'legislacao_origem' => $id,
+            ]);
+
+            $conn->delete('legislacao_relacionamento', [
+                'legislacao_relacionada' => $id,
+            ]);
+
+            $conn->delete('assuntos_legislacao', [
+                'legislacao' => $id
+            ]);
 
             $t_legislacao->delete($marcado);
 
