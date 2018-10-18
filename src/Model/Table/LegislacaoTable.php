@@ -18,4 +18,9 @@ class LegislacaoTable extends BaseTable
     {
         return $query->where(['ativo' => true]);
     }
+
+    public function findDestaque(Query $query, array $options)
+    {
+        return $query->where(['ativo' => true, 'destaque' => true]);
+    }
 }
