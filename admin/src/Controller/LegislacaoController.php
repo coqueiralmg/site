@@ -55,7 +55,14 @@ class LegislacaoController extends AppController
 
             if ($mostrar != 'T')
             {
-                $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
+                if($mostrar == 'D')
+                {
+                    $condicoes["destaque"] = "1";
+                }
+                else
+                {
+                    $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
+                }
             }
 
             $data['numero'] = $numero;
@@ -81,7 +88,7 @@ class LegislacaoController extends AppController
             'conditions' => $condicoes]
         )->count();
 
-        $combo_mostra = ["T" => "Todos", "A" => "Somente ativos", "I" => "Somente inativos"];
+        $combo_mostra = ["T" => "Todos", "A" => "Somente ativos", "I" => "Somente inativos", "D" => "Somente os destaques"];
         $combo_tipo = $t_tipo_legislacao->find('list', [
             'keyField' => 'id',
             'valueField' => 'nome',
