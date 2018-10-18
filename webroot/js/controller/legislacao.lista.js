@@ -20,8 +20,18 @@ $(function () {
     });
 
     $(function () {
-        $("#tabs").tabs({
+        var tabs = $("#tabs").tabs({
             collapsible: true
         });
+
+        tabs.find(".ui-tabs-nav").sortable({
+            axis: "x",
+            stop: function () {
+                tabs.tabs("refresh");
+            }
+        });
+
+        $("#loader").hide();
+        $("#tabs").show('fade');
     });
 });
