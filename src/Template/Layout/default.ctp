@@ -29,6 +29,7 @@
     <?= $this->Html->css('prettyPhoto.css') ?>
     <?= $this->Html->css('main.css') ?>
     <?= $this->Html->css('responsive.css') ?>
+    <?= $this->Html->css('jquery-ui.css') ?>
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -134,6 +135,7 @@
 
 
     <?= $this->Html->script('jquery.js') ?>
+    <?= $this->Html->script('jquery-ui.js') ?>
     <?= $this->Html->script('bootstrap.min.js') ?>
     <?= $this->Html->script('jquery.prettyPhoto.js') ?>
     <?= $this->Html->script('jquery.isotope.min.js') ?>

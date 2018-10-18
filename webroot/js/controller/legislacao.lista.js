@@ -18,4 +18,10 @@ $(function () {
             return false;
         }
     });
+
+    $(function () {
+        $("#tabs").tabs({
+            collapsible: true
+        });
+    });
 });
