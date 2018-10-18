@@ -305,9 +305,9 @@ class LegislacaoController extends AppController
             {
                 $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
                 $query = 'select legislacao_origem, legislacao_relacionada from legislacao_relacionamento where legislacao_origem = :origem and legislacao_relacionada = :relacionada';
-                $pivot = $conn->execute($query, ['origem' => $documento], ['relacionada' => $relacionada])->fetchAll('assoc');
+                $pivot = $conn->execute($query, ['origem' => $documento, 'relacionada' => $relacionada])->fetchAll('assoc');
 
-                if($pivot->count() > 0)
+                if(count($pivot) > 0)
                 {
                     $this->set([
                         'sucesso' => false,
@@ -375,26 +375,40 @@ class LegislacaoController extends AppController
         }
     }
 
-    public function refresh(string $params)
+    public function refresh()
     {
-        $p = explode('::', $params);
-
-        $destino = $p[0];
-        $mensagem = $p[1];
+        $destino = $this->request->query('destino');
+        $codigo = $this->request->query('codigo');
+        $mensagem = $this->request->query('mensagem');
 
         $this->Flash->greatSuccess($mensagem);
+
+        if($codigo == "")
+        {
         $this->redirect(['action' => $destino]);
+        }
+        else
+        {
+        $this->redirect(['action' => $destino, $codigo]);
+        }
     }
 
-    public function rollback(string $params)
+    public function rollback()
     {
-        $p = explode('::', $params);
-
-        $destino = $p[0];
-        $mensagem = $p[1];
+        $destino = $this->request->query('destino');
+        $codigo = $this->request->query('codigo');
+        $mensagem = $this->request->query('mensagem');
 
         $this->Flash->exception($mensagem);
+
+        if($codigo == "")
+        {
         $this->redirect(['action' => $destino]);
+        }
+        else
+        {
+        $this->redirect(['action' => $destino, $codigo]);
+        }
     }
 
     public function delete(int $id)
