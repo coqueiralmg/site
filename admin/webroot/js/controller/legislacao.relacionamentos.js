@@ -91,7 +91,6 @@ function desligarLegislacao(idRelacionada, bidirecional) {
         bidirecional: bidirecional
     }, function (data) {
         var destino = 'relacionamentos/' + idLegislacao;
-        $("#aviso_aguarde").hide('fade');
 
         if (data.sucesso) {
             var mensagem = "O relacionamento foi excluído com sucesso!";
