@@ -17,7 +17,26 @@
             </ul>
             <div id="destaques">
                 <h5>Leis, decretos e outros documentos em destaque</h5>
-                <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+                <?php if(count($destaques) > 0): ?>
+                    <?php for($i = 0; $i < count($destaques); $i++): ?>
+                        <?php
+                            $publicacao = $destaques[$i];
+                        ?>
+                        <?php if($i % 2 == 0): ?>
+                            <div class="row">
+                        <?php endif; ?>
+                        <div class="item col-md-12 col-lg-6">
+                            <h3 class="media-heading" style="text-transform: uppercase;"><?= $publicacao->titulo ?></h3>
+                            <p><?= $publicacao->resumo ?></p>
+                            <?= $this->Html->link('Detalhes', ['controller' => 'legislacao', 'action' =>  'documento', $publicacao->id], ['class' => 'btn btn-success']) ?>
+                        </div>
+                        <?php if($i % 2 != 0): ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                <?php else: ?>
+                    <p>Nenhum destaque disponível!</p>
+                <?php endif; ?>
             </div>
             <div id="tipo">
                 <h5>Faça busca de legislação municipal por tipo</h5>

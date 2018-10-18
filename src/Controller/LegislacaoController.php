@@ -39,8 +39,15 @@ class LegislacaoController extends AppController
         $legislacao = $this->paginate($t_legislacao);
         $qtd_total = $t_legislacao->find('all', ['conditions' => $conditions])->count();
 
+        $destaques = $t_legislacao->find('destaque', [
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ]);
+
         $this->set('title', "Legislação");
         $this->set('legislacao', $legislacao->toArray());
+        $this->set('destaques', $destaques->toArray());
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
     }
