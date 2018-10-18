@@ -54,7 +54,7 @@
                 <div class="card">
                     <div class="card-content table-responsive">
                         <?php if(count($relacionadas) > 0):?>
-                            <h4 class="card-title">Lista de Publicações Relacionadas</h4>
+                            <h4 class="card-title">Publicações Relacionadas a <?=$legislacao->titulo?></h4>
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
