@@ -41,17 +41,21 @@
             <div id="tipo">
                 <h5>Faça busca de legislação municipal por tipo</h5>
                 <?php foreach($tipos_legislacao as $tipo_legislacao): ?>
-                    <?= $this->Html->link($tipo_legislacao->nome, ['controller' => 'legislacao', 'action' =>  'tipo', $tipo_legislacao->id], ['class' => 'btn btn-success']) ?>
+                    <?= $this->Html->link($tipo_legislacao->nome, ['controller' => 'legislacao', 'action' =>  'tipo', $tipo_legislacao->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                 <?php endforeach; ?>
 
             </div>
             <div id="assuntos">
                 <h5>Faça a busca de legislação municipal por assunto.</h5>
-                <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                <?php foreach($assuntos as $assunto): ?>
+                    <?= $this->Html->link($assunto->descricao, ['controller' => 'legislacao', 'action' =>  'assunto', $assunto->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                <?php endforeach; ?>
             </div>
             <div id="ano">
                 <h5>Faça a busca de legislação municipal por ano.</h5>
-                <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                <?php foreach($anos as $ano): ?>
+                    <?= $this->Html->link($ano->ano, ['controller' => 'legislacao', 'action' =>  'ano', $ano->ano], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                <?php endforeach; ?>
             </div>
         </div>
         <div class="row">
