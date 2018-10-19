@@ -59,6 +59,7 @@
                     <?php endforeach; ?>
                 </div>
             </div>
+            <hr clear="all"/>
         <?php endif; ?>
         <div class="row">
             <div class="col-md-12">
