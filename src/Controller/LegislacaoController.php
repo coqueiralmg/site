@@ -40,41 +40,51 @@ class LegislacaoController extends AppController
         $t_assuntos = TableRegistry::get('Assunto');
 
         $legislacao = $this->paginate($t_legislacao);
+        $inicial = count($this->request->query) == 0;
         $qtd_total = $t_legislacao->find('all', ['conditions' => $conditions])->count();
 
-        $destaques = $t_legislacao->find('destaque', [
-            'order' => [
-                'data' => 'DESC'
-            ]
-        ]);
+        $destaques = null;
+        $anos = null;
+        $tipos_legislacao = null;
+        $assuntos = null;
 
-        $anos = $t_legislacao->find('ativo');
-        $anos->select([
-            'ano' => $anos->func()->year(['data' => 'identifier'])
-        ])->group('ano')->order([
-            'ano' => 'DESC'
-        ]);
+        if($inicial)
+        {
+            $destaques = $t_legislacao->find('destaque', [
+                'order' => [
+                    'data' => 'DESC'
+                ]
+            ]);
 
-        $tipos_legislacao = $t_tipo_legislacao->find('all', [
-            'conditions' => [
-                'ativo' => true
-        ]]);
+            $anos = $t_legislacao->find('ativo');
+            $anos->select([
+                'ano' => $anos->func()->year(['data' => 'identifier'])
+            ])->group('ano')->order([
+                'ano' => 'DESC'
+            ]);
 
-        $assuntos = $t_assuntos->find('all', [
-            'conditions' => [
-                'tipo' => 'LG'
-            ],
-            'order' => [
-                'descricao' => 'ASC'
-            ]
-        ]);
+            $tipos_legislacao = $t_tipo_legislacao->find('all', [
+                'conditions' => [
+                    'ativo' => true
+            ]]);
+
+            $assuntos = $t_assuntos->find('all', [
+                'conditions' => [
+                    'tipo' => 'LG'
+                ],
+                'order' => [
+                    'descricao' => 'ASC'
+                ]
+            ]);
+        }
 
         $this->set('title', "Legislação");
         $this->set('legislacao', $legislacao->toArray());
-        $this->set('destaques', $destaques->toArray());
-        $this->set('tipos_legislacao', $tipos_legislacao->toArray());
-        $this->set('assuntos', $assuntos->toArray());
-        $this->set('anos', $anos->toArray());
+        $this->set('destaques', $destaques == null ? [] : $destaques->toArray());
+        $this->set('tipos_legislacao', $tipos_legislacao == null ? [] : $tipos_legislacao->toArray());
+        $this->set('assuntos', $assuntos == null ? [] : $assuntos->toArray());
+        $this->set('anos', $anos == null ? [] : $anos->toArray());
+        $this->set('inicial', $inicial);
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
     }
