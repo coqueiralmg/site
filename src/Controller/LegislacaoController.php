@@ -470,7 +470,7 @@ class LegislacaoController extends AppController
     public function documento(int $id)
     {
         $t_legislacao = TableRegistry::get('Legislacao');
-        $legislacao = $t_legislacao->get($id);
+        $legislacao = $t_legislacao->get($id, ['contain' => ['Assunto', 'TipoLegislacao', 'LegislacaoRelacionada']]);
 
         $this->set('title', $legislacao->titulo);
         $this->set('legislacao', $legislacao);
