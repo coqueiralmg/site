@@ -18,24 +18,24 @@
                     <li><a href="#ano">Ano</a></li>
                 </ul>
                 <?php if(count($destaques) > 0): ?>
-                    <div id="destaques">
-                    <h5>Leis, decretos e outros documentos em destaque</h5>
-                        <?php for($i = 0; $i < count($destaques); $i++): ?>
-                            <?php
-                                $publicacao = $destaques[$i];
-                            ?>
-                            <?php if($i % 2 == 0): ?>
-                                <div class="row">
-                            <?php endif; ?>
-                            <div class="item col-md-12 col-lg-6">
-                                <h3 class="media-heading" style="text-transform: uppercase;"><?= $publicacao->titulo ?></h3>
-                                <p><?= $publicacao->resumo ?></p>
-                                <?= $this->Html->link('Detalhes', ['controller' => 'legislacao', 'action' =>  'documento', $publicacao->id], ['class' => 'btn btn-success']) ?>
+                   <div id="destaques">
+                        <h5>Leis, decretos e outros documentos em destaque</h5>
+                        <?php if(count($destaques) > 0): ?>
+                            <div class="row">
+                                <?php for($i = 0; $i < count($destaques); $i++): ?>
+                                    <?php
+                                        $publicacao = $destaques[$i];
+                                    ?>
+                                    <div class="item col-md-12 col-lg-6">
+                                        <h3 class="media-heading" style="text-transform: uppercase;"><?= $publicacao->titulo ?></h3>
+                                        <p><?= $publicacao->resumo ?></p>
+                                        <?= $this->Html->link('Detalhes', ['controller' => 'legislacao', 'action' =>  'documento', $publicacao->id], ['class' => 'btn btn-success']) ?>
+                                    </div>
+                                <?php endfor; ?>
                             </div>
-                            <?php if($i % 2 != 0): ?>
-                                </div>
-                            <?php endif; ?>
-                        <?php endfor; ?>
+                        <?php else: ?>
+                            <p>Nenhum destaque disponível!</p>
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
                 <div id="tipo">
