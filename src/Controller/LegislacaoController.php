@@ -345,12 +345,26 @@ class LegislacaoController extends AppController
         if($this->request->is('get') && count($this->request->query) > 0)
         {
             $chave = $this->request->query('chave');
+            $assunto = $this->request->query('assunto');
+            $tipo = $this->request->query('tipo');
 
             $conditions['titulo LIKE'] = '%' . $chave . '%';
 
             $data = array();
 
             $data['chave'] = $chave;
+
+            if($assunto != '')
+            {
+                $conditions['assunto'] = $assunto;
+                $data['assunto'] = $assunto;
+            }
+
+            if($tipo != '')
+            {
+                $conditions['tipo'] = $tipo;
+                $data['tipo'] = $tipo;
+            }
         }
 
         $data['ano'] = $ano;
@@ -360,20 +374,38 @@ class LegislacaoController extends AppController
 
         $this->request->data = $data;
 
-        $this->paginate = [
-            'limit' => $limite_paginacao,
-            'conditions' => $conditions,
-            'order' => [
-                'data' => 'DESC'
-            ]
-        ];
-
         $t_legislacao = TableRegistry::get('Legislacao');
         $t_tipo_legislacao = TableRegistry::get('TipoLegislacao');
         $t_assuntos = TableRegistry::get('Assunto');
 
+        if(isset($data['assunto']))
+        {
+            $this->paginate = [
+                'limit' => $limite_paginacao,
+                'conditions' => $conditions,
+                'contain' => ['AssuntoLegislacao'],
+                'order' => [
+                    'data' => 'DESC'
+                ]
+            ];
+
+            $qtd_total = $t_legislacao->find('all', ['contain' => ['AssuntoLegislacao'], 'conditions' => $conditions])->count();
+        }
+        else
+        {
+            $this->paginate = [
+                'limit' => $limite_paginacao,
+                'conditions' => $conditions,
+                'order' => [
+                    'data' => 'DESC'
+                ]
+            ];
+
+            $qtd_total = $t_legislacao->find('all', ['conditions' => $conditions])->count();
+        }
+
         $legislacao = $this->paginate($t_legislacao);
-        $inicial = count($this->request->query) == 0;
+        $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
         $qtd_total = $t_legislacao->find('all', ['conditions' => $conditions])->count();
 
         $destaques = null;
@@ -383,14 +415,30 @@ class LegislacaoController extends AppController
 
         if($inicial)
         {
-            $destaques = $t_legislacao->find('destaque', [
-                'conditions' => [
-                    'year(data)' => $ano
-                ],
-                'order' => [
-                    'data' => 'DESC'
-                ]
-            ]);
+            $filtro = array();
+            $filtro['year(data)'] = $ano;
+            if(isset($data['tipo'])) $filtro['tipo'] = $data['tipo'];
+            if(isset($data['assunto'])) $filtro['assunto'] = $data['assunto'];
+
+            if(isset($data['assunto']))
+            {
+                $destaques = $t_legislacao->find('destaque', [
+                    'contain' => ['AssuntoLegislacao'],
+                    'conditions' => $filtro,
+                    'order' => [
+                        'data' => 'DESC'
+                    ]
+                ]);
+            }
+            else
+            {
+                $destaques = $t_legislacao->find('destaque', [
+                    'conditions' => $filtro,
+                    'order' => [
+                        'data' => 'DESC'
+                    ]
+                ]);
+            }
 
             $tipos_legislacao = $t_tipo_legislacao->find('all', [
                 'conditions' => [

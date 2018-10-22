@@ -67,6 +67,19 @@
                     'role' => 'form']);
                 ?>
 
+                <?php
+                if(isset($data['assunto']))
+                {
+                    $assunto = $data['assunto'];
+                    echo $this->Form->hidden('assunto', ['value' => $assunto]);
+                }
+                if(isset($data['tipo']))
+                {
+                    $tipo = $data['tipo'];
+                    echo $this->Form->hidden('tipo', ['value' => $tipo]);
+                }
+                ?>
+
                 <?= $this->Form->search('chave', ['id' => 'pesquisa', 'class' => 'form-control busca', 'placeholder' => 'Digite aqui para buscar']) ?>
                  <button type="submit" id="btn-pesquisar" class="btn btn-success"><i class="fa fa-search"></i>&nbsp;Buscar</button>
 
