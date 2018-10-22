@@ -243,10 +243,24 @@ class LegislacaoController extends AppController
         if($this->request->is('get') && count($this->request->query) > 0)
         {
             $chave = $this->request->query('chave');
+            $ano = $this->request->query('ano');
+            $tipo = $this->request->query('tipo');
 
             $conditions['titulo LIKE'] = '%' . $chave . '%';
 
             $data['chave'] = $chave;
+
+            if($ano != '')
+            {
+                $conditions['year(data)'] = $ano;
+                $data['ano'] = $ano;
+            }
+
+            if($tipo != '')
+            {
+                $conditions['tipo'] = $tipo;
+                $data['tipo'] = $tipo;
+            }
         }
 
         $data['assunto'] = $id;
@@ -270,7 +284,7 @@ class LegislacaoController extends AppController
         $t_assuntos = TableRegistry::get('Assunto');
 
         $legislacao = $this->paginate($t_legislacao);
-        $inicial = count($this->request->query) == 0;
+        $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
         $qtd_total = $t_legislacao->find('all', ['contain' => ['AssuntoLegislacao'], 'conditions' => $conditions])->count();
         $assunto = $t_assuntos->get($id);
 
@@ -281,6 +295,11 @@ class LegislacaoController extends AppController
 
         if($inicial)
         {
+            $filtro = array();
+            $filtro['assunto'] = $id;
+            if(isset($data['ano'])) $filtro['year(data)'] = $data['ano'];
+            if(isset($data['tipo'])) $filtro['tipo'] = $data['tipo'];
+
             $destaques = $t_legislacao->find('destaque', [
                 'contain' => ['AssuntoLegislacao'],
                 'conditions' => [
@@ -291,7 +310,8 @@ class LegislacaoController extends AppController
                 ]
             ]);
 
-            $anos = $t_legislacao->find('ativo');
+            $anos = $t_legislacao->find('ativo', ['contain' => ['AssuntoLegislacao'], 'conditions' => $filtro]);
+
             $anos->select([
                 'ano' => $anos->func()->year(['data' => 'identifier'])
             ])->group('ano')->order([
