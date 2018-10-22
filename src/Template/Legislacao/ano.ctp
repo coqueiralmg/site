@@ -11,14 +11,15 @@
             </div>
             <div id="tabs" style="display: none">
                 <ul>
-                    <li><a href="#destaques">Destaques</a></li>
+                    <?php if(count($destaques) > 0): ?>
+                        <li><a href="#destaques">Destaques</a></li>
+                    <?php endif;?>
                     <li><a href="#tipo">Tipo</a></li>
                     <li><a href="#assuntos">Assuntos</a></li>
-                    <li><a href="#ano">Ano</a></li>
                 </ul>
-                <div id="destaques">
-                    <h5>Leis, decretos e outros documentos em destaque</h5>
-                    <?php if(count($destaques) > 0): ?>
+                <?php if(count($destaques) > 0): ?>
+                    <div id="destaques">
+                        <h5>Leis, decretos e outros documentos em destaque</h5>
                         <?php for($i = 0; $i < count($destaques); $i++): ?>
                             <?php
                                 $publicacao = $destaques[$i];
@@ -35,10 +36,8 @@
                                 </div>
                             <?php endif; ?>
                         <?php endfor; ?>
-                    <?php else: ?>
-                        <p>Nenhum destaque disponível!</p>
-                    <?php endif; ?>
-                </div>
+                    </div>
+                <?php endif; ?>
                 <div id="tipo">
                     <h5>Faça busca de legislação municipal por tipo</h5>
                     <?php foreach($tipos_legislacao as $tipo_legislacao): ?>
@@ -50,12 +49,6 @@
                     <h5>Faça a busca de legislação municipal por assunto.</h5>
                     <?php foreach($assuntos as $assunto): ?>
                         <?= $this->Html->link($assunto->descricao, ['controller' => 'legislacao', 'action' =>  'assunto', $assunto->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
-                    <?php endforeach; ?>
-                </div>
-                <div id="ano">
-                    <h5>Faça a busca de legislação municipal por ano.</h5>
-                    <?php foreach($anos as $ano): ?>
-                        <?= $this->Html->link($ano->ano, ['controller' => 'legislacao', 'action' =>  'ano', $ano->ano], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                     <?php endforeach; ?>
                 </div>
             </div>
