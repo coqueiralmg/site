@@ -9,11 +9,11 @@ class AssuntoTable extends BaseTable
         $this->table('assuntos');
         $this->primaryKey('id');
 
-        $this->belongsToMany('Assunto', [
-            'joinTable' => 'funcoes_grupos',
+        $this->belongsToMany('Legislacao', [
+            'joinTable' => 'assuntos_legislacao',
             'foreignKey' => 'assunto',
             'targetForeignKey' => 'legislacao',
-            'propertyName' => 'itens'
+            'propertyName' => 'legislacoes'
         ]);
     }
 }
