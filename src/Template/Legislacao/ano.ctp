@@ -3,7 +3,7 @@
     <div class="container">
         <div class="center wow fadeInDown">
             <h2>Legislação Municipal</h2>
-            <p class="lead">Legislação do Município de Coqueiral</p>
+            <p class="lead">Legislação do Município de Coqueiral do ano de <?=$ano?></p>
         </div>
         <?php if($inicial): ?>
             <div id="loader" class="center">
@@ -41,7 +41,7 @@
                 <div id="tipo">
                     <h5>Faça busca de legislação municipal por tipo</h5>
                     <?php foreach($tipos_legislacao as $tipo_legislacao): ?>
-                        <?= $this->Html->link($tipo_legislacao->nome, ['controller' => 'legislacao', 'action' =>  'tipo', $tipo_legislacao->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                        <?= $this->Html->link($tipo_legislacao->nome, ['controller' => 'legislacao', 'action' =>  'tipo', $tipo_legislacao->id, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                     <?php endforeach; ?>
 
                 </div>

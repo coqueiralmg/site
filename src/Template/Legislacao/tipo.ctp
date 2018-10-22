@@ -41,13 +41,13 @@
                 <div id="assuntos">
                     <h5>Faça a busca de legislação municipal por assunto.</h5>
                     <?php foreach($assuntos as $assunto): ?>
-                        <?= $this->Html->link($assunto->descricao, ['controller' => 'legislacao', 'action' =>  'assunto', $assunto->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                        <?= $this->Html->link($assunto->descricao, ['controller' => 'legislacao', 'action' =>  'assunto', $assunto->id, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                     <?php endforeach; ?>
                 </div>
                 <div id="ano">
                     <h5>Faça a busca de legislação municipal por ano.</h5>
                     <?php foreach($anos as $ano): ?>
-                        <?= $this->Html->link($ano->ano, ['controller' => 'legislacao', 'action' =>  'ano', $ano->ano], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                        <?= $this->Html->link($ano->ano, ['controller' => 'legislacao', 'action' =>  'ano', $ano->ano, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -65,6 +65,18 @@
                     'idPrefix' => 'pesquisar-legislacao',
                     'type' => 'get',
                     'role' => 'form']);
+                ?>
+                <?php
+                if(isset($data['ano']))
+                {
+                    $ano = $data['ano'];
+                    echo $this->Form->hidden('ano', ['value' => $ano]);
+                }
+                if(isset($data['assunto']))
+                {
+                    $assunto = $data['assunto'];
+                    echo $this->Form->hidden('assunto', ['value' => $assunto]);
+                }
                 ?>
 
                 <?= $this->Form->search('chave', ['id' => 'pesquisa', 'class' => 'form-control busca', 'placeholder' => 'Digite aqui para buscar']) ?>

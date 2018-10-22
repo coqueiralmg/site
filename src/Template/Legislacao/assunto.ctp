@@ -41,7 +41,7 @@
                 <div id="tipo">
                     <h5>Faça busca de legislação municipal por tipo</h5>
                     <?php foreach($tipos_legislacao as $tipo_legislacao): ?>
-                        <?= $this->Html->link($tipo_legislacao->nome, ['controller' => 'legislacao', 'action' =>  'tipo', $tipo_legislacao->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                        <?= $this->Html->link($tipo_legislacao->nome, ['controller' => 'legislacao', 'action' =>  'tipo', $tipo_legislacao->id, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                     <?php endforeach; ?>
                 </div>
                 <div id="ano">
