@@ -27,7 +27,7 @@
                                 <tr>
                                     <td><?=$relacionada->numero?></td>
                                     <td><?=$relacionada->titulo?></td>
-                                    <td><?=$relacionada->data?></td>
+                                    <td><?=$this->Format->date($relacionada->data)?></td>
                                     <td class="td-actions text-right">
                                         <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'documento', $relacionada->id]) ?>" title="Ver Detalhes" class="btn btn-success btn-round">
                                             <i class="fa fa-file-text"></i>
