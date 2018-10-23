@@ -3,7 +3,7 @@
     <div class="container">
         <div class="center wow fadeInDown">
             <h2>Legislação Municipal</h2>
-            <p class="lead">Legislação do Município de Coqueiral</p>
+            <p class="lead">Legislação do Município de Coqueiral com assunto <?=$assunto->descricao?></p>
         </div>
         <?php if($inicial): ?>
             <div id="loader" class="center">

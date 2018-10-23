@@ -22,7 +22,8 @@ class LegislacaoTable extends BaseTable
 
         $this->belongsTo('AssuntoLegislacao', [
             'joinType' => 'INNER',
-            'foreignKey' => 'id'
+            'foreignKey' => 'id',
+            'bindingKey' => 'legislacao',
         ]);
 
         $this->belongsToMany('Assunto', [
