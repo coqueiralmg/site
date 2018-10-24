@@ -361,7 +361,14 @@ class LicitacoesController extends AppController
                 $this->Monitoria->monitorar($auditoria);
             }
 
-            $this->redirect(['action' => 'cadastro', $id]);
+            if($entity->antigo)
+            {
+                $this->redirect(['action' => 'edicao', $id]);
+            }
+            else
+            {
+                $this->redirect(['action' => 'cadastro', $id]);
+            }
         }
         catch(Exception $ex)
         {
