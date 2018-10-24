@@ -193,6 +193,7 @@ class LicitacoesController extends AppController
         }
 
         $this->set('title', $title);
+        $this->set('combo_modalidade', []);
         $this->set('icon', $icon);
         $this->set('id', $id);
     }
