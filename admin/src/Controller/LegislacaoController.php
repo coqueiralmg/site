@@ -459,11 +459,11 @@ class LegislacaoController extends AppController
 
         if($codigo == "")
         {
-        $this->redirect(['action' => $destino]);
+            $this->redirect(['action' => $destino]);
         }
         else
         {
-        $this->redirect(['action' => $destino, $codigo]);
+            $this->redirect(['action' => $destino, $codigo]);
         }
     }
 
@@ -477,11 +477,11 @@ class LegislacaoController extends AppController
 
         if($codigo == "")
         {
-        $this->redirect(['action' => $destino]);
+            $this->redirect(['action' => $destino]);
         }
         else
         {
-        $this->redirect(['action' => $destino, $codigo]);
+            $this->redirect(['action' => $destino, $codigo]);
         }
     }
 
