@@ -156,7 +156,18 @@ class LicitacoesController extends AppController
 
     public function edit(int $id)
     {
-        $this->redirect(['action' => 'cadastro', $id]);
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        $licitacao = $t_licitacoes->get($id);
+
+        if($licitacao->antigo)
+        {
+            $this->Flash->greatWarning('Esta licitação encontra-se no formato antigo. Para efetuar a migração, clique em "Migrar" na barra inferior.');
+            $this->redirect(['action' => 'edicao', $id]);
+        }
+        else
+        {
+            $this->redirect(['action' => 'cadastro', $id]);
+        }
     }
 
     public function cadastro(int $id)
@@ -181,6 +192,25 @@ class LicitacoesController extends AppController
             $this->set('licitacao', null);
         }
 
+        $this->set('title', $title);
+        $this->set('icon', $icon);
+        $this->set('id', $id);
+    }
+
+    public function edicao(int $id)
+    {
+        $title = 'Edição da Licitação';
+        $icon = 'work';
+
+        $t_licitacoes = TableRegistry::get('Licitacao');
+
+        $licitacao = $t_licitacoes->get($id);
+        $licitacao->data_inicio = $licitacao->dataInicio->i18nFormat('dd/MM/yyyy');
+        $licitacao->hora_inicio = $licitacao->dataInicio->i18nFormat('HH:mm');
+        $licitacao->data_termino = $licitacao->dataTermino->i18nFormat('dd/MM/yyyy');
+        $licitacao->hora_termino = $licitacao->dataTermino->i18nFormat('HH:mm');
+
+        $this->set('licitacao', $licitacao);
         $this->set('title', $title);
         $this->set('icon', $icon);
         $this->set('id', $id);
