@@ -24,6 +24,8 @@ class LegislacaoController extends AppController
     {
         $t_legislacao = TableRegistry::get('Legislacao');
         $t_tipo_legislacao = TableRegistry::get('TipoLegislacao');
+        $t_assuntos = TableRegistry::get('Assunto');
+
         $limite_paginacao = Configure::read('Pagination.limit');
 
         $condicoes = array();
@@ -36,6 +38,7 @@ class LegislacaoController extends AppController
             $data_inicial = $this->request->query('data_inicial');
             $data_final = $this->request->query('data_final');
             $mostrar = $this->request->query('mostrar');
+            $assunto = $this->request->query('assunto');
 
             if($numero != "")
             {
@@ -51,6 +54,11 @@ class LegislacaoController extends AppController
             {
                 $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
                 $condicoes["data <="] = $this->Format->formatDateDB($data_final);
+            }
+
+            if($assunto != "")
+            {
+                $condicoes['assunto'] = $assunto;
             }
 
             if ($mostrar != 'T')
@@ -70,25 +78,51 @@ class LegislacaoController extends AppController
             $data['data_inicial'] = $data_inicial;
             $data['data_final'] = $data_final;
             $data['mostrar'] = $mostrar;
+            $data['assunto'] = $assunto;
 
             $this->request->data = $data;
         }
 
-        $this->paginate = [
-            'limit' => $limite_paginacao,
-            'conditions' => $condicoes,
-            'order' => [
-                'data' => 'DESC'
-            ]
-        ];
+        if(isset($condicoes['assunto']))
+        {
+            $this->paginate = [
+                'limit' => $limite_paginacao,
+                'conditions' => $condicoes,
+                'contain' => ['AssuntoLegislacao'],
+                'order' => [
+                    'data' => 'DESC'
+                ]
+            ];
 
-        $legislacao = $this->paginate($t_legislacao);
+            $legislacao = $this->paginate($t_legislacao);
 
-        $qtd_total = $t_legislacao->find('all', [
-            'conditions' => $condicoes]
-        )->count();
+            $qtd_total = $t_legislacao->find('all', [
+                'conditions' => $condicoes,
+                'contain' => ['AssuntoLegislacao']]
+            )->count();
+        }
+        else
+        {
+            $this->paginate = [
+                'limit' => $limite_paginacao,
+                'conditions' => $condicoes,
+                'order' => [
+                    'data' => 'DESC'
+                ]
+            ];
 
-        $combo_mostra = ["T" => "Todos", "A" => "Somente ativos", "I" => "Somente inativos", "D" => "Somente os destaques"];
+            $legislacao = $this->paginate($t_legislacao);
+
+            $qtd_total = $t_legislacao->find('all', [
+                'conditions' => $condicoes]
+            )->count();
+        }
+
+        $combo_mostra = ["T" => "Todos",
+                         "A" => "Somente ativos",
+                         "I" => "Somente inativos",
+                         "D" => "Somente os destaques"];
+
         $combo_tipo = $t_tipo_legislacao->find('list', [
             'keyField' => 'id',
             'valueField' => 'nome',
@@ -96,10 +130,22 @@ class LegislacaoController extends AppController
                 'ativo' => true
         ]]);
 
+        $combo_assuntos = $t_assuntos->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'descricao',
+            'conditions' => [
+                'tipo' => 'LG'
+            ],
+            'order' => [
+                'descricao' => 'ASC'
+            ]
+        ]);
+
         $this->set('title', 'Legislação');
         $this->set('icon', 'gavel');
         $this->set('combo_mostra', $combo_mostra);
         $this->set('combo_tipo', $combo_tipo);
+        $this->set('combo_assuntos', $combo_assuntos);
         $this->set('legislacao', $legislacao);
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
