@@ -24,13 +24,13 @@
                             "role" => "form"]);
                         ?>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("numero", "Número") ?>
                                         <?= $this->Form->text("numero", ["class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-9">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("titulo", "Título") ?>
                                         <?= $this->Form->text("titulo", ["class" => "form-control"]) ?>
@@ -38,19 +38,26 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("data_inicial", "Data Inicial") ?>
                                         <?= $this->Form->text("data_inicial", ["id" => "data_inicial", "class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("data_final", "Data Final") ?>
                                         <?= $this->Form->text("data_final", ["id" => "data_final", "class" => "form-control"]) ?>
                                         <span class="material-input"></span></div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <div class="form-group form-group-min">
+                                        <?= $this->Form->label("assunto", "Assunto") ?> <br/>
+                                        <?=$this->Form->select('assunto', $combo_assuntos, ['class' => 'form-control', 'empty' => 'Todos'])?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("mostrar", "Mostrar") ?> <br/>
                                         <?=$this->Form->select('mostrar', $combo_mostra, ['class' => 'form-control'])?>
