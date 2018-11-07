@@ -376,7 +376,8 @@ class ConcursosController extends AppController
             'limit' => $limite_paginacao,
             'conditions' => $condicoes,
             'order' => [
-                'data' => 'DESC'
+                'data' => 'DESC',
+                'descricao' => 'ASC'
             ]
         ];
 

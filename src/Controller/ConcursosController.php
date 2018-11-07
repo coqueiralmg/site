@@ -88,7 +88,8 @@ class ConcursosController extends AppController
         $documentos = $t_documentos->find('all', [
             'conditions' => $condicoes,
             'order' => [
-                'data' => 'DESC'
+                'data' => 'DESC',
+                'descricao' => 'ASC'
             ]
         ]);
 
