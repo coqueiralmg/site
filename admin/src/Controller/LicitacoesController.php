@@ -188,10 +188,12 @@ class LicitacoesController extends AppController
             $licitacao->hora_termino = $licitacao->dataTermino->i18nFormat('HH:mm');
 
             $this->set('licitacao', $licitacao);
+            $this->set('assuntos_pivot', []);
         }
         else
         {
             $this->set('licitacao', null);
+            $this->set('assuntos_pivot', []);
         }
 
         $modalidades = $t_modalidade->find('list', [
@@ -216,6 +218,7 @@ class LicitacoesController extends AppController
         $this->set('title', $title);
         $this->set('combo_modalidade', $modalidades);
         $this->set('combo_status', $status);
+        $this->set('assuntos', []);
         $this->set('icon', $icon);
         $this->set('id', $id);
     }
