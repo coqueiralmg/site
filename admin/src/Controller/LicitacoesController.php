@@ -176,6 +176,8 @@ class LicitacoesController extends AppController
         $icon = 'work';
 
         $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_modalidade = TableRegistry::get('Modalidade');
+        $t_status = TableRegistry::get('StatusConcurso');
 
         if ($id > 0)
         {
@@ -192,8 +194,28 @@ class LicitacoesController extends AppController
             $this->set('licitacao', null);
         }
 
+        $modalidades = $t_modalidade->find('list', [
+            'keyField' => 'chave',
+            'valueField' => 'nome',
+            'conditions' => [
+                'ativo' => true
+            ],
+            'order' => [
+                'ordem' => 'ASC'
+            ]
+        ]);
+
+        $status = $t_status->find('list', [
+            'keyField' => 'chave',
+            'valueField' => 'nome',
+            'order' => [
+                'ordem' => 'ASC'
+            ]
+        ]);
+
         $this->set('title', $title);
-        $this->set('combo_modalidade', []);
+        $this->set('combo_modalidade', $modalidades);
+        $this->set('combo_status', $status);
         $this->set('icon', $icon);
         $this->set('id', $id);
     }
