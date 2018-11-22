@@ -1,6 +1,7 @@
 <script type="text/javascript">
     var idLicitacao = <?=$id?>;
 </script>
+<?= $this->Html->script('select2.min', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('controller/licitacoes.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -31,7 +32,7 @@
                                 'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
                             ]) ?>
                             <?= $this->Flash->render() ?>
-                            <?= $this->Form->hidden('enviaArquivo', ["id" => "enviaArquivo"]) ?>
+                            <?= $this->Form->hidden('lassuntos', ["id" => "lassuntos"]) ?>
                             <legend>Dados Cadastrais</legend>
                             <div class="row">
                                 <div class="col-md-12">
@@ -46,30 +47,60 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("titulo", "Modalidade") ?>
-                                        <?= $this->Form->select("titulo", $combo_modalidade, ["id" => "titulo", "class" => "form-control", "empty" => true]) ?>
+                                        <?= $this->Form->label("modalidade", "Modalidade") ?>
+                                        <?= $this->Form->select("modalidade", $combo_modalidade, ["id" => "modalidade", "class" => "form-control", "empty" => true]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("titulo", "Número do Processo") ?>
-                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->label("numprocesso", "Número do Processo") ?>
+                                        <?= $this->Form->number("numprocesso", ["id" => "numprocesso", "class" => "form-control", "maxlength" => 100]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("titulo", "Número da Modalidade") ?>
-                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->label("nummodalidade", "Número da Modalidade") ?>
+                                        <?= $this->Form->number("nummodalidade", ["id" => "nummodalidade", "class" => "form-control", "maxlength" => 100]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("titulo", "Número do Documento") ?>
-                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->label("numdocumento", "Número do Documento") ?>
+                                        <?= $this->Form->number("numdocumento", ["id" => "numdocumento", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("status", "Status") ?>
+                                        <?= $this->Form->select("status", $combo_status, ["id" => "status", "class" => "form-control", "empty" => true]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("data_publicacao", "Data Publicação") ?>
+                                        <?= $this->Form->text("data_publicacao", ["id" => "data_publicacao", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("hora_publicacao", "Hora Publicação") ?>
+                                        <?= $this->Form->text("hora_publicacao", ["id" => "hora_publicacao", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("ano", "Ano") ?>
+                                        <?= $this->Form->text("ano", ["id" => "ano", "class" => "form-control", "maxlength" => 100]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -78,60 +109,29 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("titulo", "Status") ?>
-                                        <?= $this->Form->select("titulo", $combo_status, ["id" => "titulo", "class" => "form-control", "empty" => true]) ?>
+                                        <?= $this->Form->label("data_sessao", "Data da Sessão") ?>
+                                        <?= $this->Form->text("data_sessao", ["id" => "data_sessao", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("titulo", "Data Publicação") ?>
-                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->label("hora_sessao", "Hora da Sessão") ?>
+                                        <?= $this->Form->text("hora_sessao", ["id" => "hora_sessao", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("titulo", "Hora Publicação") ?>
-                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->label("data_fim", "Data Fim") ?>
+                                        <?= $this->Form->text("data_fim", ["id" => "data_fim", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("titulo", "Ano") ?>
-                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 100]) ?>
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group label-control">
-                                        <?= $this->Form->label("data_inicio", "Data da Sessão") ?>
-                                        <?= $this->Form->text("data_inicio", ["id" => "data_inicio", "class" => "form-control"]) ?>
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group label-control">
-                                        <?= $this->Form->label("hora_inicio", "Hora da Sessão") ?>
-                                        <?= $this->Form->text("hora_inicio", ["id" => "hora_inicio", "class" => "form-control"]) ?>
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group label-control">
-                                        <?= $this->Form->label("data_termino", "Data Fim") ?>
-                                        <?= $this->Form->text("data_termino", ["id" => "data_termino", "class" => "form-control"]) ?>
-                                        <span class="material-input"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group label-control">
-                                        <?= $this->Form->label("hora_termino", "Hora Fim") ?>
-                                        <?= $this->Form->text("hora_termino", ["id" => "hora_termino", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("hora_fim", "Hora Fim") ?>
+                                        <?= $this->Form->text("hora_fim", ["id" => "hora_fim", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -157,6 +157,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Outras Opções</label> <br/>
+                                        <div class="togglebutton">
+                                            <label>
+                                                <?= $this->Form->checkbox("ativo", ['id' => 'destaque']) ?> Destaque
+                                            </label>
+                                        </div>
                                         <div class="togglebutton">
                                             <label>
                                                 <?= $this->Form->checkbox("ativo", ['id' => 'retificado']) ?> Retificado
