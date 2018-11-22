@@ -14,7 +14,7 @@ $(function () {
 
     $('#enviaArquivo').val(enviaArquivo);
 
-    $("input").change(function(){
+    $("input, select").change(function () {
         autosave();
     });
 
@@ -24,10 +24,10 @@ $(function () {
         tags: true
     });
 
-    if(idLegislacao > 0) {
+    if (idLegislacao > 0) {
         var data = $("#assuntos").select2('data');
 
-        for(var d = 0; d < data.length; d++) {
+        for (var d = 0; d < data.length; d++) {
             var info = data[d];
 
             var assunto = {
@@ -40,7 +40,7 @@ $(function () {
         }
     }
 
-    $("#assuntos").on('select2:select', function(e){
+    $("#assuntos").on('select2:select', function (e) {
         var data = e.params.data;
 
         var assunto = {
@@ -53,7 +53,7 @@ $(function () {
         autosave();
     });
 
-    $("#assuntos").on('select2:unselect', function(e){
+    $("#assuntos").on('select2:unselect', function (e) {
         var data = e.params.data;
         var idAssunto = obterAssunto(data);
 
@@ -62,16 +62,16 @@ $(function () {
         autosave();
     });
 
-    CKEDITOR.instances.descricao.on('change', function() {
+    CKEDITOR.instances.descricao.on('change', function () {
         autosave();
     });
 
-    if(hasCache('legislacao', idLegislacao)) {
+    if (hasCache('legislacao', idLegislacao)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -79,7 +79,7 @@ $(function () {
 
 function obterAssunto(data) {
     var chave = data.text;
-    var idAssunto = assuntos.findIndex(function(v){
+    var idAssunto = assuntos.findIndex(function (v) {
         var pivot = null;
         return v.nome == chave;
     });
@@ -99,6 +99,7 @@ function restaurar() {
         $("#titulo").val(data.object.titulo);
         $("#data").val(data.object.data);
         $("#hora").val(data.object.hora);
+        $("#tipo").val(data.object.tipo);
         $("#ativo").prop("checked", data.object.ativo);
 
         CKEDITOR.instances.descricao.setData(data.object.descricao);
@@ -107,7 +108,7 @@ function restaurar() {
         $("#lassuntos").val(JSON.stringify(data.object.assuntos));
         $("#assuntos").val(null);
 
-        for(var i = 0; i < assuntos.length; i++){
+        for (var i = 0; i < assuntos.length; i++) {
             var assunto = assuntos[i];
             var option = new Option(assunto.nome, assunto.id, true, true);
             $("#assuntos").append(option);
@@ -131,6 +132,7 @@ function autosave() {
             titulo: $("#titulo").val(),
             data: $("#data").val(),
             hora: $("#hora").val(),
+            tipo: $("#tipo").val(),
             descricao: CKEDITOR.instances.descricao.getData(),
             ativo: $("#ativo").is(':checked'),
             assuntos: $("#lassuntos").val() == "" ? [] : JSON.parse($("#lassuntos").val())
@@ -185,14 +187,14 @@ function validar() {
         $("label[for='descricao']").css("color", "#aaa");
     }
 
-    if($("#tipo").val() == "") {
+    if ($("#tipo").val() == "") {
         mensagem += "<li> É obrigatório informar o tipo do documento da legislação.</li>";
         $("label[for='tipo']").css("color", "red");
     } else {
         $("label[for='tipo']").css("color", "#aaa");
     }
 
-    if($("#assuntos").select2('data').length == 0) {
+    if ($("#assuntos").select2('data').length == 0) {
         mensagem += "<li> O documento da legislação precisa estar enquadrado em algum assunto. Favor selecionar pelo menos um assunto.</li>";
         $("label[for='assuntos']").css("color", "red");
     } else {
