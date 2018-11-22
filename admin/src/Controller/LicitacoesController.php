@@ -151,6 +151,7 @@ class LicitacoesController extends AppController
 
     public function add()
     {
+        $this->Flash->info('Para adicionar informações como editais, anexos, retificações, entre outros, primeiramente informe dados cadastrais sobre a licitação e em seguida, clique em Salvar.');
         $this->redirect(['action' => 'cadastro', 0]);
     }
 
@@ -177,6 +178,7 @@ class LicitacoesController extends AppController
 
         $t_licitacoes = TableRegistry::get('Licitacao');
         $t_modalidade = TableRegistry::get('Modalidade');
+        $t_assuntos = TableRegistry::get('Assunto');
         $t_status = TableRegistry::get('StatusConcurso');
 
         if ($id > 0)
@@ -195,6 +197,17 @@ class LicitacoesController extends AppController
             $this->set('licitacao', null);
             $this->set('assuntos_pivot', []);
         }
+
+        $assuntos = $t_assuntos->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'descricao',
+            'conditions' => [
+                'tipo' => 'LC'
+            ],
+            'order' => [
+                'descricao' => 'ASC'
+            ]
+        ]);
 
         $modalidades = $t_modalidade->find('list', [
             'keyField' => 'chave',
@@ -218,7 +231,7 @@ class LicitacoesController extends AppController
         $this->set('title', $title);
         $this->set('combo_modalidade', $modalidades);
         $this->set('combo_status', $status);
-        $this->set('assuntos', []);
+        $this->set('assuntos', $assuntos);
         $this->set('icon', $icon);
         $this->set('id', $id);
     }

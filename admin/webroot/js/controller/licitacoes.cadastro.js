@@ -1,56 +1,136 @@
-var enviaArquivo = (idLicitacao == 0);
 var modificado = false;
+var assuntos = new Array();
 
 $(function () {
-    $('#data_inicio').datepicker({
+    $('#data_publicacao').datepicker({
         language: 'pt-BR'
     });
 
-    $('#data_termino').datepicker({
+    $('#data_sessao').datepicker({
         language: 'pt-BR'
     });
 
-    $('#data_inicio').mask('00/00/0000');
-    $('#data_termino').mask('00/00/0000');
+    $('#data_fim').datepicker({
+        language: 'pt-BR'
+    });
 
-    $('#hora_inicio').mask('00:00');
-    $('#hora_termino').mask('00:00');
+    $('#data_publicacao').mask('00/00/0000');
+    $('#data_sessao').mask('00/00/0000');
+    $('#data_fim').mask('00/00/0000');
+
+    $('#hora_publicacao').mask('00:00');
+    $('#hora_sessao').mask('00:00');
+    $('#hora_fim').mask('00:00');
+
 
     CKEDITOR.replace('descricao');
 
-    $('#enviaArquivo').val(enviaArquivo);
+    $('#data_publicacao').change(function () {
+        var pivot = $('#data_publicacao').val().split('/');
 
-    $("input").change(function(){
+        if (pivot.length == 3) {
+            $("#ano").val(pivot[2]);
+        }
+    });
+
+    $('#modalidade').change(function () {
+
+    });
+
+    $("#assuntos").select2({
+        placeholder: "Clique e digite aqui para selecionar ou adicionar novo assunto.",
+        tokenSeparators: [','],
+        tags: true
+    });
+
+    $("#assuntos").on('select2:select', function (e) {
+        var data = e.params.data;
+
+        var assunto = {
+            id: validarIdAssunto(data),
+            nome: data.text
+        };
+
+        assuntos.push(assunto);
+        $("#lassuntos").val(JSON.stringify(assuntos));
         autosave();
     });
 
-    CKEDITOR.instances.descricao.on('change', function() {
+    $("#assuntos").on('select2:unselect', function (e) {
+        var data = e.params.data;
+        var idAssunto = obterAssunto(data);
+
+        assuntos.splice(idAssunto, 1);
+        $("#lassuntos").val(JSON.stringify(assuntos));
         autosave();
     });
 
-    if(hasCache('licitacao', idLicitacao)) {
+    $("input, select").change(function () {
+        autosave();
+    });
+
+    CKEDITOR.instances.descricao.on('change', function () {
+        autosave();
+    });
+
+    if (hasCache('licitacao', idLicitacao)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
 });
+
+function obterAssunto(data) {
+    var chave = data.text;
+    var idAssunto = assuntos.findIndex(function (v) {
+        var pivot = null;
+        return v.nome == chave;
+    });
+
+    return idAssunto;
+}
+
+function validarIdAssunto(data) {
+    return (data.id != data.text) ? eval(data.id) : -1;
+}
 
 function restaurar() {
     var data = getDataCache('licitacao', idLicitacao);
 
     if (data != null) {
         $("#titulo").val(data.object.titulo);
-        $("#data_inicio").val(data.object.dataInicio);
-        $("#hora_inicio").val(data.object.horaInicio);
-        $("#data_termino").val(data.object.dataTermino);
-        $("#hora_termino").val(data.object.horaTermino);
+        $("#modalidade").val(data.object.modalidade);
+        $("#numprocesso").val(data.object.numprocesso);
+        $("#nummodalidade").val(data.object.nummodalidade);
+        $("#numdocumento").val(data.object.numdocumento);
+        $("#status").val(data.object.status);
+        $("#data_publicacao").val(data.object.dataPublicacao);
+        $("#hora_publicacao").val(data.object.horaPublicacao);
+        $("#data_sessao").val(data.object.dataSessao);
+        $("#hora_sessao").val(data.object.horaSessao);
+        $("#data_fim").val(data.object.dataFim);
+        $("#hora_fim").val(data.object.horaFim);
+        $("#ano").val(data.object.ano);
+
+        $("#destaque").prop("checked", data.object.destaque);
+        $("#retificado").prop("checked", data.object.retificado);
         $("#ativo").prop("checked", data.object.ativo);
 
         CKEDITOR.instances.descricao.setData(data.object.descricao);
+
+        assuntos = data.object.assuntos;
+        $("#lassuntos").val(JSON.stringify(data.object.assuntos));
+        $("#assuntos").val(null);
+
+        for (var i = 0; i < assuntos.length; i++) {
+            var assunto = assuntos[i];
+            var option = new Option(assunto.nome, assunto.id, true, true);
+            $("#assuntos").append(option);
+        }
     }
 
     notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
@@ -67,12 +147,23 @@ function autosave() {
         object: {
             id: idLicitacao,
             titulo: $("#titulo").val(),
-            dataInicio: $("#data_inicio").val(),
-            horaInicio: $("#hora_inicio").val(),
-            dataTermino: $("#data_termino").val(),
-            horaTermino: $("#hora_termino").val(),
+            modalidade: $("#modalidade").val(),
+            numprocesso: $("#numprocesso").val(),
+            nummodalidade: $("#nummodalidade").val(),
+            numdocumento: $("#numdocumento").val(),
+            status: $("#status").val(),
+            dataPublicacao: $("#data_publicacao").val(),
+            horaPublicacao: $("#hora_publicacao").val(),
+            dataSessao: $("#data_sessao").val(),
+            horaSessao: $("#hora_sessao").val(),
+            dataFim: $("#data_fim").val(),
+            horaFim: $("#hora_fim").val(),
+            ano: $("#ano").val(),
             descricao: CKEDITOR.instances.descricao.getData(),
+            destaque: $("#destaque").is(':checked'),
+            retificado: $("#retificado").is(':checked'),
             ativo: $("#ativo").is(':checked'),
+            assuntos: $("#lassuntos").val() == "" ? [] : JSON.parse($("#lassuntos").val())
         }
     };
 
@@ -136,7 +227,7 @@ function validar() {
         var dataInicio = null;
         var dataTermino = null;
 
-        if($("#hora_termino").val() == "00:00"){
+        if ($("#hora_termino").val() == "00:00") {
             dataInicio = new Date($("#data_inicio").val().split('/').reverse().join('/'));
             dataTermino = new Date($("#data_termino").val().split('/').reverse().join('/'));
         } else {
@@ -144,7 +235,7 @@ function validar() {
             dataTermino = new Date($("#data_termino").val().split('/').reverse().join('/') + " " + $("#hora_termino").val());
         }
 
-        if(dataInicio > dataTermino){
+        if (dataInicio > dataTermino) {
             mensagem += "<li> A data e a hora de início informada é maior que a data e a hora de término.</li>";
             $("label[for='data-inicio']").css("color", "red");
             $("label[for='hora-inicio']").css("color", "red");
