@@ -47,7 +47,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("descricao", "Descrição") ?>
-                                        <?= $this->Form->text("descricao", ["id" => "descricao", "class" => "form-control", "maxlength" => 80]) ?>
+                                        <?= $this->Form->text("descricao", ["id" => "descricao", "class" => "form-control", "maxlength" => 100]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>

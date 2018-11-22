@@ -49,7 +49,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("titulo", "Título") ?>
-                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 80]) ?>
+                                        <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 100]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
