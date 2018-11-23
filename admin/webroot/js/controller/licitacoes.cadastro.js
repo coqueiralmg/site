@@ -258,11 +258,13 @@ function validar() {
         modalidade == "LE") {
 
         if ($("#numdocumento").val() === "") {
-            mensagem += "<li> O número da modalidade da licitação é obrigatório.</li>";
+            mensagem += "<li> O número do documento da licitação é obrigatório.</li>";
             $("label[for='numdocumento']").css("color", "red");
         } else {
             $("label[for='numdocumento']").css("color", "#aaa");
         }
+    } else {
+        $("label[for='numdocumento']").css("color", "#aaa");
     }
 
     if ($("#status").val() === "") {
@@ -300,62 +302,75 @@ function validar() {
         modalidade == "RP" ||
         modalidade == "CC" ||
         modalidade == "CN" ||
+        modalidade == "CO" ||
         modalidade == "LE") {
 
         if ($("#data_sessao").val() === "") {
-            mensagem += "<li> A data da sessão é obrigatória.</li>";
+            mensagem += "<li> A data do início da sessão é obrigatória.</li>";
             $("label[for='data-sessao']").css("color", "red");
         } else {
             $("label[for='data-sessao']").css("color", "#aaa");
         }
 
         if ($("#hora_sessao").val() === "") {
-            mensagem += "<li> A hora da sessão é obrigatória.</li>";
+            mensagem += "<li> A hora do início da sessão é obrigatória.</li>";
             $("label[for='hora-sessao']").css("color", "red");
         } else {
             $("label[for='hora-sessao']").css("color", "#aaa");
         }
-    }
-
-
-    if ($("#data_termino").val() === "") {
-        mensagem += "<li> A data do término da licitação é obrigatória.</li>";
-        $("label[for='data-termino']").css("color", "red");
     } else {
-        $("label[for='data-termino']").css("color", "#aaa");
+        $("label[for='data-sessao']").css("color", "#aaa");
+        $("label[for='hora-sessao']").css("color", "#aaa");
     }
 
-    if ($("#hora_termino").val() === "") {
-        mensagem += "<li> A hora do término da licitação é obrigatória.</li>";
-        $("label[for='hora-termino']").css("color", "red");
+    if (modalidade == "PE" ||
+        modalidade == "CC" ||
+        modalidade == "CN" ||
+        modalidade == "CO" ||
+        modalidade == "LE") {
+
+        if ($("#data_fim").val() === "") {
+            mensagem += "<li> A data final é obrigatória.</li>";
+            $("label[for='data-fim']").css("color", "red");
+        } else {
+            $("label[for='data-fim']").css("color", "#aaa");
+        }
+
+        if ($("#hora_fim").val() === "") {
+            mensagem += "<li> A hora final é obrigatória.</li>";
+            $("label[for='hora-fim']").css("color", "red");
+        } else {
+            $("label[for='hora-fim']").css("color", "#aaa");
+        }
     } else {
-        $("label[for='hora-termino']").css("color", "#aaa");
+        $("label[for='data-fim']").css("color", "#aaa");
+        $("label[for='hora-fim']").css("color", "#aaa");
     }
 
-    if ($("#data_inicio").val() !== "" && $("#hora_inicio").val() !== "" && $("#data_termino").val() !== "" && $("#hora_termino").val() !== "") {
+    if ($("#data_sessao").val() !== "" && $("#hora_sessao").val() !== "" && $("#data_fim").val() !== "" && $("#hora_fim").val() !== "") {
 
         var dataInicio = null;
         var dataTermino = null;
 
-        if ($("#hora_termino").val() == "00:00") {
-            dataInicio = new Date($("#data_inicio").val().split('/').reverse().join('/'));
-            dataTermino = new Date($("#data_termino").val().split('/').reverse().join('/'));
+        if ($("#hora_fim").val() == "00:00") {
+            dataInicio = new Date($("#data_sessao").val().split('/').reverse().join('/'));
+            dataTermino = new Date($("#data_fim").val().split('/').reverse().join('/'));
         } else {
-            dataInicio = new Date($("#data_inicio").val().split('/').reverse().join('/') + " " + $("#hora_inicio").val());
-            dataTermino = new Date($("#data_termino").val().split('/').reverse().join('/') + " " + $("#hora_termino").val());
+            dataInicio = new Date($("#data_sessao").val().split('/').reverse().join('/') + " " + $("#hora_sessao").val());
+            dataTermino = new Date($("#data_fim").val().split('/').reverse().join('/') + " " + $("#hora_fim").val());
         }
 
         if (dataInicio > dataTermino) {
-            mensagem += "<li> A data e a hora de início informada é maior que a data e a hora de término.</li>";
-            $("label[for='data-inicio']").css("color", "red");
-            $("label[for='hora-inicio']").css("color", "red");
-            $("label[for='data-termino']").css("color", "red");
-            $("label[for='hora-termino']").css("color", "red");
+            mensagem += "<li> A data e a hora de início da sessão informada é maior que a data e a hora de fim.</li>";
+            $("label[for='data-sessao']").css("color", "red");
+            $("label[for='hora-sessao']").css("color", "red");
+            $("label[for='data-fim']").css("color", "red");
+            $("label[for='hora-fim']").css("color", "red");
         } else {
-            $("label[for='data-inicio']").css("color", "#aaa");
-            $("label[for='hora-inicio']").css("color", "#aaa");
-            $("label[for='data-termino']").css("color", "#aaa");
-            $("label[for='hora-termino']").css("color", "#aaa");
+            $("label[for='data-sessao']").css("color", "#aaa");
+            $("label[for='hora-sessao']").css("color", "#aaa");
+            $("label[for='data-fim']").css("color", "#aaa");
+            $("label[for='hora-fim']").css("color", "#aaa");
         }
     }
 
@@ -366,13 +381,11 @@ function validar() {
         $("label[for='descricao']").css("color", "#aaa");
     }
 
-    if (enviaArquivo) {
-        if (document.getElementById("arquivo").files.length == 0) {
-            mensagem += "<li> É obrigatório informar o arquivo edital em anexo.</li>";
-            $("label[for='arquivo']").css("color", "red");
-        } else {
-            $("label[for='arquivo']").css("color", "#aaa");
-        }
+    if ($("#assuntos").select2('data').length == 0) {
+        mensagem += "<li> A licitação precisa estar enquadrada em algum assunto. Favor selecionar pelo menos um assunto.</li>";
+        $("label[for='assuntos']").css("color", "red");
+    } else {
+        $("label[for='assuntos']").css("color", "#aaa");
     }
 
     if (mensagem == "") {
