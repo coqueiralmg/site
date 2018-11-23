@@ -33,17 +33,7 @@ $(function () {
     });
 
     $('#modalidade').change(function () {
-        var modalidade = $(this).val();
-
-        if (modalidade == "CC" ||
-            modalidade == "CN" ||
-            modalidade == "LE") {
-            $("label[for='data-sessao']").html("Data Início");
-            $("label[for='hora-sessao']").html("Hora Início");
-        } else {
-            $("label[for='data-sessao']").html("Data da Sessão");
-            $("label[for='hora-sessao']").html("Hora da Sessão");
-        }
+        ajustarModalidade($(this).val());
     });
 
     $("#assuntos").select2({
@@ -92,6 +82,41 @@ $(function () {
         }
     });
 });
+
+function ajustarModalidade(modalidade) {
+
+    if (modalidade == "CC" ||
+        modalidade == "CN" ||
+        modalidade == "CO" ||
+        modalidade == "PE" ||
+        modalidade == "LE") {
+        $("label[for='data-sessao']").html("Data Início");
+        $("label[for='hora-sessao']").html("Hora Início");
+    } else {
+        $("label[for='data-sessao']").html("Data da Sessão");
+        $("label[for='hora-sessao']").html("Hora da Sessão");
+    }
+
+    if (modalidade == "DI" ||
+        modalidade == "IN") {
+        $("#data_sessao").prop('disabled', true);
+        $("#hora_sessao").prop('disabled', true);
+        $("#data_fim").prop('disabled', true);
+        $("#hora_fim").prop('disabled', true);
+    } else {
+        $("#data_sessao").prop('disabled', false);
+        $("#hora_sessao").prop('disabled', false);
+
+        if (modalidade == "PP" ||
+            modalidade == "RP") {
+            $("#data_fim").prop('disabled', true);
+            $("#hora_fim").prop('disabled', true);
+        } else {
+            $("#data_fim").prop('disabled', false);
+            $("#hora_fim").prop('disabled', false);
+        }
+    }
+}
 
 function obterAssunto(data) {
     var chave = data.text;
