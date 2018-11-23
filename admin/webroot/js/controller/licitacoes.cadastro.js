@@ -108,7 +108,7 @@ function ajustarModalidade(modalidade) {
         $("#hora_sessao").prop('disabled', false);
 
         if (modalidade == "PP" ||
-            modalidade == "RP") {
+            modalidade == "TP") {
             $("#data_fim").prop('disabled', true);
             $("#hora_fim").prop('disabled', true);
         } else {
@@ -252,7 +252,7 @@ function validar() {
 
     if (modalidade == "PP" ||
         modalidade == "PE" ||
-        modalidade == "RP" ||
+        modalidade == "TP" ||
         modalidade == "CC" ||
         modalidade == "CN" ||
         modalidade == "LE") {
@@ -299,7 +299,7 @@ function validar() {
 
     if (modalidade == "PP" ||
         modalidade == "PE" ||
-        modalidade == "RP" ||
+        modalidade == "TP" ||
         modalidade == "CC" ||
         modalidade == "CN" ||
         modalidade == "CO" ||
