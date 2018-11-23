@@ -22,7 +22,6 @@ $(function () {
     $('#hora_sessao').mask('00:00');
     $('#hora_fim').mask('00:00');
 
-
     CKEDITOR.replace('descricao');
 
     $('#data_publicacao').change(function () {
@@ -34,7 +33,17 @@ $(function () {
     });
 
     $('#modalidade').change(function () {
+        var modalidade = $(this).val();
 
+        if (modalidade == "CC" ||
+            modalidade == "CN" ||
+            modalidade == "LE") {
+            $("label[for='data-sessao']").html("Data Início");
+            $("label[for='hora-sessao']").html("Hora Início");
+        } else {
+            $("label[for='data-sessao']").html("Data da Sessão");
+            $("label[for='hora-sessao']").html("Hora da Sessão");
+        }
     });
 
     $("#assuntos").select2({
@@ -186,6 +195,7 @@ function toggleArquivo() {
 
 function validar() {
     var mensagem = "";
+    var modalidade = $("#modalidade").val();
 
     if ($("#titulo").val() === "") {
         mensagem += "<li> O título da licitação é obrigatório.</li>";
@@ -194,19 +204,94 @@ function validar() {
         $("label[for='titulo']").css("color", "#aaa");
     }
 
-    if ($("#data_inicio").val() === "") {
-        mensagem += "<li> A data do início da licitação é obrigatória.</li>";
-        $("label[for='data-inicio']").css("color", "red");
+    if ($("#modalidade").val() === "") {
+        mensagem += "<li> É obrigatório selecionar a modalidade da licitação.</li>";
+        $("label[for='modalidade']").css("color", "red");
     } else {
-        $("label[for='data-inicio']").css("color", "#aaa");
+        $("label[for='modalidade']").css("color", "#aaa");
     }
 
-    if ($("#hora_inicio").val() === "") {
-        mensagem += "<li> A hora do início da licitação é obrigatória.</li>";
-        $("label[for='hora-inicio']").css("color", "red");
+    if ($("#numprocesso").val() === "") {
+        mensagem += "<li> O número do processo licitatório é obrigatório.</li>";
+        $("label[for='numprocesso']").css("color", "red");
     } else {
-        $("label[for='hora-inicio']").css("color", "#aaa");
+        $("label[for='numprocesso']").css("color", "#aaa");
     }
+
+    if ($("#nummodalidade").val() === "") {
+        mensagem += "<li> O número da modalidade da licitação é obrigatório.</li>";
+        $("label[for='nummodalidade']").css("color", "red");
+    } else {
+        $("label[for='nummodalidade']").css("color", "#aaa");
+    }
+
+    if (modalidade == "PP" ||
+        modalidade == "PE" ||
+        modalidade == "RP" ||
+        modalidade == "CC" ||
+        modalidade == "CN" ||
+        modalidade == "LE") {
+
+        if ($("#numdocumento").val() === "") {
+            mensagem += "<li> O número da modalidade da licitação é obrigatório.</li>";
+            $("label[for='numdocumento']").css("color", "red");
+        } else {
+            $("label[for='numdocumento']").css("color", "#aaa");
+        }
+    }
+
+    if ($("#status").val() === "") {
+        mensagem += "<li> É obrigatório selecionar o status do processo licitatório.</li>";
+        $("label[for='status']").css("color", "red");
+    } else {
+        $("label[for='status']").css("color", "#aaa");
+    }
+
+    if (idLicitacao > 0) {
+        if ($("#data_publicacao").val() === "") {
+            mensagem += "<li> A data de publicação é obrigatória.</li>";
+            $("label[for='data-publicacao']").css("color", "red");
+        } else {
+            $("label[for='data-publicacao']").css("color", "#aaa");
+        }
+
+        if ($("#hora_publicacao").val() === "") {
+            mensagem += "<li> A hora de publicação é obrigatória.</li>";
+            $("label[for='hora-publicacao']").css("color", "red");
+        } else {
+            $("label[for='hora-publicacao']").css("color", "#aaa");
+        }
+
+        if ($("#ano").val() === "") {
+            mensagem += "<li> O ano é obrigatório.</li>";
+            $("label[for='ano']").css("color", "red");
+        } else {
+            $("label[for='ano']").css("color", "#aaa");
+        }
+    }
+
+    if (modalidade == "PP" ||
+        modalidade == "PE" ||
+        modalidade == "RP" ||
+        modalidade == "CC" ||
+        modalidade == "CN" ||
+        modalidade == "LE") {
+
+        if ($("#data_sessao").val() === "") {
+            mensagem += "<li> A data da sessão é obrigatória.</li>";
+            $("label[for='data-sessao']").css("color", "red");
+        } else {
+            $("label[for='data-sessao']").css("color", "#aaa");
+        }
+
+        if ($("#hora_sessao").val() === "") {
+            mensagem += "<li> A hora da sessão é obrigatória.</li>";
+            $("label[for='hora-sessao']").css("color", "red");
+        } else {
+            $("label[for='hora-sessao']").css("color", "#aaa");
+        }
+    }
+
 
     if ($("#data_termino").val() === "") {
         mensagem += "<li> A data do término da licitação é obrigatória.</li>";
