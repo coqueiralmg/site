@@ -302,6 +302,13 @@ function validar() {
         $("label[for='status']").css("color", "#aaa");
     }
 
+    if ($("#documento").val() === "") {
+        mensagem += "<li> O nome ou o tipo do documento (principal) da licitação é obrigatório.</li>";
+        $("label[for='documento']").css("color", "red");
+    } else {
+        $("label[for='documento']").css("color", "#aaa");
+    }
+
     if (idLicitacao > 0) {
         if ($("#data_publicacao").val() === "") {
             mensagem += "<li> A data de publicação é obrigatória.</li>";

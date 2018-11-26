@@ -42,7 +42,6 @@
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
@@ -104,7 +103,15 @@
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group label-control">
+                                        <?= $this->Form->label("documento", "Nome ou Tipo do Documento") ?>
+                                        <?= $this->Form->text("documento", ["id" => "documento", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
