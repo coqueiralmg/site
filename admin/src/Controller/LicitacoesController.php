@@ -327,6 +327,45 @@ class LicitacoesController extends AppController
         }
     }
 
+    public function informativos(int $id)
+    {
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_atualizacoes = TableRegistry::get('Atualizacao');
+
+        $limite_paginacao = Configure::read('Pagination.limit');
+        $licitacao = $t_licitacoes->get($id, ['contain' => ['Modalidade']]);
+        $titulo = $subtitulo = '';
+
+        $condicoes = [
+            'licitacao' => $id
+        ];
+
+        $titulo = "Extratos e Atualizações da Licitação";
+        $subtitulo = "Extratos, atualizações e informativos relativos a processo licitatório " . $licitacao->numprocesso . '/' . $licitacao->ano . ' da modalidade ' . $licitacao->modalidade->nome . ' sob o assunto ' . $licitacao->titulo;
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ];
+
+        $atualizacoes = $this->paginate($t_atualizacoes);
+
+        $qtd_total = $t_atualizacoes->find('all', [
+            'conditions' => $condicoes
+        ])->count();
+
+        $this->set('title', $titulo);
+        $this->set('subtitle', $subtitulo);
+        $this->set('icon', 'work');
+        $this->set('id', $id);
+        $this->set('atualizacoes', $atualizacoes);
+        $this->set('licitacao', $licitacao);
+        $this->set('qtd_total', $qtd_total);
+    }
+
     protected function insert()
     {
         try
