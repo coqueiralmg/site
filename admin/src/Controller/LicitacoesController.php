@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Model\Table\BaseTable;
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
 use Cake\Network\Session;
+use Cake\ORM\Entity;
+use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use \Exception;
 use \DateTime;
-
 
 class LicitacoesController extends AppController
 {
@@ -183,14 +186,27 @@ class LicitacoesController extends AppController
 
         if ($id > 0)
         {
-            $licitacao = $t_licitacoes->get($id);
-            $licitacao->data_inicio = $licitacao->dataInicio->i18nFormat('dd/MM/yyyy');
-            $licitacao->hora_inicio = $licitacao->dataInicio->i18nFormat('HH:mm');
-            $licitacao->data_termino = $licitacao->dataTermino->i18nFormat('dd/MM/yyyy');
-            $licitacao->hora_termino = $licitacao->dataTermino->i18nFormat('HH:mm');
+            $licitacao = $t_licitacoes->get($id, ['contain' => ['Assunto']]);
+            $ap = array();
+
+            $licitacao->data_publicacao = $licitacao->dataPublicacao->i18nFormat('dd/MM/yyyy');
+            $licitacao->hora_publicacao = $licitacao->dataPublicacao->i18nFormat('HH:mm');
+            $licitacao->data_sessao = $licitacao->dataSessao->i18nFormat('dd/MM/yyyy');
+            $licitacao->hora_sessao = $licitacao->dataSessao->i18nFormat('HH:mm');
+
+            if($licitacao->dataTermino != null)
+            {
+                $licitacao->data_fim = $licitacao->dataTermino->i18nFormat('dd/MM/yyyy');
+                $licitacao->hora_fim = $licitacao->dataTermino->i18nFormat('HH:mm');
+            }
+
+            foreach($licitacao->assuntos as $assunto)
+            {
+                $ap[] = $assunto->id;
+            }
 
             $this->set('licitacao', $licitacao);
-            $this->set('assuntos_pivot', []);
+            $this->set('assuntos_pivot', $ap);
         }
         else
         {
@@ -318,13 +334,28 @@ class LicitacoesController extends AppController
             $t_licitacoes = TableRegistry::get('Licitacao');
             $entity = $t_licitacoes->newEntity($this->request->data());
 
-            $entity->dataInicio = $this->Format->mergeDateDB($entity->data_inicio, $entity->hora_inicio);
-            $entity->dataTermino = $this->Format->mergeDateDB($entity->data_termino, $entity->hora_termino);
+            $entity->dataPublicacao = $this->obterDataPublicacao($entity->data_publicacao, $entity->hora_publicacao);
+            $entity->ano = ($entity->ano == "") ? date("Y") : $entity->ano;
 
-            $arquivo = $this->request->getData('arquivo');
-            $entity->edital = $this->salvarArquivo($arquivo);
+            if($entity->data_sessao != "")
+            {
+                $entity->dataSessao = $this->Format->mergeDateDB($entity->data_sessao, $entity->hora_sessao);
+            }
+
+            if($entity->data_fim != "")
+            {
+                $entity->dataTermino = $this->Format->mergeDateDB($entity->data_fim, $entity->hora_fim);
+            }
+
+            $entity->modalidade = $this->request->getData('modalidade');
+            $entity->antigo = false;
+            $entity->visualizacoes = 0;
+
+            $assuntos = json_decode($entity->lassuntos);
 
             $t_licitacoes->save($entity);
+            $auditoria_assuntos = $this->atualizarAssuntosLicitacao($entity, $assuntos, false);
+
             $this->Flash->greatSuccess('Licitação salva com sucesso.');
 
             $propriedades = $entity->getOriginalValues();
@@ -332,7 +363,9 @@ class LicitacoesController extends AppController
             $auditoria = [
                 'ocorrencia' => 24,
                 'descricao' => 'O usuário criou uma nova licitação.',
-                'dado_adicional' => json_encode(['id_nova_licitacao' => $entity->id, 'dados_licitacao' => $propriedades]),
+                'dado_adicional' => json_encode(['id_nova_licitacao' => $entity->id,
+                                                 'dados_licitacao' => $propriedades,
+                                                 'assuntos_associados' => $auditoria_assuntos]),
                 'usuario' => $this->request->session()->read('UsuarioID')
             ];
 
@@ -364,49 +397,13 @@ class LicitacoesController extends AppController
             $t_licitacoes = TableRegistry::get('Licitacao');
             $entity = $t_licitacoes->get($id);
 
-            $antigo_arquivo = $entity->edital;
-
-            $t_licitacoes->patchEntity($entity, $this->request->data());
-
-            $entity->dataInicio = $this->Format->mergeDateDB($entity->data_inicio, $entity->hora_inicio);
-            $entity->dataTermino = $this->Format->mergeDateDB($entity->data_termino, $entity->hora_termino);
-
-            $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
-
-            if($enviaArquivo)
-            {
-                $this->removerArquivo($antigo_arquivo);
-                $arquivo = $this->request->getData('arquivo');
-                $entity->edital = $this->salvarArquivo($arquivo);
-            }
-
-            $propriedades = $this->Auditoria->changedOriginalFields($entity);
-            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
-
-            $t_licitacoes->save($entity);
-            $this->Flash->greatSuccess('Licitação salva com sucesso.');
-
-            $auditoria = [
-                'ocorrencia' => 25,
-                'descricao' => 'O usuário editou uma licitação.',
-                'dado_adicional' => json_encode(['licitacao_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
-                'usuario' => $this->request->session()->read('UsuarioID')
-            ];
-
-            $this->Auditoria->registrar($auditoria);
-
-            if($this->request->session()->read('UsuarioSuspeito'))
-            {
-                $this->Monitoria->monitorar($auditoria);
-            }
-
             if($entity->antigo)
             {
-                $this->redirect(['action' => 'edicao', $id]);
+                $this->oldUpdate($t_licitacoes, $entity);
             }
             else
             {
-                $this->redirect(['action' => 'cadastro', $id]);
+                $this->newUpdate($t_licitacoes, $entity);
             }
         }
         catch(Exception $ex)
@@ -419,6 +416,101 @@ class LicitacoesController extends AppController
 
             $this->redirect(['action' => 'cadastro', $id]);
         }
+    }
+
+    private function oldUpdate(Table $table, Entity $entity)
+    {
+        $antigo_arquivo = $entity->edital;
+
+        $table->patchEntity($entity, $this->request->data());
+
+        $entity->dataInicio = $this->Format->mergeDateDB($entity->data_inicio, $entity->hora_inicio);
+        $entity->dataTermino = $this->Format->mergeDateDB($entity->data_termino, $entity->hora_termino);
+
+        $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
+
+        if($enviaArquivo)
+        {
+            $this->removerArquivo($antigo_arquivo);
+            $arquivo = $this->request->getData('arquivo');
+            $entity->edital = $this->salvarArquivo($arquivo);
+        }
+
+        $propriedades = $this->Auditoria->changedOriginalFields($entity);
+        $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+        $table->save($entity);
+        $this->Flash->greatSuccess('Licitação salva com sucesso.');
+
+        $auditoria = [
+            'ocorrencia' => 25,
+            'descricao' => 'O usuário editou uma licitação.',
+            'dado_adicional' => json_encode(['licitacao_modificada' => $entity->id,
+                                             'valores_originais' => $propriedades,
+                                             'valores_modificados' => $modificadas]),
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->redirect(['action' => 'edicao', $entity->id]);
+    }
+
+    private function newUpdate(Table $table, Entity $entity)
+    {
+        $table->patchEntity($entity, $this->request->data());
+
+        $entity->dataPublicacao = $this->obterDataPublicacao($entity->data_publicacao, $entity->hora_publicacao);
+        $entity->ano = ($entity->ano == "") ? date("Y") : $entity->ano;
+
+        if($entity->data_sessao != "")
+        {
+            $entity->dataSessao = $this->Format->mergeDateDB($entity->data_sessao, $entity->hora_sessao);
+        }
+
+        if($entity->data_fim != "")
+        {
+            $entity->dataTermino = $this->Format->mergeDateDB($entity->data_fim, $entity->hora_fim);
+        }
+
+        $entity->modalidade = $this->request->getData('modalidade');
+        $entity->antigo = false;
+        $entity->visualizacoes = 0;
+
+        $assuntos = json_decode($entity->lassuntos);
+
+        $propriedades = $this->Auditoria->changedOriginalFields($entity);
+        $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+        $table->save($entity);
+
+        $auditoria_assuntos = $this->atualizarAssuntosLicitacao($entity, $assuntos, true);
+
+        $this->Flash->greatSuccess('Licitação salva com sucesso.');
+
+        $auditoria = [
+            'ocorrencia' => 25,
+            'descricao' => 'O usuário editou uma licitação.',
+            'dado_adicional' => json_encode(['licitacao_modificada' => $entity->id,
+                                             'valores_originais' => $propriedades,
+                                             'valores_modificados' => $modificadas,
+                                             'assuntos_relacionados' => $auditoria_assuntos]),
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->redirect(['action' => 'cadastro', $entity->id]);
     }
 
     private function removerArquivo($arquivo)
@@ -466,5 +558,93 @@ class LicitacoesController extends AppController
         $file->copy($diretorio . $novo_nome, true);
 
         return $url_relativa . $novo_nome;
+    }
+
+    private function atualizarAssuntosLicitacao(Entity $entity, array $assuntos, bool $clear = false)
+    {
+        $t_assunto = TableRegistry::get('Assunto');
+        $t_licitacao = TableRegistry::get('Licitacao');
+        $id_licitacao = $entity->id;
+
+        $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
+
+        $a_antigos = array();
+        $a_novos = array();
+
+        if($clear)
+        {
+            $e = $t_licitacao->get($id_licitacao, [
+                'contain' => ['Assunto']
+            ]);
+
+            foreach($e->assuntos as $assunto)
+            {
+                $a_antigos[$assunto->id] = $assunto->descricao;
+            }
+
+            $conn->delete('assunto_licitacao', [
+                'licitacao' => $id_licitacao
+            ]);
+        }
+
+        foreach($assuntos as $assunto)
+        {
+            $qtd = $t_assunto->find('all', [
+                'conditions' => [
+                    'descricao' => $assunto->nome,
+                    'tipo' => 'LC'
+                ]
+            ])->count();
+
+            if($qtd == 0)
+            {
+                $na = $t_assunto->newEntity();
+                $na->descricao = $assunto->nome;
+                $na->tipo = 'LC';
+
+                $t_assunto->save($na);
+
+                $assunto->id = $na->id;
+            }
+
+            $conn->insert('assunto_licitacao', [
+                'licitacao' => $id_licitacao,
+                'assunto' => $assunto->id
+            ]);
+
+            $a_novos[$assunto->id] = $assunto->nome;
+        }
+
+        $auditoria_assuntos = [
+            'assuntos_antigos' => $a_antigos,
+            'assuntos_novos' => $a_novos
+        ];
+
+        return $auditoria_assuntos;
+    }
+
+    private function obterDataPublicacao($data, $hora)
+    {
+        $postagem = null;
+
+        if($data == "" && $hora == "")
+        {
+            $postagem = date("Y-m-d H:i:s");
+        }
+        elseif($data == "" && $hora != "")
+        {
+            $postagem = date("Y-m-d") . ' ' . $hora . ':00';
+        }
+        elseif(($data != "" && $hora == ""))
+        {
+            $pivot = $this->Format->formatDateDB($data);
+            $postagem = $pivot . ' ' . date('H:i:s');
+        }
+        else
+        {
+            $postagem = $this->Format->mergeDateDB($data, $hora);
+        }
+
+        return $postagem;
     }
 }
