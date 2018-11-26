@@ -3,7 +3,7 @@
 namespace App\Model\Table;
 
 
-class StatusConcursoTable extends BaseTable
+class StatusLicitacaoTable extends BaseTable
 {
     public function initialize(array $config)
     {
