@@ -8,6 +8,12 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <?php if ($id > 0) :?>
+                        <div class="card-content">
+                            <?= $this->element('mnlicitacoes') ?>
+                            <hr clear="all"/>
+                        </div>
+                    <?php endif; ?>
                     <div class="card-content">
                         <?php
                             echo $this->Form->create($licitacao, [
