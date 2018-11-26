@@ -99,16 +99,27 @@ function ajustarModalidade(modalidade) {
 
     if (modalidade == "DI" ||
         modalidade == "IN") {
+        $("#data_sessao").val("");
+        $("#hora_sessao").val("");
+        $("#data_fim").val("");
+        $("#hora_fim").val("");
+
         $("#data_sessao").prop('disabled', true);
         $("#hora_sessao").prop('disabled', true);
         $("#data_fim").prop('disabled', true);
         $("#hora_fim").prop('disabled', true);
     } else {
+        $("#data_sessao").val("");
+        $("#hora_sessao").val("");
+
         $("#data_sessao").prop('disabled', false);
         $("#hora_sessao").prop('disabled', false);
 
         if (modalidade == "PP" ||
             modalidade == "TP") {
+            $("#data_fim").val("");
+            $("#hora_fim").val("");
+
             $("#data_fim").prop('disabled', true);
             $("#hora_fim").prop('disabled', true);
         } else {
