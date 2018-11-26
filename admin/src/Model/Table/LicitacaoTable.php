@@ -9,5 +9,26 @@ class LicitacaoTable extends BaseTable
     {
         $this->table('licitacao');
         $this->primaryKey('id');
+        $this->entityClass('Licitacao');
+
+        $this->belongsTo('Modalidade', [
+            'className' => 'Modalidade',
+            'foreignKey' => 'modalidade',
+            'propertyName' => 'modalidade',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsToMany('Assunto', [
+            'joinTable' => 'assunto_licitacao',
+            'foreignKey' => 'licitacao',
+            'targetForeignKey' => 'assunto',
+            'propertyName' => 'assuntos'
+        ]);
+
+        $this->belongsTo('AssuntoLicitacao', [
+            'joinType' => 'INNER',
+            'foreignKey' => 'id',
+            'bindingKey' => 'licitacao',
+        ]);
     }
 }
