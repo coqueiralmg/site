@@ -106,6 +106,7 @@ function ajustarModalidade(modalidade) {
 
     if (modalidade == "CC" ||
         modalidade == "CN" ||
+        modalidade == "CR" ||
         modalidade == "CO" ||
         modalidade == "PE" ||
         modalidade == "LE") {
@@ -354,6 +355,7 @@ function validar() {
         modalidade == "CC" ||
         modalidade == "CN" ||
         modalidade == "CO" ||
+        modalidade == "CR" ||
         modalidade == "LE") {
 
         if ($("#data_fim").val() === "") {
