@@ -55,7 +55,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("numprocesso", "Número do Processo") ?>
-                                        <?= $this->Form->number("numprocesso", ["id" => "numprocesso", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->number("numprocesso", ["id" => "numprocesso", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -63,14 +63,14 @@
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("nummodalidade", "Número da Modalidade") ?>
-                                        <?= $this->Form->number("nummodalidade", ["id" => "nummodalidade", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->number("nummodalidade", ["id" => "nummodalidade", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("numdocumento", "Número do Documento") ?>
-                                        <?= $this->Form->number("numdocumento", ["id" => "numdocumento", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->number("numdocumento", ["id" => "numdocumento", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group label-control">
                                         <?= $this->Form->label("ano", "Ano") ?>
-                                        <?= $this->Form->text("ano", ["id" => "ano", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->text("ano", ["id" => "ano", "class" => "form-control", "maxlength" => 4]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -159,12 +159,12 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo", ['id' => 'destaque']) ?> Destaque
+                                                <?= $this->Form->checkbox("destaque", ['id' => 'destaque']) ?> Destaque
                                             </label>
                                         </div>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo", ['id' => 'retificado']) ?> Retificado
+                                                <?= $this->Form->checkbox("retificado", ['id' => 'retificado']) ?> Retificado
                                             </label>
                                         </div>
                                         <div class="togglebutton">
