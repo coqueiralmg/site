@@ -42,6 +42,25 @@ $(function () {
         tags: true
     });
 
+    if (idLicitacao > 0) {
+        var data = $("#assuntos").select2('data');
+
+        for (var d = 0; d < data.length; d++) {
+            var info = data[d];
+
+            var assunto = {
+                id: validarIdAssunto(info),
+                nome: info.text
+            };
+
+            assuntos.push(assunto);
+            $("#lassuntos").val(JSON.stringify(assuntos));
+        }
+
+        var modalidade = $('#modalidade').val();
+        ajustarModalidade(modalidade);
+    }
+
     $("#assuntos").on('select2:select', function (e) {
         var data = e.params.data;
 
@@ -109,9 +128,6 @@ function ajustarModalidade(modalidade) {
         $("#data_fim").prop('disabled', true);
         $("#hora_fim").prop('disabled', true);
     } else {
-        $("#data_sessao").val("");
-        $("#hora_sessao").val("");
-
         $("#data_sessao").prop('disabled', false);
         $("#hora_sessao").prop('disabled', false);
 
