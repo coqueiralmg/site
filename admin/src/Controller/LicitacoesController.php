@@ -179,7 +179,7 @@ class LicitacoesController extends AppController
         $t_licitacoes = TableRegistry::get('Licitacao');
         $t_modalidade = TableRegistry::get('Modalidade');
         $t_assuntos = TableRegistry::get('Assunto');
-        $t_status = TableRegistry::get('StatusConcurso');
+        $t_status = TableRegistry::get('StatusLicitacao');
 
         if ($id > 0)
         {
