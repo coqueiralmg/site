@@ -399,6 +399,37 @@ class LicitacoesController extends AppController
         $this->set('licitacao', $licitacao);
     }
 
+    public function anexos(int $id)
+    {
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        //$t_anexos = TableRegistry::get('Anexo');
+        //$t_grupo_anexos = TableRegistry::get('GrupoAnexo');
+
+        $licitacao = $t_licitacoes->get($id, ['contain' => ['Modalidade']]);
+        $titulo = $subtitulo = '';
+
+        $titulo = "Documentos e Anexos da Licitação";
+        $subtitulo = "Documentos e anexos relativos a processo licitatório " . $licitacao->numprocesso . '/' . $licitacao->ano . ' da modalidade ' . $licitacao->modalidade->nome . ' sob o assunto ' . $licitacao->titulo;
+
+        $documentos = [];
+        $qtd_total = 0;
+
+        $this->set('title', $titulo);
+        $this->set('subtitle', $subtitulo);
+        $this->set('icon', 'work');
+        $this->set('licitacao', $licitacao);
+        $this->set('documentos', $documentos);
+        $this->set('qtd_total', $qtd_total);
+        $this->set('id', $id);
+    }
+
+    public function anexar(int $id)
+    {
+        $this->set('title', 'Anexar novo documento a licitação');
+        $this->set('icon', 'work');
+        $this->set('id', $id);
+    }
+
     protected function insert()
     {
         try
