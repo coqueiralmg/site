@@ -26,6 +26,37 @@ class AtualizacoesController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        $t_informativo = TableRegistry::get('Atualizacao');
+        $marcado = $t_informativo->get($id);
+
+        $titulo = $marcado->titulo;
+        $licitacao = $marcado->licitacao;
+
+        $propriedades = $marcado->getOriginalValues();
+
+        $t_informativo->delete($marcado);
+
+        $this->Flash->greatSuccess('A atualização com o título ' . $titulo . ' foi excluído com sucesso!');
+
+        $auditoria = [
+            'ocorrencia' => 76,
+            'descricao' => 'O usuário excluiu uma atualização relativa a um processo licitatório.',
+            'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->redirect(['controller' => 'licitacoes', 'action' => 'informativos', $licitacao]);
+    }
+
     protected function insert()
     {
         $idLicitacao = $this->request->getData('licitacao');
@@ -73,7 +104,7 @@ class AtualizacoesController extends AppController
 
     protected function update(int $id)
     {
-        $idConcurso = $this->request->getData('licitacao');
+        $idLicitacao = $this->request->getData('licitacao');
 
         try
         {
@@ -82,14 +113,14 @@ class AtualizacoesController extends AppController
             $entity = $t_informativo->get($id);
             $t_informativo->patchEntity($entity, $this->request->data());
 
-            $entity->licitacao = $idConcurso;
+            $entity->licitacao = $idLicitacao;
             $entity->data = $this->obterDataPostagem($entity->data, $entity->hora);
 
             $propriedades = $this->Auditoria->changedOriginalFields($entity);
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
 
             $t_informativo->save($entity);
-            $this->Flash->greatSuccess('O informativo foi alterado com sucesso.');
+            $this->Flash->greatSuccess('A atualização relativa a licitação foi falva com sucesso.');
 
             $auditoria = [
                 'ocorrencia' => 75,
@@ -105,17 +136,17 @@ class AtualizacoesController extends AppController
                 $this->Monitoria->monitorar($auditoria);
             }
 
-            $this->redirect(['controller' => 'concursos', 'action' => 'informativo', $entity->id, '?' => ['idConcurso' => $entity->concurso]]);
+            $this->redirect(['controller' => 'licitacoes', 'action' => 'informativo', $entity->id, '?' => ['idLicitacao' => $idLicitacao]]);
         }
         catch(Exception $ex)
         {
-            $this->Flash->exception('Ocorreu um erro no sistema ao salvar os dados do concurso público ou processo seletivo.', [
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar os dados do processo licitatório.', [
                 'params' => [
                     'details' => $ex->getMessage()
                 ]
             ]);
 
-            $this->redirect(['controller' => 'concursos', 'action' => 'informativo', $id, '?' => ['idConcurso' => $idConcurso]]);
+            $this->redirect(['controller' => 'licitacoes', 'action' => 'informativo', $id, '?' => ['idLicitacao' => $idLicitacao]]);
         }
     }
 
