@@ -1,7 +1,7 @@
 <script type="text/javascript">
     var idNoticia = <?=$id?>;
 </script>
-<?= $this->Html->script('controller/concurso.informativo.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('controller/concursos.informativo.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
