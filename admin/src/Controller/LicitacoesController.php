@@ -498,6 +498,7 @@ class LicitacoesController extends AppController
 
         $entity->dataInicio = $this->Format->mergeDateDB($entity->data_inicio, $entity->hora_inicio);
         $entity->dataTermino = $this->Format->mergeDateDB($entity->data_termino, $entity->hora_termino);
+        $entity->dataAtualizacao = $this->obterDataPublicacao(null, null);
 
         $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
 
@@ -538,6 +539,7 @@ class LicitacoesController extends AppController
         $table->patchEntity($entity, $this->request->data());
 
         $entity->dataPublicacao = $this->obterDataPublicacao($entity->data_publicacao, $entity->hora_publicacao);
+        $entity->dataAtualizacao = $this->obterDataPublicacao(null, null);
         $entity->ano = ($entity->ano == "") ? date("Y") : $entity->ano;
 
         if($entity->data_sessao != "")
