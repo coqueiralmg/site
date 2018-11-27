@@ -32,16 +32,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($informativos as $informativo): ?>
+                                    <?php foreach ($atualizacoes as $atualizacao): ?>
                                         <tr>
-                                            <td><?=$this->Format->date($informativo->data, true)?></td>
-                                            <td><?=$informativo->titulo?></td>
-                                            <td><?=$informativo->ativado?></td>
+                                            <td><?=$this->Format->date($atualizacao->data, true)?></td>
+                                            <td><?=$atualizacao->titulo?></td>
+                                            <td><?=$atualizacao->ativado?></td>
                                             <td class="td-actions text-right">
-                                            <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'informativo', $informativo->id, '?' => ['idLicitacao' => $id]]) ?>" class="btn btn-primary btn-round">
+                                            <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'informativo', $atualizacao->id, '?' => ['idLicitacao' => $id]]) ?>" class="btn btn-primary btn-round">
                                                 <i class="material-icons">edit</i>
                                             </a>
-                                            <button type="button" onclick="excluirInformativoConcurso(<?= $informativo->id ?>, '<?= $informativo->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                            <button type="button" onclick="excluirInformativoLicitacao(<?= $atualizacao->id ?>, '<?= $atualizacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
