@@ -28,7 +28,7 @@
                                 <?=$this->element('message', [
                                     'name' => 'info',
                                     'type' => 'info',
-                                    'message' => 'Deixe a data e hora em branco, para salvar a atualização com a data e hora corrente.'
+                                    'message' => 'Você pode deixar a data e hora em branco, para salvar a atualização com a data e hora corrente.'
                                 ]) ?>
                             <?php endif; ?>
                             <?=$this->element('message', [
