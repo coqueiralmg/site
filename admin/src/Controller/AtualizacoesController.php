@@ -57,7 +57,7 @@ class AtualizacoesController extends AppController
                 $this->Monitoria->monitorar($auditoria);
             }
 
-            $this->redirect(['controller' => 'licitacoes', 'action' => 'informativo', $entity->id, '?' => ['idLicitacao' => $entity->concurso]]);
+            $this->redirect(['controller' => 'licitacoes', 'action' => 'informativo', $entity->id, '?' => ['idLicitacao' => $idLicitacao]]);
         }
         catch(Exception $ex)
         {
