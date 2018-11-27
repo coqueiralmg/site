@@ -115,7 +115,7 @@
 
                             <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Salvar</button>
                             <?php if ($id > 0) :?>
-                                <button type="button" onclick="window.location='<?= $this->Url->build(['action' => 'add']) ?>'" class="btn btn-warning pull-right">Novo</button>
+                                <button type="button" onclick="window.location='<?= $this->Url->build(['action' => 'informativo', 0, '?' => ['idLicitacao' => $licitacao->id]]) ?>'" class="btn btn-warning pull-right">Novo</button>
                             <?php endif; ?>
                             <button type="reset" class="btn btn-default pull-right">Limpar</button>
                             <button type="button" onclick="window.location='<?= $this->Url->build(['controller' => 'concursos', 'action' => 'informativos', $licitacao->id]) ?>'" class="btn btn-info pull-right">Voltar</button>
