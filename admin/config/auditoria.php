@@ -75,7 +75,10 @@ return [
             70 => 'Alteração de Publicação',
             71 => 'Exclusão de Publicação',
             72 => 'Criar Relacionamento Entre Documentos de Legislação',
-            73 => 'Cortar Relacionamento Entre Documentos de Legislação'
+            73 => 'Cortar Relacionamento Entre Documentos de Legislação',
+            74 => 'Inclusão de atualização de uma Licitação',
+            75 => 'Alteração de atualização de uma Licitação',
+            76 => 'Exclusão de atualização de uma licitação'
         ]
     ]
 ];
