@@ -38,19 +38,6 @@
 
     <li class="nav-item">
         <?php
-            if($this->Menu->activeMenu(['controller' => 'licitacoes', 'action' => 'anexos']))
-            {
-                echo $this->Html->link("Fornecedores e Aditivos", "#", ['class' => 'nav-link active show']);
-            }
-            else
-            {
-                echo $this->Html->link("Fornecedores e Aditivos", ['controller' => 'licitacoes', 'action' => 'anexos', $id], ['class' => 'nav-link']);
-            }
-        ?>
-    </li>
-
-    <li class="nav-item">
-        <?php
             if($this->Menu->activeMenu(['controller' => 'licitacoes', 'action' => 'visualizar']))
             {
                 echo $this->Html->link("Visualizar e Imprimir", "#", ['class' => 'nav-link active show']);
