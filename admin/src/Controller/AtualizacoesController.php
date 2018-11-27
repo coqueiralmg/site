@@ -12,6 +12,8 @@ class AtualizacoesController extends AppController
     public function initialize()
     {
         parent::initialize();
+
+        $this->loadComponent('Licitacoes');
     }
 
     public function save(int $id)
@@ -38,6 +40,7 @@ class AtualizacoesController extends AppController
 
         $t_informativo->delete($marcado);
 
+        $this->Licitacoes->refresh($licitacao);
         $this->Flash->greatSuccess('A atualização com o título ' . $titulo . ' foi excluído com sucesso!');
 
         $auditoria = [
@@ -70,6 +73,8 @@ class AtualizacoesController extends AppController
             $entity->data = $this->obterDataPostagem($entity->data, $entity->hora);
 
             $t_informativo->save($entity);
+
+            $this->Licitacoes->refresh($idLicitacao);
             $this->Flash->greatSuccess('A atualização relativa a licitação foi falva com sucesso.');
 
             $propriedades = $entity->getOriginalValues();
@@ -120,6 +125,8 @@ class AtualizacoesController extends AppController
             $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
 
             $t_informativo->save($entity);
+
+            $this->Licitacoes->refresh($idLicitacao);
             $this->Flash->greatSuccess('A atualização relativa a licitação foi falva com sucesso.');
 
             $auditoria = [
