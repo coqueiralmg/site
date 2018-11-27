@@ -366,6 +366,39 @@ class LicitacoesController extends AppController
         $this->set('qtd_total', $qtd_total);
     }
 
+    public function informativo(int $id)
+    {
+        $title = ($id > 0) ? 'Edição de Atualização' : 'Nova Atualização';
+
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_atualizacoes = TableRegistry::get('Atualizacao');
+
+        $idLicitacao = $this->request->query('idLicitacao');
+
+        $licitacao = $t_licitacoes->get($idLicitacao, ['contain' => ['Modalidade']]);
+
+        if($id > 0)
+        {
+            $atualizacao = $t_atualizacoes->get($id);
+
+            $data = $atualizacao->data;
+
+            $atualizacao->data = $data->i18nFormat('dd/MM/yyyy');
+            $atualizacao->hora = $data->i18nFormat('HH:mm');
+
+            $this->set('atualizacao', $atualizacao);
+        }
+        else
+        {
+            $this->set('atualizacao', null);
+        }
+
+        $this->set('title', $title);
+        $this->set('icon', 'work');
+        $this->set('id', $id);
+        $this->set('licitacao', $licitacao);
+    }
+
     protected function insert()
     {
         try
