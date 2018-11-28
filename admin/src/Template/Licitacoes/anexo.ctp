@@ -69,8 +69,8 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group label-control">
-                                        <?= $this->Form->label("descricao", "Descrição") ?>
-                                        <?= $this->Form->text("descricao", ["id" => "descricao", "class" => "form-control", "maxlength" => 100]) ?>
+                                        <?= $this->Form->label("nome", "Nome") ?>
+                                        <?= $this->Form->text("nome", ["id" => "nome", "class" => "form-control", "maxlength" => 100]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                     <div id="panel_arquivo">
                                         <div class="col-md-9">
                                             <div class="form-group form-file-upload is-fileinput">
-                                                Arquivo atual: <?=$this->Html->link($anexo->descricao, '/../' . $anexo->arquivo, ['target' => '_blank'])?>
+                                                Arquivo atual: <?=$this->Html->link(($anexo->numero != null ? $anexo->numero . ' ' : '') . $anexo->nome, '/../' . $anexo->arquivo, ['target' => '_blank'])?>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
