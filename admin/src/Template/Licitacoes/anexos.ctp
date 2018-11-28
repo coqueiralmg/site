@@ -46,7 +46,7 @@
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if ($this->Membership->handleRole("excluir_concurso")): ?>
-                                                    <button type="button" onclick="excluirDocumentoConcurso(<?= $anexo->id ?>, '<?= $anexo->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <button type="button" onclick="excluirDocumentoLicitacao(<?= $anexo->id ?>, '<?= $anexo->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
