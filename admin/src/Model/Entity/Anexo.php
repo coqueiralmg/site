@@ -10,4 +10,11 @@ class Anexo extends Entity
     {
         return $this->_properties['ativo'] ? 'Sim' : 'Não';
     }
+
+    protected function _getCodigo()
+    {
+        $numero = $this->_properties['numero'];
+
+        return  $numero == "" || $numero == null ? '-' : $numero;
+    }
 }
