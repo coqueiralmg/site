@@ -31,6 +31,39 @@ class AnexosController extends AppController
         }
     }
 
+    public function delete(int $id)
+    {
+        $t_anexos = TableRegistry::get('Anexo');
+
+        $marcado = $t_anexos->get($id);
+        $descricao = $marcado->descricao;
+        $licitacao = $marcado->licitacao;
+
+        $propriedades = $marcado->getOriginalValues();
+
+        $this->removerArquivo($marcado->arquivo);
+        $t_anexos->delete($marcado);
+
+        $this->Licitacoes->refresh($licitacao);
+        $this->Flash->greatSuccess('O documento ' . $descricao . ' foi excluído com sucesso!');
+
+        $auditoria = [
+            'ocorrencia' => 79,
+            'descricao' => 'O usuário excluiu um anexo da licitação.',
+            'dado_adicional' => json_encode(['dado_excluido' => $id, 'dados_registro_excluido' => $propriedades]),
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->redirect(['controller' => 'licitacoes', 'action' => 'anexos', $licitacao]);
+    }
+
     protected function insert()
     {
         $idLicitacao = $this->request->getData('licitacao');
