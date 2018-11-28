@@ -403,6 +403,7 @@ class LicitacoesController extends AppController
     {
         $t_licitacoes = TableRegistry::get('Licitacao');
         $t_anexos = TableRegistry::get('Anexo');
+
         $limite_paginacao = Configure::read('Pagination.limit');
 
         $licitacao = $t_licitacoes->get($id, ['contain' => ['Modalidade']]);
@@ -452,7 +453,32 @@ class LicitacoesController extends AppController
 
     public function anexo(int $id)
     {
+        $title = ($id > 0) ? 'Edição de Anexo' : 'Novo Anexo';
 
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_anexos = TableRegistry::get('Anexo');
+
+        $idLicitacao = $this->request->query('idLicitacao');
+
+        $licitacao = $t_licitacoes->get($idLicitacao, ['contain' => ['Modalidade']]);
+
+        if($id > 0)
+        {
+            $anexo = $t_anexos->get($id);
+
+            $anexo->data = $anexo->data->i18nFormat('dd/MM/yyyy');
+
+            $this->set('anexo', null);
+        }
+        else
+        {
+            $this->set('anexo', null);
+        }
+
+        $this->set('title', $title);
+        $this->set('icon', 'work');
+        $this->set('id', $id);
+        $this->set('licitacao', $licitacao);
     }
 
     protected function insert()
