@@ -237,7 +237,7 @@ class LicitacoesController extends AppController
         ]);
 
         $status = $t_status->find('list', [
-            'keyField' => 'chave',
+            'keyField' => 'id',
             'valueField' => 'nome',
             'order' => [
                 'ordem' => 'ASC'
@@ -430,7 +430,7 @@ class LicitacoesController extends AppController
 
         $qtd_total = $t_anexos->find('all', [
             'conditions' => $condicoes
-        ])->count();;
+        ])->count();
 
         $this->set('title', $titulo);
         $this->set('subtitle', $subtitulo);
@@ -481,6 +481,42 @@ class LicitacoesController extends AppController
         $this->set('licitacao', $licitacao);
     }
 
+    public function visualizar(int $id)
+    {
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_atualizacoes = TableRegistry::get('Atualizacao');
+        $t_anexos = TableRegistry::get('Anexo');
+
+        $licitacao = $t_licitacoes->get($id, ['contain' => ['Modalidade', 'StatusLicitacao']]);
+
+        $condicoes = [
+            'licitacao' => $id
+        ];
+
+        $atualizacoes = $t_atualizacoes->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ]);
+
+        $anexos = $t_anexos->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC',
+                'numero' => 'ASC',
+                'nome' => 'ASC'
+            ]
+        ]);
+
+        $this->set('title', 'Visualização de Dados da Licitação');
+        $this->set('icon', 'work');
+        $this->set('licitacao', $licitacao);
+        $this->set('atualizacoes', $atualizacoes);
+        $this->set('anexos', $anexos);
+        $this->set('id', $id);
+    }
+
     protected function insert()
     {
         try
@@ -502,6 +538,7 @@ class LicitacoesController extends AppController
             }
 
             $entity->modalidade = $this->request->getData('modalidade');
+            $entity->status = $this->request->getData('status');
             $entity->antigo = false;
             $entity->visualizacoes = 0;
 
@@ -581,6 +618,7 @@ class LicitacoesController extends AppController
         $entity->dataInicio = $this->Format->mergeDateDB($entity->data_inicio, $entity->hora_inicio);
         $entity->dataTermino = $this->Format->mergeDateDB($entity->data_termino, $entity->hora_termino);
         $entity->dataAtualizacao = $this->obterDataPublicacao(null, null);
+        $entity->antigo = true;
 
         $enviaArquivo = ($this->request->getData('enviaArquivo') == 'true');
 
@@ -635,6 +673,7 @@ class LicitacoesController extends AppController
         }
 
         $entity->modalidade = $this->request->getData('modalidade');
+        $entity->status = $this->request->getData('status');
         $entity->antigo = false;
         $entity->visualizacoes = 0;
 
