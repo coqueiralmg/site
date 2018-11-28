@@ -440,11 +440,19 @@ class LicitacoesController extends AppController
         $this->set('id', $id);
     }
 
+    /**
+     * @deprecated 1.2.0 Não é necessário o agrupamento de documentos anexos
+     */
     public function anexar(int $id)
     {
         $this->set('title', 'Anexar novo documento a licitação');
         $this->set('icon', 'work');
         $this->set('id', $id);
+    }
+
+    public function anexo(int $id)
+    {
+
     }
 
     protected function insert()
