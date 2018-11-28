@@ -75,7 +75,7 @@ class AtualizacoesController extends AppController
             $t_informativo->save($entity);
 
             $this->Licitacoes->refresh($idLicitacao);
-            $this->Flash->greatSuccess('A atualização relativa a licitação foi falva com sucesso.');
+            $this->Flash->greatSuccess('A atualização relativa a licitação foi salva com sucesso.');
 
             $propriedades = $entity->getOriginalValues();
 
