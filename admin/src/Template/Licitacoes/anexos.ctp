@@ -26,7 +26,8 @@
                                 <thead class="text-primary">
                                     <tr>
                                         <th>Data</th>
-                                        <th>Descrição</th>
+                                        <th>Número</th>
+                                        <th>Nome</th>
                                         <th>Ativo</th>
                                         <th></th>
                                     </tr>
@@ -35,11 +36,12 @@
                                     <?php foreach ($anexos as $anexo): ?>
                                         <tr>
                                             <td><?=$this->Format->date($anexo->data)?></td>
-                                            <td><?=$anexo->descricao?></td>
+                                            <td><?=$anexo->codigo?></td>
+                                            <td><?=$anexo->nome?></td>
                                             <td><?=$anexo->ativado?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_concurso")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'anexo', $anexo->id, '?' => ['idLicitacao' => $id]]) ?>" class="btn btn-primary btn-round">
+                                                    <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'anexo', $anexo->id, '?' => ['idLicitacao' => $id]]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
