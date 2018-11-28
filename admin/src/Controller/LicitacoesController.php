@@ -468,7 +468,7 @@ class LicitacoesController extends AppController
 
             $anexo->data = $anexo->data->i18nFormat('dd/MM/yyyy');
 
-            $this->set('anexo', null);
+            $this->set('anexo', $anexo);
         }
         else
         {
