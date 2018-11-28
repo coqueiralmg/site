@@ -11,7 +11,7 @@
                     <div class="card-content">
                         <?= $this->Flash->render() ?>
                         <div class="form-group form-button">
-                            <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'anexar', $id]) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                            <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'anexo', 0, '?' => ['idLicitacao' => $id]]) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                             <button type="button" onclick="window.location='<?= $this->Url->build('/licitacoes') ?>'" class="btn btn-info pull-right">Voltar</button>
                         </div>
                     </div>
@@ -32,19 +32,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($documentos as $documento): ?>
+                                    <?php foreach ($anexos as $anexo): ?>
                                         <tr>
-                                            <td><?=$this->Format->date($documento->data)?></td>
-                                            <td><?=$documento->descricao?></td>
-                                            <td><?=$documento->ativado?></td>
+                                            <td><?=$this->Format->date($anexo->data)?></td>
+                                            <td><?=$anexo->descricao?></td>
+                                            <td><?=$anexo->ativado?></td>
                                             <td class="td-actions text-right">
                                                 <?php if ($this->Membership->handleRole("editar_concurso")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'anexo', $documento->id, '?' => ['idConcurso' => $id]]) ?>" class="btn btn-primary btn-round">
+                                                    <a href="<?= $this->Url->build(['controller' => 'Concursos', 'action' => 'anexo', $anexo->id, '?' => ['idLicitacao' => $id]]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if ($this->Membership->handleRole("excluir_concurso")): ?>
-                                                    <button type="button" onclick="excluirDocumentoConcurso(<?= $documento->id ?>, '<?= $documento->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <button type="button" onclick="excluirDocumentoConcurso(<?= $anexo->id ?>, '<?= $anexo->descricao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -53,7 +53,7 @@
                             </table>
                         <?php else: ?>
                             <h3>Não existem documentos e anexos relativos ao processo licitatório <b><?=$this->Format->zeroPad($licitacao->numprocesso, 0)?>/<?=$licitacao->ano?></b> da modalidade <b><?=$licitacao->modalidade->nome?></b>, sob o assunto <b><?=$licitacao->titulo?></b>.
-                                Para adicionar o novo informativo, <?=$this->Html->link("clique aqui", ["controller" => "licitacoes", "action" => "anexar", $id])?>.</h3>
+                                Para adicionar o novo informativo, <?=$this->Html->link("clique aqui", ["controller" => "licitacoes", "action" => "anexo", 0, '?' => ['idLicitacao' => $id]])?>.</h3>
                         <?php endif; ?>
                     </div>
                      <div class="card-content">
