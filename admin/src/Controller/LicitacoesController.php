@@ -402,8 +402,8 @@ class LicitacoesController extends AppController
     public function anexos(int $id)
     {
         $t_licitacoes = TableRegistry::get('Licitacao');
-        //$t_anexos = TableRegistry::get('Anexo');
-        //$t_grupo_anexos = TableRegistry::get('GrupoAnexo');
+        $t_anexos = TableRegistry::get('Anexo');
+        $limite_paginacao = Configure::read('Pagination.limit');
 
         $licitacao = $t_licitacoes->get($id, ['contain' => ['Modalidade']]);
         $titulo = $subtitulo = '';
@@ -411,14 +411,31 @@ class LicitacoesController extends AppController
         $titulo = "Documentos e Anexos da Licitação";
         $subtitulo = "Documentos e anexos relativos a processo licitatório " . $licitacao->numprocesso . '/' . $licitacao->ano . ' da modalidade ' . $licitacao->modalidade->nome . ' sob o assunto ' . $licitacao->titulo;
 
-        $documentos = [];
-        $qtd_total = 0;
+        $condicoes = [
+            'licitacao' => $id
+        ];
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC',
+                'numero' => 'ASC',
+                'nome' => 'ASC'
+            ]
+        ];
+
+        $anexos = $this->paginate($t_anexos);
+
+        $qtd_total = $t_anexos->find('all', [
+            'conditions' => $condicoes
+        ])->count();;
 
         $this->set('title', $titulo);
         $this->set('subtitle', $subtitulo);
         $this->set('icon', 'work');
         $this->set('licitacao', $licitacao);
-        $this->set('documentos', $documentos);
+        $this->set('anexos', $anexos);
         $this->set('qtd_total', $qtd_total);
         $this->set('id', $id);
     }
