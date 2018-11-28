@@ -38,6 +38,7 @@ class DocumentosController extends AppController
 
         $propriedades = $marcado->getOriginalValues();
 
+        $this->removerArquivo($marcado->arquivo);
         $t_documentos->delete($marcado);
 
         $this->Flash->greatSuccess('O documento ' . $descricao . ' foi excluído com sucesso!');
