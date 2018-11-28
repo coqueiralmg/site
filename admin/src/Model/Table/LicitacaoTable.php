@@ -18,6 +18,13 @@ class LicitacaoTable extends BaseTable
             'joinType' => 'INNER'
         ]);
 
+        $this->belongsTo('StatusLicitacao', [
+            'className' => 'StatusLicitacao',
+            'foreignKey' => 'status',
+            'propertyName' => 'status',
+            'joinType' => 'INNER'
+        ]);
+
         $this->belongsToMany('Assunto', [
             'joinTable' => 'assunto_licitacao',
             'foreignKey' => 'licitacao',
