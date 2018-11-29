@@ -13,7 +13,7 @@
 
                     <center>
                         <div class="center" style="border: dashed 1px; padding: 15px; margin: 30px; width: 40%">
-                            <a onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência'); LE.info('Acesso ao site da transparência. Página de referência: ' + window.location.href);" href="http://www.municipalnet.com.br/fornecedorweb/portalTransparencia.php?cod=dHJhbnNwd2ViX2NvcXVlaXJhbA==" style="font-size: large; font-weight: 300" target="_blank">Acessar Portal da Transparência</a>
+                            <a onclick="ga('send', 'event', 'Externo', 'Site', 'Portal de Transparência'); LE.info('Acesso ao site da transparência. Página de referência: ' + window.location.href);" href="https://www.municipalnet.com.br/index/?uid=coqueiral" style="font-size: large; font-weight: 300" target="_blank">Acessar Portal da Transparência</a>
                         </div>
                     </center>
 
