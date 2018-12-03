@@ -145,7 +145,7 @@
                                                         <th>Número</th>
                                                         <th>Nome</th>
                                                         <th>Ativo</th>
-                                                        <th>Arquivo</tr>
+                                                        <th></tr>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
