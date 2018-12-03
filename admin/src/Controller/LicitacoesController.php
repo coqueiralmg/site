@@ -24,6 +24,10 @@ class LicitacoesController extends AppController
     public function index()
     {
         $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_modalidade = TableRegistry::get('Modalidade');
+        $t_assuntos = TableRegistry::get('Assunto');
+        $t_status = TableRegistry::get('StatusLicitacao');
+
         $limite_paginacao = Configure::read('Pagination.limit');
 
         $condicoes = array();
@@ -75,6 +79,36 @@ class LicitacoesController extends AppController
             'singular' => 'encontrada'
         ];
 
+        $assuntos = $t_assuntos->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'descricao',
+            'conditions' => [
+                'tipo' => 'LC'
+            ],
+            'order' => [
+                'descricao' => 'ASC'
+            ]
+        ]);
+
+        $modalidades = $t_modalidade->find('list', [
+            'keyField' => 'chave',
+            'valueField' => 'nome',
+            'conditions' => [
+                'ativo' => true
+            ],
+            'order' => [
+                'ordem' => 'ASC'
+            ]
+        ]);
+
+        $status = $t_status->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'order' => [
+                'ordem' => 'ASC'
+            ]
+        ]);
+
         $licitacoes = $this->paginate($t_licitacoes);
 
         $qtd_total = $t_licitacoes->find('all', [
@@ -90,6 +124,9 @@ class LicitacoesController extends AppController
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
+        $this->set('combo_modalidade', $modalidades);
+        $this->set('combo_status', $status);
+        $this->set('combo_assuntos', $assuntos);
         $this->set('data', $data);
     }
 
