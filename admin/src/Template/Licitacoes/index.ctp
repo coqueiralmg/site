@@ -23,6 +23,13 @@
                             "role" => "form"]);
                         ?>
                             <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-group-min">
+                                        <?= $this->Form->label("numprocesso", "Número do Processo") ?>
+                                        <?= $this->Form->text("numprocesso", ["class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("titulo", "Título") ?>
@@ -30,6 +37,22 @@
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-min">
+                                        <?= $this->Form->label("modalidade", "Modalidade") ?>
+                                        <?= $this->Form->select("modalidade", $combo_modalidade, ["id" => "modalidade", "class" => "form-control", "empty" => true]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-min">
+                                        <?= $this->Form->label("modalidade", "Modalidade") ?>
+                                        <?= $this->Form->select("modalidade", $combo_modalidade, ["id" => "modalidade", "class" => "form-control", "empty" => true]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("data_inicial", "Data Inicial") ?>
