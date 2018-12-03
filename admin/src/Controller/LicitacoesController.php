@@ -288,12 +288,19 @@ class LicitacoesController extends AppController
         try
         {
             $t_licitacoes = TableRegistry::get('Licitacao');
+            $t_atualizacoes = TableRegistry::get('Atualizacao');
+            $t_anexos = TableRegistry::get('Anexo');
+
             $marcado = $t_licitacoes->get($id);
             $titulo = $marcado->titulo;
+            $opcoes = ['licitacao' => $id];
 
             $propriedades = $marcado->getOriginalValues();
 
             $this->removerArquivo($marcado->edital);
+
+            $t_atualizacoes->deleteAll($opcoes);
+            $t_anexos->deleteAll($opcoes);
 
             $t_licitacoes->delete($marcado);
 
