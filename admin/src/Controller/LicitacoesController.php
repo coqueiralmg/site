@@ -517,6 +517,44 @@ class LicitacoesController extends AppController
         $this->set('id', $id);
     }
 
+    public function documento(int $id)
+    {
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_atualizacoes = TableRegistry::get('Atualizacao');
+        $t_anexos = TableRegistry::get('Anexo');
+
+        $licitacao = $t_licitacoes->get($id, ['contain' => ['Modalidade', 'StatusLicitacao']]);
+
+        $condicoes = [
+            'licitacao' => $id
+        ];
+
+        $atualizacoes = $t_atualizacoes->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC'
+            ]
+        ]);
+
+        $anexos = $t_anexos->find('all', [
+            'conditions' => $condicoes,
+            'order' => [
+                'data' => 'DESC',
+                'numero' => 'ASC',
+                'nome' => 'ASC'
+            ]
+        ]);
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Visualização de Dados da Licitação');
+        $this->set('icon', 'work');
+        $this->set('licitacao', $licitacao);
+        $this->set('atualizacoes', $atualizacoes);
+        $this->set('anexos', $anexos);
+        $this->set('id', $id);
+    }
+
     protected function insert()
     {
         try
