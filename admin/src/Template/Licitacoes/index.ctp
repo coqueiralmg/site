@@ -23,10 +23,10 @@
                             "role" => "form"]);
                         ?>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("numprocesso", "Número do Processo") ?>
-                                        <?= $this->Form->text("numprocesso", ["class" => "form-control"]) ?>
+                                        <?= $this->Form->text("numprocesso", ["id" => "numprocesso", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -40,14 +40,14 @@
                                 <div class="col-md-2">
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("modalidade", "Modalidade") ?>
-                                        <?= $this->Form->select("modalidade", $combo_modalidade, ["id" => "modalidade", "class" => "form-control", "empty" => true]) ?>
+                                        <?= $this->Form->select("modalidade", $combo_modalidade, ["id" => "modalidade", "class" => "form-control", "empty" => "Todos"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group form-group-min">
-                                        <?= $this->Form->label("modalidade", "Modalidade") ?>
-                                        <?= $this->Form->select("modalidade", $combo_modalidade, ["id" => "modalidade", "class" => "form-control", "empty" => true]) ?>
+                                        <?= $this->Form->label("status", "Status") ?>
+                                        <?= $this->Form->select("status", $combo_status, ["id" => "status", "class" => "form-control", "empty" => "Todos"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -55,15 +55,36 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group form-group-min">
-                                        <?= $this->Form->label("data_inicial", "Data Inicial") ?>
-                                        <?= $this->Form->text("data_inicial", ["id" => "data_inicial", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("data_publicacao_inicial", "Data Publicação Inicial") ?>
+                                        <?= $this->Form->text("data_publicacao_inicial", ["id" => "data_publicacao_inicial", "class" => "form-control"]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group form-group-min">
-                                        <?= $this->Form->label("data_final", "Data Inicial") ?>
-                                        <?= $this->Form->text("data_final", ["id" => "data_final", "class" => "form-control"]) ?>
+                                        <?= $this->Form->label("data_publicacao_final", "Data Publicação Final") ?>
+                                        <?= $this->Form->text("data_publicacao_final", ["id" => "data_publicacao_final", "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-min">
+                                        <?= $this->Form->label("data_sessao_inicial", "Data Sessão Inicial") ?>
+                                        <?= $this->Form->text("data_sessao_inicial", ["id" => "data_sessao_inicial", "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-min">
+                                        <?= $this->Form->label("data_sessao_final", "Data Sessão Final") ?>
+                                        <?= $this->Form->text("data_sessao_final", ["id" => "data_sessao_final", "class" => "form-control"]) ?>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-group-min">
+                                        <?= $this->Form->label("formato", "Formatos") ?> <br/>
+                                        <?=$this->Form->select('formato', $combo_formatos, ['class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -95,32 +116,86 @@
                             <h4 class="card-title">Licitações Cadastradas</h4>
                             <table class="table">
                                 <thead class="text-primary">
-                                    <tr>
-                                        <th>Título</th>
-                                        <th>Data Início</th>
-                                        <th>Data Término</th>
-                                        <th>Ativo</th>
-                                        <th></th>
-                                    </tr>
+                                    <?php if($formato_exibicao == 'T'): ?>
+                                        <tr>
+                                            <th>Número</th>
+                                            <th>Título</th>
+                                            <th>Data Sessão</th>
+                                            <th>Ativo</th>
+                                            <th></th>
+                                        </tr>
+                                    <?php elseif($formato_exibicao == 'A'): ?>
+                                        <tr>
+                                            <th>Título</th>
+                                            <th>Data Início</th>
+                                            <th>Data Término</th>
+                                            <th>Ativo</th>
+                                            <th></th>
+                                        </tr>
+                                    <?php elseif($formato_exibicao == 'N'): ?>
+                                        <tr>
+                                            <th>Número</th>
+                                            <th>Título</th>
+                                            <th>Data Sessão</th>
+                                            <th>Ativo</th>
+                                            <th></th>
+                                        </tr>
+                                    <?php endif;?>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($licitacoes as $licitacao): ?>
-                                        <tr>
-                                            <td><?= $licitacao->titulo ?></td>
-                                            <td style="width: 15%"><?= $this->Format->date($licitacao->dataInicio, true) ?></td>
-                                            <td style="width: 15%"><?= $this->Format->date($licitacao->dataTermino, true) ?></td>
-                                            <td><?= $licitacao->ativado ?></td>
-                                            <td class="td-actions text-right" style="width: 8%">
-                                                <?php if ($this->Membership->handleRole("editar_licitacao")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'edit', $licitacao->id]) ?>" class="btn btn-primary btn-round">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
-                                                <?php endif; ?>
-                                                <?php if ($this->Membership->handleRole("excluir_licitacao")): ?>
-                                                    <button type="button" onclick="excluirLicitacao(<?= $licitacao->id ?>, '<?= $licitacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
-                                                <?php endif; ?>
-                                            </td>
-                                        </tr>
+                                        <?php if($formato_exibicao == 'T'): ?>
+                                            <tr>
+                                                <td><?=$licitacao->numprocesso == null ? ' - ' : $this->Format->zeroPad($licitacao->numprocesso, 3) . '/' . $licitacao->ano ?></td>
+                                                <td><?=$licitacao->titulo ?></td>
+                                                <td style="width: 15%"><?= ($licitacao->antigo) ? $this->Format->date($licitacao->dataInicio, true) : $this->Format->date($licitacao->dataSessao, true) ?></td>
+                                                <td><?= $licitacao->ativado ?></td>
+                                                <td class="td-actions text-right" style="width: 8%">
+                                                    <?php if ($this->Membership->handleRole("editar_licitacao")): ?>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'edit', $licitacao->id]) ?>" class="btn btn-primary btn-round">
+                                                            <i class="material-icons">edit</i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if ($this->Membership->handleRole("excluir_licitacao")): ?>
+                                                        <button type="button" onclick="excluirLicitacao(<?= $licitacao->id ?>, '<?= $licitacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        <?php elseif($formato_exibicao == 'A'): ?>
+                                            <tr>
+                                                <td><?= $licitacao->titulo ?></td>
+                                                <td style="width: 15%"><?= $this->Format->date($licitacao->dataInicio, true) ?></td>
+                                                <td style="width: 15%"><?= $this->Format->date($licitacao->dataTermino, true) ?></td>
+                                                <td><?= $licitacao->ativado ?></td>
+                                                <td class="td-actions text-right" style="width: 8%">
+                                                    <?php if ($this->Membership->handleRole("editar_licitacao")): ?>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'edit', $licitacao->id]) ?>" class="btn btn-primary btn-round">
+                                                            <i class="material-icons">edit</i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if ($this->Membership->handleRole("excluir_licitacao")): ?>
+                                                        <button type="button" onclick="excluirLicitacao(<?= $licitacao->id ?>, '<?= $licitacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        <?php elseif($formato_exibicao == 'N'): ?>
+                                            <tr>
+                                                <td><?=$licitacao->numprocesso == null ? ' - ' : $this->Format->zeroPad($licitacao->numprocesso, 3) . '/' . $licitacao->ano ?></td>
+                                                <td><?=$licitacao->titulo ?></td>
+                                                <td style="width: 15%"><?= ($licitacao->antigo) ? $this->Format->date($licitacao->dataInicio, true) : $this->Format->date($licitacao->dataSessao, true) ?></td>
+                                                <td><?= $licitacao->ativado ?></td>
+                                                <td class="td-actions text-right" style="width: 8%">
+                                                    <?php if ($this->Membership->handleRole("editar_licitacao")): ?>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'edit', $licitacao->id]) ?>" class="btn btn-primary btn-round">
+                                                            <i class="material-icons">edit</i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if ($this->Membership->handleRole("excluir_licitacao")): ?>
+                                                        <button type="button" onclick="excluirLicitacao(<?= $licitacao->id ?>, '<?= $licitacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        <?php endif;?>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
