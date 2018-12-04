@@ -200,23 +200,81 @@ class LicitacoesController extends AppController
         $t_licitacoes = TableRegistry::get('Licitacao');
 
         $condicoes = array();
+        $formato_exibicao = 'T';
 
         if (count($this->request->getQueryParams()) > 0)
         {
+            $numprocesso = $this->request->query('numprocesso');
             $titulo = $this->request->query('titulo');
-            $data_inicial = $this->request->query('data_inicial');
-            $data_final = $this->request->query('data_final');
+            $modalidade = $this->request->query('modalidade');
+            $status = $this->request->query('status');
+            $data_publicacao_inicial = $this->request->query('data_publicacao_inicial');
+            $data_publicacao_final = $this->request->query('data_publicacao_final');
+            $data_sessao_inicial = $this->request->query('data_sessao_inicial');
+            $data_sessao_final = $this->request->query('data_sessao_final');
+            $formato = $this->request->query('formato');
             $mostrar = $this->request->query('mostrar');
+
+            if($numprocesso != "")
+            {
+                if($formato == 'A')
+                {
+                    $condicoes['titulo LIKE'] = '%' . $numprocesso . '%';
+                }
+                else
+                {
+                    $pp = explode('/', $numprocesso);
+
+                    if(count($pp) == 1)
+                    {
+                        $condicoes['numprocesso'] = $numprocesso;
+                    }
+                    elseif(count($pp) == 2)
+                    {
+                        $numprocesso = intval($pp[0]);
+                        $ano = $pp[1];
+
+                        $condicoes['numprocesso'] = $numprocesso;
+
+                        if(strlen($ano) == 4)
+                        {
+                            $condicoes['ano'] = $ano;
+                        }
+                    }
+                }
+            }
 
             if($titulo != "")
             {
                 $condicoes['titulo LIKE'] = '%' . $titulo . '%';
             }
 
-            if ($data_inicial != "" && $data_final != "")
+            if ($modalidade != '')
             {
-                $condicoes["dataInicio >="] = $this->Format->formatDateDB($data_inicial);
-                $condicoes["dataInicio <="] = $this->Format->formatDateDB($data_final);
+                $condicoes["modalidade"] = $modalidade;
+            }
+
+            if ($status != '')
+            {
+                $condicoes["status"] = $status;
+            }
+
+            if ($data_publicacao_inicial != "" && $data_publicacao_final != "")
+            {
+                $condicoes["dataPublicacao >="] = $this->Format->formatDateDB($data_publicacao_inicial);
+                $condicoes["dataPublicacao <="] = $this->Format->formatDateDB($data_publicacao_final);
+            }
+
+            if ($data_sessao_inicial != "" && $data_sessao_final != "")
+            {
+                $condicoes["dataSessao >="] = $this->Format->formatDateDB($data_sessao_inicial);
+                $condicoes["dataSessao <="] = $this->Format->formatDateDB($data_sessao_final);
+            }
+
+            if ($formato != 'T')
+            {
+                $condicoes["antigo"] = ($formato == "A") ? "1" : "0";
+                $formato_exibicao = $formato;
             }
 
             if ($mostrar != 'T')
@@ -251,6 +309,7 @@ class LicitacoesController extends AppController
 
         $this->set('title', 'Licitações');
         $this->set('licitacoes', $licitacoes);
+        $this->set('formato_exibicao', $formato_exibicao);
         $this->set('qtd_total', $qtd_total);
     }
 
