@@ -18,8 +18,8 @@
                             <tbody>
                                 <?php foreach ($licitacoes as $licitacao): ?>
                                     <tr>
-                                        <td><?=$licitacao->titulo?></td>
-                                        <td><?=date_format($licitacao->dataInicio, 'd/m/Y') ?></td>
+                                        <td><?=($licitacao->antigo) ? $licitacao->titulo : 'Processo: ' . $licitacao->numprocesso . '/' . $licitacao->ano . ' ' . $licitacao->titulo?></td>
+                                        <td><?=($licitacao->antigo) ? $this->Format->date($licitacao->dataInicio) : $this->Format->date($licitacao->dataSessao) ?></td>
                                         <td class="td-actions text-right">
                                             <?php if ($this->Membership->handleRole("editar_licitacao")): ?>
                                                 <a href="<?= $this->Url->build(['controller' => 'licitacoes', 'action' => 'edit', $licitacao->id]) ?>" class="btn btn-primary btn-round" title="Editar">
