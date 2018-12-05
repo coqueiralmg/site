@@ -168,10 +168,15 @@
                                                 <td style="width: 15%"><?= $this->Format->date($licitacao->dataInicio, true) ?></td>
                                                 <td style="width: 15%"><?= $this->Format->date($licitacao->dataTermino, true) ?></td>
                                                 <td><?= $licitacao->ativado ?></td>
-                                                <td class="td-actions text-right" style="width: 8%">
+                                                <td class="td-actions text-right" style="width: 12%">
                                                     <?php if ($this->Membership->handleRole("editar_licitacao")): ?>
                                                         <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'edit', $licitacao->id]) ?>" class="btn btn-primary btn-round">
                                                             <i class="material-icons">edit</i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if ($this->Membership->handleRole("editar_licitacao")): ?>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'migrar', $licitacao->id]) ?>" class="btn btn-rose btn-round">
+                                                            <i class="material-icons">unarchive</i>
                                                         </a>
                                                     <?php endif; ?>
                                                     <?php if ($this->Membership->handleRole("excluir_licitacao")): ?>
