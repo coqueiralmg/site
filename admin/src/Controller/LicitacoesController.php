@@ -723,6 +723,85 @@ class LicitacoesController extends AppController
         $this->set('id', $id);
     }
 
+    public function migracao(int $id)
+    {
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_modalidade = TableRegistry::get('Modalidade');
+        $t_assuntos = TableRegistry::get('Assunto');
+        $t_status = TableRegistry::get('StatusLicitacao');
+
+        $licitacao = $t_licitacoes->get($id, ['contain' => ['Assunto']]);
+        $ap = array();
+
+        $licitacao->data_sessao = $licitacao->dataInicio->i18nFormat('dd/MM/yyyy');
+        $licitacao->hora_sessao = $licitacao->dataInicio->i18nFormat('HH:mm');
+
+        if($licitacao->dataTermino != null)
+        {
+            $licitacao->data_fim = $licitacao->dataTermino->i18nFormat('dd/MM/yyyy');
+            $licitacao->hora_fim = $licitacao->dataTermino->i18nFormat('HH:mm');
+        }
+
+        try
+        {
+            if(strstr(strtolower($licitacao->titulo), 'processo'))
+            {
+                $sp = substr($licitacao->titulo, strpos(strtolower($licitacao->titulo), 'processo'), 18);
+                $sp = substr($sp, -8);
+                $sp = str_replace(['-', ' '], '', $sp);
+                $sp = explode('/', $sp);
+
+                $licitacao->numprocesso = $sp[0];
+                $licitacao->ano = $sp[1];
+            }
+
+            $this->set('pre_migracao', true);
+        }
+        catch(Exception $ex)
+        {
+            $this->set('pre_migracao', false);
+        }
+
+        $assuntos = $t_assuntos->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'descricao',
+            'conditions' => [
+                'tipo' => 'LC'
+            ],
+            'order' => [
+                'descricao' => 'ASC'
+            ]
+        ]);
+
+        $modalidades = $t_modalidade->find('list', [
+            'keyField' => 'chave',
+            'valueField' => 'nome',
+            'conditions' => [
+                'ativo' => true
+            ],
+            'order' => [
+                'ordem' => 'ASC'
+            ]
+        ]);
+
+        $status = $t_status->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'order' => [
+                'ordem' => 'ASC'
+            ]
+        ]);
+
+        $this->set('title', 'Migração da Licitação');
+        $this->set('icon', 'work');
+        $this->set('combo_modalidade', $modalidades);
+        $this->set('combo_status', $status);
+        $this->set('assuntos', $assuntos);
+        $this->set('id', $id);
+        $this->set('licitacao', $licitacao);
+        $this->set('assuntos_pivot', []);
+    }
+
     protected function insert()
     {
         try
