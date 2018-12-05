@@ -174,8 +174,8 @@
                                                             <i class="material-icons">edit</i>
                                                         </a>
                                                     <?php endif; ?>
-                                                    <?php if ($this->Membership->handleRole("editar_licitacao")): ?>
-                                                        <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'migrar', $licitacao->id]) ?>" class="btn btn-rose btn-round">
+                                                    <?php if ($this->Membership->handleRole("migrar_licitacao")): ?>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Licitacoes', 'action' => 'migracao', $licitacao->id]) ?>" class="btn btn-rose btn-round">
                                                             <i class="material-icons">unarchive</i>
                                                         </a>
                                                     <?php endif; ?>
