@@ -13,6 +13,8 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use \Exception;
 use \DateTime;
+use \DOMDocument;
+use \DOMXPath;
 
 class LicitacoesController extends AppController
 {
@@ -758,12 +760,15 @@ class LicitacoesController extends AppController
             }
 
             $licitacao->modalidade = $this->definirModalidade($licitacao->titulo);
+            $arquivos = $this->obterArquivos($licitacao);
 
             $this->set('pre_migracao', true);
+            $this->set('arquivos', $arquivos);
         }
         catch(Exception $ex)
         {
             $this->set('pre_migracao', false);
+            $this->set('arquivos', []);
         }
 
         $assuntos = $t_assuntos->find('list', [
@@ -1150,6 +1155,82 @@ class LicitacoesController extends AppController
         }
 
         return $modalidade;
+    }
+
+    private function obterArquivos(Entity $entity)
+    {
+        $arquivos = array();
+
+        $arquivos[] = [
+            'nome' => 'Edital',
+            'arquivo' => $entity->edital,
+            'status' => [
+                'sucesso' => true,
+                'mensagem' => null
+            ]
+        ];
+
+        $document = new DOMDocument();
+        $document->loadHTML($entity->descricao);
+        $links = $document->getElementsByTagName('a');
+
+        foreach($links as $link)
+        {
+            $arquivo = $link->getAttribute('href');
+            $arquivo = urldecode($arquivo);
+
+            if($arquivo != "")
+            {
+                if(stristr($arquivo, 'public/editor/files'))
+                {
+                    $pivot = explode('/', $arquivo);
+                    $pivot = end($pivot);
+                    $teste = new File($pivot);
+
+                    if($this->File->validationExtension($teste, $this->File::TYPE_FILE_DOCUMENT))
+                    {
+                        $local = "../public/editor/files" . $pivot;
+                        $file = new File($local);
+
+                        if($file->exists())
+                        {
+                            $arquivos[] = [
+                                'nome' => $link->nodeValue,
+                                'arquivo' => $arquivo,
+                                'status' => [
+                                    'sucesso' => true,
+                                    'mensagem' => null
+                                ]
+                            ];
+                        }
+                        else
+                        {
+                            $arquivos[] = [
+                                'nome' => $link->nodeValue,
+                                'arquivo' => $arquivo,
+                                'status' => [
+                                    'sucesso' => false,
+                                    'mensagem' => 'Não foi possível encontrar este arquivo. Favor, verifique se foi linkado corretamente, ou se  o mesmmo foi movido ou corrompido.'
+                                ]
+                            ];
+                        }
+                    }
+                    else
+                    {
+                        $arquivos[] = [
+                            'nome' => $link->nodeValue,
+                            'arquivo' => $arquivo,
+                            'status' => [
+                                'sucesso' => false,
+                                'mensagem' => 'O tipo do arquivo é inválido. Favor, verifique se foi linkado corretamente, ou se  o mesmmo foi movido ou corrompido.'
+                            ]
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $arquivos;
     }
 
     private function obterListaChaves()
