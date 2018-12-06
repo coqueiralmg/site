@@ -744,7 +744,7 @@ class LicitacoesController extends AppController
 
         try
         {
-            if(strstr(strtolower($licitacao->titulo), 'processo'))
+            if(stristr($licitacao->titulo, 'processo'))
             {
                 $sp = substr($licitacao->titulo, strpos(strtolower($licitacao->titulo), 'processo'), 18);
                 $sp = substr($sp, -8);
@@ -754,6 +754,8 @@ class LicitacoesController extends AppController
                 $licitacao->numprocesso = $sp[0];
                 $licitacao->ano = $sp[1];
             }
+
+            $licitacao->modalidade = $this->definirModalidade($licitacao->titulo);
 
             $this->set('pre_migracao', true);
         }
@@ -1126,5 +1128,91 @@ class LicitacoesController extends AppController
         }
 
         return $postagem;
+    }
+
+    private function definirModalidade(string $titulo)
+    {
+        $modalidade = null;
+        $chaves = $this->obterListaChaves();
+
+        foreach($chaves as $codigo => $termos)
+        {
+            foreach($termos as $termo)
+            {
+                if(stristr($titulo, $termo))
+                {
+                    $modalidade = $codigo;
+                    break 2;
+                }
+            }
+        }
+
+        return $modalidade;
+    }
+
+    private function obterListaChaves()
+    {
+        return [
+            'PP' => [
+                'pregão presencial',
+                'pregao presencial',
+                'preg. presencial',
+                'preg presencial',
+                'pregão pres',
+                'pregao pres',
+                'pp'
+            ],
+            'PE' => [
+                'pregão eletrônico',
+                'pregao eletrônico',
+                'preg. eletrônico',
+                'preg eletrônico',
+                'pregão eletronico',
+                'pregao eletronico',
+                'preg. eletronico',
+                'preg eletronico',
+                'pregão eletr',
+                'pregao eletr',
+                'pp'
+            ],
+            'TP' => [
+                'tomada de preços',
+                'tom. de preços',
+                'tom de preços',
+                'tomada preços',
+                'tom. preços',
+                'tom preços',
+                'tp'
+            ],
+            'CO' => [
+                'concorrência',
+                'concorrencia',
+            ],
+            'CN' => [
+                'convite',
+                'conv'
+            ],
+            'DI' => [
+                'dispensa',
+                'disp',
+            ],
+            'IN' => [
+                'inexigibilidade'
+            ],
+            'CC' => [
+                'concurso',
+                'conc'
+            ],
+            'LE' => [
+                'leilão',
+                'leilao'
+            ],
+            'CR' => [
+                'credenciamento',
+                'credenciament',
+                'credenc',
+                'cr'
+            ]
+        ];
     }
 }
