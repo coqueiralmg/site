@@ -178,7 +178,10 @@ class SystemController extends AppController
         ]);
 
         $licitacoes = $t_licitacoes->find('all', [
-            'order' => ['Licitacao.id' => 'DESC'],
+            'order' => [
+                'Licitacao.dataPublicacao' => 'DESC',
+                'Licitacao.id' => 'DESC'
+            ],
             'limit' => $limite
         ]);
 

@@ -130,6 +130,7 @@ class LicitacoesController extends AppController
             'limit' => $limite_paginacao,
             'conditions' => $condicoes,
             'order' => [
+                'dataPublicacao' => 'DESC',
                 'id' => 'DESC'
             ]
         ];
@@ -286,6 +287,7 @@ class LicitacoesController extends AppController
         $licitacoes = $t_licitacoes->find('all', [
             'conditions' => $condicoes,
             'order' => [
+                'dataPublicacao' => 'DESC',
                 'id' => 'DESC'
             ]
         ]);
