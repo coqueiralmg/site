@@ -328,7 +328,7 @@ class LicitacoesController extends AppController
 
         if($licitacao->antigo)
         {
-            $this->Flash->greatWarning('Esta licitação encontra-se no formato antigo. Para efetuar a migração, clique em "Migrar" na barra inferior.');
+            $this->Flash->greatWarning('Esta licitação encontra-se no formato antigo. Para efetuar a migração, clique em "Migrar" na barra inferior ou entre em contato com o administrador do sistema.');
             $this->redirect(['action' => 'edicao', $id]);
         }
         else
