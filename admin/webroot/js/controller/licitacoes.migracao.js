@@ -91,7 +91,7 @@ $(function () {
         autosave();
     });
 
-    if (hasCache('licitacao', idLicitacao)) {
+    if (hasCache('migracaoLicitacao', idLicitacao)) {
         $("#cadastro_info").show('fade');
     }
 
@@ -161,7 +161,7 @@ function validarIdAssunto(data) {
 }
 
 function restaurar() {
-    var data = getDataCache('licitacao', idLicitacao);
+    var data = getDataCache('migracaoLicitacao', idLicitacao);
 
     if (data != null) {
         $("#titulo").val(data.object.titulo);
@@ -193,6 +193,8 @@ function restaurar() {
             var option = new Option(assunto.nome, assunto.id, true, true);
             $("#assuntos").append(option);
         }
+
+        restaurarListaArquivos(data.object.arquivos);
     }
 
     notificarUsuario("Os dados em cache foram restaurados com sucesso!", "success")
@@ -225,17 +227,60 @@ function autosave() {
             destaque: $("#destaque").is(':checked'),
             retificado: $("#retificado").is(':checked'),
             ativo: $("#ativo").is(':checked'),
-            assuntos: $("#lassuntos").val() == "" ? [] : JSON.parse($("#lassuntos").val())
+            assuntos: $("#lassuntos").val() == "" ? [] : JSON.parse($("#lassuntos").val()),
+            arquivos: obterListaArquivos()
         }
     };
 
-    cacheSave('licitacao', data);
+    cacheSave('migracaoLicitacao', data);
     modificado = true;
 }
 
 function removeCache() {
-    removeData('licitacao', idLicitacao);
+    removeData('migracaoLicitacao', idLicitacao);
     modificado = false;
+}
+
+function obterListaArquivos() {
+    var tabela = document.getElementById("tblArquivos");
+    var arquivos = Array();
+    var i = 1;
+
+    while (i < tabela.rows.length) {
+        var linha = tabela.rows[i];
+        var campos = linha.getElementsByTagName("input");
+
+        var arquivo = {
+            data: campos.arquivo_data.value,
+            numero: campos.arquivo_numero.value,
+            nome: campos.arquivo_nome.value,
+            arquivo: campos.arquivo_arquivo.value,
+            tipo: campos.arquivo_tipo.value,
+            valido: campos.arquivo_valido.value == "1"
+        };
+
+        arquivos.push(arquivo);
+        i++;
+    }
+
+    return arquivos;
+}
+
+function restaurarListaArquivos(arquivos) {
+    var tabela = document.getElementById("tblArquivos");
+    var i = 1;
+
+    while (i < tabela.rows.length) {
+        var linha = tabela.rows[i];
+        var arquivo = arquivos[i - 1];
+        var campos = linha.getElementsByTagName("input");
+
+        campos.arquivo_data.value = arquivo.data;
+        campos.arquivo_numero.value = arquivo.numero;
+        campos.arquivo_nome.value = arquivo.nome;
+
+        i++;
+    }
 }
 
 function toggleArquivo() {

@@ -195,7 +195,7 @@
                                 <div class="card-content table-responsive">
                                     <legend>Arquivos capturados</legend>
                                     <p class="card-category">Arquivos capturados para conferência e definir dados corretos. Não será possível importar os arquivos com problemas. Só é possível reinserir os arquivos e/ou adicionar os novos, bem como excluir, somente depois da finalização da migração.</p>
-                                    <table class="table">
+                                    <table class="table" id="tblArquivos">
                                         <thead class="text-primary">
                                             <tr>
                                                 <th style="width: 12%">Data</th>
@@ -210,19 +210,19 @@
                                                  <tr>
                                                     <td>
                                                         <div class="form-group form-group-min">
-                                                            <?=$this->Form->text("arquivo-data[]", ["id" => "arquivo-data", "class" => "form-control"])?>
+                                                            <?=$this->Form->text("arquivo_data[]", ["id" => "arquivo_data", "class" => "form-control"])?>
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="form-group form-group-min">
-                                                            <?=$this->Form->text("arquivo-numero[]", ["id" => "arquivo-numero", "class" => "form-control"])?>
+                                                            <?=$this->Form->text("arquivo_numero[]", ["id" => "arquivo_numero", "class" => "form-control"])?>
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="form-group form-group-min">
-                                                            <?=$this->Form->text("arquivo-nome[]", ["id" => "arquivo-nome", "class" => "form-control", "value" => $arquivo['nome']])?>
+                                                            <?=$this->Form->text("arquivo_nome[]", ["id" => "arquivo_nome", "class" => "form-control", "value" => $arquivo['nome']])?>
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </td>
@@ -243,7 +243,8 @@
                                                             </a>
                                                         <?php endif;?>
 
-                                                        <?= $this->Form->hidden("arquivo-arquivo[]", ["value" => $arquivo['arquivo']]);?>
+                                                        <?= $this->Form->hidden("arquivo_tipo[]", ["id" => "arquivo_tipo", "value" => $arquivo['tipo']]);?>
+                                                        <?= $this->Form->hidden("arquivo_arquivo[]", ["id" => "arquivo_arquivo", "value" => $arquivo['arquivo']]);?>
                                                     </td>
                                                     <td class="td-actions text-center">
                                                         <?php if($arquivo['status']['sucesso']): ?>
@@ -256,7 +257,7 @@
                                                             </a>
                                                         <?php endif;?>
 
-                                                        <?= $this->Form->hidden("arquivo-valido[]", ["value" => $arquivo['status']['sucesso']]);?>
+                                                        <?= $this->Form->hidden("arquivo_valido[]", ["id" => "arquivo_valido", "value" => $arquivo['status']['sucesso']]);?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach;?>
