@@ -210,19 +210,19 @@
                                                  <tr>
                                                     <td>
                                                         <div class="form-group form-group-min">
-                                                            <?=$this->Form->text("arquivo-data[]", ["id" => "data-arquivo", "class" => "form-control"])?>
+                                                            <?=$this->Form->text("arquivo-data[]", ["id" => "arquivo-data", "class" => "form-control"])?>
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="form-group form-group-min">
-                                                            <?=$this->Form->text("arquivo-numero[]", ["id" => "data-arquivo", "class" => "form-control"])?>
+                                                            <?=$this->Form->text("arquivo-numero[]", ["id" => "arquivo-numero", "class" => "form-control"])?>
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="form-group form-group-min">
-                                                            <?=$this->Form->text("arquivo-nome[]", ["id" => "data-arquivo", "class" => "form-control", "value" => $arquivo['nome']])?>
+                                                            <?=$this->Form->text("arquivo-nome[]", ["id" => "arquivo-nome", "class" => "form-control", "value" => $arquivo['nome']])?>
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </td>
@@ -242,6 +242,8 @@
                                                                 <i class="material-icons">archive</i>
                                                             </a>
                                                         <?php endif;?>
+
+                                                        <?= $this->Form->hidden("arquivo-arquivo[]", ["value" => $arquivo['arquivo']]);?>
                                                     </td>
                                                     <td class="td-actions text-center">
                                                         <?php if($arquivo['status']['sucesso']): ?>
@@ -253,6 +255,8 @@
                                                                 <i class="material-icons">close</i>
                                                             </a>
                                                         <?php endif;?>
+
+                                                        <?= $this->Form->hidden("arquivo-valido[]", ["value" => $arquivo['status']['sucesso']]);?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach;?>
