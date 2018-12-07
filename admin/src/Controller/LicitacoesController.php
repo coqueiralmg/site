@@ -1161,14 +1161,30 @@ class LicitacoesController extends AppController
     {
         $arquivos = array();
 
-        $arquivos[] = [
-            'nome' => 'Edital',
-            'arquivo' => $entity->edital,
-            'status' => [
-                'sucesso' => true,
-                'mensagem' => null
-            ]
-        ];
+        if($this->existeEdital($entity->edital))
+        {
+            $arquivos[] = [
+                'nome' => 'Edital',
+                'arquivo' => $entity->edital,
+                'tipo' => 'edital',
+                'status' => [
+                    'sucesso' => true,
+                    'mensagem' => null
+                ]
+            ];
+        }
+        else
+        {
+            $arquivos[] = [
+                'nome' => 'Edital',
+                'arquivo' => $entity->edital,
+                'tipo' => 'edital',
+                'status' => [
+                    'sucesso' => false,
+                    'mensagem' => 'Não foi possível encontrar este arquivo. Favor, verifique se foi linkado corretamente, ou se  o mesmmo foi movido ou corrompido.'
+                ]
+            ];
+        }
 
         $document = new DOMDocument();
         $document->loadHTML($entity->descricao);
@@ -1189,7 +1205,8 @@ class LicitacoesController extends AppController
 
                     if($this->File->validationExtension($teste, $this->File::TYPE_FILE_DOCUMENT))
                     {
-                        $local = "../public/editor/files" . $pivot;
+                        $diretorio = Configure::read('Files.paths.files');
+                        $local = $diretorio . $pivot;
                         $file = new File($local);
 
                         if($file->exists())
@@ -1197,6 +1214,7 @@ class LicitacoesController extends AppController
                             $arquivos[] = [
                                 'nome' => $link->nodeValue,
                                 'arquivo' => $arquivo,
+                                'tipo' => 'anexo',
                                 'status' => [
                                     'sucesso' => true,
                                     'mensagem' => null
@@ -1208,6 +1226,7 @@ class LicitacoesController extends AppController
                             $arquivos[] = [
                                 'nome' => $link->nodeValue,
                                 'arquivo' => $arquivo,
+                                'tipo' => 'anexo',
                                 'status' => [
                                     'sucesso' => false,
                                     'mensagem' => 'Não foi possível encontrar este arquivo. Favor, verifique se foi linkado corretamente, ou se  o mesmmo foi movido ou corrompido.'
@@ -1220,6 +1239,7 @@ class LicitacoesController extends AppController
                         $arquivos[] = [
                             'nome' => $link->nodeValue,
                             'arquivo' => $arquivo,
+                            'tipo' => 'anexo',
                             'status' => [
                                 'sucesso' => false,
                                 'mensagem' => 'O tipo do arquivo é inválido. Favor, verifique se foi linkado corretamente, ou se  o mesmmo foi movido ou corrompido.'
@@ -1231,6 +1251,17 @@ class LicitacoesController extends AppController
         }
 
         return $arquivos;
+    }
+
+    private function existeEdital(string $edital)
+    {
+        $diretorio = Configure::read('Files.paths.licitacoes');
+        $pivot = explode('/', $edital);
+        $arquivo = end($pivot);
+        $caminho = $diretorio . $arquivo;
+        $file = new File($caminho);
+
+        return $file->exists();
     }
 
     private function obterListaChaves()
