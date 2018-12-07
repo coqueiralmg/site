@@ -191,6 +191,75 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card">
+                                <div class="card-content table-responsive">
+                                    <legend>Arquivos capturados</legend>
+                                    <p class="card-category">Arquivos capturados para conferência e definir dados corretos. Não será possível importar os arquivos com problemas. Só é possível reinserir os arquivos e/ou adicionar os novos, bem como excluir, somente depois da finalização da migração.</p>
+                                    <table class="table">
+                                        <thead class="text-primary">
+                                            <tr>
+                                                <th style="width: 12%">Data</th>
+                                                <th style="width: 20%">Número</th>
+                                                <th style="width: 60%">Nome</th>
+                                                <th class="text-center">Arquivo</th>
+                                                <th class="text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($arquivos as $arquivo): ?>
+                                                 <tr>
+                                                    <td>
+                                                        <div class="form-group form-group-min">
+                                                            <?=$this->Form->text("arquivo-data[]", ["id" => "data-arquivo", "class" => "form-control"])?>
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group form-group-min">
+                                                            <?=$this->Form->text("arquivo-numero[]", ["id" => "data-arquivo", "class" => "form-control"])?>
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group form-group-min">
+                                                            <?=$this->Form->text("arquivo-nome[]", ["id" => "data-arquivo", "class" => "form-control", "value" => $arquivo['nome']])?>
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <?php if($arquivo['status']['sucesso']): ?>
+                                                            <?php if($arquivo['tipo'] == 'edital'): ?>
+                                                                <a href="<?= $this->Url->build('/../' . $arquivo['arquivo'])?>" title="Ver arquivo" target="_blank" class="btn btn-info btn-round">
+                                                                    <i class="material-icons">archive</i>
+                                                                </a>
+                                                            <?php else: ?>
+                                                                <a href="<?= $this->Url->build('/../public/editor/files/' .  $this->File->nameFile($arquivo['arquivo']))?>" title="Ver arquivo" target="_blank" class="btn btn-info btn-round">
+                                                                    <i class="material-icons">archive</i>
+                                                                </a>
+                                                            <?php endif;?>
+                                                        <?php else: ?>
+                                                            <a title="Arquivo inválido" class="btn btn-default btn-round">
+                                                                <i class="material-icons">archive</i>
+                                                            </a>
+                                                        <?php endif;?>
+                                                    </td>
+                                                    <td class="td-actions text-center">
+                                                        <?php if($arquivo['status']['sucesso']): ?>
+                                                            <a title="O arquivo está OK" class="btn btn-success btn-round">
+                                                                <i class="material-icons">done</i>
+                                                            </a>
+                                                        <?php else: ?>
+                                                            <a href="#" title="Existem problemas para este arquivo. Clique para ver detalhes" class="btn btn-danger btn-round">
+                                                                <i class="material-icons">close</i>
+                                                            </a>
+                                                        <?php endif;?>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach;?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
                             <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Salvar</button>
                             <?php if ($id > 0) :?>
