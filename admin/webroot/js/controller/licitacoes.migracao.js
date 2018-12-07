@@ -476,14 +476,82 @@ function validar() {
         $("label[for='assuntos']").css("color", "#aaa");
     }
 
+    var tabela = document.getElementById("tblArquivos"); var i = 1; var errosArquivos = Array();
+
+    while (i < tabela.rows.length) {
+        var linha = tabela.rows[i];
+        var campos = linha.getElementsByTagName("input");
+        var erro = false;
+
+        if (campos.arquivo_data.value == "") {
+            mensagem += "<li>[Tabela Arquivos > Linha " + i + "] É obrigatório informar a data do arquivo anexo.</li>";
+            erro = true;
+        }
+
+        if (campos.arquivo_nome.value == "") {
+            mensagem += "<li>[Tabela Arquivos > Linha " + i + "] É obrigatório informar o nome do arquivo anexo.</li>";
+            erro = true;
+        }
+
+        if (erro) {
+            errosArquivos.push(i);
+        }
+
+        i++;
+    }
+
     if (mensagem == "") {
         removeCache();
         return true;
     } else {
+        montarLinhasTabela(tabela, errosArquivos);
         $("#cadastro_erro").show('shake');
         $("#details").html("<ol>" + mensagem + "</ol>");
         return false;
     }
+}
+
+function montarLinhasTabela(tabela, erros) {
+    var i = 0;
+
+    do {
+        var linha = tabela.rows[i];
+        var celula = null;
+
+        if (linha.cells.length == 6) {
+            if (i > 0) {
+                celula = linha.cells[0];
+                celula.innerHTML = i;
+
+                if (erros.indexOf(i) >= 0) {
+                    celula.style.color = "red";
+                    celula.style.fontWeight = "bold";
+                } else {
+                    celula.style.color = "black";
+                    celula.style.fontWeight = "normal";
+                }
+            }
+        } else {
+            if (i == 0) {
+                var pivot = linha.cells[0];
+                celula = document.createElement("th");
+                celula.innerHTML = "Linha"
+                celula.style.width = "7%";
+
+                linha.insertBefore(celula, pivot);
+            } else {
+                celula = linha.insertCell(0);
+                celula.innerHTML = i;
+
+                if (erros.indexOf(i) >= 0) {
+                    celula.style.color = "red";
+                    celula.style.fontWeight = "bold";
+                }
+            }
+        }
+
+        i++;
+    } while (i < tabela.rows.length);
 }
 
 function mostrarDetalhesErroArquivo(arquivo, mensagem) {
