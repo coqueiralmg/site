@@ -251,7 +251,7 @@
                                                                 <i class="material-icons">done</i>
                                                             </a>
                                                         <?php else: ?>
-                                                            <a href="#" title="Existem problemas para este arquivo. Clique para ver detalhes" class="btn btn-danger btn-round">
+                                                        <a title="Existem problemas para este arquivo. Clique para ver detalhes" class="btn btn-danger btn-round", onclick="mostrarDetalhesErroArquivo('<?=$this->File->nameFile($arquivo['arquivo'])?>', '<?=$arquivo['status']['mensagem']?>')">
                                                                 <i class="material-icons">close</i>
                                                             </a>
                                                         <?php endif;?>

@@ -435,3 +435,15 @@ function validar() {
         return false;
     }
 }
+
+function mostrarDetalhesErroArquivo(arquivo, mensagem) {
+    swal({
+        html: "Ocorreu um erro do sistema ao capturar o arquivo <b>" + arquivo + "</b>, de acordo com detalhes abaixo.",
+        type: 'error',
+        input: "textarea",
+        inputValue: mensagem,
+        inputAttributes: {
+            rows: 10
+        }
+    });
+}
