@@ -1181,7 +1181,7 @@ class LicitacoesController extends AppController
                 'tipo' => 'edital',
                 'status' => [
                     'sucesso' => false,
-                    'mensagem' => 'Não foi possível encontrar este arquivo. Favor, verifique se foi linkado corretamente, ou se  o mesmmo foi movido ou corrompido.'
+                    'mensagem' => 'Não foi possível encontrar este arquivo. Favor, verifique se foi linkado corretamente, ou se o mesmo foi movido ou corrompido.'
                 ]
             ];
         }
@@ -1229,7 +1229,7 @@ class LicitacoesController extends AppController
                                 'tipo' => 'anexo',
                                 'status' => [
                                     'sucesso' => false,
-                                    'mensagem' => 'Não foi possível encontrar este arquivo. Favor, verifique se foi linkado corretamente, ou se  o mesmmo foi movido ou corrompido.'
+                                    'mensagem' => 'Não foi possível encontrar este arquivo. Favor, verifique se foi linkado corretamente, ou se o mesmo foi movido ou corrompido.'
                                 ]
                             ];
                         }
@@ -1242,7 +1242,7 @@ class LicitacoesController extends AppController
                             'tipo' => 'anexo',
                             'status' => [
                                 'sucesso' => false,
-                                'mensagem' => 'O tipo do arquivo é inválido. Favor, verifique se foi linkado corretamente, ou se  o mesmmo foi movido ou corrompido.'
+                                'mensagem' => 'O tipo do arquivo é inválido. Favor, verifique se foi linkado corretamente, ou se o mesmo foi movido ou corrompido.'
                             ]
                         ];
                     }
