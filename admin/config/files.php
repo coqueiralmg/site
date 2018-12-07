@@ -20,6 +20,7 @@ return [
         ],
         'paths' => [
             'editor' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS . 'images' . DS,
+            'files' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'editor' . DS . 'files' . DS,
             'public' => ROOT . DS . '..' . DS . 'webroot' . DS,
             'legislacao' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'legislacao-arquivo' . DS,
             'publicacao' => ROOT . DS . '..' . DS . 'webroot' . DS . 'public' . DS . 'storage' . DS . 'publicacao-arquivo' . DS,
@@ -31,6 +32,7 @@ return [
         ],
         'urls' => [
             'editor' => '/public/editor/images/',
+            'files' => '/public/editor/files/',
             'legislacao' => 'public/storage/legislacao-arquivo/',
             'publicacao' => 'public/storage/publicacao-arquivo/',
             'licitacoes' => 'public/storage/licitacao-edital/',
