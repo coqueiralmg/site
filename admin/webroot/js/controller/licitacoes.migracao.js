@@ -14,9 +14,14 @@ $(function () {
         language: 'pt-BR'
     });
 
+    $('.arqdata').datepicker({
+        language: 'pt-BR'
+    });
+
     $('#data_publicacao').mask('00/00/0000');
     $('#data_sessao').mask('00/00/0000');
     $('#data_fim').mask('00/00/0000');
+    $('.arqdata').mask('00/00/0000');
 
     $('#hora_publicacao').mask('00:00');
     $('#hora_sessao').mask('00:00');

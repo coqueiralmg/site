@@ -210,7 +210,7 @@
                                                  <tr>
                                                     <td>
                                                         <div class="form-group form-group-min">
-                                                            <?=$this->Form->text("arquivo_data[]", ["id" => "arquivo_data", "class" => "form-control"])?>
+                                                            <?=$this->Form->text("arquivo_data[]", ["id" => "arquivo_data", "class" => "form-control arqdata"])?>
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </td>
