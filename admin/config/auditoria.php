@@ -81,7 +81,8 @@ return [
             76 => 'Exclusão de Atualização de uma licitação',
             77 => 'Inclusão do Anexo da Licitação',
             78 => 'Alteração do Anexo da Licitação',
-            79 => 'Exclusão do Anexo da Licitação'
+            79 => 'Exclusão do Anexo da Licitação',
+            80 => 'Migração de Licitação'
         ]
     ]
 ];
