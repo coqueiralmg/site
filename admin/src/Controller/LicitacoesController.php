@@ -811,6 +811,131 @@ class LicitacoesController extends AppController
         $this->set('assuntos_pivot', []);
     }
 
+    public function migrar(int $id)
+    {
+        $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_anexos = TableRegistry::get('Anexo');
+
+        $this->autoRender = false;
+        $this->validationRole = false;
+
+        if($this->request->is('post') || $this->request->is('put'))
+        {
+            //Entidade Licitação
+            $entity = $t_licitacoes->get($id);
+            $t_licitacoes->patchEntity($entity, $this->request->data());
+
+            $entity->dataPublicacao = $this->obterDataPublicacao($entity->data_publicacao, $entity->hora_publicacao);
+            $entity->dataAtualizacao = $this->obterDataPublicacao(null, null);
+            $entity->ano = ($entity->ano == "") ? date("Y") : $entity->ano;
+
+            if($entity->data_sessao != "")
+            {
+                $entity->dataSessao = $this->Format->mergeDateDB($entity->data_sessao, $entity->hora_sessao);
+            }
+
+            if($entity->data_fim != "")
+            {
+                $entity->dataTermino = $this->Format->mergeDateDB($entity->data_fim, $entity->hora_fim);
+            }
+
+            $entity->modalidade = $this->request->getData('modalidade');
+            $entity->status = $this->request->getData('status');
+            $entity->antigo = false;
+            $entity->visualizacoes = 0;
+
+            $assuntos = json_decode($entity->lassuntos);
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_licitacoes->save($entity);
+
+            $auditoria_assuntos = $this->atualizarAssuntosLicitacao($entity, $assuntos, true);
+
+            //Arquivos de Licitação
+            $arquivo_data = $this->request->getData("arquivo_data");
+            $arquivo_numero = $this->request->getData("arquivo_numero");
+            $arquivo_nome = $this->request->getData("arquivo_nome");
+            $arquivo_tipo = $this->request->getData("arquivo_tipo");
+            $arquivo_arquivo = $this->request->getData("arquivo_arquivo");
+            $arquivo_valido = $this->request->getData("arquivo_valido");
+            $arquivos_modificados = array();
+
+            $arquivo_total = count($arquivo_data);
+
+            for($i = 0; $i < $arquivo_total; $i++)
+            {
+                $data = $arquivo_data[$i];
+                $numero = $arquivo_numero[$i];
+                $nome = $arquivo_nome[$i];
+                $tipo = $arquivo_tipo[$i];
+                $arquivo = $arquivo_arquivo[$i];
+                $valido = $arquivo_valido[$i] == "1";
+
+                if($valido)
+                {
+                    $entarquivo = $t_anexos->newEntity();
+                    $entarquivo->data = $this->Format->formatDateDB($data);
+                    $entarquivo->numero = $numero;
+                    $entarquivo->nome = $nome;
+                    $entarquivo->licitacao = $entity->id;
+                    $entarquivo->ativo = true;
+
+                    if($tipo == 'edital')
+                    {
+                        $entarquivo->arquivo = $arquivo;
+                    }
+                    elseif($tipo == 'anexo')
+                    {
+                        $diretorio = Configure::read('Files.paths.files');
+                        $novodir = Configure::read('Files.paths.licitacoes');
+                        $url_relativa = Configure::read('Files.urls.licitacoes');
+
+                        $pivot = explode('/', $arquivo);
+                        $pivot = end($pivot);
+                        $local = $diretorio . $pivot;
+                        $file = new File($local);
+
+                        $novo_nome = uniqid() . '.' . $file->ext();
+
+                        $file->copy($novodir . $novo_nome, true);
+
+                        $entarquivo->arquivo = $url_relativa . $novo_nome;
+
+                        $file->close();
+                    }
+
+                    $arquivos_modificados[] = $entarquivo->getOriginalValues();
+                    $t_anexos->save($entarquivo);
+
+                    echo 'Salvo o arquivo ' . $arquivo . '<br/>';
+                }
+            }
+
+            $this->Flash->greatSuccess('A migração da licitação ' . $entity->titulo . ' foi realizada com sucesso. Favor, fazer conferência dos dados migrados.');
+
+            $auditoria = [
+                'ocorrencia' => 80,
+                'descricao' => 'O efetou a migração de uma licitação.',
+                'dado_adicional' => json_encode(['id_nova_licitacao' => $entity->id,
+                                                 'dados_licitacao' => $propriedades,
+                                                 'assuntos_associados' => $auditoria_assuntos,
+                                                 'arquivos_modificados' => $arquivos_modificados]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+    }
+
     protected function insert()
     {
         try

@@ -13,7 +13,7 @@
                             echo $this->Form->create($licitacao, [
                                 "url" => [
                                     "controller" => "licitacoes",
-                                    "action" => "save",
+                                    "action" => "migrar",
                                     $id
                                 ],
                                 'enctype' => 'multipart/form-data',
