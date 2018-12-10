@@ -194,7 +194,7 @@
                             <div class="card">
                                 <div class="card-content table-responsive">
                                     <legend>Arquivos capturados</legend>
-                                    <p class="card-category">Arquivos capturados para conferência e definir dados corretos. Não será possível importar os arquivos com problemas. Só é possível reinserir os arquivos e/ou adicionar os novos, bem como excluir, somente depois da finalização da migração.</p>
+                                    <p class="card-category">Arquivos capturados para conferência e definir dados corretos. Não será possível importar os arquivos com problemas. Só é possível reinserir os arquivos e/ou adicionar os novos, bem como excluir, somente depois da finalização da migração. Campos em arquivos inválidos não serão validados ou obrigatórios.</p>
                                     <table class="table" id="tblArquivos">
                                         <thead class="text-primary">
                                             <tr>

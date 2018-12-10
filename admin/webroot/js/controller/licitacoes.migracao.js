@@ -476,21 +476,25 @@ function validar() {
         $("label[for='assuntos']").css("color", "#aaa");
     }
 
-    var tabela = document.getElementById("tblArquivos"); var i = 1; var errosArquivos = Array();
+    var tabela = document.getElementById("tblArquivos"); var i = 1; var errosArquivos = Array(); var invalidosArquivos = Array();
 
     while (i < tabela.rows.length) {
         var linha = tabela.rows[i];
         var campos = linha.getElementsByTagName("input");
         var erro = false;
 
-        if (campos.arquivo_data.value == "") {
-            mensagem += "<li>[Tabela Arquivos > Linha " + i + "] É obrigatório informar a data do arquivo anexo.</li>";
-            erro = true;
-        }
+        if (campos.arquivo_valido.value == "1") {
+            if (campos.arquivo_data.value == "") {
+                mensagem += "<li>[Tabela Arquivos > Linha " + i + "] É obrigatório informar a data do arquivo anexo.</li>";
+                erro = true;
+            }
 
-        if (campos.arquivo_nome.value == "") {
-            mensagem += "<li>[Tabela Arquivos > Linha " + i + "] É obrigatório informar o nome do arquivo anexo.</li>";
-            erro = true;
+            if (campos.arquivo_nome.value == "") {
+                mensagem += "<li>[Tabela Arquivos > Linha " + i + "] É obrigatório informar o nome do arquivo anexo.</li>";
+                erro = true;
+            }
+        } else {
+            invalidosArquivos.push(i);
         }
 
         if (erro) {
@@ -504,14 +508,14 @@ function validar() {
         removeCache();
         return true;
     } else {
-        montarLinhasTabela(tabela, errosArquivos);
+        montarLinhasTabela(tabela, errosArquivos, invalidosArquivos);
         $("#cadastro_erro").show('shake');
         $("#details").html("<ol>" + mensagem + "</ol>");
         return false;
     }
 }
 
-function montarLinhasTabela(tabela, erros) {
+function montarLinhasTabela(tabela, erros, invalidos) {
     var i = 0;
 
     do {
@@ -526,9 +530,17 @@ function montarLinhasTabela(tabela, erros) {
                 if (erros.indexOf(i) >= 0) {
                     celula.style.color = "red";
                     celula.style.fontWeight = "bold";
+                    celula.title = "Esta linha contém dados inválidos.";
                 } else {
                     celula.style.color = "black";
                     celula.style.fontWeight = "normal";
+                    celula.title = "";
+
+                    if (invalidos.indexOf(i) >= 0) {
+                        celula.style.color = "grey";
+                        celula.style.fontStyle = "italic";
+                        celula.title = "Esta linha contém arquivo inválido, que não necessita de validação.";
+                    }
                 }
             }
         } else {
@@ -546,6 +558,13 @@ function montarLinhasTabela(tabela, erros) {
                 if (erros.indexOf(i) >= 0) {
                     celula.style.color = "red";
                     celula.style.fontWeight = "bold";
+                    celula.title = "Esta linha contém dados inválidos.";
+                }
+
+                if (invalidos.indexOf(i) >= 0) {
+                    celula.style.color = "grey";
+                    celula.style.fontStyle = "italic";
+                    celula.title = "Esta linha contém arquivo inválido, que não necessita de validação.";
                 }
             }
         }
