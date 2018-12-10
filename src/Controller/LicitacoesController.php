@@ -63,6 +63,7 @@ class LicitacoesController extends AppController
             ]);
 
             $populares = $t_licitacoes->find('novo', [
+                'limit' => $limite_paginacao,
                 'conditions' => [
                     'visualizacoes >' => 0
                 ],
