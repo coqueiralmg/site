@@ -28,6 +28,9 @@
                         <li><?=$this->Html->link('Maio de 2018', 'public/transparencia/transparencia0518.HTM', ['target' => '_blank'])?></li>
                         <li><?=$this->Html->link('Junho de 2018', 'public/transparencia/transparencia0618.HTM', ['target' => '_blank'])?></li>
                         <li><?=$this->Html->link('Julho de 2018', 'public/transparencia/transparencia0718.HTM', ['target' => '_blank'])?></li>
+                        <li><?=$this->Html->link('Agosto de 2018', 'public/transparencia/transparencia0818.HTM', ['target' => '_blank'])?></li>
+                        <li><?=$this->Html->link('Setembro de 2018', 'public/transparencia/transparencia0918.HTM', ['target' => '_blank'])?></li>
+                        <li><?=$this->Html->link('Outubro de 2018', 'public/transparencia/transparencia1018.HTM', ['target' => '_blank'])?></li>
                     </ul>
                 </div>
             </div>
