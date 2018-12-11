@@ -8,7 +8,7 @@ $(function () {
             ga('send', 'event', 'Licitações', 'Busca', busca);
             return true;
         } else {
-            
+
             swal(
                 'Atenção',
                 'Por favor, digite a chave de busca.',
@@ -17,5 +17,21 @@ $(function () {
 
             return false;
         }
+    });
+
+    $(function () {
+        var tabs = $("#tabs").tabs({
+            collapsible: true
+        });
+
+        tabs.find(".ui-tabs-nav").sortable({
+            axis: "x",
+            stop: function () {
+                tabs.tabs("refresh");
+            }
+        });
+
+        $("#loader").hide();
+        $("#tabs").show('fade');
     });
 });
