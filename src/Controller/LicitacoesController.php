@@ -113,6 +113,7 @@ class LicitacoesController extends AppController
         $this->set('modalidades', $modalidades == null ? [] : $modalidades->toArray());
         $this->set('assuntos', $assuntos == null ? [] : $assuntos->toArray());
         $this->set('status', $status == null ? [] : $status->toArray());
+        $this->set('anos', $anos == null ? [] : $anos->toArray());
         $this->set('qtd_total', $qtd_total);
         $this->set('inicial', $inicial);
         $this->set('limit_pagination', $limite_paginacao);
