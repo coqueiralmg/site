@@ -2834,11 +2834,12 @@ shortcodes page css
 
 #malert {
     background: gold;
-    width: 50%;
+    width: 65%;
     height: 150px;
     margin: 30px auto;
     border: #eee solid 2px;
     display: table;
+    padding: 15px;
 }
 
 #malert span {

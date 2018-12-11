@@ -176,7 +176,7 @@
                     </div>
                 <?php endif;?>
             <?php else: ?>
-                <p>Não foi possível encontrar licitações de acordo com o resultado de busca encontrado. Você pode fazer consulta de processos antigos <?=$this->Html->link('clicando aqui', ['controller' => 'licitacoes', 'action' =>  'antigas'], ['style' => 'font-weight: bold; text-decoration: underline;'])?></p>
+                <p>Não foi possível encontrar licitações de acordo com o resultado de busca encontrado. Você pode fazer consulta de processos antigos <?=$this->Html->link('clicando aqui', ['controller' => 'licitacoes', 'action' =>  'antigas'], ['style' => 'font-weight: bold; text-decoration: underline;'])?>.</p>
             <?php endif; ?>
         </div>
 
