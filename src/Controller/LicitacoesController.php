@@ -25,12 +25,13 @@ class LicitacoesController extends AppController
             $this->request->data = $data;
         }
 
-        $conditions['ativo'] = true;
-        $conditions['antigo'] = false;
+        $conditions['Licitacao.ativo'] = true;
+        $conditions['Licitacao.antigo'] = false;
 
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
+            'contain' => ['Modalidade', 'StatusLicitacao'],
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'dataSessao' => 'DESC'
@@ -56,6 +57,7 @@ class LicitacoesController extends AppController
         if($inicial)
         {
             $destaques = $t_licitacoes->find('destaque', [
+                'contain' => ['Modalidade', 'StatusLicitacao'],
                 'order' => [
                     'dataPublicacao' => 'DESC',
                     'dataSessao' => 'DESC'
@@ -64,6 +66,7 @@ class LicitacoesController extends AppController
 
             $populares = $t_licitacoes->find('novo', [
                 'limit' => $limite_paginacao,
+                'contain' => ['Modalidade', 'StatusLicitacao'],
                 'conditions' => [
                     'visualizacoes >' => 0
                 ],
@@ -111,6 +114,7 @@ class LicitacoesController extends AppController
         $this->set('assuntos', $assuntos == null ? [] : $assuntos->toArray());
         $this->set('status', $status == null ? [] : $status->toArray());
         $this->set('qtd_total', $qtd_total);
+        $this->set('inicial', $inicial);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
     }
