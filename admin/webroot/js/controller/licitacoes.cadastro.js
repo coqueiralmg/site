@@ -280,7 +280,6 @@ function validar() {
 
     if (modalidade == "PP" ||
         modalidade == "PE" ||
-        modalidade == "TP" ||
         modalidade == "CC" ||
         modalidade == "CN" ||
         modalidade == "LE") {
