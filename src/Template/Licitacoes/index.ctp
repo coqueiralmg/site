@@ -77,7 +77,7 @@
                     <div id="modalidades">
                         <h5>Faça busca de licitações por modalidade</h5>
                         <?php foreach($modalidades as $modalidade): ?>
-                            <?= $this->Html->link($modalidade->nome, ['controller' => 'licitacoes', 'modalidade' =>  'tipo', $modalidade->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($modalidade->nome, ['controller' => 'licitacoes', 'action' =>  'modalidade', $modalidade->chave], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
 
                     </div>
