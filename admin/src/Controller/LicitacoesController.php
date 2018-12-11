@@ -356,8 +356,12 @@ class LicitacoesController extends AppController
 
             $licitacao->data_publicacao = $licitacao->dataPublicacao->i18nFormat('dd/MM/yyyy');
             $licitacao->hora_publicacao = $licitacao->dataPublicacao->i18nFormat('HH:mm');
-            $licitacao->data_sessao = $licitacao->dataSessao->i18nFormat('dd/MM/yyyy');
-            $licitacao->hora_sessao = $licitacao->dataSessao->i18nFormat('HH:mm');
+
+            if($licitacao->dataSessao != null)
+            {
+                $licitacao->data_sessao = $licitacao->dataSessao->i18nFormat('dd/MM/yyyy');
+                $licitacao->hora_sessao = $licitacao->dataSessao->i18nFormat('HH:mm');
+            }
 
             if($licitacao->dataTermino != null)
             {
@@ -1094,7 +1098,6 @@ class LicitacoesController extends AppController
         $entity->modalidade = $this->request->getData('modalidade');
         $entity->status = $this->request->getData('status');
         $entity->antigo = false;
-        $entity->visualizacoes = 0;
 
         $assuntos = json_decode($entity->lassuntos);
 
