@@ -16,7 +16,7 @@ class LicitacoesController extends AppController
         {
             $chave = $this->request->query('chave');
 
-            $conditions['titulo LIKE'] = '%' . $chave . '%';
+            $conditions = $this->montarBusca($chave);
 
             $data = array();
 
@@ -53,6 +53,7 @@ class LicitacoesController extends AppController
         $licitacoes = $this->paginate($t_licitacoes);
         $inicial = count($this->request->query) == 0;
         $qtd_total = $t_licitacoes->find('all', ['conditions' => $conditions])->count();
+        $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
 
         if($inicial)
         {
@@ -130,5 +131,63 @@ class LicitacoesController extends AppController
 
         $this->set('title', $licitacao->titulo);
         $this->set('licitacao', $licitacao);
+    }
+
+    private function montarBusca(string $chave)
+    {
+        $conditions = [];
+
+        if(is_numeric($chave))
+        {
+            $conditions['numprocesso'] = $chave;
+        }
+        elseif(strstr($chave, '/'))
+        {
+            $processo = false;
+            $pivot = explode('/', $chave);
+            $numero = $pivot[0];
+            $ano = $pivot[1];
+
+            if(count($pivot) == 2)
+            {
+                if(is_numeric($numero))
+                {
+                    $numero = intval($numero);
+                    $processo = true;
+                }
+
+                if(is_numeric($ano))
+                {
+                    if(strlen($ano) == 2)
+                    {
+                        $ano = intval($ano);
+                        $ano = $ano + 2000;
+                        $processo = true;
+                    }
+                    elseif(strlen($ano) == 4)
+                    {
+                        $ano = intval($ano);
+                        $processo = true;
+                    }
+                }
+            }
+
+            if($processo)
+            {
+                $conditions['numprocesso'] = $numero;
+                $conditions['ano'] = $ano;
+            }
+            else
+            {
+                $conditions['titulo LIKE'] = '%' . $chave . '%';
+            }
+
+        }
+        else
+        {
+            $conditions['titulo LIKE'] = '%' . $chave . '%';
+        }
+
+        return $conditions;
     }
 }
