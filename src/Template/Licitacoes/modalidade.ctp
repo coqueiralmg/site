@@ -4,6 +4,7 @@
         <div class="center wow fadeInDown">
             <h2>Licitações</h2>
             <p class="lead">Editais e outras informações sobre processos licitatórios do município.</p>
+            <p>Obtendo licitações da modalidade <?=$modalidade->nome?></p>
         </div>
         <?php if($inicial): ?>
             <div id="loader" class="center">
@@ -101,7 +102,7 @@
                     "url" => [
                         "controller" => "licitacoes",
                         "action" => "modalidade",
-                        $modalidade
+                        $modalidade->chave
                     ],
                     'idPrefix' => 'pesquisar-licitacao',
                     'type' => 'get',

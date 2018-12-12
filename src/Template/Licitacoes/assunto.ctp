@@ -4,6 +4,7 @@
         <div class="center wow fadeInDown">
             <h2>Licitações</h2>
             <p class="lead">Editais e outras informações sobre processos licitatórios do município.</p>
+            <p>Obtendo licitações com assunto <?=$assunto->descricao?></p>
         </div>
         <?php if($inicial): ?>
             <div id="loader" class="center">
@@ -102,7 +103,7 @@
                     "url" => [
                         "controller" => "licitacoes",
                         "action" => "assunto",
-                        $assunto
+                        $assunto->id
                     ],
                     'idPrefix' => 'pesquisar-licitacao',
                     'type' => 'get',

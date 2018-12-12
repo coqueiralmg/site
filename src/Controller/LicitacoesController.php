@@ -247,6 +247,7 @@ class LicitacoesController extends AppController
             ])->first()->count;
 
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
+        $modalidade = $t_modalidade->get($codigo);
 
         if($inicial)
         {
@@ -311,7 +312,7 @@ class LicitacoesController extends AppController
         $this->set('qtd_total', $qtd_total);
         $this->set('inicial', $inicial);
         $this->set('data', $data);
-        $this->set('modalidade', $codigo);
+        $this->set('modalidade', $modalidade);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
     }
@@ -388,12 +389,15 @@ class LicitacoesController extends AppController
 
         $licitacoes = $this->paginate($t_licitacoes);
         $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
+
         $qtd_total = $t_licitacoes->find('all', [
             'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
             'conditions' => $conditions])->select([
                 'count' => 'COUNT(DISTINCT Licitacao.id)'
             ])->first()->count;
+
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
+        $assunto = $t_assuntos->get($id);
 
         if($inicial)
         {
@@ -453,7 +457,7 @@ class LicitacoesController extends AppController
         $this->set('modalidades', $modalidades == null ? [] : $modalidades->toArray());
         $this->set('status', $status == null ? [] : $status->toArray());
         $this->set('anos', $anos == null ? [] : $anos->toArray());
-        $this->set('assunto', $id);
+        $this->set('assunto', $assunto);
         $this->set('qtd_total', $qtd_total);
         $this->set('inicial', $inicial);
         $this->set('data', $data);
@@ -533,6 +537,7 @@ class LicitacoesController extends AppController
 
         $licitacoes = $this->paginate($t_licitacoes);
         $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
+
         $qtd_total = $t_licitacoes->find('all', [
             'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
             'conditions' => $conditions])->select([
@@ -540,6 +545,7 @@ class LicitacoesController extends AppController
             ])->first()->count;
 
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
+        $status = $t_status->get($id);
 
         if($inicial)
         {
@@ -602,7 +608,7 @@ class LicitacoesController extends AppController
         $this->set('modalidades', $modalidades == null ? [] : $modalidades->toArray());
         $this->set('assuntos', $assuntos == null ? [] : $assuntos->toArray());
         $this->set('anos', $anos == null ? [] : $anos->toArray());
-        $this->set('status', $id);
+        $this->set('status', $status);
         $this->set('data', $data);
         $this->set('qtd_total', $qtd_total);
         $this->set('inicial', $inicial);
