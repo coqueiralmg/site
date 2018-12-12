@@ -218,6 +218,7 @@ class LicitacoesController extends AppController
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
             'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+            'fields' => $this->getFieldsSelect(),
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'dataSessao' => 'DESC'
@@ -241,7 +242,9 @@ class LicitacoesController extends AppController
 
         $qtd_total = $t_licitacoes->find('all', [
             'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
-            'conditions' => $conditions])->count();
+            'conditions' => $conditions])->select([
+                'count' => 'COUNT(DISTINCT Licitacao.id)'
+            ])->first()->count;
 
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
 
@@ -364,6 +367,7 @@ class LicitacoesController extends AppController
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
             'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+            'fields' => $this->getFieldsSelect(),
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'dataSessao' => 'DESC'
@@ -384,7 +388,11 @@ class LicitacoesController extends AppController
 
         $licitacoes = $this->paginate($t_licitacoes);
         $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
-        $qtd_total = $t_licitacoes->find('all', ['contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'], 'conditions' => $conditions])->count();
+        $qtd_total = $t_licitacoes->find('all', [
+            'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+            'conditions' => $conditions])->select([
+                'count' => 'COUNT(DISTINCT Licitacao.id)'
+            ])->first()->count;
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
 
         if($inicial)
@@ -456,32 +464,55 @@ class LicitacoesController extends AppController
     public function status(int $id)
     {
         $conditions = array();
+        $data = array();
+
         $limite_paginacao = Configure::read('Pagination.limit');
 
         if($this->request->is('get') && count($this->request->query) > 0)
         {
             $chave = $this->request->query('chave');
+            $modalidade = $this->request->query('modalidade');
+            $assunto = $this->request->query('assunto');
+            $ano = $this->request->query('ano');
 
             if($chave != null)
             {
                 $conditions = $this->montarBusca($chave);
             }
 
-            $data = array();
+            if($modalidade != '')
+            {
+                $conditions['Modalidade.chave'] = $modalidade;
+            }
+
+            if($assunto != '')
+            {
+                $conditions['assunto'] = $status;
+            }
+
+            if($ano != '')
+            {
+                $conditions['ano'] = $ano;
+            }
 
             $data['chave'] = $chave;
-
-            $this->request->data = $data;
+            $data['modalidade'] = $modalidade;
+            $data['assunto'] = $assunto;
+            $data['ano'] = $ano;
         }
 
         $conditions['Licitacao.ativo'] = true;
         $conditions['Licitacao.antigo'] = false;
         $conditions['StatusLicitacao.id'] = $id;
 
+        $data['status'] = $id;
+        $this->request->data = $data;
+
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
             'contain' => ['Modalidade', 'StatusLicitacao'],
+            'fields' => $this->getFieldsSelect(),
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'dataSessao' => 'DESC'
@@ -502,7 +533,12 @@ class LicitacoesController extends AppController
 
         $licitacoes = $this->paginate($t_licitacoes);
         $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
-        $qtd_total = $t_licitacoes->find('all', ['contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'], 'conditions' => $conditions])->count();
+        $qtd_total = $t_licitacoes->find('all', [
+            'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+            'conditions' => $conditions])->select([
+                'count' => 'COUNT(DISTINCT Licitacao.id)'
+            ])->first()->count;
+
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
 
         if($inicial)
@@ -567,6 +603,7 @@ class LicitacoesController extends AppController
         $this->set('assuntos', $assuntos == null ? [] : $assuntos->toArray());
         $this->set('anos', $anos == null ? [] : $anos->toArray());
         $this->set('status', $id);
+        $this->set('data', $data);
         $this->set('qtd_total', $qtd_total);
         $this->set('inicial', $inicial);
         $this->set('limit_pagination', $limite_paginacao);
@@ -576,32 +613,41 @@ class LicitacoesController extends AppController
     public function ano(int $ano)
     {
         $conditions = array();
+        $data = array();
+
         $limite_paginacao = Configure::read('Pagination.limit');
 
         if($this->request->is('get') && count($this->request->query) > 0)
         {
             $chave = $this->request->query('chave');
+            $modalidade = $this->request->query('modalidade');
+            $assunto = $this->request->query('assunto');
+            $status = $this->request->query('status');
 
             if($chave != null)
             {
                 $conditions = $this->montarBusca($chave);
             }
 
-            $data = array();
-
             $data['chave'] = $chave;
-
-            $this->request->data = $data;
+            $data['modalidade'] = $modalidade;
+            $data['assunto'] = $assunto;
+            $data['status'] = $status;
         }
 
         $conditions['Licitacao.ativo'] = true;
         $conditions['Licitacao.antigo'] = false;
         $conditions['Licitacao.ano'] = $ano;
 
+        $data['ano'] = $ano;
+
+        $this->request->data = $data;
+
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
             'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+            'fields' => $this->getFieldsSelect(),
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'dataSessao' => 'DESC'
@@ -622,7 +668,13 @@ class LicitacoesController extends AppController
 
         $licitacoes = $this->paginate($t_licitacoes);
         $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
-        $qtd_total = $t_licitacoes->find('all', ['conditions' => $conditions])->count();
+
+        $qtd_total = $t_licitacoes->find('all', [
+            'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+            'conditions' => $conditions])->select([
+                'count' => 'COUNT(DISTINCT Licitacao.id)'
+            ])->first()->count;
+
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
 
         if($inicial)
@@ -682,6 +734,7 @@ class LicitacoesController extends AppController
         $this->set('assuntos', $assuntos == null ? [] : $assuntos->toArray());
         $this->set('status', $status == null ? [] : $status->toArray());
         $this->set('ano', $ano);
+        $this->set('data', $data);
         $this->set('qtd_total', $qtd_total);
         $this->set('inicial', $inicial);
         $this->set('limit_pagination', $limite_paginacao);
@@ -756,5 +809,39 @@ class LicitacoesController extends AppController
         }
 
         return $conditions;
+    }
+
+    private function getFieldsSelect()
+    {
+        return [
+                'DISTINCT Licitacao.id',
+                'Licitacao.numprocesso',
+                'Licitacao.nummodalidade',
+                'Licitacao.numdocumento',
+                'Licitacao.ano',
+                'Licitacao.titulo',
+                'Licitacao.documento',
+                'Licitacao.descricao',
+                'Licitacao.modalidade',
+                'Licitacao.dataInicio',
+                'Licitacao.dataTermino',
+                'Licitacao.dataPublicacao',
+                'Licitacao.dataSessao',
+                'Licitacao.dataAtualizacao',
+                'Licitacao.status',
+                'Licitacao.edital',
+                'Licitacao.visualizacoes',
+                'Licitacao.destaque',
+                'Licitacao.retificado',
+                'Licitacao.ativo',
+                'Licitacao.antigo',
+                'Modalidade.chave',
+                'Modalidade.nome',
+                'Modalidade.ordem',
+                'Modalidade.ativo',
+                'StatusLicitacao.id',
+                'StatusLicitacao.nome',
+                'StatusLicitacao.ordem',
+                'StatusLicitacao.padrao'];
     }
 }
