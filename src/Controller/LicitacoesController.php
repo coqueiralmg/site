@@ -171,30 +171,53 @@ class LicitacoesController extends AppController
     public function modalidade(string $codigo)
     {
         $conditions = array();
+        $data = array();
         $limite_paginacao = Configure::read('Pagination.limit');
 
         if($this->request->is('get') && count($this->request->query) > 0)
         {
             $chave = $this->request->query('chave');
+            $assunto = $this->request->query('assunto');
+            $status = $this->request->query('status');
+            $ano = $this->request->query('ano');
 
+            if($chave != null)
+            {
+                $conditions = $this->montarBusca($chave);
+            }
 
-            $conditions = $this->montarBusca($chave);
+            if($assunto != '')
+            {
+                $conditions['assunto'] = $assunto;
+            }
 
-            $data = array();
+            if($status != '')
+            {
+                $conditions['StatusLicitacao.id'] = $status;
+            }
+
+            if($ano != '')
+            {
+                $conditions['ano'] = $ano;
+            }
 
             $data['chave'] = $chave;
-
-            $this->request->data = $data;
+            $data['assunto'] = $assunto;
+            $data['status'] = $status;
+            $data['ano'] = $ano;
         }
 
         $conditions['Licitacao.ativo'] = true;
         $conditions['Licitacao.antigo'] = false;
         $conditions['Modalidade.chave'] = $codigo;
 
+        $data['modalidade'] = $codigo;
+        $this->request->data = $data;
+
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
-            'contain' => ['Modalidade', 'StatusLicitacao'],
+            'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'dataSessao' => 'DESC'
@@ -214,10 +237,10 @@ class LicitacoesController extends AppController
         $t_status = TableRegistry::get('StatusLicitacao');
 
         $licitacoes = $this->paginate($t_licitacoes);
-        $inicial = count($this->request->query) == 0;
+        $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
 
         $qtd_total = $t_licitacoes->find('all', [
-            'contain' => ['Modalidade', 'StatusLicitacao'],
+            'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
             'conditions' => $conditions])->count();
 
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
@@ -284,6 +307,7 @@ class LicitacoesController extends AppController
         $this->set('anos', $anos == null ? [] : $anos->toArray());
         $this->set('qtd_total', $qtd_total);
         $this->set('inicial', $inicial);
+        $this->set('data', $data);
         $this->set('modalidade', $codigo);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
@@ -292,24 +316,49 @@ class LicitacoesController extends AppController
     public function assunto(int $id)
     {
         $conditions = array();
+        $data = array();
+
         $limite_paginacao = Configure::read('Pagination.limit');
 
         if($this->request->is('get') && count($this->request->query) > 0)
         {
             $chave = $this->request->query('chave');
+            $modalidade = $this->request->query('modalidade');
+            $status = $this->request->query('status');
+            $ano = $this->request->query('ano');
 
-            $conditions = $this->montarBusca($chave);
+            if($chave != null)
+            {
+                $conditions = $this->montarBusca($chave);
+            }
 
-            $data = array();
+            if($modalidade != '')
+            {
+                $conditions['Modalidade.chave'] = $modalidade;
+            }
+
+            if($status != '')
+            {
+                $conditions['StatusLicitacao.id'] = $status;
+            }
+
+            if($ano != '')
+            {
+                $conditions['ano'] = $ano;
+            }
 
             $data['chave'] = $chave;
-
-            $this->request->data = $data;
+            $data['modalidade'] = $modalidade;
+            $data['status'] = $status;
+            $data['ano'] = $ano;
         }
 
         $conditions['Licitacao.ativo'] = true;
         $conditions['Licitacao.antigo'] = false;
         $conditions['assunto'] = $id;
+
+        $data['assunto'] = $id;
+        $this->request->data = $data;
 
         $this->paginate = [
             'limit' => $limite_paginacao,
@@ -334,7 +383,7 @@ class LicitacoesController extends AppController
         $t_status = TableRegistry::get('StatusLicitacao');
 
         $licitacoes = $this->paginate($t_licitacoes);
-        $inicial = count($this->request->query) == 0;
+        $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
         $qtd_total = $t_licitacoes->find('all', ['contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'], 'conditions' => $conditions])->count();
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
 
@@ -399,6 +448,7 @@ class LicitacoesController extends AppController
         $this->set('assunto', $id);
         $this->set('qtd_total', $qtd_total);
         $this->set('inicial', $inicial);
+        $this->set('data', $data);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
     }
@@ -412,7 +462,10 @@ class LicitacoesController extends AppController
         {
             $chave = $this->request->query('chave');
 
-            $conditions = $this->montarBusca($chave);
+            if($chave != null)
+            {
+                $conditions = $this->montarBusca($chave);
+            }
 
             $data = array();
 
@@ -448,14 +501,14 @@ class LicitacoesController extends AppController
         $t_status = TableRegistry::get('StatusLicitacao');
 
         $licitacoes = $this->paginate($t_licitacoes);
-        $inicial = count($this->request->query) == 0;
-        $qtd_total = $t_licitacoes->find('all', ['contain' => ['Modalidade', 'StatusLicitacao'], 'conditions' => $conditions])->count();
+        $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
+        $qtd_total = $t_licitacoes->find('all', ['contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'], 'conditions' => $conditions])->count();
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
 
         if($inicial)
         {
             $destaques = $t_licitacoes->find('destaque', [
-                'contain' => ['Modalidade', 'StatusLicitacao'],
+                'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
                 'conditions' => [
                     'StatusLicitacao.id' => $id
                 ],
@@ -529,7 +582,10 @@ class LicitacoesController extends AppController
         {
             $chave = $this->request->query('chave');
 
-            $conditions = $this->montarBusca($chave);
+            if($chave != null)
+            {
+                $conditions = $this->montarBusca($chave);
+            }
 
             $data = array();
 
@@ -545,7 +601,7 @@ class LicitacoesController extends AppController
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
-            'contain' => ['Modalidade', 'StatusLicitacao'],
+            'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'dataSessao' => 'DESC'
@@ -565,7 +621,7 @@ class LicitacoesController extends AppController
         $t_status = TableRegistry::get('StatusLicitacao');
 
         $licitacoes = $this->paginate($t_licitacoes);
-        $inicial = count($this->request->query) == 0;
+        $inicial = $this->request->query('chave') == '' && $this->request->query('page') == '';
         $qtd_total = $t_licitacoes->find('all', ['conditions' => $conditions])->count();
         $destaques = $populares = $anos = $modalidades = $assuntos = $status = null;
 
