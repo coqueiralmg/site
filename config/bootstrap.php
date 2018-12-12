@@ -86,6 +86,7 @@ try {
     Configure::load('ouvidoria');
     Configure::load('logentries');
     Configure::load('concursos');
+    Configure::load('licitacoes');
 
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
