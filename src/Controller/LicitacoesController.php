@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
+
 
 class LicitacoesController extends AppController
 {
@@ -752,6 +754,50 @@ class LicitacoesController extends AppController
         $gate = explode('-', $slug);
         $id = end($gate);
 
+        $t_licitacoes = TableRegistry::get('Licitacao');
+
+        $licitacao = $t_licitacoes->get($id, ['contain' => ['Modalidade', 'StatusLicitacao', 'Assunto']]);
+
+        if($licitacao->antigo)
+        {
+            $this->redirect(['action' => 'documento', $licitacao->id]);
+        }
+        else
+        {
+            $t_atualizacoes = TableRegistry::get('Atualizacao');
+            $t_anexos = TableRegistry::get('Anexo');
+
+            $condicoes = [
+                'licitacao' => $id
+            ];
+
+            $atualizacoes = $t_atualizacoes->find('all', [
+                'conditions' => $condicoes,
+                'order' => [
+                    'data' => 'DESC'
+                ]
+            ]);
+
+            $anexos = $t_anexos->find('all', [
+                'conditions' => $condicoes,
+                'order' => [
+                    'data' => 'DESC',
+                    'numero' => 'ASC',
+                    'nome' => 'ASC'
+                ]
+            ]);
+
+            $titulo = 'Processo: ' . $this->Format->zeroPad($licitacao->numprocesso, 3) . '/' . $licitacao->ano . ' - ' . $licitacao->titulo;
+
+            $this->set('title', $titulo);
+            $this->set('licitacao', $licitacao);
+            $this->set('atualizacoes', $atualizacoes);
+            $this->set('anexos', $anexos);
+        }
+    }
+
+    public function documento(int $id)
+    {
         $t_licitacoes = TableRegistry::get('Licitacao');
         $licitacao = $t_licitacoes->get($id);
 
