@@ -75,20 +75,20 @@
                     <div id="modalidades">
                         <h5>Faça busca de licitações por modalidade</h5>
                         <?php foreach($modalidades as $modalidade): ?>
-                            <?= $this->Html->link($modalidade->nome, ['controller' => 'licitacoes', 'action' =>  'modalidade', $modalidade->chave], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($modalidade->nome, ['controller' => 'licitacoes', 'action' =>  'modalidade', $modalidade->chave, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
 
                     </div>
                     <div id="status">
                         <h5>Faça a busca de licitações por status</h5>
                         <?php foreach($status as $item): ?>
-                            <?= $this->Html->link($item->nome, ['controller' => 'licitacoes', 'action' =>  'status', $item->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($item->nome, ['controller' => 'licitacoes', 'action' =>  'status', $item->id, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
                     </div>
                     <div id="ano">
                         <h5>Faça a busca de legislação municipal por ano.</h5>
                         <?php foreach($anos as $ano): ?>
-                            <?= $this->Html->link($ano->ano, ['controller' => 'licitacoes', 'action' =>  'ano', $ano->ano], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($ano->ano, ['controller' => 'licitacoes', 'action' =>  'ano', $ano->ano, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
                     </div>
                 </div>

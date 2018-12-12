@@ -75,20 +75,20 @@
                     <div id="modalidades">
                         <h5>Faça busca de licitações por modalidade</h5>
                         <?php foreach($modalidades as $modalidade): ?>
-                            <?= $this->Html->link($modalidade->nome, ['controller' => 'licitacoes', 'action' =>  'modalidade', $modalidade->chave], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($modalidade->nome, ['controller' => 'licitacoes', 'action' =>  'modalidade', $modalidade->chave, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
 
                     </div>
                     <div id="assuntos">
                         <h5>Faça a busca de licitações por assunto.</h5>
                         <?php foreach($assuntos as $assunto): ?>
-                            <?= $this->Html->link($assunto->descricao, ['controller' => 'licitacoes', 'action' =>  'assunto', $assunto->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($assunto->descricao, ['controller' => 'licitacoes', 'action' =>  'assunto', $assunto->id, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
                     </div>
                     <div id="status">
                         <h5>Faça a busca de licitações por status</h5>
                         <?php foreach($status as $item): ?>
-                            <?= $this->Html->link($item->nome, ['controller' => 'licitacoes', 'action' =>  'status', $item->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($item->nome, ['controller' => 'licitacoes', 'action' =>  'status', $item->id, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
                     </div>
                 </div>

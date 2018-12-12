@@ -75,19 +75,19 @@
                     <div id="assuntos">
                         <h5>Faça a busca de licitações por assunto.</h5>
                         <?php foreach($assuntos as $assunto): ?>
-                            <?= $this->Html->link($assunto->descricao, ['controller' => 'licitacoes', 'action' =>  'assunto', $assunto->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($assunto->descricao, ['controller' => 'licitacoes', 'action' =>  'assunto', $assunto->id, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
                     </div>
                     <div id="status">
                         <h5>Faça a busca de licitações por status</h5>
                         <?php foreach($status as $item): ?>
-                            <?= $this->Html->link($item->nome, ['controller' => 'licitacoes', 'action' =>  'status', $item->id], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($item->nome, ['controller' => 'licitacoes', 'action' =>  'status', $item->id, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
                     </div>
                     <div id="ano">
                         <h5>Faça a busca de legislação municipal por ano.</h5>
                         <?php foreach($anos as $ano): ?>
-                            <?= $this->Html->link($ano->ano, ['controller' => 'licitacoes', 'action' =>  'ano', $ano->ano], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
+                            <?= $this->Html->link($ano->ano, ['controller' => 'licitacoes', 'action' =>  'ano', $ano->ano, '?' => $data], ['class' => 'btn btn-success', 'style' => 'margin: 10px 5px']) ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
