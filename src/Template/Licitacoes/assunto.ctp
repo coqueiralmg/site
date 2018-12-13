@@ -41,6 +41,9 @@
                                         <?php else: ?>
                                             <p>Período de <?= $this->Format->date($licitacao->dataPublicacao, true) ?> até <?= $this->Format->date($licitacao->dataFim, true) ?></p>
                                         <?php endif;?>
+                                        <?php if($licitacao->retificado): ?>
+                                            <span style="font-weight:bold; font-style: italic;">Licitação retificada</span>
+                                        <?php endif;?>
                                         <?= $this->Html->link('Detalhes', ['controller' => 'licitacoes', 'action' =>  'licitacao', $licitacao->id], ['class' => 'btn btn-success']) ?>
                                     </div>
                                 <?php endfor; ?>
@@ -66,6 +69,9 @@
                                             <p>Data da Publicação: <?= $this->Format->date($licitacao->dataPublicacao, true) ?></p>
                                         <?php else: ?>
                                             <p>Período de <?= $this->Format->date($licitacao->dataPublicacao, true) ?> até <?= $this->Format->date($licitacao->dataFim, true) ?></p>
+                                        <?php endif;?>
+                                        <?php if($licitacao->retificado): ?>
+                                            <span style="font-weight:bold; font-style: italic;">Licitação retificada</span>
                                         <?php endif;?>
                                         <?= $this->Html->link('Detalhes', ['controller' => 'licitacoes', 'action' =>  'licitacao', $licitacao->id], ['class' => 'btn btn-success']) ?>
                                     </div>

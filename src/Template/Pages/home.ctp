@@ -234,7 +234,7 @@
                                 <?php foreach($licitacoes as $licitacao): ?>
                                     <div class="list-group">
                                         <a href="<?= 'licitacoes/licitacao/' . $licitacao->slug . '-' . $licitacao->id ?>" class="list-group-item">
-                                            <h4 class="list-group-item-heading" style="text-transform: uppercase;">Processo: <?= $this->Format->zeroPad($licitacao->numprocesso, 3) ?>/<?= $licitacao->ano ?> - <?= $licitacao->titulo ?></h4>
+                                            <h4 class="list-group-item-heading" style="text-transform: uppercase;">Processo: <?= $this->Format->zeroPad($licitacao->numprocesso, 3) ?>/<?= $licitacao->ano ?> - <?= $licitacao->titulo ?> <?php if($licitacao->retificado) echo '(Retificado)' ?></h4>
                                             <span style="font-style: italic"><?= $licitacao->modalidade->nome ?></span> | <span style="font-weight: bold"><?= $licitacao->situacao ?></span>
                                             <?php if($licitacao->modalidade->chave == 'PP' ||
                                                     $licitacao->modalidade->chave == 'TP'):?>
