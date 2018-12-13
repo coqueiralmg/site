@@ -867,6 +867,7 @@ class LicitacoesController extends AppController
     {
         return [
                 'DISTINCT Licitacao.id',
+                'Licitacao.id',
                 'Licitacao.numprocesso',
                 'Licitacao.nummodalidade',
                 'Licitacao.numdocumento',
