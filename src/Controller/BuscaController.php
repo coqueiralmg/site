@@ -34,15 +34,26 @@ class BuscaController extends AppController
             $t_concursos = TableRegistry::get('Concurso');
             $t_informativo = TableRegistry::get('Informativo');
 
-            $licitacoes = $t_licitacoes->find('all', [
+            $licitacoes_antigas = $t_licitacoes->find('antigo', [
                 'conditions' => [
-                    'titulo LIKE' => '%' . $chave . '%',
-                    'ativo' => true
+                    'Licitacao.titulo LIKE' => '%' . $chave . '%',
                 ],
                 'order' => [
                     'id' => 'DESC'
                 ]
             ]);
+
+            $licitacoes_novas = $t_licitacoes->find('novo', [
+                'contain' => ['Modalidade', 'StatusLicitacao'],
+                'conditions' => [
+                    'titulo LIKE' => '%' . $chave . '%',
+                ],
+                'order' => [
+                    'Licitacao.dataPublicacao' => 'DESC'
+                ]
+            ]);
+
+            $licitacoes = array_merge($licitacoes_novas->toArray(), $licitacoes_antigas->toArray());
 
             $total_licitacoes = $t_licitacoes->find('all', [
                 'conditions' => [
