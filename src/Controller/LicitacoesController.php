@@ -788,11 +788,13 @@ class LicitacoesController extends AppController
             ]);
 
             $titulo = 'Processo: ' . $this->Format->zeroPad($licitacao->numprocesso, 3) . '/' . $licitacao->ano . ' - ' . $licitacao->titulo;
+            $licitacao->visualizacoes = $licitacao->visualizacoes + 1;
+            $t_licitacoes->save($licitacao);
 
             $this->set('title', $titulo);
             $this->set('licitacao', $licitacao);
-            $this->set('atualizacoes', $atualizacoes);
-            $this->set('anexos', $anexos);
+            $this->set('atualizacoes', $atualizacoes->toArray());
+            $this->set('anexos', $anexos->toArray());
         }
     }
 

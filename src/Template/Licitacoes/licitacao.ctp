@@ -9,9 +9,9 @@
         <div class="wow fadeInDown">
             <div class="col-md-9">
                 <?= $licitacao->descricao ?>
-                <hr/>
-                <h4>Extratos e Atualizações</h4>
                 <?php if(count($atualizacoes) > 0):?>
+                    <hr/>
+                    <h4>Extratos e Atualizações</h4>
                     <?php foreach($atualizacoes as $atualizacao): ?>
                         <div class="row">
                             <div class="item col-md-12">
@@ -76,10 +76,6 @@
                         <strong>Número do Documento:</strong><br/>
                         <span><?=$this->Format->zeroPad($licitacao->numdocumento, 3) . '/' . $licitacao->ano?></span>
                     </div>
-                    <div class="col-md-12">
-                        <strong>Ano:</strong><br/>
-                        <span><?=$licitacao->ano?></span>
-                    </div>
                     <?php if($licitacao->modalidade->chave == 'PP' ||
                                  $licitacao->modalidade->chave == 'TP'):?>
                         <div class="col-md-12">
@@ -109,6 +105,10 @@
                     <div class="col-md-12">
                         <strong>Status:</strong><br/>
                         <span><?=$licitacao->situacao?></span>
+                    </div>
+                    <div class="col-md-12">
+                        <strong>Ano:</strong><br/>
+                        <span><?=$licitacao->ano?></span>
                     </div>
                 </div>
                 <?php if(count($licitacao->assuntos) > 0): ?>
