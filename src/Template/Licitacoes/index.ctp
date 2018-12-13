@@ -4,6 +4,9 @@
         <div class="center wow fadeInDown">
             <h2>Licitações</h2>
             <p class="lead">Editais e outras informações sobre processos licitatórios do município.</p>
+            <?php if($inicial): ?>
+                <p>Para ver processos antigos, <?=$this->Html->link('clique aqui', ['controller' => 'licitacoes', 'action' =>  'antigas'], ['style' => 'font-weight: bold; text-decoration: underline;'])?>.</p>
+            <?php endif;?>
         </div>
         <?php if($inicial): ?>
             <div id="loader" class="center">
