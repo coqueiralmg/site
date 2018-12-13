@@ -68,14 +68,16 @@
                         <strong>Número da Modalidade:</strong><br/>
                         <span><?=$this->Format->zeroPad($licitacao->nummodalidade, 3) . '/' . $licitacao->ano?></span>
                     </div>
-                    <div class="col-md-12">
-                        <strong>Documento:</strong><br/>
-                        <span><?=$licitacao->documento?></span>
-                    </div>
-                    <div class="col-md-12">
-                        <strong>Número do Documento:</strong><br/>
-                        <span><?=$this->Format->zeroPad($licitacao->numdocumento, 3) . '/' . $licitacao->ano?></span>
-                    </div>
+                    <?php if($licitacao->numdocumento != null || $licitacao->numdocumento != ''):?>
+                        <div class="col-md-12">
+                            <strong>Documento:</strong><br/>
+                            <span><?=$licitacao->documento?></span>
+                        </div>
+                        <div class="col-md-12">
+                            <strong>Número do Documento:</strong><br/>
+                            <span><?=$this->Format->zeroPad($licitacao->numdocumento, 3) . '/' . $licitacao->ano?></span>
+                        </div>
+                    <?php endif;?>
                     <?php if($licitacao->modalidade->chave == 'PP' ||
                                  $licitacao->modalidade->chave == 'TP'):?>
                         <div class="col-md-12">
