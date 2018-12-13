@@ -912,8 +912,6 @@ class LicitacoesController extends AppController
 
                     $arquivos_modificados[] = $entarquivo->getOriginalValues();
                     $t_anexos->save($entarquivo);
-
-                    echo 'Salvo o arquivo ' . $arquivo . '<br/>';
                 }
             }
 
