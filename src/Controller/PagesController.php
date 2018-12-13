@@ -45,8 +45,15 @@ class PagesController extends AppController
             'limit' => 3
         ]);
 
-        $licitacoes = $t_licitacoes->find('ativo', [
-            'order' => ['Licitacao.id' => 'DESC'],
+        $licitacoes = $t_licitacoes->find('novo', [
+            'contain' => ['Modalidade', 'StatusLicitacao'],
+            'conditions' => [
+                'Licitacao.modalidade NOT IN' => ['DI', 'IN'],
+                'Licitacao.status' => Configure::read('Licitacoes.Status.EmRealizacao')
+            ],
+            'order' => [
+                'Licitacao.dataPublicacao' => 'DESC'
+            ],
             'limit' => 5
         ]);
 
