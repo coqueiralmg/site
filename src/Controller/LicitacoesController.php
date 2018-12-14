@@ -18,7 +18,10 @@ class LicitacoesController extends AppController
         {
             $chave = $this->request->query('chave');
 
-            $conditions = $this->montarBusca($chave);
+            if($chave != null)
+            {
+                $conditions = $this->montarBusca($chave);
+            }
 
             $data = array();
 
@@ -68,7 +71,7 @@ class LicitacoesController extends AppController
             ]);
 
             $populares = $t_licitacoes->find('novo', [
-                'limit' => $limite_paginacao,
+                'limit' => 10,
                 'contain' => ['Modalidade', 'StatusLicitacao'],
                 'conditions' => [
                     'visualizacoes >' => 0
@@ -265,7 +268,7 @@ class LicitacoesController extends AppController
             ]);
 
             $populares = $t_licitacoes->find('novo', [
-                'limit' => $limite_paginacao,
+                'limit' => 10,
                 'contain' => ['Modalidade', 'StatusLicitacao'],
                 'conditions' => [
                     'visualizacoes >' => 0,
@@ -415,7 +418,7 @@ class LicitacoesController extends AppController
             ]);
 
             $populares = $t_licitacoes->find('novo', [
-                'limit' => $limite_paginacao,
+                'limit' => 10,
                 'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
                 'conditions' => [
                     'visualizacoes >' => 0,
@@ -563,7 +566,7 @@ class LicitacoesController extends AppController
             ]);
 
             $populares = $t_licitacoes->find('novo', [
-                'limit' => $limite_paginacao,
+                'limit' => 10,
                 'contain' => ['Modalidade', 'StatusLicitacao'],
                 'conditions' => [
                     'visualizacoes >' => 0,
@@ -652,7 +655,7 @@ class LicitacoesController extends AppController
         $this->request->data = $data;
 
         $this->paginate = [
-            'limit' => $limite_paginacao,
+            'limit' => 10,
             'conditions' => $conditions,
             'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
             'fields' => $this->getFieldsSelect(),
