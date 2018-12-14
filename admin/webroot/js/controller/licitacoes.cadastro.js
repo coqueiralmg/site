@@ -278,22 +278,6 @@ function validar() {
         $("label[for='nummodalidade']").css("color", "#aaa");
     }
 
-    if (modalidade == "PP" ||
-        modalidade == "PE" ||
-        modalidade == "CC" ||
-        modalidade == "CN" ||
-        modalidade == "LE") {
-
-        if ($("#numdocumento").val() === "") {
-            mensagem += "<li> O número do documento da licitação é obrigatório.</li>";
-            $("label[for='numdocumento']").css("color", "red");
-        } else {
-            $("label[for='numdocumento']").css("color", "#aaa");
-        }
-    } else {
-        $("label[for='numdocumento']").css("color", "#aaa");
-    }
-
     if ($("#status").val() === "") {
         mensagem += "<li> É obrigatório selecionar o status do processo licitatório.</li>";
         $("label[for='status']").css("color", "red");
