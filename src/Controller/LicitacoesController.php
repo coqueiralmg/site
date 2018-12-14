@@ -408,6 +408,7 @@ class LicitacoesController extends AppController
         {
             $destaques = $t_licitacoes->find('destaque', [
                 'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+                'fields' => $this->getFieldsSelect(),
                 'conditions' => [
                     'assunto' => $id
                 ],
@@ -420,6 +421,7 @@ class LicitacoesController extends AppController
             $populares = $t_licitacoes->find('novo', [
                 'limit' => 10,
                 'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+                'fields' => $this->getFieldsSelect(),
                 'conditions' => [
                     'visualizacoes >' => 0,
                     'assunto' => $id
@@ -555,7 +557,7 @@ class LicitacoesController extends AppController
         if($inicial)
         {
             $destaques = $t_licitacoes->find('destaque', [
-                'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+                'contain' => ['Modalidade', 'StatusLicitacao'],
                 'conditions' => [
                     'StatusLicitacao.id' => $id
                 ],
