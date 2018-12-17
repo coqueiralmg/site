@@ -49,7 +49,7 @@
                 <?php elseif($formato_exibicao == 'N'): ?>
                     <tr>
                         <td><?=$licitacao->numprocesso == null ? ' - ' : $this->Format->zeroPad($licitacao->numprocesso, 3) . '/' . $licitacao->ano ?></td>
-                        <td><?=$licitacao->modalidade->nome ?></td>
+                        <td><?=$modalidades[$licitacao->modalidade] ?></td>
                         <td><?=$licitacao->titulo ?></td>
                         <td><?=$licitacao->visualizacoes ?></td>
                         <td style="width: 20%"><?= ($licitacao->antigo) ? $this->Format->date($licitacao->dataInicio, true) : $this->Format->date($licitacao->dataSessao, true) ?></td>

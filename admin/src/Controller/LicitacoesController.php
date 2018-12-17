@@ -84,7 +84,7 @@ class LicitacoesController extends AppController
 
             if ($modalidade != '')
             {
-                $condicoes["chave"] = $modalidade;
+                $condicoes["modalidade"] = $modalidade;
             }
 
             if ($status != '')
@@ -131,7 +131,6 @@ class LicitacoesController extends AppController
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $condicoes,
-            'contain' => ['Modalidade', 'StatusLicitacao'],
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'id' => 'DESC'
@@ -178,7 +177,6 @@ class LicitacoesController extends AppController
         $licitacoes = $this->paginate($t_licitacoes);
 
         $qtd_total = $t_licitacoes->find('all', [
-            'contain' => ['Modalidade', 'StatusLicitacao'],
             'conditions' => $condicoes
         ])->count();
 
@@ -192,7 +190,7 @@ class LicitacoesController extends AppController
         $this->set('qtd_total', $qtd_total);
         $this->set('limit_pagination', $limite_paginacao);
         $this->set('opcao_paginacao', $opcao_paginacao);
-        $this->set('combo_modalidade', $modalidades);
+        $this->set('combo_modalidade', $modalidades->toArray());
         $this->set('combo_status', $status);
         $this->set('combo_assuntos', $assuntos);
         $this->set('combo_formatos', $combo_formatos);
@@ -203,6 +201,7 @@ class LicitacoesController extends AppController
     public function imprimir()
     {
         $t_licitacoes = TableRegistry::get('Licitacao');
+        $t_modalidade = TableRegistry::get('Modalidade');
 
         $condicoes = array();
         $formato_exibicao = 'T';
@@ -256,7 +255,7 @@ class LicitacoesController extends AppController
 
             if ($modalidade != '')
             {
-                $condicoes["chave"] = $modalidade;
+                $condicoes["modalidade"] = $modalidade;
             }
 
             if ($status != '')
@@ -290,10 +289,20 @@ class LicitacoesController extends AppController
 
         $licitacoes = $t_licitacoes->find('all', [
             'conditions' => $condicoes,
-            'contain' => ['Modalidade', 'StatusLicitacao'],
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'Licitacao.id' => 'DESC'
+            ]
+        ]);
+
+        $modalidades = $t_modalidade->find('list', [
+            'keyField' => 'chave',
+            'valueField' => 'nome',
+            'conditions' => [
+                'ativo' => true
+            ],
+            'order' => [
+                'ordem' => 'ASC'
             ]
         ]);
 
@@ -318,6 +327,7 @@ class LicitacoesController extends AppController
         $this->set('licitacoes', $licitacoes);
         $this->set('formato_exibicao', $formato_exibicao);
         $this->set('qtd_total', $qtd_total);
+        $this->set('modalidades', $modalidades->toArray());
     }
 
     public function add()
