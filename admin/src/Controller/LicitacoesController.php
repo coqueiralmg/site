@@ -84,7 +84,7 @@ class LicitacoesController extends AppController
 
             if ($modalidade != '')
             {
-                $condicoes["modalidade"] = $modalidade;
+                $condicoes["chave"] = $modalidade;
             }
 
             if ($status != '')
@@ -131,6 +131,7 @@ class LicitacoesController extends AppController
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $condicoes,
+            'contain' => ['Modalidade', 'StatusLicitacao'],
             'order' => [
                 'dataPublicacao' => 'DESC',
                 'id' => 'DESC'
@@ -177,6 +178,7 @@ class LicitacoesController extends AppController
         $licitacoes = $this->paginate($t_licitacoes);
 
         $qtd_total = $t_licitacoes->find('all', [
+            'contain' => ['Modalidade', 'StatusLicitacao'],
             'conditions' => $condicoes
         ])->count();
 
@@ -254,7 +256,7 @@ class LicitacoesController extends AppController
 
             if ($modalidade != '')
             {
-                $condicoes["modalidade"] = $modalidade;
+                $condicoes["chave"] = $modalidade;
             }
 
             if ($status != '')
@@ -288,9 +290,10 @@ class LicitacoesController extends AppController
 
         $licitacoes = $t_licitacoes->find('all', [
             'conditions' => $condicoes,
+            'contain' => ['Modalidade', 'StatusLicitacao'],
             'order' => [
                 'dataPublicacao' => 'DESC',
-                'id' => 'DESC'
+                'Licitacao.id' => 'DESC'
             ]
         ]);
 
