@@ -12,7 +12,7 @@
                 echo $this->Form->create("Licitacao", [
                     "url" => [
                         "controller" => "licitacoes",
-                        "action" => "index"
+                        "action" => "antigas"
                     ],
                     'idPrefix' => 'pesquisar-licitacao',
                     'type' => 'get',
