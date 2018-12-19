@@ -49,7 +49,7 @@
                         </tbody>
                     </table>
                 <?php else: ?>
-                    <p>Não existe nenhum documento relacionado a este.</p>
+                    <p>Não existe nenhum documento relacionado a esta licitação.</p>
                 <?php endif; ?>
 
             </div>
