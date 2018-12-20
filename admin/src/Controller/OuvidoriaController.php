@@ -33,13 +33,13 @@ class OuvidoriaController extends AppController
             $status = $this->request->query('status');
             $prioridade = $this->request->query('prioridade');
 
-            if ($data_inicial != "" && $data_final != "") 
+            if ($data_inicial != "" && $data_final != "")
             {
                 $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
                 $condicoes["data <="] = $this->Format->formatDateDB($data_final);
             }
 
-            if ($status != '') 
+            if ($status != '')
             {
                 $condicoes["status"] = $status;
             }
@@ -49,7 +49,7 @@ class OuvidoriaController extends AppController
                 $condicoes['status <>'] = $fechado;
             }
 
-            if ($prioridade != '') 
+            if ($prioridade != '')
             {
                 $condicoes["prioridade"] = $prioridade;
             }
@@ -66,7 +66,7 @@ class OuvidoriaController extends AppController
             $fechado = Configure::read('Ouvidoria.status.fechado');
             $condicoes['status <>'] = $fechado;
         }
-        
+
         $this->paginate = [
             'limit' => $limite_paginacao,
         ];
@@ -99,7 +99,7 @@ class OuvidoriaController extends AppController
             'keyField' => 'id',
             'valueField' => 'nome'
         ]);
-        
+
         $combo_prioridade = $t_prioridade->find('list', [
             'keyField' => 'id',
             'valueField' => 'nome',
@@ -132,18 +132,18 @@ class OuvidoriaController extends AppController
             $status = $this->request->query('status');
             $prioridade = $this->request->query('prioridade');
 
-            if ($data_inicial != "" && $data_final != "") 
+            if ($data_inicial != "" && $data_final != "")
             {
                 $condicoes["data >="] = $this->Format->formatDateDB($data_inicial);
                 $condicoes["data <="] = $this->Format->formatDateDB($data_final);
             }
 
-            if ($status != '') 
+            if ($status != '')
             {
                 $condicoes["status"] = $status;
             }
 
-            if ($prioridade != '') 
+            if ($prioridade != '')
             {
                 $condicoes["prioridade"] = $prioridade;
             }
@@ -186,7 +186,7 @@ class OuvidoriaController extends AppController
 
         $destino = $p[0];
         $mensagem = $p[1];
-        
+
         $this->Flash->greatSuccess($mensagem);
         $this->redirect(['action' => $destino]);
     }
@@ -272,6 +272,36 @@ class OuvidoriaController extends AppController
         $this->request->data = $data;
     }
 
+    public function cadastro()
+    {
+        $t_prioridade = TableRegistry::get('Prioridade');
+        $t_manifestante = TableRegistry::get('Manifestante');
+
+        $tipo_chamado = ['GR' => 'Geral', 'IP' => 'Iluminação Pública'];
+
+        $prioridades = $t_prioridade->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'order' => [
+                'nivel' => 'DESC'
+            ]
+        ]);
+
+        $manifestantes = $t_manifestante->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'order' => [
+                'nome' => 'ASC'
+            ]
+        ]);
+
+        $this->set('title', 'Nova Manifestação da Ouvidoria');
+        $this->set('icon', 'hearing');
+        $this->set('combo_tipo', $tipo_chamado);
+        $this->set('prioridades', $prioridades);
+        $this->set('manifestantes', $manifestantes);
+    }
+
     public function resposta(int $id)
     {
         if ($this->request->is('post'))
@@ -287,7 +317,7 @@ class OuvidoriaController extends AppController
             $manifestacao->prioridade = $prioridade;
 
             $resposta = nl2br($resposta);
-            
+
             switch($acao)
             {
                 case 'CF':
@@ -324,7 +354,7 @@ class OuvidoriaController extends AppController
 
             $this->Flash->greatSuccess('A resposta foi enviada com sucesso.');
             $this->redirect(['action' => 'manifestacao', $id]);
-        }        
+        }
     }
 
     public function fechar(int $id)
@@ -359,7 +389,7 @@ class OuvidoriaController extends AppController
         $this->set('title', 'Manifestação da Ouvidoria');
         $this->set('manifestacao', $manifestacao);
         $this->set('historico', $historico);
-        $this->set('id', $id);    
+        $this->set('id', $id);
     }
 
     public function manifestantes()
@@ -524,7 +554,7 @@ class OuvidoriaController extends AppController
 
     public function document(int $id)
     {
-        $t_manifestante = TableRegistry::get('Manifestante');        
+        $t_manifestante = TableRegistry::get('Manifestante');
         $manifestante = $t_manifestante->get($id);
 
         $auditoria = [
@@ -550,9 +580,9 @@ class OuvidoriaController extends AppController
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
-        
+
         $atendido = Configure::read('Ouvidoria.status.definicoes.atendido');
-        
+
         $manifestacao->status = $atendido;
 
         $historico = $t_historico->newEntity();
@@ -588,9 +618,9 @@ class OuvidoriaController extends AppController
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
-        
+
         $emAtividade = Configure::read('Ouvidoria.status.definicoes.emAtividade');
-        
+
         $manifestacao->status = $emAtividade;
 
         $historico = $t_historico->newEntity();
@@ -639,9 +669,9 @@ class OuvidoriaController extends AppController
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
-        
+
         $concluido = Configure::read('Ouvidoria.status.definicoes.concluido');
-        
+
         $manifestacao->status = $concluido;
 
         $historico = $t_historico->newEntity();
@@ -690,9 +720,9 @@ class OuvidoriaController extends AppController
     {
         $t_manifestacao = TableRegistry::get('Manifestacao');
         $t_historico = TableRegistry::get('Historico');
-        
+
         $fechado = Configure::read('Ouvidoria.status.definicoes.fechado');
-        
+
         $manifestacao->status = $fechado;
 
         $historico = $t_historico->newEntity();
@@ -753,7 +783,7 @@ class OuvidoriaController extends AppController
     private function enviarEmailManifestante(int $idManifestacao, string $email, string $resposta)
     {
         $numPad = $this->Format->zeroPad($idManifestacao);
-        
+
         $header = array(
             'name' => 'Sistema Coqueiral',
             'from' => 'system@coqueiral.mg.gov.br',
