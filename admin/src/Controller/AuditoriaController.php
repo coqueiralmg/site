@@ -31,7 +31,7 @@ class AuditoriaController extends AppController
             $data_inicial = $this->request->query('data_inicial');
             $data_final = $this->request->query('data_final');
             $ip = $this->request->query('ip');
-            
+
             if($responsavel != '')
             {
                 if($responsavel == 0)
@@ -71,7 +71,7 @@ class AuditoriaController extends AppController
 
         $this->paginate = [
             'limit' => $limite_paginacao,
-            'contain' => ['Usuario' => ['Pessoa']],
+            'contain' => ['Usuario' => ['Responsavel']],
             'conditions' => $condicoes,
             'order' => [
                 'data' => 'DESC'
@@ -79,10 +79,10 @@ class AuditoriaController extends AppController
         ];
 
         $trilha = $this->paginate($t_auditoria);
-        $total = $t_auditoria->find('all', ['contain' => ['Usuario' => ['Pessoa']], 'conditions' => $condicoes])->count();
+        $total = $t_auditoria->find('all', ['contain' => ['Usuario' => ['Responsavel']], 'conditions' => $condicoes])->count();
 
         $usuarios = $t_usuarios->find('all', [
-            'contain' => ['Pessoa']
+            'contain' => ['Responsavel']
         ]);
 
         $combo_usuarios[''] = 'Todos';
@@ -94,7 +94,7 @@ class AuditoriaController extends AppController
         }
 
         $ocorrencias = $this->Auditoria->obterOcorrencias();
-        
+
         $this->set('title', ' Auditoria do Sistema');
         $this->set('icon', 'fingerprint');
         $this->set('auditoria', $trilha);
@@ -116,7 +116,7 @@ class AuditoriaController extends AppController
             $data_inicial = $this->request->query('data_inicial');
             $data_final = $this->request->query('data_final');
             $ip = $this->request->query('ip');
-            
+
             if($responsavel != '')
             {
                 if($responsavel == 0)
@@ -147,7 +147,7 @@ class AuditoriaController extends AppController
         }
 
         $trilha = $t_auditoria->find('all', [
-            'contain' => ['Usuario' => ['Pessoa']], 
+            'contain' => ['Usuario' => ['Responsavel']],
             'conditions' => $condicoes,
             'order' => [
                 'data' => 'DESC'
@@ -164,7 +164,7 @@ class AuditoriaController extends AppController
 
         $this->Auditoria->registrar($auditoria);
 
-        if ($this->request->session()->read('UsuarioSuspeito')) 
+        if ($this->request->session()->read('UsuarioSuspeito'))
         {
             $this->Monitoria->monitorar($auditoria);
         }
@@ -185,7 +185,7 @@ class AuditoriaController extends AppController
 
         if($registro->usuario != null && $registro->usuario > 0)
         {
-            $registro = $t_auditoria->loadInto($registro, ['Usuario' => ['GrupoUsuario', 'Pessoa']]);
+            $registro = $t_auditoria->loadInto($registro, ['Usuario' => ['GrupoUsuario', 'Responsavel']]);
         }
 
         $auditoria = [
@@ -197,7 +197,7 @@ class AuditoriaController extends AppController
 
         $this->Auditoria->registrar($auditoria);
 
-        if ($this->request->session()->read('UsuarioSuspeito')) 
+        if ($this->request->session()->read('UsuarioSuspeito'))
         {
             $this->Monitoria->monitorar($auditoria);
         }
@@ -211,7 +211,7 @@ class AuditoriaController extends AppController
     public function documento(int $id)
     {
         $t_auditoria = TableRegistry::get('Auditoria');
-        
+
         $registro = $t_auditoria->get($id);
 
         if($registro->usuario != null && $registro->usuario > 0)
@@ -230,7 +230,7 @@ class AuditoriaController extends AppController
 
         $this->Auditoria->registrar($auditoria);
 
-        if ($this->request->session()->read('UsuarioSuspeito')) 
+        if ($this->request->session()->read('UsuarioSuspeito'))
         {
             $this->Monitoria->monitorar($auditoria);
         }
@@ -243,7 +243,7 @@ class AuditoriaController extends AppController
 
     public function delete($id)
     {
-        try 
+        try
         {
             $t_auditoria = TableRegistry::get('Auditoria');
 
@@ -263,15 +263,15 @@ class AuditoriaController extends AppController
 
             $this->Auditoria->registrar($auditoria);
 
-            if ($this->request->session()->read('UsuarioSuspeito')) 
+            if ($this->request->session()->read('UsuarioSuspeito'))
             {
                 $this->Monitoria->monitorar($auditoria);
             }
 
             $this->redirect(['action' => 'index']);
-            
-        } 
-        catch (Exception $ex) 
+
+        }
+        catch (Exception $ex)
         {
             $this->Flash->exception('Ocorreu um erro no sistema ao excluir o registro.', [
                 'params' => [

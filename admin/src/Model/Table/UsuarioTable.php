@@ -18,6 +18,13 @@ class UsuarioTable extends BaseTable
             'joinType' => 'INNER'
         ]);
 
+        $this->belongsTo('Responsavel', [
+            'className' => 'Pessoa',
+            'foreignKey' => 'pessoa',
+            'propertyName' => 'pessoa',
+            'joinType' => 'LEFT OUTER'
+        ]);
+
         $this->belongsTo('GrupoUsuario', [
             'className' => 'GrupoUsuario',
             'foreignKey' => 'grupo',
