@@ -53,6 +53,9 @@
                             </div>
                             <div class="form-group form-button">
                             <button type="submit" onclick="return validar()" class="btn btn-fill btn-success pull-right">Buscar<div class="ripple-container"></div></button>
+                            <?php if ($this->Membership->handleRole("castro_interno_ouvidoria")): ?>
+                                <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'cadastro']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                            <?php endif; ?>
                             <a href="<?= $this->Url->build(['controller' => 'Ouvidoria', 'action' => 'imprimir', '?' => $data]) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                             </div>
                          <?php echo $this->Form->end(); ?>
