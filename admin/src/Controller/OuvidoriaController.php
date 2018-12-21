@@ -303,6 +303,23 @@ class OuvidoriaController extends AppController
         $this->set('manifestantes', $manifestantes);
     }
 
+    public function save()
+    {
+        if ($this->request->is('post'))
+        {
+            $t_manifestacao = TableRegistry::get('Manifestacao');
+            $t_manifestante = TableRegistry::get('Manifestante');
+            $t_historico = TableRegistry::get('Historico');
+
+            $assunto = $this->request->getData('assunto');
+            $prioridade = $this->request->getData('prioridade');
+            $tipo = $this->request->getData('tipo');
+            $mensagem = $this->request->getData('mensagem');
+            $observacao = $this->request->getData('observacao');
+            $manifestante = $this->request->getData('manifestante');
+        }
+    }
+
     public function resposta(int $id)
     {
         if ($this->request->is('post'))
