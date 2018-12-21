@@ -1,3 +1,4 @@
+<?= $this->Html->script('select2.min', ['block' => 'scriptBottom']) ?>
 <?= $this->Html->script('controller/ouvidoria.cadastro.js', ['block' => 'scriptBottom']) ?>
 <div class="content">
     <div class="container-fluid">
@@ -26,6 +27,7 @@
                                 'message' => 'Foi detectado que existem informações não salvas dentro do cache de seu navegador. Clique em restaurar para recuperar esses dados e continuar com o cadastro ou clique em deecartar para excluir estes dados. Nenhuma das opções afetam em nada no banco de dados.'
                             ]) ?>
                             <?= $this->Flash->render() ?>
+                            <?= $this->Form->hidden("tipos", ["value" => $tipos_chamado]) ?>
                             <legend>Dados da Manifestação</legend>
                             <div class="row">
                                 <div class="col-md-8">
@@ -115,7 +117,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group label-control">
                                             <?= $this->Form->label("endereco", "Endereço Completo") ?>
-                                            <?= $this->Form->text("endereco", ["id" => "endereco", "class" => "form-control", "maxlength" => 15]) ?>
+                                            <?= $this->Form->text("endereco", ["id" => "endereco", "class" => "form-control", "maxlength" => 150]) ?>
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
@@ -150,7 +152,7 @@
                                     <div class="col-md-8">
                                         <div class="form-group label-control">
                                             <?= $this->Form->label("endereco", "Endereço") ?>
-                                            <?= $this->Form->text("endereco", ["id" => "endereco", "class" => "form-control", "maxlength" => 15]) ?>
+                                            <?= $this->Form->text("endereco", ["id" => "endereco", "class" => "form-control", "maxlength" => 150]) ?>
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
@@ -171,7 +173,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group label-control">
                                             <?= $this->Form->label("bairro", "Bairro") ?>
-                                            <?= $this->Form->text("bairro", ["id" => "bairro", "class" => "form-control", "maxlength" => 15]) ?>
+                                            <?= $this->Form->text("bairro", ["id" => "bairro", "class" => "form-control", "maxlength" => 50]) ?>
                                             <span class="material-input"></span>
                                         </div>
                                     </div>

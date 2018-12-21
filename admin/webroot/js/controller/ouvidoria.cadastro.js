@@ -4,6 +4,8 @@ $(function () {
     $("#tipo").change(function () {
         tratarTipoManifestacao($(this).val());
     });
+
+    $("#manifestante").select2();
 });
 
 function tratarTipoManifestacao(tipo) {
@@ -15,7 +17,10 @@ function tratarTipoManifestacao(tipo) {
             $("#panel_novo_iluminacao").hide();
             $("#panel_novo_geral").show();
         } else {
-            toggleManifestante();
+            $("#panel_novo_iluminacao").hide();
+            $("#panel_novo_geral").hide();
+            $("#panel_escolha").show();
+            novoManifestante = false;
         }
     }
 }
@@ -46,12 +51,21 @@ function toggleManifestante() {
 function tratarTipoManifestacaoCadastro() {
     swal({
         title: "Qual é o tipo de ouvidoria?",
-        html: "Antes de cadastrar o novo manifestante, primeiro precisa selecionar o tipo de ouvidoria. Selecione na combo abaixo.",
+        html: "Antes de cadastrar o novo manifestante, primeiro precisa selecionar o tipo de ouvidoria. Selecione o opção abaixo. Caso queira apenas selecionar um manifestante, clique em cancelar e escolha um manifestante.",
         type: 'warning',
+        input: 'select',
+        inputOptions: {
+            'GR': 'Geral',
+            'IP': 'Iluminação Pública'
+        },
         showCancelButton: true,
         confirmButtonClass: 'btn btn-success',
         cancelButtonClass: 'btn btn-danger',
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancelar'
-    });
+    }).then(function (result) {
+        $("#tipo").val(result);
+        toggleManifestante();
+    });;
+
 }
