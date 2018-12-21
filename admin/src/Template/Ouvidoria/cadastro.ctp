@@ -182,7 +182,7 @@
 
                             <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Salvar</button>
                             <button type="reset" class="btn btn-default pull-right">Limpar</button>
-                            <button type="button" onclick="window.location='<?= $this->Url->build('/licitacoes') ?>'" class="btn btn-info pull-right">Voltar</button>
+                            <button type="button" onclick="window.location='<?= $this->Url->build('/ouvidoria') ?>'" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
