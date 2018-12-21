@@ -298,6 +298,7 @@ class OuvidoriaController extends AppController
         $this->set('title', 'Nova Manifestação da Ouvidoria');
         $this->set('icon', 'hearing');
         $this->set('combo_tipo', $tipo_chamado);
+        $this->set('tipos_chamado', json_encode($tipo_chamado));
         $this->set('prioridades', $prioridades);
         $this->set('manifestantes', $manifestantes);
     }
