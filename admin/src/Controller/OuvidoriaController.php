@@ -313,6 +313,8 @@ class OuvidoriaController extends AppController
 
             $atendido = Configure::read('Ouvidoria.status.definicoes.atendido');
             $auditoria = array();
+            $notificar = false;
+            $manifestante = null;
 
             $assunto = $this->request->getData('assunto');
             $prioridade = $this->request->getData('prioridade');
@@ -370,10 +372,13 @@ class OuvidoriaController extends AppController
                 $auditoria['dados_manifestante'] = $manifestante->getOriginalValues();
                 $t_manifestante->save($manifestante);
                 $manifestacao->manifestante = $manifestante->id;
+                $notificar = ($email != '');
             }
             else
             {
                 $manifestacao->manifestante = $codigo_manifestante;
+                $manifestante = $t_manifestante->get($codigo_manifestante);
+                $notificar = ($manifestante->email != '');
             }
 
             $auditoria['dados_manifestacao'] = $manifestacao->getOriginalValues();
@@ -385,13 +390,38 @@ class OuvidoriaController extends AppController
                 $historico->mensagem = nl2br($observacao);
                 $historico->data = date("Y-m-d H:i:s");
                 $historico->manifestacao = $manifestacao->id;
-                $historico->notificar = false;
+                $historico->notificar = $notificar;
                 $historico->resposta = true;
                 $historico->status = $atendido;
                 $historico->prioridade = $prioridade;
 
                 $auditoria['dados_historico'] = $historico->getOriginalValues();
                 $t_historico->save($historico);
+            }
+
+            if($notificar)
+            {
+                $codigo = $this->Format->zeroPad($manifestacao->id);
+                $prazo = Configure::read('Ouvidoria.prazo');
+
+                $titulo = "Nova Manifestação da Ouvidoria: $codigo";
+
+                $header = array(
+                    'name' => 'Sistema Coqueiral',
+                    'from' => 'system@coqueiral.mg.gov.br',
+                    'to' => $manifestante->email,
+                    'subject' => $titulo
+                );
+
+                $params = array(
+                    'prazo' => $prazo,
+                    'assunto' => $manifestacao->assunto,
+                    'mensagem' => $manifestacao->texto,
+                    'id' => $manifestacao->id,
+                    'codigo' => $codigo
+                );
+
+                $this->Sender->sendEmailTemplate($header, 'ouvidoria', $params);
             }
 
             $this->Flash->greatSuccess('A nova manifestação foi inserida com sucesso.');
