@@ -253,7 +253,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 				<tr>
 					<td>
 						<p class="lead">Muito obrigado por entrar em contato conosco! </p>
-						<p class="lead">Percebemos que você realizou um atendimento presencial, e o atendente gerou um chamado pra você. A <b>Prefeitura Municipal de Coqueiral</b> irá tomar devidas providências necessárias e te responderá dentro do prazo de <?=$prazo?> dias úteis. Você pode acompanhar pessoalmente ou via site.</p>
+						<p class="lead">Percebemos que você realizou um atendimento presencial ou por telefone, e o atendente gerou um chamado pra você. A <b>Prefeitura Municipal de Coqueiral</b> irá tomar devidas providências necessárias e te responderá dentro do prazo de <?=$prazo?> dias úteis. Você pode acompanhar pessoalmente ou via site.</p>
 						<p class="lead">Utilize o código fornecido abaixo, para verificar o andamento de sua manifestação, no próprio site.</p>
 						<p class="lead">Para verificar o andamento, <a href="https://www.coqueiral.mg.gov.br/ouvidoria/manifestacao/<?=$id?>">Clique aqui</a>.</p>
 
