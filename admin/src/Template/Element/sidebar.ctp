@@ -143,6 +143,32 @@
                     </div>
                 </li>
             <?php endif; ?>
+            <?php if ($this->Membership->handleSubmenus("listar_perguntas", "listar_categorias_perguntas")): ?>
+                <li>
+                    <a data-toggle="collapse" href="#faq">
+                    <i class="material-icons">device_unknown</i>
+                    <p>Perguntas Frequentes <b class="caret"></b></p>
+                    </a>
+                    <div class="collapse" id="faq" aria-expanded="true" style="padding: 0 0 0 40px">
+                        <ul class="nav">
+                            <?php if ($this->Membership->handleMenu("listar_perguntas")): ?>
+                                <li class="<?= $this->Menu->activeMenu(['controller' => 'ouvidoria', 'action' => 'index']) ?>">
+                                    <a href="<?= $this->Url->build('/faq') ?>">
+                                        Perguntas
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($this->Membership->handleMenu("listar_categorias_perguntas")): ?>
+                                <li class="<?= $this->Menu->activeMenu(['controller' => 'ouvidoria', 'action' => 'manifestantes']) ?>">
+                                    <a href="<?= $this->Url->build(['faq' => 'ouvidoria', 'action' => 'categorias']) ?>">
+                                        Categorias
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </li>
+            <?php endif; ?>
             <?php if ($this->Membership->handleMenu("secretarias")): ?>
                 <li class="<?= $this->Menu->activeMenu(['controller' => 'secretarias']) ?>">
                     <a href="<?= $this->Url->build('/secretarias') ?>">
