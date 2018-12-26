@@ -162,6 +162,9 @@
                                                 <?php if ($this->Membership->handleRole("consultar_manifestacoes")): ?>
                                                     <a href="<?= $this->Url->build(['controller' => 'ouvidoria', 'action' => 'index']) ?>" class="btn btn-default btn-info">Ver Todas as Manifestações</a>
                                                 <?php endif; ?>
+                                                <?php if ($this->Membership->handleRole("castro_interno_ouvidoria")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'ouvidoria', 'action' => 'cadastro']) ?>" class="btn btn-warning btn-info">Nova Manifestação</a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     </tfoot>
