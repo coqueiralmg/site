@@ -311,12 +311,106 @@ class OuvidoriaController extends AppController
             $t_manifestante = TableRegistry::get('Manifestante');
             $t_historico = TableRegistry::get('Historico');
 
+            $atendido = Configure::read('Ouvidoria.status.definicoes.atendido');
+            $auditoria = array();
+
             $assunto = $this->request->getData('assunto');
             $prioridade = $this->request->getData('prioridade');
             $tipo = $this->request->getData('tipo');
             $mensagem = $this->request->getData('mensagem');
             $observacao = $this->request->getData('observacao');
-            $manifestante = $this->request->getData('manifestante');
+
+            $codigo_manifestante = $this->request->getData('manifestante');
+
+            $nome = $email = $telefone = $endereco = $numero = $complemento = $bairro = "";
+
+            if($tipo = 'GR')
+            {
+                $nome = $this->request->getData('gr-nome');
+                $email = $this->request->getData('gr-email');
+                $telefone = $this->request->getData('gr-telefone');
+                $endereco = $this->request->getData('gr-endereco');
+            }
+            elseif($tipo = 'IP')
+            {
+                $nome = $this->request->getData('ip-nome');
+                $email = $this->request->getData('ip-email');
+                $telefone = $this->request->getData('ip-telefone');
+                $endereco = $this->request->getData('ip-endereco');
+                $numero = $this->request->getData('ip-numero');
+                $complemento = $this->request->getData('ip-complemento');
+                $bairro = $this->request->getData('ip-bairro');
+            }
+
+            $manifestacao = $t_manifestacao->newEntity();
+            $manifestacao->assunto = $assunto;
+            $manifestacao->prioridade = $prioridade;
+            $manifestacao->tipo = $tipo;
+            $manifestacao->texto = nl2br($mensagem);
+            $manifestacao->status = $atendido;
+            $manifestacao->data = date("Y-m-d H:i:s");
+            $manifestacao->ip = $_SERVER['REMOTE_ADDR'];
+
+            if($codigo_manifestante == null || $codigo_manifestante == 0)
+            {
+                $manifestante = $t_manifestante->newEntity();
+                $manifestante->nome = $nome;
+                $manifestante->email = $email;
+                $manifestante->telefone = $telefone;
+                $manifestante->endereco = $endereco;
+                $manifestante->bloqueado = false;
+
+                if($tipo == 'IP')
+                {
+                    $manifestante->numendereco = $numero;
+                    $manifestante->complemento = $complemento;
+                    $manifestante->bairro = $bairro;
+                }
+
+                $auditoria['dados_manifestante'] = $manifestante->getOriginalValues();
+                $t_manifestante->save($manifestante);
+                $manifestacao->manifestante = $manifestante->id;
+            }
+            else
+            {
+                $manifestacao->manifestante = $codigo_manifestante;
+            }
+
+            $auditoria['dados_manifestacao'] = $manifestacao->getOriginalValues();
+            $t_manifestacao->save($manifestacao);
+
+            if($observacao != "")
+            {
+                $historico = $t_historico->newEntity();
+                $historico->mensagem = nl2br($observacao);
+                $historico->data = date("Y-m-d H:i:s");
+                $historico->manifestacao = $manifestacao->id;
+                $historico->notificar = false;
+                $historico->resposta = true;
+                $historico->status = $atendido;
+                $historico->prioridade = $prioridade;
+
+                $auditoria['dados_historico'] = $historico->getOriginalValues();
+                $t_historico->save($historico);
+            }
+
+            $this->Flash->greatSuccess('A nova manifestação foi inserida com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 81,
+                'descricao' => 'O usuário realizou um cadastro interno da ouvidoria.',
+                'dado_adicional' => json_encode(['id_nova_manifestacao' => $manifestacao->id, 'dados' => $auditoria]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'manifestacao', $manifestacao->id]);
         }
     }
 
