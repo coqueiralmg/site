@@ -143,7 +143,7 @@
                     </div>
                 </li>
             <?php endif; ?>
-            <?php if ($this->Membership->handleSubmenus("listar_perguntas", "listar_categorias_perguntas")): ?>
+            <?php if ($this->Membership->handleSubmenus("faq", "categoria_faq")): ?>
                 <li>
                     <a data-toggle="collapse" href="#faq">
                     <i class="material-icons">device_unknown</i>
@@ -151,16 +151,16 @@
                     </a>
                     <div class="collapse" id="faq" aria-expanded="true" style="padding: 0 0 0 40px">
                         <ul class="nav">
-                            <?php if ($this->Membership->handleMenu("listar_perguntas")): ?>
+                            <?php if ($this->Membership->handleMenu("faq")): ?>
                                 <li class="<?= $this->Menu->activeMenu(['controller' => 'ouvidoria', 'action' => 'index']) ?>">
                                     <a href="<?= $this->Url->build('/faq') ?>">
                                         Perguntas
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($this->Membership->handleMenu("listar_categorias_perguntas")): ?>
+                            <?php if ($this->Membership->handleMenu("categoria_faq")): ?>
                                 <li class="<?= $this->Menu->activeMenu(['controller' => 'ouvidoria', 'action' => 'manifestantes']) ?>">
-                                    <a href="<?= $this->Url->build(['faq' => 'ouvidoria', 'action' => 'categorias']) ?>">
+                                    <a href="<?= $this->Url->build(['controller' => 'faq', 'action' => 'categorias']) ?>">
                                         Categorias
                                     </a>
                                 </li>
