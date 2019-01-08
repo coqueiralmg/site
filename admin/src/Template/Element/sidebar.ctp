@@ -152,14 +152,14 @@
                     <div class="collapse" id="faq" aria-expanded="true" style="padding: 0 0 0 40px">
                         <ul class="nav">
                             <?php if ($this->Membership->handleMenu("faq")): ?>
-                                <li class="<?= $this->Menu->activeMenu(['controller' => 'ouvidoria', 'action' => 'index']) ?>">
+                                <li class="<?= $this->Menu->activeMenu(['controller' => 'faq', 'action' => 'index']) ?>">
                                     <a href="<?= $this->Url->build('/faq') ?>">
                                         Perguntas
                                     </a>
                                 </li>
                             <?php endif; ?>
                             <?php if ($this->Membership->handleMenu("categoria_faq")): ?>
-                                <li class="<?= $this->Menu->activeMenu(['controller' => 'ouvidoria', 'action' => 'manifestantes']) ?>">
+                                <li class="<?= $this->Menu->activeMenu(['controller' => 'faq', 'action' => 'categorias']) ?>">
                                     <a href="<?= $this->Url->build(['controller' => 'faq', 'action' => 'categorias']) ?>">
                                         Categorias
                                     </a>
