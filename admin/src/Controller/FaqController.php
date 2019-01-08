@@ -72,4 +72,26 @@ class FaqController extends AppController
         $this->set('icon', 'device_unknown');
         $this->set('id', $id);
     }
+
+    public function post(int $id)
+    {
+        if ($this->request->is('post'))
+        {
+            $this->insertCategory();
+        }
+        else if($this->request->is('put'))
+        {
+            $this->updateCategory($id);
+        }
+    }
+
+    private function insertCategory()
+    {
+
+    }
+
+    private function updateCategory(int $id)
+    {
+
+    }
 }
