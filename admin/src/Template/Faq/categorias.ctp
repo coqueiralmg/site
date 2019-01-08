@@ -6,10 +6,10 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="form-group form-button">
-                        <?php if ($this->Membership->handleRole("adicionar_legislacao")): ?>
-                            <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'add']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
+                        <?php if ($this->Membership->handleRole("adicionar_categorias_perguntas")): ?>
+                            <a href="<?= $this->Url->build(['controller' => 'faq', 'action' => 'insert']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
                         <?php endif; ?>
-                        <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'imprimir']) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
+                        <a href="<?= $this->Url->build(['controller' => 'faq', 'action' => 'lista']) ?>" target="_blank" class="btn btn-fill btn-default pull-right">Imprimir<div class="ripple-container"></div></a>
                         </div>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content table-responsive">
-                        <?php if(count($legislacao) > 0):?>
+                        <?php if(count($categorias) > 0):?>
                             <h4 class="card-title">Lista de Publicações</h4>
                             <table class="table">
                                 <thead class="text-primary">
@@ -53,8 +53,8 @@
                                 </tbody>
                             </table>
                         <?php else: ?>
-                            <?php if ($this->Membership->handleRole("adicionar_legislacao")): ?>
-                                <h3>Nenhum item encontrado. Para adicionar nova legislação, <?=$this->Html->link("clique aqui", ["controller" => "legislacao", "action" => "add"])?>.</h3>
+                            <?php if ($this->Membership->handleRole("adicionar_categorias_perguntas")): ?>
+                                <h3>Nenhum item encontrado. Para adicionar a nova categoria de perguntas, <?=$this->Html->link("clique aqui", ["controller" => "faq", "action" => "insert"])?>.</h3>
                             <?php else:?>
                                 <h3>Nenhum item encontrado.</h3>
                             <?php endif; ?>
