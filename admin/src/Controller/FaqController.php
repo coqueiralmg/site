@@ -25,10 +25,51 @@ class FaqController extends AppController
 
     public function categorias()
     {
-        $t_categoria = TableRegistry::get('Categoria');
+        $t_categorias = TableRegistry::get('Categoria');
         $limite_paginacao = Configure::read('Pagination.limit');
+
+        $this->paginate = [
+            'limit' => $limite_paginacao
+        ];
+
+        $categorias = $this->paginate($t_categorias);
+        $qtd_total = $t_categorias->find('all')->count();
 
         $this->set('title', 'Categorias de Perguntas');
         $this->set('icon', 'device_unknown');
+        $this->set('categorias', $categorias);
+        $this->set('qtd_total', $qtd_total);
+        $this->set('limit_pagination', $limite_paginacao);
+    }
+
+    public function insert()
+    {
+        $this->redirect(['action' => 'categoria', 0]);
+    }
+
+    public function editar(int $id)
+    {
+        $this->redirect(['action' => 'categoria', $id]);
+    }
+
+    public function categoria(int $id)
+    {
+        $title = ($id > 0) ? 'Edição da Categoria de Perguntas' : 'Nova Categoria de Perguntas';
+
+        $t_categorias = TableRegistry::get('Categoria');
+
+        if($id > 0)
+        {
+            $categoria = $t_categorias->get($id);
+            $this->set('categoria', $categoria);
+        }
+        else
+        {
+            $this->set('categoria', null);
+        }
+
+        $this->set('title', $title);
+        $this->set('icon', 'device_unknown');
+        $this->set('id', $id);
     }
 }
