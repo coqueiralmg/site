@@ -83,7 +83,10 @@ return [
             78 => 'Alteração do Anexo da Licitação',
             79 => 'Exclusão do Anexo da Licitação',
             80 => 'Migração de Licitação',
-            81 => 'Cadastro Interno da Ouvidoria'
+            81 => 'Cadastro Interno da Ouvidoria',
+            82 => 'Inclusão de Categoria de Perguntas e Respostas',
+            83 => 'Alteração de Categoria de Perguntas e Respostas',
+            84 => 'Exclusão de Categoria de Perguntas e Respostas'
         ]
     ]
 ];
