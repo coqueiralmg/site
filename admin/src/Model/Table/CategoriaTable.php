@@ -8,5 +8,6 @@ class CategoriaTable extends BaseTable
     {
         $this->table('categorias_perguntas');
         $this->primaryKey('id');
+        $this->entityClass('Categoria');
     }
 }
