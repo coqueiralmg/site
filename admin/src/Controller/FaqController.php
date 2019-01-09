@@ -87,11 +87,84 @@ class FaqController extends AppController
 
     private function insertCategory()
     {
+        try
+        {
+            $t_categorias = TableRegistry::get('Categoria');
+            $entity = $t_categorias->newEntity($this->request->data());
 
+            $t_categorias->save($entity);
+            $this->Flash->greatSuccess('A categoria de perguntas e respostas foi salva com sucesso.');
+
+            $propriedades = $entity->getOriginalValues();
+
+            $auditoria = [
+                'ocorrencia' => 82,
+                'descricao' => 'O usuário criou uma categoria de perguntas e respostas.',
+                'dado_adicional' => json_encode(['id_nova_categoria' => $entity->id, 'dados_categoria' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'categoria', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a categoria de perguntas', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'categoria', 0]);
+        }
     }
 
     private function updateCategory(int $id)
     {
+        try
+        {
+            $t_categorias = TableRegistry::get('Categoria');
+            $entity = $t_categorias->get($id);
 
+            $t_categorias->patchEntity($entity, $this->request->data());
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_categorias->save($entity);
+            $this->Flash->greatSuccess('A categoria de perguntas e respostas foi salva com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 83,
+                'descricao' => 'O usuário editou uma categoria de perguntas e respostas.',
+                'dado_adicional' => json_encode(['categoria_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'categoria', $id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a categoria de perguntas', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'categoria', $id]);
+        }
     }
 }
