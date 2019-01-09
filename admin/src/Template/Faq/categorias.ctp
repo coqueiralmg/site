@@ -5,6 +5,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
+                         <?= $this->Flash->render() ?>
                         <div class="form-group form-button">
                         <?php if ($this->Membership->handleRole("adicionar_categorias_perguntas")): ?>
                             <a href="<?= $this->Url->build(['controller' => 'faq', 'action' => 'insert']) ?>" class="btn btn-warning btn-default pull-right">Novo<div class="ripple-container"></div></a>
@@ -18,34 +19,28 @@
                 <div class="card">
                     <div class="card-content table-responsive">
                         <?php if(count($categorias) > 0):?>
-                            <h4 class="card-title">Lista de Publicações</h4>
+                            <h4 class="card-title">Lista de Categorias</h4>
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
-                                        <th>Número</th>
-                                        <th>Título</th>
-                                        <th style="width: 15%">Data</th>
-                                        <th>Destaque</th>
+                                        <th>Nome</th>
                                         <th>Ativo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($legislacao as $legislacao): ?>
+                                    <?php foreach ($categorias as $categoria): ?>
                                         <tr>
-                                            <td><?=$legislacao->numero?></td>
-                                            <td><?=$legislacao->titulo?></td>
-                                            <td><?= $this->Format->date($legislacao->data, true) ?></td>
-                                            <td><?= $legislacao->destacado ?></td>
-                                            <td><?= $legislacao->ativado ?></td>
+                                            <td><?=$categoria->nome?></td>
+                                            <td><?= $categoria->ativado ?></td>
                                             <td class="td-actions text-right" style="width: 8%">
-                                                <?php if ($this->Membership->handleRole("editar_legislacao")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Legislacao', 'action' => 'edit', $legislacao->id]) ?>" class="btn btn-primary btn-round">
+                                                <?php if ($this->Membership->handleRole("editar_categorias_perguntas")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'faq', 'action' => 'editar', $categoria->id]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
-                                                <?php if ($this->Membership->handleRole("excluir_legislacao")): ?>
-                                                    <button type="button" onclick="excluir(<?= $legislacao->id ?>, '<?= $legislacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php if ($this->Membership->handleRole("excluir_categorias_perguntas")): ?>
+                                                    <button type="button" onclick="excluirCategoriaPergunta(<?= $categoria->id ?>, '<?= $categoria->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
