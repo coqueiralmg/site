@@ -85,6 +85,60 @@ class FaqController extends AppController
         }
     }
 
+    public function drop(int $id)
+    {
+        try
+        {
+            $t_categorias = TableRegistry::get('Categoria');
+            $t_perguntas = TableRegistry::get('Pergunta');
+
+            $qtd_perguntas = $t_perguntas->find('all', [
+                'conditions' => [
+                    'categoria' => $id
+                ]
+            ])->count();
+
+            if($qtd_perguntas > 0)
+            {
+                throw new Exception('Esta categoria de perguntas e respostas não pode ser excluída, porque existem perguntas associadas a esta. Verifique as perguntas associadas ou deixe o mesma categoria inativa.');
+            }
+
+            $marcado = $t_categorias->get($id);
+            $nome = $marcado->nome;
+            $propriedades = $marcado->getOriginalValues();
+
+            $t_categorias->delete($marcado);
+
+            $this->Flash->greatSuccess('A categoria ' . $nome . ' foi excluída com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 84,
+                'descricao' => 'O usuário excluiu uma categoria de perguntas e respostas.',
+                'dado_adicional' => json_encode(['categoria_excluida' => $id, 'dados_categoria_excluida' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'categorias']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir uma categoria de perguntas e respostas.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'categorias']);
+        }
+    }
+
     private function insertCategory()
     {
         try
