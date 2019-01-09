@@ -42,6 +42,33 @@ class FaqController extends AppController
         $this->set('limit_pagination', $limite_paginacao);
     }
 
+    public function lista()
+    {
+        $t_categorias = TableRegistry::get('Categoria');
+        $categorias = $t_categorias->find();
+        $qtd_total = $categorias->count();
+
+         $auditoria = [
+            'ocorrencia' => 9,
+            'descricao' => 'O usuário solicitou a impressão da listagem de categoria de perguntas e respostas.',
+            'usuario' => $this->request->session()->read('UsuarioID')
+        ];
+
+        $this->Auditoria->registrar($auditoria);
+
+        if ($this->request->session()->read('UsuarioSuspeito'))
+        {
+            $this->Monitoria->monitorar($auditoria);
+        }
+
+        $this->viewBuilder()->layout('print');
+
+        $this->set('title', 'Categorias de Perguntas');
+        $this->set('icon', 'device_unknown');
+        $this->set('categorias', $categorias);
+        $this->set('qtd_total', $qtd_total);
+    }
+
     public function insert()
     {
         $this->redirect(['action' => 'categoria', 0]);
