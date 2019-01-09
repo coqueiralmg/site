@@ -147,7 +147,7 @@
                 <li>
                     <a data-toggle="collapse" href="#faq">
                     <i class="material-icons">device_unknown</i>
-                    <p>Perguntas Frequentes <b class="caret"></b></p>
+                    <p>Perguntas e Respostas <b class="caret"></b></p>
                     </a>
                     <div class="collapse" id="faq" aria-expanded="true" style="padding: 0 0 0 40px">
                         <ul class="nav">
