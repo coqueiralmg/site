@@ -8,5 +8,13 @@ class PerguntaTable extends BaseTable
     {
         $this->table('perguntas');
         $this->primaryKey('id');
+        $this->entityClass('Pergunta');
+
+        $this->belongsTo('Categoria', [
+            'className' => 'Categoria',
+            'foreignKey' => 'categoria',
+            'propertyName' => 'categoria',
+            'joinType' => 'INNER'
+        ]);
     }
 }
