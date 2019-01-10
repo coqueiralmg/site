@@ -20,7 +20,7 @@
                              <?=$this->element('message', [
                                 'name' => 'cadastro_erro',
                                 'type' => 'error',
-                                'message' => 'Ocorreu um erro ao salvar a categoria de perguntas',
+                                'message' => 'Ocorreu um erro ao salvar a pergunta.',
                                 'details' => ''
                             ]) ?>
                             <?=$this->element('message', [
@@ -53,14 +53,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->Form->label("categoria", "Categoria") ?>
-                                        <?=$this->Form->select('categoria', $combo_categorias, ['class' => 'form-control', 'empty' => true])?>
+                                        <?=$this->Form->select('categoria', $combo_categorias, ['id' => 'categoria', 'class' => 'form-control', 'empty' => true])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->Form->label("tipo_ouvidoria", "Gatilho de Ouvidoria") ?>
-                                        <?=$this->Form->select('tipo_ouvidoria', $combo_ouvidoria, ['class' => 'form-control'])?>
+                                        <?=$this->Form->select('tipo_ouvidoria', $combo_ouvidoria, ['id' => 'tipo_ouvidoria', 'class' => 'form-control'])?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
