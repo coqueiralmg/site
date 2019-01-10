@@ -96,6 +96,53 @@ class FaqController extends AppController
         $this->set('data', $data);
     }
 
+    public function add()
+    {
+        $this->redirect(['action' => 'cadastro', 0]);
+    }
+
+    public function edit(int $id)
+    {
+        $this->redirect(['action' => 'cadastro', $id]);
+    }
+
+    public function cadastro(int $id)
+    {
+        $title = ($id > 0) ? 'Edição da Pergunta' : 'Nova Pergunta';
+        $t_perguntas = TableRegistry::get('Pergunta');
+        $t_categorias = TableRegistry::get('Categoria');
+
+        if($id > 0)
+        {
+            $pergunta = $t_perguntas->get($id);
+            $this->set('pergunta', $pergunta);
+        }
+        else
+        {
+            $this->set('pergunta', null);
+        }
+
+        $combo_categorias = $t_categorias->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'order' => [
+                'nome' => 'ASC'
+            ]
+        ]);
+
+        $combo_ouvidoria = [
+            'NN' => 'Nenhum',
+            'GR' => 'Geral',
+            'IP' => 'Iluminação Pública'
+        ];
+
+        $this->set('title', $title);
+        $this->set('icon', 'device_unknown');
+        $this->set('combo_categorias', $combo_categorias);
+        $this->set('combo_ouvidoria', $combo_ouvidoria);
+        $this->set('id', $id);
+    }
+
     public function categorias()
     {
         $t_categorias = TableRegistry::get('Categoria');
