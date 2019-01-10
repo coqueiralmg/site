@@ -19,8 +19,81 @@ class FaqController extends AppController
 
     public function index()
     {
+        $t_perguntas = TableRegistry::get('Pergunta');
+        $t_categorias = TableRegistry::get('Categoria');
+        $limite_paginacao = Configure::read('Pagination.limit');
+
+        $condicoes = array();
+        $data = array();
+
+        if (count($this->request->getQueryParams()) > 3)
+        {
+            $questao = $this->request->query('questao');
+            $categoria = $this->request->query('categoria');
+            $mostrar = $this->request->query('mostrar');
+
+            if($questao != '')
+            {
+                $condicoes['questao LIKE'] = '%' . $questao . '%';
+            }
+
+            if($categoria != '')
+            {
+                $condicoes['categoria'] = $categoria;
+            }
+
+            if ($mostrar != 'T')
+            {
+                $condicoes["ativo"] = ($mostrar == "A") ? "1" : "0";
+            }
+
+            $data['questao'] = $questao;
+            $data['categoria'] = $categoria;
+            $data['mostrar'] = $mostrar;
+
+            $this->request->data = $data;
+        }
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+            'conditions' => $condicoes,
+            'contain' => ['Categoria'],
+            'order' => [
+                'questao' => 'ASC'
+            ]
+        ];
+
+        $perguntas = $this->paginate($t_perguntas);
+        $qtd_total = $t_perguntas->find('all', [
+            'conditions' => $condicoes
+        ])->count();
+
+        $opcao_paginacao = [
+            'name' => 'perguntas',
+            'name_singular' => 'pergunta',
+            'predicate' => 'encontradas',
+            'singular' => 'encontrada'
+        ];
+
+        $combo_categorias = $t_categorias->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'nome',
+            'order' => [
+                'nome' => 'ASC'
+            ]
+        ]);
+
+        $combo_mostra = ["T" => "Todos", "A" => "Somente ativos", "I" => "Somente inativos"];
+
         $this->set('title', 'Perguntas e Respostas');
         $this->set('icon', 'device_unknown');
+        $this->set('perguntas', $perguntas);
+        $this->set('combo_mostra', $combo_mostra);
+        $this->set('combo_categorias', $combo_categorias);
+        $this->set('qtd_total', $qtd_total);
+        $this->set('limit_pagination', $limite_paginacao);
+        $this->set('opcao_paginacao', $opcao_paginacao);
+        $this->set('data', $data);
     }
 
     public function categorias()
