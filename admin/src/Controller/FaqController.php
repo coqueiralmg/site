@@ -199,6 +199,18 @@ class FaqController extends AppController
         $this->redirect(['action' => 'categoria', $id]);
     }
 
+    public function save(int $id)
+    {
+        if ($this->request->is('post'))
+        {
+            $this->insertQuestion();
+        }
+        elseif ($this->request->is('put'))
+        {
+            $this->updateQuestion($id);
+        }
+    }
+
     public function categoria(int $id)
     {
         $title = ($id > 0) ? 'Edição da Categoria de Perguntas' : 'Nova Categoria de Perguntas';
@@ -283,6 +295,96 @@ class FaqController extends AppController
             ]);
 
             $this->redirect(['action' => 'categorias']);
+        }
+    }
+
+    private function insertQuestion()
+    {
+        try
+        {
+            $t_perguntas = TableRegistry::get('Pergunta');
+            $entity = $t_perguntas->newEntity($this->request->data());
+
+            $entity->categoria = $this->request->getData('categoria');
+            $entity->tipo_ouvidoria = $this->request->getData('tipo_ouvidoria');
+            $entity->visualizacoes = 0;
+
+            $t_perguntas->save($entity);
+            $this->Flash->greatSuccess('A questão foi salva com sucesso.');
+
+            $propriedades = $entity->getOriginalValues();
+
+            $auditoria = [
+                'ocorrencia' => 85,
+                'descricao' => 'O usuário criou uma pergunta.',
+                'dado_adicional' => json_encode(['id_nova_pergunta' => $entity->id, 'dados_pergunta' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $entity->id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a pergunta.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', 0]);
+        }
+    }
+
+    private function updateQuestion(int $id)
+    {
+        try
+        {
+            $t_perguntas = TableRegistry::get('Pergunta');
+            $entity = $t_perguntas->get($id);
+
+            $t_perguntas->patchEntity($entity, $this->request->data());
+
+            $entity->categoria = $this->request->getData('categoria');
+            $entity->tipo_ouvidoria = $this->request->getData('tipo_ouvidoria');
+
+            $propriedades = $this->Auditoria->changedOriginalFields($entity);
+            $modificadas = $this->Auditoria->changedFields($entity, $propriedades);
+
+            $t_perguntas->save($entity);
+            $this->Flash->greatSuccess('A questão foi salva com sucesso.');
+
+            $auditoria = [
+                'ocorrencia' => 86,
+                'descricao' => 'O usuário editou uma pergunta.',
+                'dado_adicional' => json_encode(['pergunta_modificada' => $id, 'valores_originais' => $propriedades, 'valores_modificados' => $modificadas]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'cadastro', $id]);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao salvar a categoria de perguntas', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'cadastro', $id]);
         }
     }
 
