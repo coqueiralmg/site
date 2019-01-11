@@ -67,8 +67,7 @@
                                     <tr>
                                         <th>Questão</th>
                                         <th>Categoria</th>
-                                        <th>Última Atualização</th>
-                                        <th>Visualizações</th>
+                                        <th class="text-right">Visualizações</th>
                                         <th>Ativo</th>
                                         <th></th>
                                     </tr>
@@ -77,18 +76,17 @@
                                     <?php foreach ($perguntas as $pergunta): ?>
                                         <tr>
                                             <td><?=$pergunta->questao?></td>
-                                            <td><?=$pergunta->titulo?></td>
-                                            <td><?=$pergunta->data ?></td>
-                                            <td><?=$pergunta->ativado ?></td>
+                                            <td><?=$pergunta->categoria->nome?></td>
+                                            <td class="text-right"><?=$pergunta->visualizacoes ?></td>
                                             <td><?=$pergunta->ativado ?></td>
                                             <td class="td-actions text-right" style="width: 8%">
-                                                <?php if ($this->Membership->handleRole("editar_publicacao")): ?>
-                                                    <a href="<?= $this->Url->build(['controller' => 'Publicacoes', 'action' => 'edit', $publicacao->id]) ?>" class="btn btn-primary btn-round">
+                                                <?php if ($this->Membership->handleRole("editar_perguntas")): ?>
+                                                    <a href="<?= $this->Url->build(['controller' => 'faq', 'action' => 'edit', $pergunta->id]) ?>" class="btn btn-primary btn-round">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 <?php endif; ?>
-                                                <?php if ($this->Membership->handleRole("excluir_publicacao")): ?>
-                                                    <button type="button" onclick="excluirPublicacao(<?= $publicacao->id ?>, '<?= $publicacao->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                <?php if ($this->Membership->handleRole("excluir_perguntas")): ?>
+                                                    <button type="button" onclick="excluirPublicacao(<?= $pergunta->id ?>, '<?= $pergunta->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
