@@ -26,7 +26,7 @@ class FaqController extends AppController
         $condicoes = array();
         $data = array();
 
-        if (count($this->request->getQueryParams()) > 3)
+        if (count($this->request->getQueryParams()) > 1)
         {
             $questao = $this->request->query('questao');
             $categoria = $this->request->query('categoria');
