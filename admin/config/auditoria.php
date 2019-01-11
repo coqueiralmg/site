@@ -86,7 +86,10 @@ return [
             81 => 'Cadastro Interno da Ouvidoria',
             82 => 'Inclusão de Categoria de Perguntas e Respostas',
             83 => 'Alteração de Categoria de Perguntas e Respostas',
-            84 => 'Exclusão de Categoria de Perguntas e Respostas'
+            84 => 'Exclusão de Categoria de Perguntas e Respostas',
+            85 => 'Inclusão de Pergunta',
+            86 => 'Alteração de Pergunta',
+            87 => 'Exclusão de Pergunta'
         ]
     ]
 ];
