@@ -90,8 +90,8 @@ function validar() {
         $("label[for='categoria']").css("color", "#aaa");
     }
 
-    if ($("#tipo_ouvidoria").val() === "NN") {
-        notificarUsuario("Vale ressaltar que é importante que escolha o tipo de gatilho de ouvidoria, que fará com que o site leve o usuário a um determinado formulário de ouvidoria. Caso salve como \"Nenhum\", o site levará para página inicial de \"Fale Com a Prefeitura\".", "warning")
+    if ($("#tipo_ouvidoria").val() === "NN" && mensagem == "") {
+        notificarUsuario("Vale ressaltar que é importante que se escolha o tipo de gatilho de ouvidoria, que fará com que o site leve o usuário a um determinado formulário de ouvidoria. Caso salve como \"Nenhum\", o site levará para página inicial de \"Fale Com a Prefeitura\".", "warning")
     }
 
     if (mensagem == "") {
