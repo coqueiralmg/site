@@ -71,7 +71,7 @@
                                         <label>Outras Opções</label> <br/>
                                         <div class="togglebutton">
                                             <label>
-                                                <?= $this->Form->checkbox("ativo", ["id" => "destaque"]) ?> Destaque
+                                                <?= $this->Form->checkbox("destaque", ["id" => "destaque"]) ?> Destaque
                                             </label>
                                         </div>
                                         <div class="togglebutton">
@@ -88,7 +88,7 @@
                                 <button type="button" onclick="window.location='<?= $this->Url->build(['action' => 'insert']) ?>'" class="btn btn-warning pull-right">Novo</button>
                             <?php endif; ?>
                             <button type="reset" class="btn btn-default pull-right">Limpar</button>
-                            <button type="button" onclick="window.location='<?= $this->Url->build('/faq/categorias') ?>'" class="btn btn-info pull-right">Voltar</button>
+                            <button type="button" onclick="window.location='<?= $this->Url->build('/faq') ?>'" class="btn btn-info pull-right">Voltar</button>
                             <div class="clearfix"></div>
                         <?php echo $this->Form->end(); ?>
                     </div>
