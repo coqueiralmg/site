@@ -202,6 +202,48 @@ class FaqController extends AppController
         $this->set('id', $id);
     }
 
+    public function delete(int $id)
+    {
+        try
+        {
+            $t_perguntas = TableRegistry::get('Pergunta');
+
+            $marcado = $t_perguntas->get($id);
+            $questao = $marcado->questao;
+            $propriedades = $marcado->getOriginalValues();
+
+            $t_perguntas->delete($marcado);
+
+            $this->Flash->greatSuccess('A pergunta com o título da questão ' . $questao . ' foi excluída com sucesso!');
+
+            $auditoria = [
+                'ocorrencia' => 87,
+                'descricao' => 'O usuário excluiu uma pergunta.',
+                'dado_adicional' => json_encode(['pergunta_excluida' => $id, 'dados_pergunta_excluida' => $propriedades]),
+                'usuario' => $this->request->session()->read('UsuarioID')
+            ];
+
+            $this->Auditoria->registrar($auditoria);
+
+            if($this->request->session()->read('UsuarioSuspeito'))
+            {
+                $this->Monitoria->monitorar($auditoria);
+            }
+
+            $this->redirect(['action' => 'index']);
+        }
+        catch(Exception $ex)
+        {
+            $this->Flash->exception('Ocorreu um erro no sistema ao excluir uma questão.', [
+                'params' => [
+                    'details' => $ex->getMessage()
+                ]
+            ]);
+
+            $this->redirect(['action' => 'index']);
+        }
+    }
+
     public function categorias()
     {
         $t_categorias = TableRegistry::get('Categoria');
