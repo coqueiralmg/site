@@ -86,7 +86,7 @@
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if ($this->Membership->handleRole("excluir_perguntas")): ?>
-                                                    <button type="button" onclick="excluirPublicacao(<?= $pergunta->id ?>, '<?= $pergunta->titulo ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
+                                                    <button type="button" onclick="excluirPergunta(<?= $pergunta->id ?>, '<?= $pergunta->questao ?>')" class="btn btn-danger btn-round"><i class="material-icons">close</i></button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
