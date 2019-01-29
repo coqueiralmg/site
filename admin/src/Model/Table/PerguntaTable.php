@@ -16,5 +16,12 @@ class PerguntaTable extends BaseTable
             'propertyName' => 'categoria',
             'joinType' => 'INNER'
         ]);
+
+        $this->belongsToMany('PerguntaRelacionada', [
+            'joinTable' => 'perguntas_relacionamento',
+            'foreignKey' => 'pergunta_origem',
+            'targetForeignKey' => 'pergunta_relacionada ',
+            'propertyName' => 'relacionadas'
+        ]);
     }
 }
