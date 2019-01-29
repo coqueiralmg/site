@@ -312,6 +312,29 @@ class FaqController extends AppController
         }
     }
 
+    public function relacionamentos(int $id)
+    {
+        $t_perguntas = TableRegistry::get('Pergunta');
+        $pergunta = $t_perguntas->get(id, ['contain' => ['PerguntaRelacionada']]);
+        $relacionadas = $pergunta->relacionadas;
+        $qtd_total = count($relacionadas);
+
+        $opcao_paginacao = [
+            'name' => 'relacionamentos',
+            'name_singular' => 'relacionamento',
+            'predicate' => 'listados',
+            'singular' => 'listado'
+        ];
+
+        $this->set('title', 'Legislação Relacionada');
+        $this->set('icon', 'device_unknown');
+        $this->set('id', $id);
+        $this->set('pergunta', $pergunta);
+        $this->set('relacionadas', $relacionadas);
+        $this->set('opcao_paginacao', $opcao_paginacao);
+        $this->set('qtd_total', $qtd_total);
+    }
+
     public function categoria(int $id)
     {
         $title = ($id > 0) ? 'Edição da Categoria de Perguntas' : 'Nova Categoria de Perguntas';
