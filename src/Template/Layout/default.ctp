@@ -61,7 +61,7 @@
                         <div class="social">
                             <ul class="social-share">
                                 <li><a href="https://www.facebook.com/prefeituradecoqueiral" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="https://www.instagram.com/prefeituradecoqueiral/" title="Instagram" target="_blank"><i class="fa fa-instagram"></i></a></li>
                             </ul>
                             <div class="search">
                                 <form id="formBusca" action="/busca" method="get" role="form">
