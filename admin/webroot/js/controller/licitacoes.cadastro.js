@@ -133,6 +133,7 @@ function ajustarModalidade(modalidade) {
         $("#hora_sessao").prop('disabled', false);
 
         if (modalidade == "PP" ||
+            modalidade == "CO" ||
             modalidade == "TP") {
             $("#data_fim").val("");
             $("#hora_fim").val("");
@@ -346,7 +347,6 @@ function validar() {
     if (modalidade == "PE" ||
         modalidade == "CC" ||
         modalidade == "CN" ||
-        modalidade == "CO" ||
         modalidade == "CR" ||
         modalidade == "LE") {
 
