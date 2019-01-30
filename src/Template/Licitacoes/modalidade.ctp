@@ -33,6 +33,7 @@
                                         <h3 class="media-heading" style="text-transform: uppercase;">Processo: <?= $this->Format->zeroPad($licitacao->numprocesso, 3) ?>/<?= $licitacao->ano ?> - <?= $licitacao->titulo ?></h3>
                                         <span style="font-style: italic"><?= $licitacao->modalidade->nome ?></span> | <span style="font-weight: bold"><?= $licitacao->situacao ?></span>
                                         <?php if($licitacao->modalidade->chave == 'PP' ||
+                                                $licitacao->modalidade->chave == 'CO' ||
                                                 $licitacao->modalidade->chave == 'TP'):?>
                                             <p>Data da Sessão: <?= $this->Format->date($licitacao->dataSessao, true) ?></p>
                                         <?php elseif($licitacao->modalidade->chave == 'DI' ||
@@ -62,6 +63,7 @@
                                         <h3 class="media-heading" style="text-transform: uppercase;">Processo: <?= $this->Format->zeroPad($licitacao->numprocesso, 3) ?>/<?= $licitacao->ano ?> - <?= $licitacao->titulo ?></h3>
                                         <span style="font-style: italic"><?= $licitacao->modalidade->nome ?></span> | <span style="font-weight: bold"><?= $licitacao->situacao ?></span>
                                         <?php if($licitacao->modalidade->chave == 'PP' ||
+                                                $licitacao->modalidade->chave == 'CO' ||
                                                 $licitacao->modalidade->chave == 'TP'):?>
                                             <p>Data da Sessão: <?= $this->Format->date($licitacao->dataSessao, true) ?></p>
                                         <?php elseif($licitacao->modalidade->chave == 'DI' ||
@@ -136,6 +138,7 @@
                         <h3 class="media-heading" style="text-transform: uppercase;">Processo: <?= $this->Format->zeroPad($licitacao->numprocesso, 3) ?>/<?= $licitacao->ano ?> - <?= $licitacao->titulo ?></h3>
                         <span style="font-style: italic"><?= $licitacao->modalidade->nome ?></span> | <span style="font-weight: bold"><?= $licitacao->situacao ?></span>
                         <?php if($licitacao->modalidade->chave == 'PP' ||
+                                 $licitacao->modalidade->chave == 'CO' ||
                                  $licitacao->modalidade->chave == 'TP'):?>
                             <p>Data da Sessão: <?= $this->Format->date($licitacao->dataSessao, true) ?></p>
                         <?php elseif($licitacao->modalidade->chave == 'DI' ||
