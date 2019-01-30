@@ -315,7 +315,7 @@ class FaqController extends AppController
     public function relacionamentos(int $id)
     {
         $t_perguntas = TableRegistry::get('Pergunta');
-        $pergunta = $t_perguntas->get(id, ['contain' => ['PerguntaRelacionada']]);
+        $pergunta = $t_perguntas->get($id, ['contain' => ['PerguntaRelacionada']]);
         $relacionadas = $pergunta->relacionadas;
         $qtd_total = count($relacionadas);
 
@@ -326,7 +326,7 @@ class FaqController extends AppController
             'singular' => 'listado'
         ];
 
-        $this->set('title', 'Legislação Relacionada');
+        $this->set('title', 'Perguntas Relacionadas');
         $this->set('icon', 'device_unknown');
         $this->set('id', $id);
         $this->set('pergunta', $pergunta);
