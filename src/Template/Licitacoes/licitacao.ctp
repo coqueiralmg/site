@@ -79,7 +79,8 @@
                         </div>
                     <?php endif;?>
                     <?php if($licitacao->modalidade->chave == 'PP' ||
-                                 $licitacao->modalidade->chave == 'TP'):?>
+                             $licitacao->modalidade->chave == 'CO' ||
+                             $licitacao->modalidade->chave == 'TP'):?>
                         <div class="col-md-12">
                             <strong>Data da Sessão:</strong><br/>
                             <span><?=$this->Format->date($licitacao->dataSessao, true)?></span>
