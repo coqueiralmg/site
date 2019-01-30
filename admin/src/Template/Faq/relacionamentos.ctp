@@ -14,11 +14,11 @@
                         </div>
                     <?php endif; ?>
                     <div class="card-content">
-                        <legend>Relacionamento entre Documentos da Legislação</legend>
+                        <legend>Relacionamento entre Perguntas</legend>
                         <?php
-                        echo $this->Form->create("Legislacao", [
+                        echo $this->Form->create("Perguntas", [
                             "url" => [
-                                "controller" => "legislacao",
+                                "controller" => "faq",
                                 "action" => "relacionamentos"
                             ],
                             'type' => 'get',
@@ -27,7 +27,7 @@
                             <?=$this->element('message', [
                                 'name' => 'cadastro_erro',
                                 'type' => 'error',
-                                'message' => 'Ocorreu um erro ao criar relacionamento na legislação.',
+                                'message' => 'Ocorreu um erro ao criar relacionamento entre perguntas.',
                                 'details' => ''
                             ]) ?>
                             <?= $this->Flash->render() ?>
