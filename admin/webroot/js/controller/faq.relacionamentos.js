@@ -27,6 +27,21 @@ $(function () {
     };
 });
 
+function cortarRelacionamento(id, titulo) {
+    swal({
+        title: "Deseja desfazer a ligação com esta pergunta?",
+        html: "Esta pergunta não estará mais relacionada com a pergunta <b> " + titulo + "</b>.",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não'
+    }).then(function () {
+        desfazerRelacao(id);
+    });
+}
+
 function relacionarPergunta(idRelacionada) {
     var url = "/admin/faq/link.json";
 
@@ -58,6 +73,35 @@ function relacionarPergunta(idRelacionada) {
         swal({
             title: "Erro!",
             html: 'Ocorreu um erro ao fazer ligação entre perguntas',
+            type: 'error'
+        });
+    });
+
+    $("#aviso_aguarde").show('fade');
+}
+
+function desfazerRelacao(idRelacionada) {
+    var url = "/admin/faq/unlink.json";
+
+    $.post(url, {
+        origem: idPergunta,
+        relacionada: idRelacionada,
+    }, function (data) {
+        var destino = 'relacionamentos/' + idPergunta;
+
+        if (data.sucesso) {
+            var mensagem = "O relacionamento foi desfeito com sucesso!";
+            window.location = '/admin/faq/refresh?destino=relacionamentos&codigo=' + idPergunta + "&&mensagem=" + mensagem;
+        } else {
+            var mensagem = data.mensagem;
+            window.location = '/admin/faq/rollback?destino=relacionamentos&codigo=' + idPergunta + "&&mensagem=" + mensagem;
+        }
+    }).fail(function () {
+        $("#aviso_aguarde").hide('fade');
+
+        swal({
+            title: "Erro!",
+            html: 'Ocorreu um erro ao desfazer ligação entre as perguntas',
             type: 'error'
         });
     });
