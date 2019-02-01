@@ -315,9 +315,17 @@ class FaqController extends AppController
     public function relacionamentos(int $id)
     {
         $t_perguntas = TableRegistry::get('Pergunta');
+        $t_categorias = TableRegistry::get('Categoria');
+
         $pergunta = $t_perguntas->get($id, ['contain' => ['PerguntaRelacionada']]);
         $relacionadas = $pergunta->relacionadas;
         $qtd_total = count($relacionadas);
+
+        foreach($relacionadas as $relacionada)
+        {
+            $categoria = $relacionada->categoria;
+            $relacionada->categoria = $t_categorias->get($categoria);
+        }
 
         $opcao_paginacao = [
             'name' => 'relacionamentos',
