@@ -89,7 +89,9 @@ return [
             84 => 'Exclusão de Categoria de Perguntas e Respostas',
             85 => 'Inclusão de Pergunta',
             86 => 'Alteração de Pergunta',
-            87 => 'Exclusão de Pergunta'
+            87 => 'Exclusão de Pergunta',
+            88 => 'Criar Relacionamento Entre Perguntas',
+            89 => 'Cortar Relacionamento Entre Perguntas'
         ]
     ]
 ];
