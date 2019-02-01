@@ -14,7 +14,7 @@
                         </div>
                     <?php endif; ?>
                     <div class="card-content">
-                        <legend>Relacionamento entre Perguntas</legend>
+                        <legend>Relacionamentos com a pergunta "<?=$pergunta->questao?>"</legend>
                         <?php
                         echo $this->Form->create("Perguntas", [
                             "url" => [
@@ -36,7 +36,7 @@
                                     <div class="form-group form-group-min">
                                         <?= $this->Form->label("documento", "Número ou Título") ?>
                                         [<a class="link_build_form" href="#" id="buscar_rel" data-toggle="modal" data-target="#modal_rel">Buscar</a>]
-                                        <?= $this->Form->text("documento", ["id" => "documento", "class" => "form-control", "placeholder" => "Digite o número ou o título da lei que deseja relacionar e depois aperte ENTER."]) ?>
+                                        <?= $this->Form->text("documento", ["id" => "documento", "class" => "form-control", "placeholder" => "Digite o título da pergunta que deseja relacionar e depois aperte ENTER."]) ?>
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
@@ -54,13 +54,12 @@
                 <div class="card">
                     <div class="card-content table-responsive">
                         <?php if(count($relacionadas) > 0):?>
-                            <h4 class="card-title">Publicações Relacionadas a <?=$legislacao->titulo?></h4>
+                            <h4 class="card-title">Perguntas Relacionadas a "<?=$pergunta->questao?>"</h4>
                             <table class="table">
                                 <thead class="text-primary">
                                     <tr>
-                                        <th>Número</th>
-                                        <th>Título</th>
-                                        <th style="width: 15%">Data</th>
+                                        <th>Questão</th>
+                                        <th>Categoria</th>
                                         <th>Ativo</th>
                                         <th></th>
                                     </tr>
@@ -68,20 +67,19 @@
                                 <tbody>
                                     <?php foreach ($relacionadas as $relacionada): ?>
                                         <tr>
-                                            <td><?=$relacionada->numero?></td>
-                                            <td><?=$relacionada->titulo?></td>
-                                            <td><?= $this->Format->date($relacionada->data, true) ?></td>
+                                            <td><?=$relacionada->questao?></td>
+                                            <td><?=$relacionada->categoria->nome?></td>
                                             <td><?= $relacionada->ativado ?></td>
                                             <td class="td-actions text-right" style="width: 8%">
-                                                <a href="<?= $this->Url->build(['controller' => 'Legislacao', 'action' => 'relacionamentos', $relacionada->id]) ?>" title="Ver Relacionamentos" class="btn btn-info btn-round"><i class="material-icons">toc</i></a>
-                                                <button type="button" onclick="cortarRelacionamento(<?= $relacionada->id ?>, '<?= $relacionada->titulo ?>')" title="Cortar Relacionamento" class="btn btn-danger btn-round"><i class="material-icons">link_off</i></button>
+                                                <a href="<?= $this->Url->build(['controller' => 'Faq', 'action' => 'relacionamentos', $relacionada->id]) ?>" title="Ver Relacionamentos" class="btn btn-info btn-round"><i class="material-icons">toc</i></a>
+                                                <button type="button" onclick="cortarRelacionamento(<?= $relacionada->id ?>, '<?= $relacionada->questao ?>')" title="Cortar Relacionamento" class="btn btn-danger btn-round"><i class="material-icons">link_off</i></button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
                         <?php else: ?>
-                            <h3>Não existe nenhum documento relacionado a este.</h3>
+                            <h3>Não existe nenhuma pergunta relacionada a esta.</h3>
                         <?php endif; ?>
                     </div>
                      <div class="card-content">
