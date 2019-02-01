@@ -335,6 +335,196 @@ class FaqController extends AppController
         $this->set('qtd_total', $qtd_total);
     }
 
+    public function list()
+    {
+        $this->validationRole = false;
+
+        if ($this->request->is('post') || $this->request->is('ajax'))
+        {
+            $t_perguntas = TableRegistry::get('Pergunta');
+            $chave = $this->request->query('chave');
+
+            $resultado = $t_perguntas->find('all', [
+                'conditions' => [
+                    'questao LIKE ' => '%' . $chave . '%'
+                ],
+                'limit' => 15
+            ]);
+
+            $this->set([
+                'resultado' => $resultado,
+                '_serialize' => ['resultado']
+            ]);
+        }
+    }
+
+    public function link()
+    {
+        $this->validationRole = false;
+
+        if ($this->request->is('post'))
+        {
+            $origem = $this->request->getData('origem');
+            $relacionada = $this->request->getData('relacionada');
+
+            if($origem == $relacionada)
+            {
+                $this->set([
+                    'sucesso' => false,
+                    'mensagem' => 'Não é permitido fazer relacionamento com a própria pergunta (auto-relacionamento)',
+                    '_serialize' => ['sucesso', 'mensagem']
+                ]);
+            }
+            else
+            {
+                $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
+                $query = 'select pergunta_origem, pergunta_relacionada from perguntas_relacionamento where pergunta_origem = :origem and pergunta_relacionada = :relacionada';
+                $pivot = $conn->execute($query, ['origem' => $origem, 'relacionada' => $relacionada])->fetchAll('assoc');
+
+                if(count($pivot) > 0)
+                {
+                     $this->set([
+                        'sucesso' => false,
+                        'mensagem' => 'O relacionamento já existe',
+                        '_serialize' => ['sucesso', 'mensagem']
+                    ]);
+                }
+                else
+                {
+                    try
+                    {
+                        $conn->insert('perguntas_relacionamento', [
+                            'pergunta_origem' => $origem,
+                            'pergunta_relacionada' => $relacionada
+                        ]);
+
+                        $conn->insert('perguntas_relacionamento', [
+                            'pergunta_relacionada' => $origem,
+                            'pergunta_origem' => $relacionada
+                        ]);
+
+                        $this->set([
+                            'sucesso' => true,
+                            'mensagem' => 'O relacionamento foi criado com sucesso.',
+                            '_serialize' => ['sucesso', 'mensagem']
+                        ]);
+
+                        $auditoria = [
+                            'ocorrencia' => 88,
+                            'descricao' => 'Foi criada um relacionamento entre perguntas.',
+                            'dado_adicional' => json_encode(['id_pergunta_origem' => $origem, 'id_pergunta_relacionada' => $relacionada]),
+                            'usuario' => $this->request->session()->read('UsuarioID')
+                        ];
+
+                        $this->Auditoria->registrar($auditoria);
+
+                        if($this->request->session()->read('UsuarioSuspeito'))
+                        {
+                            $this->Monitoria->monitorar($auditoria);
+                        }
+                    }
+                    catch(Exception $ex)
+                    {
+                        $this->set([
+                            'sucesso' => false,
+                            'mensagem' => $ex->getMessage(),
+                            '_serialize' => ['sucesso', 'mensagem']
+                        ]);
+                    }
+                }
+            }
+        }
+    }
+
+    public function unlink()
+    {
+        $this->validationRole = false;
+
+        if ($this->request->is('post'))
+        {
+            $origem = $this->request->getData('origem');
+            $relacionada = $this->request->getData('relacionada');
+            $conn = ConnectionManager::get(BaseTable::defaultConnectionName());
+
+            try
+            {
+                $conn->delete('perguntas_relacionamento', [
+                    'pergunta_origem' => $origem,
+                    'pergunta_relacionada' => $relacionada
+                ]);
+
+                $conn->delete('perguntas_relacionamento', [
+                    'pergunta_origem' => $relacionada,
+                    'pergunta_relacionada' => $origem
+                ]);
+
+                $this->set([
+                    'sucesso' => true,
+                    'mensagem' => 'O relacionamento foi desfeito com sucesso.',
+                    '_serialize' => ['sucesso', 'mensagem']
+                ]);
+
+                $auditoria = [
+                    'ocorrencia' => 89,
+                    'descricao' => 'Foi desfeito um relacionamento entre perguntas.',
+                    'dado_adicional' => json_encode(['id_pergunta_origem' => $origem, 'id_pergunta_relacionada' => $relacionada]),
+                    'usuario' => $this->request->session()->read('UsuarioID')
+                ];
+
+                $this->Auditoria->registrar($auditoria);
+
+                if($this->request->session()->read('UsuarioSuspeito'))
+                {
+                    $this->Monitoria->monitorar($auditoria);
+                }
+            }
+            catch(Exception $ex)
+            {
+                $this->set([
+                    'sucesso' => false,
+                    'mensagem' => $ex->getMessage(),
+                    '_serialize' => ['sucesso', 'mensagem']
+                ]);
+            }
+        }
+    }
+
+    public function refresh()
+    {
+        $destino = $this->request->query('destino');
+        $codigo = $this->request->query('codigo');
+        $mensagem = $this->request->query('mensagem');
+
+        $this->Flash->greatSuccess($mensagem);
+
+        if($codigo == "")
+        {
+            $this->redirect(['action' => $destino]);
+        }
+        else
+        {
+            $this->redirect(['action' => $destino, $codigo]);
+        }
+    }
+
+    public function rollback()
+    {
+        $destino = $this->request->query('destino');
+        $codigo = $this->request->query('codigo');
+        $mensagem = $this->request->query('mensagem');
+
+        $this->Flash->exception($mensagem);
+
+        if($codigo == "")
+        {
+            $this->redirect(['action' => $destino]);
+        }
+        else
+        {
+            $this->redirect(['action' => $destino, $codigo]);
+        }
+    }
+
     public function categoria(int $id)
     {
         $title = ($id > 0) ? 'Edição da Categoria de Perguntas' : 'Nova Categoria de Perguntas';
