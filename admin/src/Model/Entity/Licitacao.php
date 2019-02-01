@@ -49,6 +49,7 @@ class Licitacao extends Entity
         if($dataFim == null || $dataFim == '')
         {
             if($modalidade == 'PP' ||
+               $modalidade == 'CO' ||
                $modalidade == 'TP')
             {
                 $dataFim = $this->_properties['dataSessao'];
