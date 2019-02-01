@@ -35,11 +35,11 @@
                 </div>
 
                 <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="<?=$this->Url->build(['controller' => 'pages', 'action' => 'construcao'])?>" onclick="ga('send', 'event', 'Externo', 'Site', 'Meu ISS');">
+                    <a href="<?=$this->Url->build(['controller' => 'duvidas', 'action' => 'index'])?>">
                         <div class="feature-wrap">
                             <i class="fa fa-question"></i>
-                            <h2>Perguntas Mais Frequentes</h2>
-                            <h3>Perguntas mais frequentemente dadas para prefeitura, organizados por assuntos.</h3>
+                            <h2>Dúvidas e Perguntas</h2>
+                            <h3>Dúvidas e perguntas pertinentes, relativos a qualquer assunto sobre prefeitura e município de Coqueiral.</h3>
                         </div>
                     </a>
                 </div>
