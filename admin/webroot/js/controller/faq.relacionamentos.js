@@ -47,10 +47,10 @@ function relacionarPergunta(idRelacionada) {
 
         if (data.sucesso) {
             var mensagem = "O relacionamento foi criado com sucesso!";
-            window.location = '/admin/faq/refresh?destino=relacionamentos&codigo=' + idLegislacao + "&&mensagem=" + mensagem;
+            window.location = '/admin/faq/refresh?destino=relacionamentos&codigo=' + idPergunta + "&&mensagem=" + mensagem;
         } else {
             var mensagem = data.mensagem;
-            window.location = '/admin/faq/rollback?destino=relacionamentos&codigo=' + idLegislacao + "&&mensagem=" + mensagem;
+            window.location = '/admin/faq/rollback?destino=relacionamentos&codigo=' + idPergunta + "&&mensagem=" + mensagem;
         }
     }).fail(function () {
         $("#aviso_aguarde").hide('fade');
