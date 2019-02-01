@@ -74,7 +74,7 @@ function relacionarLegislacao(idRelacionada, bidirecional) {
 
         swal({
             title: "Erro!",
-            html: 'Ocorreu um erro ao fazer ligação entre documentos da ouvidoria',
+            html: 'Ocorreu um erro ao fazer ligação entre documentos da legislação',
             type: 'error'
         });
     });
