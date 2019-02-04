@@ -95,11 +95,11 @@
                 </div>
 
                 <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <a href="/faleconosco">
+                    <a href="/revista">
                         <div class="feature-wrap">
-                            <i class="fa fa-bullhorn"></i>
-                            <h2>Ouvidoria</h2>
-                            <h3>Um espaço aberto para a população</h3>
+                            <i class="fa fa-quote-right" aria-hidden="true"></i>
+                            <h2>Revista Digital</h2>
+                            <h3>Saiba de tudo que tem acontecido no município</h3>
                         </div>
                     </a>
                 </div>
