@@ -24,7 +24,7 @@
     </title>
 
     <?= $this->Html->css('bootstrap.min.css') ?>
-    <?= $this->Html->css('font-awesome.min.css') ?>
+    <?= $this->Html->css('font-awesome.css') ?>
     <?= $this->Html->css('animate.min.css') ?>
     <?= $this->Html->css('prettyPhoto.css') ?>
     <?= $this->Html->css('main.css') ?>
