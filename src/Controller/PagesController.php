@@ -137,6 +137,24 @@ class PagesController extends AppController
         }
     }
 
+    public function revista()
+    {
+        $t_noticia = TableRegistry::get('Noticia');
+
+        $noticias = $t_noticia->find('all', [
+            'contain' => ['Post' => ['Usuario' => ['Pessoa']]],
+            'conditions' => [
+                'Post.destaque' => true,
+                'Post.ativo' => true
+            ],
+            'order' => ['Post.datapostagem' => 'DESC'],
+            'limit' => 3
+        ]);
+
+        $this->set('title', 'Revista Eletrônica');
+        $this->set('noticias', $noticias);
+    }
+
     public function faleconosco()
     {
         $this->set('title', 'Fale Conosco');
@@ -161,4 +179,6 @@ class PagesController extends AppController
     {
         $this->set('title', 'Transparência');
     }
+
+
 }
