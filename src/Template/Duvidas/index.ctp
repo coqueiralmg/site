@@ -1,20 +1,20 @@
-<?= $this->Html->script('controller/licitacoes.lista.js', ['block' => 'scriptBottom']) ?>
+<?= $this->Html->script('controller/duvidas.lista.js', ['block' => 'scriptBottom']) ?>
 <section id="legislacao">
     <div class="container">
         <div class="center wow fadeInDown">
-            <h2>Dú</h2>
-            <p class="lead">Editais e outras informações sobre processos licitatórios do município.</p>
+            <h2>Dúvidas e Perguntas</h2>
+            <p class="lead">Dúvidas e perguntas pertinentes, relativos a qualquer assunto sobre prefeitura e município de Coqueiral.</p>
         </div>
 
         <div class="row">
             <div class="col-md-12">
                 <?php
-                echo $this->Form->create("Licitacao", [
+                echo $this->Form->create("Duvidas", [
                     "url" => [
                         "controller" => "licitacoes",
-                        "action" => "antigas"
+                        "action" => "busca"
                     ],
-                    'idPrefix' => 'pesquisar-licitacao',
+                    'idPrefix' => 'pesquisar-duvidas',
                     'type' => 'get',
                     'role' => 'form']);
 
@@ -51,11 +51,7 @@
             <?php endif; ?>
         </div>
 
-        <?php if($movel):?>
-            <?=$this->element('pagination_mobile', $opcao_paginacao) ?>
-        <?php else:?>
-            <?=$this->element('pagination', $opcao_paginacao) ?>
-        <?php endif;?>
+
     </div>
     <!--/.container-->
 </section>
