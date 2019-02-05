@@ -54,13 +54,13 @@
                             'id' => 'pesquisar-noticias',
                             'type' => 'get',
                             'role' => 'form']);
-                            
+
                     ?>
 
                     <?= $this->Form->search('chave', ['class' => 'form-control search_box', 'placeholder' => 'Digite aqui para buscar e pressione ENTER']) ?>
 
                     <?php echo $this->Form->end(); ?>
-                    
+
                 </div>
                 <!--/.search-->
 
@@ -74,6 +74,15 @@
                 <!--/.recent comments-->
 
                 <div class="widget archieve">
+                    <h3>Revista Digital</h3>
+                    <div class="row">
+                        <div class="col-sm-12 tempo">
+                            <?= $this->Html->image("revista.png", ["width" => "320px", "alt" => "Clique aqui para ler a nossa revista digital gratuitamente", "title" => "Clique aqui para ler a nossa revista digital gratuitamente", 'url' => ['controller' => 'Pages', 'action' => 'revista']]); ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget archieve">
                     <h3>Previsão do Tempo</h3>
                     <div class="row">
                         <div class="col-sm-12 tempo">
@@ -81,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </aside>
         </div>
         <!--/.row-->
