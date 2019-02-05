@@ -5,7 +5,7 @@
             <p class="lead">Saiba de todos os acontecimentos do Município de Coqueiral</p>
         </div>
         <div class="row clearfix wow fadeInDown">
-            <p>Esta versão digital é a cópia digital da versão impressa, disponível para distribuição gratuita a todo cidadão. Para obter a versão impressa, compareça a recepção da prefeitura na Rua Minas Gerais, 62 - Vila Sônia - Coqueiral - MG ou ligue para (35) 3855-1162.</p>
+            <p>Esta versão digital é a cópia digital da versão impressa, disponível para distribuição gratuita a todo cidadão. Para obter a versão impressa, compareça a recepção da prefeitura na Rua Minas Gerais, 62 - Vila Sônia - Coqueiral - MG ou ligue para (35) 3855-1162. A versão impressa também é distribuída gratuitamente a todas as residências do município de Coqueiral.</p>
         </div>
         <div class="row clearfix wow fadeInDown">
             <div class="col-lg-9 col-md-8 col-sm-6">
@@ -25,6 +25,9 @@
                             <td>01</td>
                             <td>DEZEMBRO DE 2018</td>
                             <td class="td-actions text-right">
+                                <a href="https://www.flipsnack.com/prefeituracoqueiral/revista-pdf.html?fbclid=IwAR0u6DzS1b6UwbE5yeagRbAO08SoYVdDgylwzNtKk65OhTXsnJebCr3-ifk" title="Visualizar" target="_blank" class="btn btn-success btn-round">
+                                    <i class="fa fa-eye"></i>
+                                </a>
                                 <a href="public/storage/revista/0101DEZ2018.pdf" title="Download" target="_blank" class="btn btn-success btn-round">
                                     <i class="fa fa-download"></i>
                                 </a>
@@ -42,6 +45,7 @@
                                 <p><?=$this->Html->link('[' . $this->Format->date($noticia->post->dataPostagem, true) . '] ' . $noticia->post->titulo, ['controller' => 'noticias', 'action' =>  'noticia', $noticia->post->slug . '-' . $noticia->id])?></p>
                             </div>
                         <?php endforeach; ?>
+                        <a href="/noticias" class="btn btn-success">Ver Mais</a>
                     </div>
                 </div>
             </aside>
