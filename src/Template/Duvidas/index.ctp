@@ -27,32 +27,62 @@
             </div>
         </div>
 
-        <div>
-            <?php if(count($licitacoes) > 0): ?>
-                <?php for($i = 0; $i < count($licitacoes); $i++): ?>
-                    <?php
-                        $licitacao = $licitacoes[$i];
-                    ?>
-                    <?php if($i % 2 == 0): ?>
-                        <div class="row">
-                    <?php endif; ?>
-                    <div class="item col-md-12 col-lg-6">
-                        <h3 class="media-heading" style="text-transform: uppercase;"><?= $licitacao->titulo ?></h3>
-                        <p>Início: <?= $this->Format->date($licitacao->dataInicio, true) ?></p>
-                        <p>Término: <?= $this->Format->date($licitacao->dataTermino, true) ?></p>
-                        <?= $this->Html->link('Detalhes', ['controller' => 'licitacoes', 'action' =>  'documento', $licitacao->id], ['class' => 'btn btn-success']) ?>
-                    </div>
-                    <?php if($i % 2 != 0): ?>
-                        </div>
-                    <?php endif; ?>
-                <?php endfor; ?>
-            <?php else: ?>
-                <p>Nenhuma licitação disponível!</p>
-            <?php endif; ?>
+        <div class="row">
+             <?php if(count($destaques) > 0): ?>
+                <div class="col-md-6">
+                    <h3>Destaques</h3>
+                    <ul>
+                        <?php foreach($destaques as $destaque): ?>
+                            <li><?=$this->Html->link($destaque->questao, ['controller' => 'duvidas', 'action' => 'duvida', $destaque->slug . '-' . $destaque->id])?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+             <?php else: ?>
+                <div class="col-md-12">
+             <?php endif; ?>
+                    <h3>Mais Vistos</h3>
+                    <ol>
+                        <?php foreach($populares as $popular): ?>
+                            <li><?=$this->Html->link($popular->questao, ['controller' => 'duvidas', 'action' => 'duvida', $popular->slug . '-' . $popular->id])?></li>
+                        <?php endforeach; ?>
+                    </ol>
+                </div>
         </div>
 
-
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Categorias</h3>
+            </div>
+            <?php foreach($categorias as $categoria): ?>
+                <?php if(count($categoria->perguntas) > 0):?>
+                <div class="col-md-3">
+                    <h4><?=$categoria->nome?></h4>
+                    <ul>
+                    <?php for($i = 0; $i < count($categoria->perguntas) && $i < 3; $i++): ?>
+                        <?php
+                            $pergunta = $categoria->perguntas[$i];
+                        ?>
+                        <li><?=$this->Html->link($pergunta->questao, ['controller' => 'duvidas', 'action' => 'duvida', $pergunta->slug . '-' . $pergunta->id])?></li>
+                    <?php endfor; ?>
+                    </ul>
+                    <?php if(count($categoria->perguntas) > 3):?>
+                        <div>
+                            <?=$this->Html->link('Veja Mais', ['controller' => 'duvidas', 'action' => 'categoria', $categoria->id], ['class' => 'btn btn-primary btn-block'])?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php endif;?>
+            <?php endforeach; ?>
+        </div>
+        <hr clear="all"/>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                    Existem ao todo, <?=$total?> perguntas cadastradas.
+            </div>
+        </div>
     </div>
+
     <!--/.container-->
 </section>
 <!--/about-us-->
