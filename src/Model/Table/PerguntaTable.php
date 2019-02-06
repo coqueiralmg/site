@@ -2,6 +2,8 @@
 
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
+
 class PerguntaTable extends BaseTable
 {
     public function initialize(array $config)
@@ -23,5 +25,15 @@ class PerguntaTable extends BaseTable
             'targetForeignKey' => 'pergunta_relacionada ',
             'propertyName' => 'relacionadas'
         ]);
+    }
+
+    public function findAtivo(Query $query, array $options)
+    {
+        return $query->where(['ativo' => true]);
+    }
+
+    public function findDestaque(Query $query, array $options)
+    {
+        return $query->where(['ativo' => true, 'destaque' => true]);
     }
 }
