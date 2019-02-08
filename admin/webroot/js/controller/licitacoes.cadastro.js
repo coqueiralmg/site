@@ -117,8 +117,7 @@ function ajustarModalidade(modalidade) {
         $("label[for='hora-sessao']").html("Hora da Sessão");
     }
 
-    if (modalidade == "DI" ||
-        modalidade == "IN") {
+    if (modalidade == "DI") {
         $("#data_sessao").val("");
         $("#hora_sessao").val("");
         $("#data_fim").val("");
@@ -134,7 +133,8 @@ function ajustarModalidade(modalidade) {
 
         if (modalidade == "PP" ||
             modalidade == "CO" ||
-            modalidade == "TP") {
+            modalidade == "TP" ||
+            modalidade == "IN") {
             $("#data_fim").val("");
             $("#hora_fim").val("");
 
