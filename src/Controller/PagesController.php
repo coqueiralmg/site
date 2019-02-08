@@ -48,7 +48,7 @@ class PagesController extends AppController
         $licitacoes = $t_licitacoes->find('novo', [
             'contain' => ['Modalidade', 'StatusLicitacao'],
             'conditions' => [
-                'Licitacao.modalidade NOT IN' => ['DI', 'IN'],
+                'Licitacao.modalidade NOT IN' => ['DI'],
                 'Licitacao.status' => Configure::read('Licitacoes.Status.EmRealizacao')
             ],
             'order' => [
