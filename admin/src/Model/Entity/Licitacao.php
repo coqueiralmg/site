@@ -50,7 +50,8 @@ class Licitacao extends Entity
         {
             if($modalidade == 'PP' ||
                $modalidade == 'CO' ||
-               $modalidade == 'TP')
+               $modalidade == 'TP' ||
+               ($modalidade == 'IN' && $dataSessao != ""))
             {
                 $dataFim = $this->_properties['dataSessao'];
                 $dataFim = $dataFim->modify('+8 hours');
