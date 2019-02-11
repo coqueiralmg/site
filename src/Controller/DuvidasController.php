@@ -50,4 +50,16 @@ class DuvidasController extends AppController
             $this->set('title', "Dúvidas e Perguntas");
         }
     }
+
+    public function duvida(string $slug)
+    {
+        $gate = explode('-', $slug);
+        $id = end($gate);
+
+        $t_perguntas = TableRegistry::get('Pergunta');
+        $pergunta = $t_perguntas->get($id, ['contain' => ['Categoria']]);
+
+        $this->set('title', $pergunta->questao);
+        $this->set('pergunta', $pergunta);
+    }
 }
