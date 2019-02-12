@@ -57,9 +57,25 @@ class DuvidasController extends AppController
         $id = end($gate);
 
         $t_perguntas = TableRegistry::get('Pergunta');
-        $pergunta = $t_perguntas->get($id, ['contain' => ['Categoria']]);
+        $pergunta = $t_perguntas->get($id, ['contain' => ['Categoria', 'PerguntaRelacionada' => ['Categoria']]]);
+        $gatilho = null;
+
+        switch ($pergunta->tipo_ouvidoria) {
+            case 'GR':
+                $gatilho = ['controller' => 'ouvidoria', 'action' => 'index'];
+                break;
+
+            case 'IP':
+                $gatilho = ['controller' => 'ouvidoria', 'action' => 'iluminacao'];
+                break;
+
+            case 'NN':
+                $gatilho = ['controller' => 'pages', 'action' => 'faleconosco'];
+                break;
+        }
 
         $this->set('title', $pergunta->questao);
         $this->set('pergunta', $pergunta);
+        $this->set('gatilho', $gatilho);
     }
 }
