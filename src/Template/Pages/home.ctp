@@ -144,6 +144,36 @@
                     </a>
                 </div>
 
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a  href="/faleconosco">
+                        <div class="feature-wrap">
+                            <i class="fa fa-bullhorn"></i>
+                            <h2>Fale Conosco</h2>
+                            <h3>Entre em contato com a prefeitura e acompanhe suas manifestações</h3>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="/noticias">
+                        <div class="feature-wrap">
+                            <i class="fa fa-file"></i>
+                            <h2>Notícias</h2>
+                            <h3>Novidades no município de Coqueiral.</h3>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <a href="/duvidas">
+                        <div class="feature-wrap">
+                            <i class="fa fa-question"></i>
+                            <h2>Dúvidas e Perguntas</h2>
+                            <h3>Dúvidas e perguntas gerais sobre a prefeitura e o município</h3>
+                        </div>
+                    </a>
+                </div>
+
             </div>
             <!--/.services-->
         </div>
