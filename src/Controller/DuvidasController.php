@@ -110,6 +110,9 @@ class DuvidasController extends AppController
 
         $total = $t_perguntas->find('all', ['conditions' => $condicoes])->count();
 
+        $data['chave'] = $chave;
+        $this->request->data = $data;
+
         $this->set('title', "Dúvidas e Perguntas");
         $this->set('perguntas', $perguntas->toArray());
         $this->set('qtd_total', $total);
