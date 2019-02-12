@@ -11,7 +11,7 @@
                 <?php
                 echo $this->Form->create("Duvidas", [
                     "url" => [
-                        "controller" => "licitacoes",
+                        "controller" => "duvidas",
                         "action" => "busca"
                     ],
                     'idPrefix' => 'pesquisar-duvidas',
