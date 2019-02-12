@@ -78,4 +78,42 @@ class DuvidasController extends AppController
         $this->set('pergunta', $pergunta);
         $this->set('gatilho', $gatilho);
     }
+
+    public function busca()
+    {
+        $chave = $this->request->query('chave');
+        $limite_paginacao = Configure::read('Pagination.limit');
+
+        $t_perguntas = TableRegistry::get('Pergunta');
+        $condicoes = [
+            'Pergunta.questao LIKE ' => '%' . $chave . '%',
+            'Pergunta.ativo' => true
+        ];
+
+        $this->paginate = [
+            'limit' => $limite_paginacao,
+            'conditions' => $condicoes,
+            'contain' => ['Categoria'],
+            'order' => [
+                'questao' => 'ASC',
+            ]
+        ];
+
+        $opcao_paginacao = [
+            'name' => 'dúvidas',
+            'name_singular' => 'dúvida',
+            'predicate' => 'encontradas',
+            'singular' => 'econtrada'
+        ];
+
+        $perguntas = $this->paginate($t_perguntas);
+
+        $total = $t_perguntas->find('all', ['conditions' => $condicoes])->count();
+
+        $this->set('title', "Dúvidas e Perguntas");
+        $this->set('perguntas', $perguntas->toArray());
+        $this->set('qtd_total', $total);
+        $this->set('limit_pagination', $limite_paginacao);
+        $this->set('opcao_paginacao', $opcao_paginacao);
+    }
 }
