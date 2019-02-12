@@ -55,6 +55,20 @@
             <?php endif; ?>
         </div>
         <div class="row">
+            <?php if($total_duvidas > 0): ?>
+                <div class="col-md-12 wow fadeInDown" style="display: inline-block">
+                    <h2 id="tipo_busca">Dúvidas e Perguntas</h2>
+                    <?php foreach($duvidas as $item): ?>
+                        <div class="col-md-12 col-lg-6">
+                            <h3 class="media-heading"><?= $item->questao ?></h3>
+                            <p><b>Categoria:</b> <?= $item->categoria->nome ?></p>
+                            <?= $this->Html->link('Detalhes', ['controller' => 'duvidas', 'action' =>  'duvida', $item->slug . '-' . $item->id], ['class' => 'btn btn-success']) ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="row">
             <?php if($total_licitacoes > 0): ?>
                 <div class="col-md-12 wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Licitações</h2>
