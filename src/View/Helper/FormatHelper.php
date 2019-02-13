@@ -8,6 +8,19 @@ use Cake\View\Helper;
 class FormatHelper extends Helper
 {
     /**
+     * Dias de semana traduzíveis pelo sistema, por meio de valores padrão do PHP.
+     */
+    private $dias_semana = [
+        'Sunday' => 'Domingo',
+        'Monday' => 'Segunda-Feira',
+        'Tuesday' => 'Terça-Feira',
+        'Wednesday' => 'Quarta-Feira',
+        'Thursday' => 'Quinta-Feira',
+        'Friday' => 'Sexta-Feira',
+        'Saturday' => 'Sábado',
+    ];
+
+    /**
      * Formata para o número de telefone
      * @param string $value Valor original do telefone
      * @return string Telefone formatado
@@ -74,6 +87,16 @@ class FormatHelper extends Helper
         }
 
         return $data;
+    }
+
+    /**
+     * Retorna o nome do dia de semana, com a data informada.
+     * @param $data Data informada
+     * @return string Nome do dia de semana nominal.
+     */
+    public function dayWeek($data)
+    {
+        return $this->dias_semana[date_format($data, 'l')];
     }
 
     /**
