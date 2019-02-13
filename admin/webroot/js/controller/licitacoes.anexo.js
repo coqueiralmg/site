@@ -21,6 +21,8 @@ $(function () {
             return "É possível que as alterações não estejam salvas.";
         }
     });
+
+    $('#data').mask('00/00/0000');
 });
 
 function restaurar() {

@@ -8,19 +8,21 @@ $(function () {
 
     $('#enviaArquivo').val(enviaArquivo);
 
-    $("input").change(function(){
+    $("input").change(function () {
         autosave();
     });
 
-    if(hasCache('documentoConcurso', idDocumentoConcurso)) {
+    if (hasCache('documentoConcurso', idDocumentoConcurso)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
+
+    $('#data').mask('00/00/0000');
 });
 
 function restaurar() {
