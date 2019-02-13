@@ -609,9 +609,7 @@ class LicitacoesController extends AppController
             'limit' => $limite_paginacao,
             'conditions' => $condicoes,
             'order' => [
-                'data' => 'DESC',
-                'numero' => 'ASC',
-                'nome' => 'ASC'
+                'data' => 'DESC'
             ]
         ];
 
