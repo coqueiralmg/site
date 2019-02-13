@@ -85,37 +85,6 @@ class PagesController extends AppController
          $this->set('banners', $banners->toArray());
     }
 
-    public function contato()
-    {
-        if($this->request->is('post'))
-        {
-            $nome = $this->request->getData('nome');
-            $email = $this->request->getData('email');
-            $telefone = $this->request->getData('telefone');
-            $assunto = $this->request->getData('assunto');
-            $mensagem = $this->request->getData('mensagem');
-
-            $header = array(
-                'name' => $nome,
-                'from' => $email,
-                'to' => Configure::read("Contact.ouvidoria"),
-                'subject' => 'Formulário de Contato - ' . $assunto
-            );
-
-            $params = array(
-                'nome' => $nome,
-                'email' => $email,
-                'telefone' => $telefone,
-                'mensagem' => nl2br($mensagem)
-            );
-
-            if($this->Sender->sendEmailTemplate($header, 'default', $params))
-            {
-                $this->redirect(['controller' => 'pages', 'action' => 'contatosucesso']);
-            }
-        }
-    }
-
     public function construcao(string $parametros = "")
     {
         if($parametros != "")
@@ -179,6 +148,4 @@ class PagesController extends AppController
     {
         $this->set('title', 'Transparência');
     }
-
-
 }
