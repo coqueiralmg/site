@@ -4,10 +4,10 @@ return[
     'System' => [
         'name'=> 'Prefeitura Municipal de Coqueiral',
         'shortName' => 'Prefeitura de Coqueiral',
-        'version' => '1.1',
-        'fullVersion' => '1.1.1',
+        'version' => '1.2',
+        'fullVersion' => '1.2.0',
         'yearCreation' => '2017',
-        'yearRelease' => '2018'
+        'yearRelease' => '2019'
     ],
     'Author' => [
         'name' => 'Prefeitura Municipal de Coqueiral',
