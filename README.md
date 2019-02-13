@@ -84,7 +84,7 @@ No sistema administrativo que foi totalmente remodelado, com interface intuitiva
 - **Mensagem Interna**: Mensagem interna do sistema, de onde os usuários possam trocar mensagem entre si.
 - **Feriados**: Cadastro de feriados no sistema, para sistemas automatizados.
 - **Gerência de Ouvidoria**: Gerenciamento de manifestações e seus manifestantes, dando total liberdade e transparência, de acordo com a legislação municipal. O operador ainda tem a liberdade de fazer cadastro interno, para atendimentos presenciais.
-- **Perguntas e Respostas**: Cadastro funcional de perguntas e respostas, e também de suas categorias. Possui interface amigável com edição de texto rico.  
+- **Perguntas e Respostas**: Cadastro funcional de perguntas e respostas, e também de suas categorias, para serem exibidos na tela de Dúvidas e Perguntas. Possui interface amigável com edição de texto rico.  
 - **Outros**: O usuário pode editar suas própria informações do usuário, bem como modificar a senha.
 
 ## Requisitos do Sistema
