@@ -20,6 +20,7 @@
                         <li class="<?= $this->Menu->activeMenu(['controller' => 'cidade', 'action' => 'historico']) ?>"><?=$this->Html->link('Histórico', ['controller' => 'cidade', 'action' => 'historico'])?></li>
                         <li class="<?= $this->Menu->activeMenu(['controller' => 'cidade', 'action' => 'perfil']) ?>"><?=$this->Html->link('Perfil', ['controller' => 'cidade', 'action' => 'perfil'])?></li>
                         <li class="<?= $this->Menu->activeMenu(['controller' => 'cidade', 'action' => 'localizacao']) ?>"><?=$this->Html->link('Localização', ['controller' => 'cidade', 'action' => 'localizacao'])?></li>
+                        <li class="<?= $this->Menu->activeMenu(['controller' => 'cidade', 'action' => 'feriados']) ?>"><?=$this->Html->link('Feriados', ['controller' => 'cidade', 'action' => 'feriados'])?></li>
                     </ul>
                 </li>
                 <li class="dropdown <?= $this->Menu->activeMenus(['controller' => 'legislacao'], ['controller' => 'licitacoes'], ['controller' => 'concursos'], ['controller' => 'diarias'], ['controller' => 'publicacoes']) ? 'active' : '' ?>">
