@@ -269,10 +269,11 @@
                                             <?php if($licitacao->modalidade->chave == 'PP' ||
                                                     $licitacao->modalidade->chave == 'TP' ||
                                                     $licitacao->modalidade->chave == 'CO' ||
-                                                    ($licitacao->modalidade->chave == 'IN' && $licitacao->dataSessao != '')):?>
+                                                    ($licitacao->modalidade->chave == 'IN' && $licitacao->dataSessao != '') ||
+                                                    ($licitacao->modalidade->chave == 'DI' && $licitacao->dataSessao != '')):?>
                                                 <p>Data da Sessão: <?= $this->Format->date($licitacao->dataSessao, true) ?></p>
-                                            <?php elseif($licitacao->modalidade->chave == 'DI' ||
-                                                    ($licitacao->modalidade->chave == 'IN' && $licitacao->dataSessao == '')):?>
+                                            <?php elseif(($licitacao->modalidade->chave == 'DI' && $licitacao->dataSessao == '') ||
+                                                         ($licitacao->modalidade->chave == 'IN' && $licitacao->dataSessao == '')):?>
                                                 <p>Data da Publicação: <?= $this->Format->date($licitacao->dataPublicacao, true) ?></p>
                                             <?php else: ?>
                                                 <p>Período de <?= $this->Format->date($licitacao->dataPublicacao, true) ?> até <?= $this->Format->date($licitacao->dataFim, true) ?></p>
