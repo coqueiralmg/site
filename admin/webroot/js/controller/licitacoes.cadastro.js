@@ -117,34 +117,21 @@ function ajustarModalidade(modalidade) {
         $("label[for='hora-sessao']").html("Hora da Sessão");
     }
 
-    if (modalidade == "DI") {
-        $("#data_sessao").val("");
-        $("#hora_sessao").val("");
+    if (modalidade == "PP" ||
+        modalidade == "CO" ||
+        modalidade == "TP" ||
+        modalidade == "DI" ||
+        modalidade == "IN") {
         $("#data_fim").val("");
         $("#hora_fim").val("");
 
-        $("#data_sessao").prop('disabled', true);
-        $("#hora_sessao").prop('disabled', true);
         $("#data_fim").prop('disabled', true);
         $("#hora_fim").prop('disabled', true);
     } else {
-        $("#data_sessao").prop('disabled', false);
-        $("#hora_sessao").prop('disabled', false);
-
-        if (modalidade == "PP" ||
-            modalidade == "CO" ||
-            modalidade == "TP" ||
-            modalidade == "IN") {
-            $("#data_fim").val("");
-            $("#hora_fim").val("");
-
-            $("#data_fim").prop('disabled', true);
-            $("#hora_fim").prop('disabled', true);
-        } else {
-            $("#data_fim").prop('disabled', false);
-            $("#hora_fim").prop('disabled', false);
-        }
+        $("#data_fim").prop('disabled', false);
+        $("#hora_fim").prop('disabled', false);
     }
+
 }
 
 function obterAssunto(data) {
