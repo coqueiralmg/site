@@ -81,12 +81,13 @@
                     <?php if($licitacao->modalidade->chave == 'PP' ||
                              $licitacao->modalidade->chave == 'CO' ||
                              $licitacao->modalidade->chave == 'TP' ||
-                             ($licitacao->modalidade->chave == 'IN' && $licitacao->dataSessao != '')):?>
+                             ($licitacao->modalidade->chave == 'IN' && $licitacao->dataSessao != '') ||
+                             ($licitacao->modalidade->chave == 'DI' && $licitacao->dataSessao != '')):?>
                         <div class="col-md-12">
                             <strong>Data da Sessão:</strong><br/>
                             <span><?=$this->Format->date($licitacao->dataSessao, true)?></span>
                         </div>
-                     <?php elseif($licitacao->modalidade->chave == 'DI' ||
+                     <?php elseif(($licitacao->modalidade->chave == 'DI' && $licitacao->dataSessao == '') ||
                                  ($licitacao->modalidade->chave == 'IN' && $licitacao->dataSessao == '')):?>
                     <?php else: ?>
                         <div class="col-md-12">
