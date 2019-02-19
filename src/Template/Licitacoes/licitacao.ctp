@@ -13,12 +13,14 @@
                     <hr/>
                     <h4>Extratos e Atualizações</h4>
                     <?php foreach($atualizacoes as $atualizacao): ?>
-                        <div class="row">
-                            <div class="item col-md-12">
-                                <h5 class="media-heading"><?= $this->Format->date($atualizacao->data, true) ?> - <?= $atualizacao->titulo ?></h5>
-                                <p><?= $atualizacao->texto ?></p>
+                        <?php if($atualizacao->ativo): ?>
+                            <div class="row">
+                                <div class="item col-md-12">
+                                    <h5 class="media-heading"><?= $this->Format->date($atualizacao->data, true) ?> - <?= $atualizacao->titulo ?></h5>
+                                    <p><?= $atualizacao->texto ?></p>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif;?>
                     <?php endforeach; ?>
                 <?php endif;?>
                 <hr/>
@@ -35,16 +37,18 @@
                         </thead>
                         <tbody>
                             <?php foreach ($anexos as $anexo): ?>
-                                <tr>
-                                    <td><?=$this->Format->date($anexo->data)?></td>
-                                    <td><?=$anexo->numero?></td>
-                                    <td><?=$anexo->nome?></td>
-                                    <td class="td-actions text-right">
-                                        <a href="<?= $this->Url->build($anexo->arquivo) ?>" title="Download" target="_blank" class="btn btn-success btn-round">
-                                            <i class="fa fa-download"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                <?php if($anexo->ativo):?>
+                                    <tr>
+                                        <td><?=$this->Format->date($anexo->data)?></td>
+                                        <td><?=$anexo->numero?></td>
+                                        <td><?=$anexo->nome?></td>
+                                        <td class="td-actions text-right">
+                                            <a href="<?= $this->Url->build($anexo->arquivo) ?>" title="Download" target="_blank" class="btn btn-success btn-round">
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endif;?>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
