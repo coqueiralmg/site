@@ -48,12 +48,8 @@
                 <p>Nenhuma publicação disponível!</p>
             <?php endif; ?>
         </div>
-        <?php if($movel):?>
-            <?=$this->element('pagination_mobile') ?>
-        <?php else:?>
-            <?=$this->element('pagination') ?>
-        <?php endif;?>
 
+        <?=$this->element('pagination') ?>
     </div>
     <!--/.container-->
 </section>

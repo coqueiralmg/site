@@ -120,12 +120,7 @@
                 <p>Não foi possível encontrar licitações de acordo com o resultado de busca encontrado. Você pode fazer consulta de processos antigos <?=$this->Html->link('clicando aqui', ['controller' => 'licitacoes', 'action' =>  'antigas'], ['style' => 'font-weight: bold; text-decoration: underline;'])?>.</p>
             <?php endif; ?>
         </div>
-
-        <?php if($movel):?>
-            <?=$this->element('pagination_mobile', $opcao_paginacao) ?>
-        <?php else:?>
-            <?=$this->element('pagination', $opcao_paginacao) ?>
-        <?php endif;?>
+        <?=$this->element('pagination', $opcao_paginacao) ?>
     </div>
     <!--/.container-->
 </section>

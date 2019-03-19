@@ -120,11 +120,7 @@
             <?php endif; ?>
         </div>
 
-        <?php if($movel):?>
-            <?=$this->element('pagination_mobile', $opcao_paginacao) ?>
-        <?php else:?>
-            <?=$this->element('pagination', $opcao_paginacao) ?>
-        <?php endif;?>
+        <?=$this->element('pagination', $opcao_paginacao) ?>
     </div>
     <!--/.container-->
 </section>

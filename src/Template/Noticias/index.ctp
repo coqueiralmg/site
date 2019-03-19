@@ -27,13 +27,11 @@
                                 </div>
                             </div>
                         </div>
-                     <?php endforeach; ?>
+                    <?php endforeach; ?>
 
-                     <?php if($movel):?>
-                        <?=$this->element('pagination_mobile') ?>
-                    <?php else:?>
-                        <?=$this->element('pagination') ?>
-                    <?php endif;?>
+
+                    <?=$this->element('pagination') ?>
+
                 <?php else: ?>
                     <p>Nenhuma notícia publicada até o momento! Volte mais tarde</p>
                  <?php endif; ?>
