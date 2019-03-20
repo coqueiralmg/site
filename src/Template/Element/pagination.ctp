@@ -1,5 +1,6 @@
 <?php
-$opcao_paginacao_number = ['tag' => 'li', 'separator' => '', 'currentTag' => 'a', 'modulus' => ($movel) ? $this->Data->setting('Pagination.short.modulus') : $this->Data->setting('Pagination.modulus')];
+$modulus = ($movel) ? $this->Data->setting('Pagination.short.modulus') : $this->Data->setting('Pagination.modulus');
+$opcao_paginacao_number = ['tag' => 'li', 'separator' => '', 'currentTag' => 'a', 'modulus' => $modulus];
 $opcao_paginacao_extra = ['tag' => 'li', 'disabledTag' => 'a'];
 
 if(!isset($limit_pagination))
