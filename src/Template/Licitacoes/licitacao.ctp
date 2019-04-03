@@ -15,9 +15,10 @@
                     <?php foreach($atualizacoes as $atualizacao): ?>
                         <?php if($atualizacao->ativo): ?>
                             <div class="row">
-                                <div class="item col-md-12">
+                                <div class="item col-md-12" style="padding-bottom: 15px">
                                     <h5 class="media-heading"><?= $this->Format->date($atualizacao->data, true) ?> - <?= $atualizacao->titulo ?></h5>
-                                    <p><?= $atualizacao->texto ?></p>
+                                    <a class="detalhes">Clique aqui para ver o texto completo</a>
+                                    <div id="texto" style="display: none"><?= $atualizacao->texto ?></div>
                                 </div>
                             </div>
                         <?php endif;?>
