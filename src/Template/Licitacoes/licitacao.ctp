@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-md-12">
                         <strong>Modalidade:</strong><br/>
-                        <span><?=$licitacao->modalidade->nome?></span>
+                        <span><?=$this->Html->link($licitacao->modalidade->nome, ['controller' => 'licitacoes', 'action' => 'modalidade', $licitacao->modalidade->chave], ['title' => 'Clique aqui para ver outros processos licitatórios, com a modalidade ' . $licitacao->modalidade->nome])?></span>
                     </div>
                     <div class="col-md-12">
                         <strong>Número da Modalidade:</strong><br/>
@@ -114,11 +114,11 @@
                     </div>
                     <div class="col-md-12">
                         <strong>Status:</strong><br/>
-                        <span><?=$licitacao->situacao?></span>
+                        <span><?=$this->Html->link($licitacao->situacao, ['controller' => 'licitacoes', 'action' => 'status', $licitacao->status->id], ['title' => 'Clique aqui para ver outros processos licitatórios, sob o status ' . $licitacao->status->nome])?></span>
                     </div>
                     <div class="col-md-12">
                         <strong>Ano:</strong><br/>
-                        <span><?=$licitacao->ano?></span>
+                        <span><?=$this->Html->link($licitacao->ano, ['controller' => 'licitacoes', 'action' => 'ano', $licitacao->ano], ['title' => 'Clique aqui para ver outros processos licitatórios, do ano ' . $licitacao->ano])?></span>
                     </div>
                 </div>
                 <?php if(count($licitacao->assuntos) > 0): ?>
@@ -127,7 +127,7 @@
                         <div class="col-sm-12">
                             <ul class="blog_category">
                                 <?php foreach($licitacao->assuntos as $assunto): ?>
-                                    <li><?=$this->Html->link($assunto->descricao, ['controller' => 'licitacoes', 'action' => 'assunto', $assunto->id], ['title' => 'Clique aqui para ver outros documentos com assunto ' . $assunto->descricao])?></li>
+                                    <li><?=$this->Html->link($assunto->descricao, ['controller' => 'licitacoes', 'action' => 'assunto', $assunto->id], ['title' => 'Clique aqui para ver outros processos licitatórios, classificados sob o assunto ' . $assunto->descricao])?></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
