@@ -51,18 +51,18 @@ a {
     transition: color 300ms, background-color 300ms;
 }
 
-video{
+video {
     width: 768px;
 }
 
-@media screen and (max-width: 768px){
-    video{
+@media screen and (max-width: 768px) {
+    video {
         width: 100%;
     }
 }
 
-@media screen and (max-width: 400px){
-    video{
+@media screen and (max-width: 400px) {
+    video {
         width: 100hv;
     }
 }
@@ -164,6 +164,7 @@ body>section {
         -webkit-transform: scale(0);
         transform: scale(0);
     }
+
     100% {
         opacity: 1;
         -webkit-transform: scale(1);
@@ -178,6 +179,7 @@ body>section {
         -ms-transform: scale(0);
         transform: scale(0);
     }
+
     100% {
         opacity: 1;
         -webkit-transform: scale(1);
@@ -206,7 +208,7 @@ body>section {
     line-height: 28px;
 }
 
-@media screen and (max-width: 360px){
+@media screen and (max-width: 360px) {
     #header .search {
         display: none;
     }
@@ -395,9 +397,9 @@ input.search-form:hover {
 }
 
 @media screen and (max-width: 1200px) and (min-width: 768px) {
+
     .navbar-header,
-    .navbar-inverse .navbar-collapse
-    {
+    .navbar-inverse .navbar-collapse {
         float: inherit;
         display: flex;
         align-items: center;
@@ -414,7 +416,7 @@ input.search-form:hover {
     }
 }
 
-@media screen and (max-width: 640px){
+@media screen and (max-width: 640px) {
     .navbar-brand img {
         width: 95%;
     }
@@ -745,7 +747,7 @@ input.search-form:hover {
     margin-right: 20px;
 }
 
-#legislacao .item{
+#legislacao .item {
     min-height: 200px;
 }
 
@@ -760,7 +762,7 @@ input.search-form:hover {
     width: 80%;
 }
 
-.login_ouvidoria{
+.login_ouvidoria {
     background: #f1f1f1;
     text-align: left;
     padding: 40px;
@@ -768,11 +770,11 @@ input.search-form:hover {
     overflow: auto;
 }
 
-.login_ouvidoria label{
+.login_ouvidoria label {
     display: block;
 }
 
-.login_ouvidoria input{
+.login_ouvidoria input {
     display: inline-block;
     width: 70%;
 }
@@ -786,30 +788,30 @@ input.search-form:hover {
 }
 
 @media screen and (max-width: 1000px) and (min-width: 801px) {
-    .login_ouvidoria input{
+    .login_ouvidoria input {
         width: 75%;
     }
 }
 
 @media screen and (max-width: 1200px) and (min-width: 1001px) {
-    .login_ouvidoria input{
+    .login_ouvidoria input {
         width: 60%;
     }
 }
 
 @media screen and (max-width: 1200px) and (min-width: 801px) {
-    .login_ouvidoria button{
+    .login_ouvidoria button {
         float: right;
     }
 }
 
 @media screen and (max-width: 800px) {
-    .login_ouvidoria input{
+    .login_ouvidoria input {
         display: block;
         width: 100%;
     }
 
-    .login_ouvidoria button{
+    .login_ouvidoria button {
         display: block;
         margin-top: 10px;
         float: right;
@@ -1288,7 +1290,7 @@ a.accordion-toggle i {
     /* IE10+ */
     background: linear-gradient(to bottom, rgba(242, 242, 242, 1) 0%, rgba(242, 242, 242, 1) 28%, rgba(45, 125, 164, 1) 28%);
     /* W3C */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#2d7da4', GradientType=0);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#2d7da4', GradientType=0);
     /* IE6-9 */
 }
 
@@ -1307,7 +1309,7 @@ a.accordion-toggle i {
     /* IE10+ */
     background: linear-gradient(to bottom, rgba(242, 242, 242, 1) 0%, rgba(242, 242, 242, 1) 9%, rgba(106, 164, 47, 1) 9%);
     /* W3C */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#6aa42f', GradientType=0);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#6aa42f', GradientType=0);
     /* IE6-9 */
 }
 
@@ -1326,7 +1328,7 @@ a.accordion-toggle i {
     /* IE10+ */
     background: linear-gradient(to bottom, rgba(242, 242, 242, 1) 0%, rgba(242, 242, 242, 1) 32%, rgba(255, 189, 32, 1) 32%);
     /* W3C */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#ffbd20', GradientType=0);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#ffbd20', GradientType=0);
     /* IE6-9 */
 }
 
@@ -1345,7 +1347,7 @@ a.accordion-toggle i {
     /* IE10+ */
     background: linear-gradient(to bottom, rgba(242, 242, 242, 1) 0%, rgba(242, 242, 242, 1) 19%, rgba(219, 54, 21, 1) 19%);
     /* W3C */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#db3615', GradientType=0);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#db3615', GradientType=0);
     /* IE6-9 */
 }
 
@@ -2681,18 +2683,18 @@ shortcodes page css
     margin-bottom: 40px;
 }
 
-#bottom .widget img{
+#bottom .widget img {
     max-height: 450px;
 }
 
-@media screen and (max-width: 1024px){
-    #bottom .widget img{
+@media screen and (max-width: 1024px) {
+    #bottom .widget img {
         max-height: 225px;
 
     }
 }
 
-.logo_footer{
+.logo_footer {
     display: flex;
     justify-content: center;
     padding-bottom: 40px;
@@ -2781,11 +2783,11 @@ shortcodes page css
 }
 
 #tipo_busca:after {
-    content:"";
-    width:100%;
-    height:1px;
-    background:#254C49;
-    color:#FFF;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background: #254C49;
+    color: #FFF;
     display: block;
     margin-top: 5px;
 }
@@ -2796,7 +2798,7 @@ shortcodes page css
 
 
 
-.tempo div{
+.tempo div {
     float: left;
     width: 180px !important;
 }
@@ -2865,4 +2867,10 @@ shortcodes page css
 
 .table tr td {
     vertical-align: middle !important;
+}
+
+.detalhes {
+    cursor: pointer;
+    font-style: italic;
+    font-size: small;
 }
