@@ -1,4 +1,11 @@
-function lerEdital(){
+$(function () {
+    $('.detalhes').click(function () {
+        $(this).hide('fade');
+        $(this).next().show('fade');
+    });
+});
+
+function lerEdital() {
     var titulo = document.title;
     var documento = titulo.split("|")[0].trim();
 
