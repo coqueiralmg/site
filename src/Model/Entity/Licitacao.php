@@ -10,9 +10,18 @@ class Licitacao extends Entity
 {
     protected function _getSlug()
     {
-         $titulo = $this->_properties['titulo'];
+        $titulo = $this->_properties['titulo'];
+        $antigo = $this->_properties['antigo'];
+        $numprocesso = $this->_properties['numprocesso'];
+        $ano = $this->_properties['ano'];
+
         $procurar = array(' ', 'ã', 'à', 'á', 'â', 'é', 'ê', 'í', 'ì', 'ó', 'ò', 'õ', 'ô', 'ú', 'ù', 'û', 'ç', ',', '.', '!', '?', ';', '/');
         $substituir = array('_', 'a', 'a', 'a', 'a', 'e', 'e', 'i', 'i', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'c', '', '', '', '', '', '_');
+
+        if(!$antigo)
+        {
+            $titulo = "processo_" . $numprocesso . "_" . $ano . "_" . $titulo;
+        }
 
         return strtolower(str_replace($procurar, $substituir, $titulo));
     }
