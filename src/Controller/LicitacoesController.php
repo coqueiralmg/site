@@ -803,8 +803,11 @@ class LicitacoesController extends AppController
         }
     }
 
-    public function documento(int $id)
+    public function documento(string $slug)
     {
+        $gate = explode('-', $slug);
+        $id = end($gate);
+
         $t_licitacoes = TableRegistry::get('Licitacao');
         $licitacao = $t_licitacoes->get($id);
 
