@@ -89,7 +89,7 @@
                                 <h3 class="media-heading"><?= $licitacao->titulo ?></h3>
                                 <p>Início: <?= $this->Format->date($licitacao->dataInicio, true) ?></p>
                                 <p>Término: <?= $this->Format->date($licitacao->dataTermino, true) ?></p>
-                                <?= $this->Html->link('Veja mais', ['controller' => 'licitacoes', 'action' =>  'licitacao', $licitacao->slug . '-' . $licitacao->id], ['class' => 'btn btn-success']) ?>
+                                <?= $this->Html->link('Veja mais', ['controller' => 'licitacoes', 'action' =>  'documento', $licitacao->slug . '-' . $licitacao->id], ['class' => 'btn btn-success']) ?>
                             </div>
                         <?php else: ?>
                             <?=$this->element('item_licitacao', ['licitacao' => $licitacao]) ?>
