@@ -164,12 +164,12 @@ class BuscaController extends AppController
 
         $this->set('title', "Busca");
         $this->set('licitacoes', $licitacoes);
-        $this->set('legislacao', $legislacao);
-        $this->set('noticias', $noticias);
-        $this->set('concursos', $concursos);
-        $this->set('informativos', $informativos);
-        $this->set('publicacoes', $publicacoes);
-        $this->set('duvidas', $duvidas);
+        $this->set('legislacao', $legislacao->toArray());
+        $this->set('noticias', $noticias->toArray());
+        $this->set('concursos', $concursos->toArray());
+        $this->set('informativos', $informativos->toArray());
+        $this->set('publicacoes', $publicacoes->toArray());
+        $this->set('duvidas', $duvidas->toArray());
         $this->set('total_licitacoes', $total_licitacoes);
         $this->set('total_legislacao', $total_legislacao);
         $this->set('total_noticias', $total_noticias);
