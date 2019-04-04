@@ -16,5 +16,5 @@
     <?php if($licitacao->retificado): ?>
         <span style="font-weight:bold; font-style: italic;">Licitação retificada</span>
     <?php endif;?>
-    <?= $this->Html->link('Detalhes', ['controller' => 'licitacoes', 'action' =>  'licitacao', $licitacao->id], ['class' => 'btn btn-success']) ?>
+    <?= $this->Html->link('Detalhes', ['controller' => 'licitacoes', 'action' =>  'licitacao', $licitacao->slug . '-' . $licitacao->id], ['class' => 'btn btn-success']) ?>
 </div>
