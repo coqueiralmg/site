@@ -58,13 +58,20 @@
             <?php if($total_duvidas > 0): ?>
                 <div class="col-md-12 wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Dúvidas e Perguntas</h2>
-                    <?php foreach($duvidas as $item): ?>
+                    <?php for($i = 0; $i < count($duvidas); $i++): ?>
+                        <?php $item = $duvidas[$i]; ?>
+                        <?php if($i % 2 == 0): ?>
+                            <div class="row">
+                        <?php endif; ?>
                         <div class="col-md-12 col-lg-6">
                             <h3 class="media-heading"><?= $item->questao ?></h3>
                             <p><b>Categoria:</b> <?= $item->categoria->nome ?></p>
                             <?= $this->Html->link('Detalhes', ['controller' => 'duvidas', 'action' =>  'duvida', $item->slug . '-' . $item->id], ['class' => 'btn btn-success']) ?>
                         </div>
-                    <?php endforeach; ?>
+                        <?php if($i % 2 != 0): ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endfor; ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -72,7 +79,11 @@
             <?php if($total_licitacoes > 0): ?>
                 <div class="col-md-12 wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Licitações</h2>
-                    <?php foreach($licitacoes as $licitacao): ?>
+                    <?php for($i = 0; $i < count($licitacoes); $i++): ?>
+                        <?php $licitacao = $licitacoes[$i] ?>
+                        <?php if($i % 2 == 0): ?>
+                            <div class="row">
+                        <?php endif; ?>
                         <?php if($licitacao->antigo): ?>
                             <div class="col-md-12 col-lg-6">
                                 <h3 class="media-heading"><?= $licitacao->titulo ?></h3>
@@ -83,7 +94,10 @@
                         <?php else: ?>
                             <?=$this->element('item_licitacao', ['licitacao' => $licitacao]) ?>
                         <?php endif;?>
-                    <?php endforeach; ?>
+                        <?php if($i % 2 != 0): ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endfor; ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -91,7 +105,11 @@
             <?php if($total_concursos > 0): ?>
                 <div class="col-md-12 wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Concursos e Processos Seletivos</h2>
-                    <?php foreach($concursos as $concurso): ?>
+                    <?php for($i = 0; $i < count($concursos); $i++): ?>
+                        <?php $concurso = $concursos[$i] ?>
+                        <?php if($i % 2 == 0): ?>
+                            <div class="row">
+                        <?php endif; ?>
                         <div class="col-md-12 col-lg-6">
                             <h3 class="media-heading" style="text-transform: uppercase;"><?= $concurso->numero ?> - <?= $concurso->titulo ?></h3>
                             <p style="font-weight: bold"><?= $concurso->situacao ?></p>
@@ -99,7 +117,10 @@
                             <p>Data da Prova: <?= $this->Format->date($concurso->dataProva) ?></p>
                             <?= $this->Html->link('Detalhes', ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success']) ?>
                         </div>
-                    <?php endforeach; ?>
+                        <?php if($i % 2 != 0): ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endfor?>
                 </div>
             <?php endif; ?>
         </div>
@@ -107,14 +128,21 @@
             <?php if($total_informativos_concursos > 0): ?>
                 <div class="col-md-12 wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Novidades Sobre Concursos e Processos Seletivos</h2>
-                    <?php foreach($informativos as $informativo): ?>
+                    <?php for($i = 0; $i < count($informativos); $i++): ?>
+                        <?php $informativo = $informativos[$i]; ?>
+                        <?php if($i % 2 == 0): ?>
+                            <div class="row">
+                        <?php endif; ?>
                         <div class="col-md-12 col-lg-6">
                             <h3 class="media-heading" style="text-transform: uppercase;"><?= $informativo->titulo ?></h3>
                             <p style="font-weight: bold"><?= $this->Format->Date($informativo->data, true) ?></p>
                             <p><?=$informativo->resumo?></p>
                             <?= $this->Html->link('Detalhes', ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success']) ?>
                         </div>
-                    <?php endforeach; ?>
+                        <?php if($i % 2 != 0): ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endfor?>
                 </div>
             <?php endif; ?>
         </div>
@@ -122,13 +150,20 @@
             <?php if($total_legislacao > 0): ?>
                 <div class="col-md-12 wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Legislação</h2>
-                    <?php foreach($legislacao as $item): ?>
+                    <?php for($i = 0; $i < count($legislacao); $i++): ?>
+                        <?php $item = $legislacao[$i]; ?>
+                        <?php if($i % 2 == 0): ?>
+                            <div class="row">
+                        <?php endif; ?>
                         <div class="col-md-12 col-lg-6">
                             <h3 class="media-heading"><?= $item->titulo ?></h3>
                             <p><?= $item->resumo ?></p>
                             <?= $this->Html->link('Veja mais', ['controller' => 'legislacao', 'action' =>  'documento', $item->id], ['class' => 'btn btn-success']) ?>
                         </div>
-                    <?php endforeach; ?>
+                        <?php if($i % 2 != 0): ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endfor?>
                 </div>
             <?php endif; ?>
         </div>
@@ -136,15 +171,22 @@
             <?php if($total_publicacoes > 0): ?>
                 <div class="col-md-12 wow fadeInDown" style="display: inline-block">
                     <h2 id="tipo_busca">Publicações</h2>
-                    <?php foreach($publicacoes as $item): ?>
+                    <?php for($i = 0; $i < count($publicacoes); $i++): ?>
+                        <?php $item = $publicacoes[$i]; ?>
+                        <?php if($i % 2 == 0): ?>
+                            <div class="row">
+                        <?php endif; ?>
                         <div class="col-md-12 col-lg-6">
                             <h3 class="media-heading"><?= $item->titulo ?></h3>
                             <p><?= $item->resumo ?></p>
                             <?= $this->Html->link('Veja mais', ['controller' => 'legislacao', 'action' =>  'documento', $item->id], ['class' => 'btn btn-success']) ?>
                         </div>
-                    <?php endforeach; ?>
+                        <?php if($i % 2 != 0): ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endfor?>
                 </div>
             <?php endif; ?>
         </div>
     </div>
-</section><!--/#error-->
+</section>
