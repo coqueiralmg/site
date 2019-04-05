@@ -2738,6 +2738,7 @@ shortcodes page css
     background: #fff;
     width: 90%;
     padding: 30px;
+    min-height: 365px;
     float: right;
     margin-top: -5em;
     border-top-left-radius: 30px;
@@ -2780,6 +2781,13 @@ shortcodes page css
 
 .fh5co-blog .blog-text h3 a {
     color: rgba(0, 0, 0, 0.6);
+}
+
+.fh5co-blog .blog-thumb {
+    display: block;
+    position: relative;
+    height: 200px;
+    overflow: hidden;
 }
 
 #tipo_busca:after {
