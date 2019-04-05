@@ -13,30 +13,44 @@
                 <h5>Legislação Relacionada</h5>
                 <hr/>
                 <?php if(count($legislacao->relacionadas) > 0):?>
-                    <table class="table table-striped">
-                        <thead class="text-primary">
-                            <tr>
-                                <th>Número</th>
-                                <th>Título</th>
-                                <th>Data</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($legislacao->relacionadas as $relacionada): ?>
+                    <?php if($movel): ?>
+                        <?php foreach ($legislacao->relacionadas as $relacionada): ?>
+                            <div class="d-flex flex-row" style="padding-bottom: 10px">
+                                <div class="p-2"><?=$relacionada->titulo?></div>
+                                <div class="p-2">
+                                    <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'documento', $relacionada->id]) ?>" title="Ver Detalhes" class="btn btn-success btn-round btn-block">
+                                        <i class="fa fa-file-text"></i> Ver Detalhes
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <table class="table table-striped">
+                            <thead class="text-primary">
                                 <tr>
-                                    <td><?=$relacionada->numero?></td>
-                                    <td><?=$relacionada->titulo?></td>
-                                    <td><?=$this->Format->date($relacionada->data)?></td>
-                                    <td class="td-actions text-right">
-                                        <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'documento', $relacionada->id]) ?>" title="Ver Detalhes" class="btn btn-success btn-round">
-                                            <i class="fa fa-file-text"></i>
-                                        </a>
-                                    </td>
+                                    <th>Número</th>
+                                    <th>Título</th>
+                                    <th>Data</th>
+                                    <th></th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($legislacao->relacionadas as $relacionada): ?>
+                                    <tr>
+                                        <td><?=$relacionada->numero?></td>
+                                        <td><?=$relacionada->titulo?></td>
+                                        <td><?=$this->Format->date($relacionada->data)?></td>
+                                        <td class="td-actions text-right">
+                                            <a href="<?= $this->Url->build(['controller' => 'legislacao', 'action' => 'documento', $relacionada->id]) ?>" title="Ver Detalhes" class="btn btn-success btn-round">
+                                                <i class="fa fa-file-text"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+
                 <?php else: ?>
                     <p>Não existe nenhum documento relacionado a este.</p>
                 <?php endif; ?>
