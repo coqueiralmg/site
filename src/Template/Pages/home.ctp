@@ -211,7 +211,7 @@
                 <?php foreach($noticias as $noticia):?>
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="fh5co-blog wow fadeInDown">
-                            <a href="<?= 'noticias/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
+                            <a class="blog-thumb" href="<?= 'noticias/noticia/' . $noticia->post->slug . '-' . $noticia->id ?>">
                                 <img class="img-responsive" src="<?= $noticia->foto ?>" alt="<?= $noticia->post->titulo ?>">
                             </a>
                             <div class="blog-text">
@@ -254,11 +254,11 @@
             <div class="col-sm-12 col-md-12">
                 <div class="media services-wrap wow fadeInDown">
                     <div class="media-body">
-                        <div class="col-md-5 col-sm-6">
+                        <div class="col-lg-4 col-md-5 col-sm-6">
                             <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprefeituradecoqueiral&tabs=timeline%2C%20events&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
                                 width="500" height="600" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
                         </div>
-                        <div class="col-md-7  col-sm-6">
+                        <div class="col-lg-8 col-md-7 col-sm-6">
                             <h3 class="media-heading">Licitações Recentes</h3>
                             <?php if(count($licitacoes) > 0): ?>
                                 <?php foreach($licitacoes as $licitacao): ?>
