@@ -27,32 +27,53 @@
                 <hr/>
                 <h4>Documentos e Anexos</h4>
                 <?php if(count($anexos) > 0):?>
-                    <table class="table table-striped">
-                        <thead class="text-primary">
-                            <tr>
-                                <th>Data</th>
-                                <th>Número</th>
-                                <th>Nome</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($anexos as $anexo): ?>
-                                <?php if($anexo->ativo):?>
-                                    <tr>
-                                        <td><?=$this->Format->date($anexo->data)?></td>
-                                        <td><?=$anexo->numero?></td>
-                                        <td><?=$anexo->nome?></td>
-                                        <td class="td-actions text-right">
-                                            <a href="<?= $this->Url->build($anexo->arquivo) ?>" title="Download" target="_blank" class="btn btn-success btn-round">
-                                                <i class="fa fa-download"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endif;?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <?php if($movel): ?>
+                        <?php foreach ($anexos as $anexo): ?>
+                            <?php if($anexo->ativo):?>
+                                <div class="d-flex flex-row" style="padding-bottom: 10px">
+                                    <div class="p-2">
+                                        <?php if($anexo->numero == ""):?>
+                                            <?=$anexo->nome?> (<?=$this->Format->date($anexo->data)?>)
+                                        <?php else: ?>
+                                            <?=$anexo->numero?> - <?=$anexo->nome?> (<?=$this->Format->date($anexo->data)?>)
+                                        <?php endif;?>
+                                    </div>
+                                    <div class="p-2">
+                                        <a href="<?= $this->Url->build($anexo->arquivo) ?>" title="Download" target="_blank" class="btn btn-success btn-round btn-block">
+                                            <i class="fa fa-download"></i> Download
+                                        </a>
+                                    </div>
+                                </div>
+                            <?php endif;?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <table class="table table-striped">
+                            <thead class="text-primary">
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Número</th>
+                                    <th>Nome</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($anexos as $anexo): ?>
+                                    <?php if($anexo->ativo):?>
+                                        <tr>
+                                            <td><?=$this->Format->date($anexo->data)?></td>
+                                            <td><?=$anexo->numero?></td>
+                                            <td><?=$anexo->nome?></td>
+                                            <td class="td-actions text-right">
+                                                <a href="<?= $this->Url->build($anexo->arquivo) ?>" title="Download" target="_blank" class="btn btn-success btn-round">
+                                                    <i class="fa fa-download"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endif;?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
                 <?php else: ?>
                     <p>Não existe nenhum documento relacionado a esta licitação.</p>
                 <?php endif; ?>
