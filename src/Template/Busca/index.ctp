@@ -110,13 +110,7 @@
                         <?php if($i % 2 == 0): ?>
                             <div class="row">
                         <?php endif; ?>
-                        <div class="col-md-12 col-lg-6">
-                            <h3 class="media-heading" style="text-transform: uppercase;"><?= $concurso->numero ?> - <?= $concurso->titulo ?></h3>
-                            <p style="font-weight: bold"><?= $concurso->situacao ?></p>
-                            <p>Inscrições: <?= $this->Format->date($concurso->inscricaoInicio) ?> à <?= $this->Format->date($concurso->inscricaoFim) ?></p>
-                            <p>Data da Prova: <?= $this->Format->date($concurso->dataProva) ?></p>
-                            <?= $this->Html->link('Detalhes', ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success']) ?>
-                        </div>
+                        <?=$this->element('Itens/item_concurso', ['concurso' => $concurso]) ?>
                         <?php if($i % 2 != 0): ?>
                             </div>
                         <?php endif; ?>
@@ -137,7 +131,7 @@
                             <h3 class="media-heading" style="text-transform: uppercase;"><?= $informativo->titulo ?></h3>
                             <p style="font-weight: bold"><?= $this->Format->Date($informativo->data, true) ?></p>
                             <p><?=$informativo->resumo?></p>
-                            <?= $this->Html->link('Detalhes', ['controller' => 'concursos', 'action' =>  'concurso', $concurso->slug . '-' . $concurso->id], ['class' => 'btn btn-success']) ?>
+                            <?= $this->Html->link('Detalhes', ['controller' => 'concursos', 'action' =>  'informativo', $informativo->id], ['class' => 'btn btn-success']) ?>
                         </div>
                         <?php if($i % 2 != 0): ?>
                             </div>
