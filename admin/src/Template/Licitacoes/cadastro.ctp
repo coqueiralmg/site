@@ -188,6 +188,20 @@
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
+                                <?php if ($id > 0) :?>
+                                    <div class="col-md-8">
+                                        <div class="form-group label-control">
+                                            <?= $this->Form->label("data_atualizacao", "Data da Última Atualização") ?><br/>
+                                            <?= $licitacao->dataAtualizacao->i18nFormat('dd/MM/yyyy HH:mm:ss')?>
+                                            <span class="material-input"></span>
+                                        </div>
+                                        <div class="form-group label-control">
+                                            <?= $this->Form->label("visualizacoes", "Quantidade de Visualizações") ?><br/>
+                                            <?= $licitacao->visualizacoes ?> visualizações
+                                            <span class="material-input"></span>
+                                        </div>
+                                    </div>
+                                <?php endif;?>
                             </div>
 
                             <button type="submit" onclick="return validar()" class="btn btn-success pull-right">Salvar</button>
