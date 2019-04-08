@@ -957,6 +957,7 @@ class LicitacoesController extends AppController
             $entity = $t_licitacoes->newEntity($this->request->data());
 
             $entity->dataPublicacao = $this->obterDataPublicacao($entity->data_publicacao, $entity->hora_publicacao);
+            $entity->dataAtualizacao = $entity->dataPublicacao;
             $entity->ano = ($entity->ano == "") ? date("Y") : $entity->ano;
 
             if($entity->data_sessao != "")
