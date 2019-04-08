@@ -92,7 +92,7 @@
                                 <?= $this->Html->link('Veja mais', ['controller' => 'licitacoes', 'action' =>  'documento', $licitacao->slug . '-' . $licitacao->id], ['class' => 'btn btn-success']) ?>
                             </div>
                         <?php else: ?>
-                            <?=$this->element('item_licitacao', ['licitacao' => $licitacao]) ?>
+                            <?=$this->element('Itens/item_licitacao', ['licitacao' => $licitacao]) ?>
                         <?php endif;?>
                         <?php if($i % 2 != 0): ?>
                             </div>

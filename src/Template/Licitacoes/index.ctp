@@ -33,7 +33,7 @@
                                     <?php
                                         $licitacao = $destaques[$i];
                                     ?>
-                                    <?=$this->element('item_licitacao', ['licitacao' => $licitacao]) ?>
+                                    <?=$this->element('Itens/item_licitacao', ['licitacao' => $licitacao]) ?>
                                 <?php endfor; ?>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                     <?php
                                         $licitacao = $populares[$i];
                                     ?>
-                                    <?=$this->element('item_licitacao', ['licitacao' => $licitacao]) ?>
+                                    <?=$this->element('Itens/item_licitacao', ['licitacao' => $licitacao]) ?>
                                 <?php endfor; ?>
                             </div>
                         <?php endif; ?>
@@ -124,7 +124,7 @@
                     <?php if($i % 2 == 0): ?>
                         <div class="row">
                     <?php endif; ?>
-                        <?=$this->element('item_licitacao', ['licitacao' => $licitacao]) ?>
+                        <?=$this->element('Itens/item_licitacao', ['licitacao' => $licitacao]) ?>
                     <?php if($i % 2 != 0): ?>
                         </div>
                     <?php endif; ?>
