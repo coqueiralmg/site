@@ -155,11 +155,7 @@
                         <?php if($i % 2 == 0): ?>
                             <div class="row">
                         <?php endif; ?>
-                        <div class="col-md-12 col-lg-6">
-                            <h3 class="media-heading"><?= $item->titulo ?></h3>
-                            <p><?= $item->resumo ?></p>
-                            <?= $this->Html->link('Veja mais', ['controller' => 'legislacao', 'action' =>  'documento', $item->id], ['class' => 'btn btn-success']) ?>
-                        </div>
+                        <?=$this->element('Itens/item_legislacao', ['publicacao' => $item]) ?>
                         <?php if($i % 2 != 0): ?>
                             </div>
                         <?php endif; ?>
