@@ -29,6 +29,10 @@ $(function () {
             .append('<span>' + item.titulo.trim() + '</span>')
             .appendTo(ul);
     };
+
+    $('#modal_relacionamento_legislacao #buscar').click(function (e) {
+        buscarLegislacaoRelacionada();
+    });
 });
 
 function cortarRelacionamento(id, titulo) {
@@ -114,4 +118,68 @@ function desligarLegislacao(idRelacionada, bidirecional) {
     });
 
     $("#aviso_aguarde").show('fade');
+}
+
+function buscarLegislacaoRelacionada() {
+    var titulo = $('#modal_relacionamento_legislacao #titulo').val();
+
+    $.ajax({
+        url: '/admin/legislacao/list.json',
+        dataType: 'json',
+        data: {
+            chave: titulo
+        },
+        beforeSend: function () {
+            $("#modal_relacionamento_legislacao .category").empty();
+            $("#modal_relacionamento_legislacao .category").html("Efetuando busca. Aguarde!");
+
+            if ($("#modal_relacionamento_legislacao .category").hasClass("text-danger")) {
+                $("#modal_relacionamento_legislacao .category").removeClass("text-danger");
+            }
+        },
+        success: function (data) {
+            atualizarTabela(data.resultado);
+        },
+        error: function () {
+            $("#modal_relacionamento_legislacao .category").empty();
+            $("#modal_relacionamento_legislacao .category").html("Ocorreu um erro ao efetuar a busca");
+            $("#modal_relacionamento_legislacao .category").addClass("text-danger");
+        }
+    });
+}
+
+function atualizarTabela(data) {
+    var tabela = $("#modal_relacionamento_legislacao #tabela");
+    var pivot = $("#modal_relacionamento_legislacao #tabela tbody#pivot tr:first");
+    var vazio = $("#modal_relacionamento_legislacao #tabela tbody#pivot tr:last");
+    var dados = $("#modal_relacionamento_legislacao #tabela tbody#data");
+
+    dados.empty();
+
+    $("#modal_relacionamento_legislacao .category").empty();
+
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var linha = pivot.clone();
+            var dado = data[i];
+
+            linha.find('#numero').html(dado.numero);
+            linha.find('#titulo').html(dado.titulo);
+            linha.find('#data').html(formatarDataHoraView(dado.data));
+
+            linha.attr("id", dado.id);
+
+            dados.append(linha);
+        }
+    } else {
+        dados.append(vazio);
+
+        $("#modal_relacionamento_legislacao .category").html("Nenhum item encontrado.");
+    }
+}
+
+function relacionar(o) {
+    var linha = o.parentNode.parentNode;
+    var id = linha.getAttribute("id");
+    relacionarLegislacao(id, true);
 }
