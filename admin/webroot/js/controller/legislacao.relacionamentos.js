@@ -16,6 +16,10 @@ $(function () {
                 }
             });
         },
+        focus: function (event, ui) {
+            $('#documento').val(ui.item.titulo.trim());
+            return false;
+        },
         select: function (event, ui) {
             relacionarLegislacao(ui.item.id, true);
         },
