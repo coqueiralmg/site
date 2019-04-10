@@ -137,6 +137,9 @@
 			</footer>
 		</div>
 	</div>
+
+    <?= $this->element('modals') ?>
+
 	<?= $this->Html->script('material-dashboard.js') ?>
 	<?= $this->Html->script('default.js') ?>
 	<?= $this->Html->script('lightbox.js') ?>
