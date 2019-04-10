@@ -49,13 +49,22 @@ function notificarUsuario(mensagem, tipo) {
     $.notify({
         icon: "notifications",
         message: mensagem
-    },
-        {
-            type: tipo,
-            timer: 5000,
-            placement: {
-                from: 'bottom',
-                align: 'right'
-            }
-        });
+    }, {
+        type: tipo,
+        timer: 5000,
+        placement: {
+            from: 'bottom',
+            align: 'right'
+        }
+    });
+}
+
+function formatarDataHoraView(date) {
+    var pivot = date.split("T");
+    var data = pivot[0];
+    var hora = pivot[1].split("-")[0];
+    var dp = data.split("-").reverse();
+
+    data = dp[0] + "/" + dp[1] + "/" + dp[2];
+    return data + " " + hora;
 }
