@@ -9,19 +9,15 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-10">
                         <div class="form-group label-control">
-                            <?= $this->Form->label("numero", "Número") ?>
-                            <?= $this->Form->text("numero", ["id" => "numero", "class" => "form-control", "maxlength" => 5]) ?>
+                            <?= $this->Form->label("titulo", "Legislação") ?>
+                            <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control"]) ?>
                             <span class="material-input"></span>
                         </div>
                     </div>
-                    <div class="col-md-10">
-                        <div class="form-group label-control">
-                            <?= $this->Form->label("titulo", "Título") ?>
-                            <?= $this->Form->text("titulo", ["id" => "titulo", "class" => "form-control", "maxlength" => 150]) ?>
-                            <span class="material-input"></span>
-                        </div>
+                    <div class="col-md-2" style="padding-top: 38px">
+                        <button id="buscar" type="button" class="btn btn-success pull-right">Buscar</button>
                     </div>
                 </div>
                 <div class="row">
@@ -29,21 +25,22 @@
                         <div class="card-content table-responsive">
                             <h4 class="card-title">Digite os campos acima para buscar</h4>
                             <p class="category"></p>
-                            <table id="tabelaCID" class="table">
+                            <table id="tabela" class="table">
                                 <thead class="text-primary">
                                     <tr>
                                         <th>Número</th>
                                         <th>Título</th>
-                                        <th>Data</th>
+                                        <th style="width: 18%">Data</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="pivot" style="display: none">
-                                    <tr id="" codigo="" nome="">
-                                        <td id="codigo"></td>
-                                        <td id="nome"></td>
+                                    <tr id="">
+                                        <td id="numero"></td>
+                                        <td id="titulo"></td>
+                                        <td id="data"></td>
                                         <td id="botoes" class="td-actions text-right" style="width: 12%">
-                                            <button type="button" class="btn btn-success btn-round" onclick="selecionarCID(this)" data-dismiss="modal"><i class="material-icons">done</i></button>
+                                            <button type="button" class="btn btn-success btn-round" onclick="relacionar(this)" data-dismiss="modal"><i class="material-icons">done</i></button>
                                         </td>
                                     </tr>
                                     <tr colspan="3">
