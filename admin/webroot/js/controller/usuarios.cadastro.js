@@ -14,16 +14,16 @@ $(function () {
         $("#mudasenha").val("true");
     });
 
-    $("input, select, #ativo, #verificar").change(function(){
+    $("input, select, #ativo, #verificar").change(function () {
         autosave();
     });
 
-    if(hasCache('usuario', idUsuario)) {
+    if (hasCache('usuario', idUsuario)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -146,6 +146,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

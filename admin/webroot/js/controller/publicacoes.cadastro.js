@@ -13,20 +13,20 @@ $(function () {
 
     $('#enviaArquivo').val(enviaArquivo);
 
-    $("input").change(function(){
+    $("input").change(function () {
         autosave();
     });
 
-    CKEDITOR.instances.descricao.on('change', function() {
+    CKEDITOR.instances.descricao.on('change', function () {
         autosave();
     });
 
-    if(hasCache('publicacoes', idPublicacao)) {
+    if (hasCache('publicacoes', idPublicacao)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -125,6 +125,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

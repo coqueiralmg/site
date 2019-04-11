@@ -444,7 +444,10 @@ function validar() {
         $("label[for='assuntos']").css("color", "#aaa");
     }
 
-    var tabela = document.getElementById("tblArquivos"); var i = 1; var errosArquivos = Array(); var invalidosArquivos = Array();
+    var tabela = document.getElementById("tblArquivos");
+    var i = 1;
+    var errosArquivos = Array();
+    var invalidosArquivos = Array();
 
     while (i < tabela.rows.length) {
         var linha = tabela.rows[i];
@@ -473,6 +476,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

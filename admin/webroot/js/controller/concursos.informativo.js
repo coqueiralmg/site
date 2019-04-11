@@ -11,20 +11,20 @@ $(function () {
 
     CKEDITOR.replace('texto');
 
-    $("input").change(function(){
+    $("input").change(function () {
         autosave();
     });
 
-    CKEDITOR.instances.texto.on('change', function() {
+    CKEDITOR.instances.texto.on('change', function () {
         autosave();
     });
 
-    if(hasCache('noticiaConcurso', idNoticia)) {
+    if (hasCache('noticiaConcurso', idNoticia)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -90,6 +90,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {
@@ -98,4 +99,3 @@ function validar() {
         return false;
     }
 }
-

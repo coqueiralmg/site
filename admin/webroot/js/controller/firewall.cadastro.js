@@ -3,17 +3,17 @@ var modificado = false;
 $(function () {
     $('#ip').mask('099.099.099.099');
 
-    $("input, textarea").change(function(){
+    $("input, textarea").change(function () {
         autosave();
         modificado = true;
     });
 
-    if(hasCache('firewall', idRegistro)) {
+    if (hasCache('firewall', idRegistro)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -77,6 +77,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

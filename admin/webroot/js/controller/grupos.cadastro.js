@@ -1,17 +1,17 @@
 var modificado = false;
 
 $(function () {
-    $("input").change(function(){
+    $("input").change(function () {
         autosave();
         modificado = true;
     });
 
-    if(hasCache('grupoUsuario', idGrupoUsuario)) {
+    if (hasCache('grupoUsuario', idGrupoUsuario)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -69,11 +69,11 @@ function coletarFuncoes() {
     return funcoes;
 }
 
-function restaurarFuncoes(funcoes){
+function restaurarFuncoes(funcoes) {
     $("#funcoes input").each(function () {
         var name = $(this).prop("name");
 
-        if(funcoes.hasOwnProperty(name)) {
+        if (funcoes.hasOwnProperty(name)) {
             $(this).prop("checked", funcoes[name]);
         }
     });
@@ -106,6 +106,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

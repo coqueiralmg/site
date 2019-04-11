@@ -90,6 +90,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {
@@ -98,4 +99,3 @@ function validar() {
         return false;
     }
 }
-

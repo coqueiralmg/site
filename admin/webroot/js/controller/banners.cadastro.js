@@ -8,32 +8,32 @@ $(function () {
 
     $('#validade').mask('00/00/0000');
 
-    if(idBanner == 0){
+    if (idBanner == 0) {
         $('#ordem').val(0);
     }
 
-    $("#mantem_nome").click(function(){
+    $("#mantem_nome").click(function () {
         $("#novo_nome_arquivo").toggle();
     });
 
-    $("#unique_id").click(function(){
+    $("#unique_id").click(function () {
         if ($(this).prop("checked")) {
-           $("#nome_arquivo").prop("disabled", true);
+            $("#nome_arquivo").prop("disabled", true);
         } else {
             $("#nome_arquivo").prop("disabled", false);
         }
     });
 
-    $("input, textarea").change(function(){
+    $("input, textarea").change(function () {
         autosave();
     });
 
-    if(hasCache('banner', idBanner)) {
+    if (hasCache('banner', idBanner)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -56,13 +56,13 @@ function restaurar() {
         $("#unique_id").prop("checked", data.object.gerarUniqueID);
         $("#blank").prop("checked", data.object.novaJanela);
 
-        if(data.object.manterNome) {
+        if (data.object.manterNome) {
             $("#novo_nome_arquivo").hide();
         } else {
             $("#novo_nome_arquivo").show();
         }
 
-        if(data.object.gerarUniqueID) {
+        if (data.object.gerarUniqueID) {
             $("#nome_arquivo").prop("disabled", true);
         } else {
             $("#nome_arquivo").prop("disabled", false);
@@ -150,8 +150,8 @@ function validar() {
             $("label[for='arquivo']").css("color", "#aaa");
         }
 
-        if(!$("#mantem_nome").prop("checked") && !$("#unique_id").prop("checked")){
-            if($("#nome_arquivo").val() === ""){
+        if (!$("#mantem_nome").prop("checked") && !$("#unique_id").prop("checked")) {
+            if ($("#nome_arquivo").val() === "") {
                 mensagem += "<li> É obrigatório informar o nome do arquivo. Você pode manter o nome original do arquivo, como pode pedir ao sistema para gerar o código Unique ID como nome do arquivo.</li>";
                 $("label[for='nome-arquivo']").css("color", "red");
             } else {
@@ -163,6 +163,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

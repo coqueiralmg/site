@@ -22,18 +22,20 @@ $(function () {
     $('#periodoInicio').mask('00/00/0000');
     $('#periodoFim').mask('00/00/0000');
     $('#placa').mask('SSS 0000');
-    $('#valor').mask("#.##0,00", {reverse: true});
+    $('#valor').mask("#.##0,00", {
+        reverse: true
+    });
 
-    $("input, textarea").change(function(){
+    $("input, textarea").change(function () {
         autosave();
     });
 
-    if(hasCache('diaria', idDiaria)) {
+    if (hasCache('diaria', idDiaria)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -140,7 +142,7 @@ function validar() {
         var periodoInicio = new Date($("#periodoInicio").val().split('/').reverse().join('/'));
         var periodoFim = new Date($("#periodoFim").val().split('/').reverse().join('/'));;
 
-        if(periodoInicio > periodoFim){
+        if (periodoInicio > periodoFim) {
             mensagem += "<li>A data de período inicial da diária é maior que a data de período final da diária.</li>";
             $("label[for='periodoinicio']").css("color", "red");
             $("label[for='periodofim']").css("color", "red");
@@ -167,6 +169,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

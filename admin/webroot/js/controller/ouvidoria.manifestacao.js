@@ -2,16 +2,16 @@ var modificado = false;
 
 $(function () {
 
-    $("input, select, textarea").change(function(){
+    $("input, select, textarea").change(function () {
         autosave();
     });
 
-    if(hasCache('manifestacaoOuvidoria', idManifestacao)) {
+    if (hasCache('manifestacaoOuvidoria', idManifestacao)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -70,6 +70,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

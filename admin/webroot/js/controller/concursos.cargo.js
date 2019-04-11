@@ -2,8 +2,12 @@ var modificado = false;
 
 $(function () {
 
-    $('#vencimento').mask("#.##0,00", {reverse: true});
-    $('#taxaInscricao').mask("#.##0,00", {reverse: true});
+    $('#vencimento').mask("#.##0,00", {
+        reverse: true
+    });
+    $('#taxaInscricao').mask("#.##0,00", {
+        reverse: true
+    });
 
     CKEDITOR.replace('atribuicoes', {
         height: 300
@@ -13,24 +17,24 @@ $(function () {
         height: 150
     });
 
-    $("input").change(function(){
+    $("input").change(function () {
         autosave();
     });
 
-    CKEDITOR.instances.atribuicoes.on('change', function() {
+    CKEDITOR.instances.atribuicoes.on('change', function () {
         autosave();
     });
 
-    CKEDITOR.instances.observacoes.on('change', function() {
+    CKEDITOR.instances.observacoes.on('change', function () {
         autosave();
     });
 
-    if(hasCache('cargoConcurso', idCargoConcurso)) {
+    if (hasCache('cargoConcurso', idCargoConcurso)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -109,7 +113,7 @@ function validar() {
         $("label[for='requisito']").css("color", "#aaa");
     }
 
-    if(!cadastroReserva) {
+    if (!cadastroReserva) {
         if ($("#vagasTotal").val() === "") {
             mensagem += "<li> É obigatório informar a quantidade total de vagas disponíveis para o cargo a ser provido. Caso seja cadastro de reserva, favor marcar a opção de que este cargo é um cadastro de reserva.</li>";
             $("label[for='vagastotal']").css("color", "red");
@@ -142,6 +146,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

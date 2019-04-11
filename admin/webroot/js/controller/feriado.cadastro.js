@@ -7,17 +7,17 @@ $(function () {
 
     $('#data').mask('00/00/0000');
 
-    $("input, select").change(function(){
+    $("input, select").change(function () {
         autosave();
         modificado = true;
     });
 
-    if(hasCache('feriado', idFeriado)) {
+    if (hasCache('feriado', idFeriado)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -86,6 +86,7 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         removeCache();
         return true;
     } else {

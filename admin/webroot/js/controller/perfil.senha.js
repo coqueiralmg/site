@@ -21,7 +21,7 @@ function validar() {
     } else {
         $("label[for='confirma']").css("color", "#aaa");
     }
-    
+
     if (sha1($("#antiga").val()) != $("#senha").val()) {
         mensagem += "<li> A senha atual informada é inválida.</li>";
         $("label[for='antiga']").css("color", "red");
@@ -47,8 +47,9 @@ function validar() {
         $("label[for='confirma']").css("color", "#aaa");
     }
 
-    
+
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
         return true;
     } else {
         $("#cadastro_erro").show('shake');

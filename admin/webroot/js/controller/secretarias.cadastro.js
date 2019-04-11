@@ -5,20 +5,20 @@ $(function () {
 
     $('#telefone').mask('(00)0000-00000');
 
-    $("input, textarea").change(function(){
+    $("input, textarea").change(function () {
         autosave();
     });
 
-    CKEDITOR.instances.descricao.on('change', function() {
+    CKEDITOR.instances.descricao.on('change', function () {
         autosave();
     });
 
-    if(hasCache('secretaria', idSecretaria)) {
+    if (hasCache('secretaria', idSecretaria)) {
         $("#cadastro_info").show('fade');
     }
 
-    $(window).bind("beforeunload", function() {
-        if(modificado){
+    $(window).bind("beforeunload", function () {
+        if (modificado) {
             return "É possível que as alterações não estejam salvas.";
         }
     });
@@ -99,6 +99,8 @@ function validar() {
     }
 
     if (mensagem == "") {
+        $("button[type='submit']").prop('disabled', true);
+        removeCache();
         return true;
     } else {
         $("#cadastro_erro").show('shake');
