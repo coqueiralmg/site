@@ -356,6 +356,7 @@ class FaqController extends AppController
                 'conditions' => [
                     'questao LIKE ' => '%' . $chave . '%'
                 ],
+                'contain' => ['Categoria'],
                 'limit' => 15
             ]);
 
