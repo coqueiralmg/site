@@ -16,6 +16,10 @@ $(function () {
                 }
             });
         },
+        focus: function (event, ui) {
+            $('#documento').val(ui.item.questao.trim());
+            return false;
+        },
         select: function (event, ui) {
             relacionarPergunta(ui.item.id);
         },
@@ -25,6 +29,10 @@ $(function () {
             .append('<span>' + item.questao.trim() + '</span>')
             .appendTo(ul);
     };
+
+    $('#modal_relacionamento_faq #buscar').click(function (e) {
+        buscarFaqRelacionado();
+    });
 });
 
 function cortarRelacionamento(id, titulo) {
@@ -107,4 +115,67 @@ function desfazerRelacao(idRelacionada) {
     });
 
     $("#aviso_aguarde").show('fade');
+}
+
+function buscarFaqRelacionado() {
+    var titulo = $('#modal_relacionamento_faq #titulo').val();
+
+    $.ajax({
+        url: '/admin/faq/list.json',
+        dataType: 'json',
+        data: {
+            chave: titulo
+        },
+        beforeSend: function () {
+            $("#modal_relacionamento_faq .category").empty();
+            $("#modal_relacionamento_faq .category").html("Efetuando busca. Aguarde!");
+
+            if ($("#modal_relacionamento_faq .category").hasClass("text-danger")) {
+                $("#modal_relacionamento_faq .category").removeClass("text-danger");
+            }
+        },
+        success: function (data) {
+            atualizarTabela(data.resultado);
+        },
+        error: function () {
+            $("#modal_relacionamento_faq .category").empty();
+            $("#modal_relacionamento_faq .category").html("Ocorreu um erro ao efetuar a busca");
+            $("#modal_relacionamento_faq .category").addClass("text-danger");
+        }
+    });
+}
+
+function atualizarTabela(data) {
+    var tabela = $("#modal_relacionamento_faq #tabela");
+    var pivot = $("#modal_relacionamento_faq #tabela tbody#pivot tr:first");
+    var vazio = $("#modal_relacionamento_faq #tabela tbody#pivot tr:last");
+    var dados = $("#modal_relacionamento_faq #tabela tbody#data");
+
+    dados.empty();
+
+    $("#modal_relacionamento_faq .category").empty();
+
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var linha = pivot.clone();
+            var dado = data[i];
+
+            linha.find('#questao').html(dado.questao);
+            linha.find('#categoria').html(dado.categoria.nome);
+
+            linha.attr("id", dado.id);
+
+            dados.append(linha);
+        }
+    } else {
+        dados.append(vazio);
+
+        $("#modal_relacionamento_faq .category").html("Nenhum item encontrado.");
+    }
+}
+
+function relacionar(o) {
+    var linha = o.parentNode.parentNode;
+    var id = linha.getAttribute("id");
+    relacionarPergunta(id, true);
 }
