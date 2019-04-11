@@ -5,7 +5,7 @@ return[
         'name'=> 'Painel de Controle | Prefeitura Municipal de Coqueiral',
         'shortName' => 'Prefeitura de Coqueiral',
         'version' => '1.2',
-        'fullVersion' => '1.2.0',
+        'fullVersion' => '1.2.1',
         'yearCreation' => '2017',
         'yearRelease' => '2019'
     ],
