@@ -34,8 +34,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-group-min">
-                                        <?= $this->Form->label("documento", "Número ou Título") ?>
-                                        [<a class="link_build_form" href="#" id="buscar_rel" data-toggle="modal" data-target="#modal_rel">Buscar</a>]
+                                        <?= $this->Form->label("documento", "Título") ?>
+                                        [<a class="link_build_form" href="#" id="buscar_rel" data-toggle="modal" data-target="#modal_relacionamento_faq">Buscar</a>]
                                         <?= $this->Form->text("documento", ["id" => "documento", "class" => "form-control", "placeholder" => "Digite o título da pergunta que deseja relacionar e depois aperte ENTER."]) ?>
                                         <span class="material-input"></span>
                                     </div>
