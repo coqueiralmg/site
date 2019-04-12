@@ -21,7 +21,7 @@ function validar() {
     }
 
     if (mensagem == "") {
-        $("button[type='submit']").prop('disabled', true);
+
         return true;
     } else {
         $("#cadastro_erro").show('shake');
