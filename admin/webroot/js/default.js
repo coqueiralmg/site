@@ -1,5 +1,12 @@
 $(document).ready(function () {
     imprimeRelogio();
+
+    $("form").submit(function () {
+        var submit = $(this).find("button[type='submit']");
+
+        submit.prop('disabled', true);
+        submit.css('cursor', 'wait');
+    });
 });
 
 function obterDataHora() {
