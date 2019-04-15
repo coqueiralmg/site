@@ -5,6 +5,7 @@ $(document).ready(function () {
         var submit = $(this).find("button[type='submit']");
 
         submit.prop('disabled', true);
+        submit.prop('title', 'Os dados estão sendo enviados ao servidor. Por favor, aguarde!');
         submit.css('cursor', 'wait');
     });
 });
