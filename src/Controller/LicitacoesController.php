@@ -642,6 +642,21 @@ class LicitacoesController extends AppController
                 $conditions = $this->montarBusca($chave);
             }
 
+            if($modalidade != null)
+            {
+                $conditions['Licitacao.modalidade'] = $modalidade;
+            }
+
+            if($assunto != null)
+            {
+                $conditions['assunto'] = $assunto;
+            }
+
+            if($status != null)
+            {
+                $conditions['Licitacao.status'] = $status;
+            }
+
             $data['chave'] = $chave;
             $data['modalidade'] = $modalidade;
             $data['assunto'] = $assunto;
@@ -694,22 +709,20 @@ class LicitacoesController extends AppController
         {
             $destaques = $t_licitacoes->find('destaque', [
                 'contain' => ['Modalidade', 'StatusLicitacao'],
-                'conditions' => [
-                    'ano' => $ano
-                ],
+                'conditions' => $conditions,
                 'order' => [
                     'dataPublicacao' => 'DESC',
                     'dataSessao' => 'DESC'
                 ]
             ]);
 
+            $cp = $conditions;
+            $cp['visualizacoes >'] = 0;
+
             $populares = $t_licitacoes->find('novo', [
                 'limit' => $limite_paginacao,
                 'contain' => ['Modalidade', 'StatusLicitacao'],
-                'conditions' => [
-                    'visualizacoes >' => 0,
-                    'ano' => $ano
-                ],
+                'conditions' => $cp,
                 'order' => [
                     'visualizacoes' => 'DESC',
                     'dataPublicacao' => 'DESC',
