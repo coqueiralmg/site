@@ -257,23 +257,23 @@ class LicitacoesController extends AppController
         if($inicial)
         {
             $destaques = $t_licitacoes->find('destaque', [
-                'contain' => ['Modalidade', 'StatusLicitacao'],
-                'conditions' => [
-                    'Modalidade.chave' => $codigo
-                ],
+                'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+                'fields' => $this->getFieldsSelect(),
+                'conditions' => $conditions,
                 'order' => [
                     'dataPublicacao' => 'DESC',
                     'dataSessao' => 'DESC'
                 ]
             ]);
 
+            $cp = $conditions;
+            $cp['visualizacoes >'] = 0;
+
             $populares = $t_licitacoes->find('novo', [
                 'limit' => 10,
-                'contain' => ['Modalidade', 'StatusLicitacao'],
-                'conditions' => [
-                    'visualizacoes >' => 0,
-                    'Modalidade.chave' => $codigo
-                ],
+                'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+                'fields' => $this->getFieldsSelect(),
+                'conditions' => $cp,
                 'order' => [
                     'visualizacoes' => 'DESC',
                     'dataPublicacao' => 'DESC',
@@ -706,7 +706,8 @@ class LicitacoesController extends AppController
         if($inicial)
         {
             $destaques = $t_licitacoes->find('destaque', [
-                'contain' => ['Modalidade', 'StatusLicitacao'],
+                'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+                'fields' => $this->getFieldsSelect(),
                 'conditions' => $conditions,
                 'order' => [
                     'dataPublicacao' => 'DESC',
@@ -719,7 +720,8 @@ class LicitacoesController extends AppController
 
             $populares = $t_licitacoes->find('novo', [
                 'limit' => $limite_paginacao,
-                'contain' => ['Modalidade', 'StatusLicitacao'],
+                'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+                'fields' => $this->getFieldsSelect(),
                 'conditions' => $cp,
                 'order' => [
                     'visualizacoes' => 'DESC',
