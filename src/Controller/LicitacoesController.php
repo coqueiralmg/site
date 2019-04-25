@@ -520,7 +520,7 @@ class LicitacoesController extends AppController
         $this->paginate = [
             'limit' => $limite_paginacao,
             'conditions' => $conditions,
-            'contain' => ['Modalidade', 'StatusLicitacao'],
+            'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
             'fields' => $this->getFieldsSelect(),
             'order' => [
                 'dataPublicacao' => 'DESC',
@@ -555,23 +555,23 @@ class LicitacoesController extends AppController
         if($inicial)
         {
             $destaques = $t_licitacoes->find('destaque', [
-                'contain' => ['Modalidade', 'StatusLicitacao'],
-                'conditions' => [
-                    'StatusLicitacao.id' => $id
-                ],
+                'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+                'fields' => $this->getFieldsSelect(),
+                'conditions' => $conditions,
                 'order' => [
                     'dataPublicacao' => 'DESC',
                     'dataSessao' => 'DESC'
                 ]
             ]);
 
+            $cp = $conditions;
+            $cp['visualizacoes >'] = 0;
+
             $populares = $t_licitacoes->find('novo', [
                 'limit' => 10,
-                'contain' => ['Modalidade', 'StatusLicitacao'],
-                'conditions' => [
-                    'visualizacoes >' => 0,
-                    'StatusLicitacao.id' => $id
-                ],
+                'contain' => ['Modalidade', 'StatusLicitacao', 'AssuntoLicitacao'],
+                'fields' => $this->getFieldsSelect(),
+                'conditions' => $cp,
                 'order' => [
                     'visualizacoes' => 'DESC',
                     'dataPublicacao' => 'DESC',
