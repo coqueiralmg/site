@@ -21,14 +21,18 @@
                     <div id="destaques">
                         <h5>Leis, decretos e outros documentos em destaque</h5>
                         <?php if(count($destaques) > 0): ?>
-                            <div class="row">
-                                <?php for($i = 0; $i < count($destaques); $i++): ?>
-                                    <?php
-                                        $publicacao = $destaques[$i];
-                                    ?>
-                                    <?=$this->element('Itens/item_legislacao', ['publicacao' => $publicacao]) ?>
-                                <?php endfor; ?>
-                            </div>
+                            <?php for($i = 0; $i < count($destaques); $i++): ?>
+                                <?php if($i % 2 == 0): ?>
+                                    <div class="row">
+                                <?php endif; ?>
+                                <?php
+                                    $publicacao = $destaques[$i];
+                                ?>
+                                <?=$this->element('Itens/item_legislacao', ['publicacao' => $publicacao]) ?>
+                                <?php if($i % 2 != 0 || $i == (count($destaques) - 1)): ?>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endfor; ?>
                         <?php else: ?>
                             <p>Nenhum destaque disponível!</p>
                         <?php endif; ?>
