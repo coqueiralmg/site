@@ -24,27 +24,35 @@
                     <?php if(count($destaques) > 0): ?>
                         <div id="destaques">
                             <h5>Licitações em Destaque</h5>
-                            <div class="row">
-                                <?php for($i = 0; $i < count($destaques); $i++): ?>
-                                    <?php
-                                        $licitacao = $destaques[$i];
-                                    ?>
-                                    <?=$this->element('Itens/item_licitacao', ['licitacao' => $licitacao]) ?>
-                                <?php endfor; ?>
-                            </div>
+                            <?php for($i = 0; $i < count($destaques); $i++): ?>
+                                <?php if($i % 2 == 0): ?>
+                                    <div class="row">
+                                <?php endif; ?>
+                                <?php
+                                    $licitacao = $destaques[$i];
+                                ?>
+                                <?=$this->element('Itens/item_licitacao', ['licitacao' => $licitacao]) ?>
+                                <?php if($i % 2 != 0 || $i == (count($destaques) - 1)): ?>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endfor; ?>
                         </div>
                     <?php endif; ?>
                     <div id="populares">
                         <h5>Licitações mais vistas</h5>
                         <?php if(count($populares) > 0): ?>
-                            <div class="row">
-                                <?php for($i = 0; $i < count($populares); $i++): ?>
-                                    <?php
-                                        $licitacao = $populares[$i];
-                                    ?>
-                                    <?=$this->element('Itens/item_licitacao', ['licitacao' => $licitacao]) ?>
-                                <?php endfor; ?>
-                            </div>
+                            <?php for($i = 0; $i < count($populares); $i++): ?>
+                                <?php if($i % 2 == 0): ?>
+                                    <div class="row">
+                                <?php endif; ?>
+                                <?php
+                                    $licitacao = $populares[$i];
+                                ?>
+                                <?=$this->element('Itens/item_licitacao', ['licitacao' => $licitacao]) ?>
+                                <?php if($i % 2 != 0 || $i == (count($populares) - 1)): ?>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endfor; ?>
                         <?php endif; ?>
                     </div>
                     <div id="assuntos">
