@@ -16,7 +16,7 @@ return [
             'persistent' => false,
             'host' => 'localhost',
             //'port' => 'non_standard_port_number',
-            'username' => 'root',
+            'username' => 'developer',
             'password' => '123456',
             'database' => 'coqueiral',
             'encoding' => 'latin1',
