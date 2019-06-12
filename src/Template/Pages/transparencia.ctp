@@ -43,6 +43,7 @@
                                 <li><?=$this->Html->link('Janeiro de 2019', 'public/transparencia/transparencia0119.HTM', ['target' => '_blank'])?></li>
                                 <li><?=$this->Html->link('Fevereiro de 2019', 'public/transparencia/transparencia0219.HTM', ['target' => '_blank'])?></li>
                                 <li><?=$this->Html->link('Março de 2019', 'public/transparencia/transparencia0319.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Abril de 2019', 'public/transparencia/transparencia0419.HTM', ['target' => '_blank'])?></li>
                             </ul>
                         </div>
                     </div>
