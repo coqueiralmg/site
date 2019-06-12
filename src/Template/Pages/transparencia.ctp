@@ -19,19 +19,33 @@
 
                     <h2>Arquivos de Transparência</h2>
                     <p>Você também pode acompanhar nos arquivos abaixo, as movimentações da prefeitura mês a mês.</p>
-                    <h3>Ano 2018</h3>
-                    <ul>
-                        <li><?=$this->Html->link('Janeiro de 2018', 'public/transparencia/transparencia0118.HTM', ['target' => '_blank'])?></li>
-                        <li><?=$this->Html->link('Fevereiro de 2018', 'public/transparencia/transparencia0218.HTM', ['target' => '_blank'])?></li>
-                        <li><?=$this->Html->link('Março de 2018', 'public/transparencia/transparencia0318.HTM', ['target' => '_blank'])?></li>
-                        <li><?=$this->Html->link('Abril de 2018', 'public/transparencia/transparencia0418.HTM', ['target' => '_blank'])?></li>
-                        <li><?=$this->Html->link('Maio de 2018', 'public/transparencia/transparencia0518.HTM', ['target' => '_blank'])?></li>
-                        <li><?=$this->Html->link('Junho de 2018', 'public/transparencia/transparencia0618.HTM', ['target' => '_blank'])?></li>
-                        <li><?=$this->Html->link('Julho de 2018', 'public/transparencia/transparencia0718.HTM', ['target' => '_blank'])?></li>
-                        <li><?=$this->Html->link('Agosto de 2018', 'public/transparencia/transparencia0818.HTM', ['target' => '_blank'])?></li>
-                        <li><?=$this->Html->link('Setembro de 2018', 'public/transparencia/transparencia0918.HTM', ['target' => '_blank'])?></li>
-                        <li><?=$this->Html->link('Outubro de 2018', 'public/transparencia/transparencia1018.HTM', ['target' => '_blank'])?></li>
-                    </ul>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <h3>Ano 2018</h3>
+                            <ul>
+                                <li><?=$this->Html->link('Janeiro de 2018', 'public/transparencia/transparencia0118.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Fevereiro de 2018', 'public/transparencia/transparencia0218.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Março de 2018', 'public/transparencia/transparencia0318.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Abril de 2018', 'public/transparencia/transparencia0418.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Maio de 2018', 'public/transparencia/transparencia0518.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Junho de 2018', 'public/transparencia/transparencia0618.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Julho de 2018', 'public/transparencia/transparencia0718.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Agosto de 2018', 'public/transparencia/transparencia0818.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Setembro de 2018', 'public/transparencia/transparencia0918.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Outubro de 2018', 'public/transparencia/transparencia1018.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Novembro de 2018', 'public/transparencia/transparencia1118.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Dezembro de 2018', 'public/transparencia/transparencia1218.HTM', ['target' => '_blank'])?></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-3">
+                            <h3>Ano 2019</h3>
+                            <ul>
+                                <li><?=$this->Html->link('Janeiro de 2019', 'public/transparencia/transparencia0119.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Fevereiro de 2019', 'public/transparencia/transparencia0219.HTM', ['target' => '_blank'])?></li>
+                                <li><?=$this->Html->link('Março de 2019', 'public/transparencia/transparencia0319.HTM', ['target' => '_blank'])?></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
