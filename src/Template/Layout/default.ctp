@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-xs-6">
                         <div class="top-number">
-                            <p><a href="tel:+553538551162"><i class="fa fa-phone-square"></i><span class="sr-only">Telefone para contato:</span> (35) 3855-1162</a></p>
+                            <p><a href="tel:+553538551517"><i class="fa fa-phone-square"></i><span class="sr-only">Telefone para contato:</span> (35) 3855-1517</a></p>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xs-6">
