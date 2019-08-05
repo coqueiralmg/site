@@ -5,6 +5,6 @@
     <ul class="pull-right">
         <li><?=$this->Html->link('Transparência', ['controller' => 'pages', 'action' => 'transparencia'])?></li>
         <li><?=$this->Html->link('Política de Privacidade', ['controller' => 'pages', 'action' => 'privacidade'])?></li>
-        <li><?=$this->Html->link('Contato', ['controller' => 'pages', 'action' => 'contato'])?></li>
+        <li><?=$this->Html->link('Contato', ['controller' => 'pages', 'action' => 'faleconosco'])?></li>
     </ul>
 </div>
