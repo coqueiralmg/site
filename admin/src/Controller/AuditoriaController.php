@@ -99,6 +99,7 @@ class AuditoriaController extends AppController
         $this->set('icon', 'fingerprint');
         $this->set('auditoria', $trilha);
         $this->set('qtd_total', $total);
+        $this->set('limit_pagination', $limite_paginacao);
         $this->set('data', $data);
         $this->set('usuarios', $combo_usuarios);
         $this->set('ocorrencias', $ocorrencias);
